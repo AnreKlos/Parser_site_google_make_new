@@ -1,0 +1,18 @@
+{
+  "price": null,
+  "contact": {
+    "phones": [
+      "[document]"
+    ],
+    "emails": [
+      "a:nth-of-type(1)"
+    ],
+    "address": [
+      "[document]"
+    ],
+    "social": [
+      "a:nth-of-type(2)"
+    ]
+  },
+  "service": null
+}

@@ -1,0 +1,14 @@
+{
+  "selectors": {
+    "price": null,
+    "contact": {
+      "phones": null,
+      "emails": "a.linkss",
+      "social": "p",
+      "address": null
+    },
+    "service": null
+  },
+  "score": 1.0,
+  "data_preview": {}
+}

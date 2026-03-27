@@ -1,0 +1,67 @@
+/* Modern Dark Theme */
+QWidget {
+    background-color: #2b2b2b;
+    color: #ffffff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 10pt;
+}
+
+QMainWindow {
+    background-color: #1e1e1e;
+}
+
+QLineEdit {
+    background-color: #3c3c3c;
+    border: 1px solid #555555;
+    border-radius: 4px;
+    padding: 6px;
+    selection-background-color: #0078d4;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d4;
+}
+
+QPushButton {
+    background-color: #0078d4;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #106ebe;
+}
+
+QPushButton:pressed {
+    background-color: #005a9e;
+}
+
+QTextEdit {
+    background-color: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    padding: 4px;
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+
+QScrollBar:vertical {
+    background: #2b2b2b;
+    width: 12px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:vertical {
+    background: #555555;
+    border-radius: 6px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #666666;
+}
+
+QLabel {
+    color: #cccccc;
+}

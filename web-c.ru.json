@@ -1,0 +1,20 @@
+{
+  "domain": "web-c.ru",
+  "score": null,
+  "data": {
+    "prices": [],
+    "contacts": {},
+    "services": []
+  },
+  "selectors": {
+    "price": [],
+    "contact": {
+      "phones": [],
+      "emails": [],
+      "address": [],
+      "social": []
+    },
+    "service": []
+  },
+  "used_llm": false
+}

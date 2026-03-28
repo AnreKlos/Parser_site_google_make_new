@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ business_name }} - Автосалон</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <h1>{{ business_name }}</h1>
+                {% if tagline %}
+                <p class="tagline">{{ tagline }}</p>
+                {% endif %}
+            </div>
+            <div class="header-contacts">
+                {% if dealership_info.phones %}
+                <div class="contact-phones">
+                    {% for phone in dealership_info.phones %}
+                    <a href="tel:{{ phone }}" class="phone-link">{{ phone }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if dealership_info.address %}
+                <div class="contact-address">{{ dealership_info.address }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% if models %}
+        <section class="models">
+            <div class="container">
+                <h2>Наши автомобили</h2>
+                <div class="models-grid">
+                    {% for model in models %}
+                    <div class="model-card">
+                        <h3 class="model-name">{{ model.name }}</h3>
+                        {% if model.category %}
+                        <p class="model-category">{{ model.category }}</p>
+                        {% endif %}
+                        {% if model.price_from %}
+                        <p class="model-price">от {{ model.price_from }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        {% if dealership_info.work_time %}
+        <section class="work-time">
+            <div class="container">
+                <h2>Время работы</h2>
+                <p>{{ dealership_info.work_time }}</p>
+            </div>
+        </section>
+        {% endif %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>&copy; {{ business_name }}. Все права защищены.</p>
+                </div>
+                <div class="footer-contacts">
+                    {% if dealership_info.address %}
+                    <p>{{ dealership_info.address }}</p>
+                    {% endif %}
+                    {% if dealership_info.phones %}
+                    <p>
+                        Телефоны:
+                        {% for phone in dealership_info.phones %}
+                        <a href="tel:{{ phone }}">{{ phone }}</a>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

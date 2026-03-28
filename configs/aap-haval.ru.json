@@ -1,0 +1,14 @@
+{
+  "selectors": {
+    "price": "div.menu-models__item-price",
+    "contact": {
+      "phones": null,
+      "emails": null,
+      "social": "span",
+      "address": "div.card-disclaimer-popup__info-text"
+    },
+    "service": null
+  },
+  "score": 1.0,
+  "data_preview": {}
+}

@@ -9,6 +9,7 @@ from typing import Dict, Any, Optional
 import requests
 from bs4 import BeautifulSoup
 import re
+from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 from auto_detector import auto_detect
 from config_manager import load_config, save_config
@@ -17,6 +18,48 @@ from llm_engine import llm_extract, generate_selectors_from_data
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+def fetch_html_with_playwright(url: str, timeout_ms: int = 30000) -> str:
+    """
+    Fetch HTML using Playwright to handle JavaScript-rendered pages.
+    
+    Args:
+        url: Target URL
+        timeout_ms: Timeout in milliseconds (default: 30000)
+    
+    Returns:
+        HTML content as string
+    
+    Raises:
+        Exception: If fetching fails or times out
+    """
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context(
+                viewport={'width': 1920, 'height': 1080},
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            )
+            page = context.new_page()
+            
+            # Navigate to URL with timeout
+            page.goto(url, timeout=timeout_ms, wait_until='domcontentloaded')
+            
+            # Wait for JS to render
+            page.wait_for_timeout(3000)
+            
+            # Get final HTML
+            html = page.content()
+            
+            browser.close()
+            return html
+    except PlaywrightTimeoutError:
+        logger.error(f"Playwright timeout for {url}")
+        raise
+    except Exception as e:
+        logger.error(f"Playwright error for {url}: {e}")
+        raise
 
 DATA_DIR = Path("data")
 DATA_DIR.mkdir(exist_ok=True)
@@ -33,12 +76,13 @@ def run_parse(
     auto_detect_only: bool = False,
     output_path: Optional[str] = None,
     save_json: bool = True,
-    config: Optional[Dict] = None
+    config: Optional[Dict] = None,
+    use_js: bool = False
 ) -> dict:
     """
     Main parsing function.
     Pipeline:
-    1. Load HTML from URL
+    1. Load HTML from URL (using requests or Playwright based on use_js)
     2. Try to load config by domain (unless provided via config param)
     3. If no config: auto-detect selectors, check score
     4. If score >= 0.75 and not force_llm: use selector-based extraction
@@ -53,6 +97,7 @@ def run_parse(
         output_path: Custom path to save output files (if None, uses DATA_DIR/domain.md)
         save_json: Whether to also save JSON file alongside markdown
         config: Pre-loaded config dict to use (if None, will load/create for domain)
+        use_js: Use Playwright to render JavaScript (default: False)
     
     Returns:
         dict with result info (output_path, domain, score, data, used_llm, selectors, data_preview)
@@ -63,12 +108,17 @@ def run_parse(
     domain = parsed.netloc
     
     logger.info(f"Starting parse for {url} (domain: {domain})")
+    if use_js:
+        logger.info("Using Playwright for JavaScript rendering")
     
     # Step 1: Load HTML
     try:
-        response = requests.get(url, timeout=30)
-        response.raise_for_status()
-        html = response.text
+        if use_js:
+            html = fetch_html_with_playwright(url, timeout_ms=30000)
+        else:
+            response = requests.get(url, timeout=30)
+            response.raise_for_status()
+            html = response.text
     except Exception as e:
         logger.error(f"Failed to fetch URL: {e}")
         raise
@@ -85,6 +135,7 @@ def run_parse(
     score = None
     selectors = None
     used_llm = False
+    llm_result = None  # To store LLM extraction result if used
     data = {"prices": [], "contacts": {}, "services": []}  # Initialize to avoid unbound error
     data_preview = {}
     
@@ -110,6 +161,11 @@ def run_parse(
             }
         
         # Step 4: Decide whether to use LLM
+        # FORCED LLM FOR AUTO DEALERS TEST
+        if domain in ["gac.ru", "32status.ru"] or use_js:
+            force_llm = True
+            logger.info(f"Forcing LLM extraction for domain {domain} (or use_js is True)")
+
         if score >= 0.75 and not force_llm:
             logger.info(f"Config will be saved (score: {score:.2f}) and selector-based extraction will be used")
             config_to_save = {
@@ -122,7 +178,8 @@ def run_parse(
         else:
             # Use LLM extraction
             logger.warning(f"Using LLM extraction (score: {score:.2f}, force_llm: {force_llm})")
-            data = llm_extract(soup, html, selectors, score if score is not None else 0.0)
+            llm_result = llm_extract(soup, html, selectors, score if score is not None else 0.0)
+            data = llm_result["data"]
             used_llm = True
             
             # Generate selectors from LLM-extracted data
@@ -149,6 +206,33 @@ def run_parse(
         # Use selector-based extraction
         logger.info("Extracting data using detected/loaded selectors")
         data = extract_data(soup, selectors)
+        # Normalize data to unified structure (for non-LLM extraction)
+        normalized = normalize_data(data, domain)
+    else:
+        # LLM extraction: use normalized data from LLM if available
+        if llm_result and llm_result.get("normalized"):
+            normalized = llm_result["normalized"]
+
+            # Ensure niche is set correctly
+            niche = normalized.get("niche") or llm_result.get("niche") or "services"
+            normalized["niche"] = niche
+
+            # If this is an auto_dealer, make sure minimal required fields exist
+            if niche == "auto_dealer":
+                normalized.setdefault("domain", domain)
+                normalized.setdefault("business_name", "")
+                normalized.setdefault("tagline", "")
+                normalized.setdefault("dealership_info", {
+                    "address": "",
+                    "phones": [],
+                    "work_time": ""
+                })
+                normalized.setdefault("models", [])
+                normalized.setdefault("special_offers", [])
+        else:
+            # LLM fallback (heuristic) - normalize the heuristic data with detected niche
+            niche = llm_result.get("niche", "services") if llm_result else "services"
+            normalized = normalize_data(data, domain, niche=niche)
     
     # Step 7: Build markdown and save
     markdown = build_markdown(data, domain, score)
@@ -172,7 +256,8 @@ def run_parse(
                 "score": score,
                 "data": data,
                 "selectors": selectors,
-                "used_llm": used_llm
+                "used_llm": used_llm,
+                "normalized": normalized
             }
             with open(json_path, 'w', encoding='utf-8') as f:
                 json.dump(json_data, f, ensure_ascii=False, indent=2)
@@ -191,7 +276,8 @@ def run_parse(
                 "score": score,
                 "data": data,
                 "selectors": selectors,
-                "used_llm": used_llm
+                "used_llm": used_llm,
+                "normalized": normalized
             }
             with open(json_path, 'w', encoding='utf-8') as f:
                 json.dump(json_data, f, ensure_ascii=False, indent=2)
@@ -204,7 +290,8 @@ def run_parse(
         "data": data,
         "used_llm": used_llm,
         "selectors": selectors,
-        "data_preview": data_preview
+        "data_preview": data_preview,
+        "normalized": normalized
     }
 
 
@@ -413,3 +500,123 @@ def build_markdown(data: Dict[str, Any], domain: str, score: Optional[float] = N
         lines.append("No data extracted.")
     
     return "\n".join(lines)
+
+
+def normalize_data(raw_result: dict, domain: str, niche: str = "services") -> dict:
+    """
+    Normalize raw parsing data into unified JSON structure.
+    
+    Args:
+        raw_result: Raw data from extraction (prices, contacts, services)
+        domain: Source domain
+        niche: Detected niche ("services" or "auto_dealer")
+    
+    Returns:
+        dict in unified structure (appropriate for the niche)
+    """
+    if niche == "auto_dealer":
+        # Normalize auto_dealer data to new schema
+        normalized = raw_result.copy() if isinstance(raw_result, dict) else {}
+        normalized.setdefault("domain", domain)
+        normalized["niche"] = "auto_dealer"
+        
+        # Ensure dealership_info exists (new format) or convert from old contacts
+        if "dealership_info" not in normalized:
+            # Convert from old heuristic contacts format
+            contacts = normalized.get("contacts", {})
+            # Extract address
+            addr = contacts.get("address", "")
+            if isinstance(addr, list):
+                addr = addr[0] if addr else ""
+            normalized["dealership_info"] = {
+                "address": addr,
+                "phones": contacts.get("phones", []),
+                "work_time": ""  # not available in heuristic extraction
+            }
+            # Remove old contacts to avoid confusion
+            normalized.pop("contacts", None)
+        else:
+            # Ensure dealership_info has required fields
+            normalized["dealership_info"].setdefault("address", "")
+            normalized["dealership_info"].setdefault("phones", [])
+            normalized["dealership_info"].setdefault("work_time", "")
+        
+        # Ensure models exists
+        normalized.setdefault("models", [])
+        # Ensure special_offers exists
+        normalized.setdefault("special_offers", [])
+        
+        # Remove old fields that shouldn't be present in new format
+        for old_field in ["about", "city", "benefits", "testimonials", "services"]:
+            if old_field in normalized:
+                del normalized[old_field]
+        
+        # Ensure business_name and tagline exist (may be empty)
+        normalized.setdefault("business_name", "")
+        normalized.setdefault("tagline", "")
+        
+        return normalized
+    else:
+        # Services niche - use the existing normalized structure
+        normalized = {
+            "domain": domain,
+            "business_name": "",
+            "tagline": "",
+            "about": "",
+            "services": [],
+            "contacts": {
+                "phones": [],
+                "emails": [],
+                "address": "",
+                "work_time": "",
+                "social": []
+            },
+            "benefits": [],
+            "testimonials": []
+        }
+        
+        # Map services
+        raw_services = raw_result.get("services", [])
+        normalized_services = []
+        for s in raw_services:
+            name = s.get("name", "").strip()
+            desc = s.get("description", "").strip()
+            # Try to extract price from text if available
+            price_from = ""
+            text = s.get("text", "").strip()
+            if text:
+                price_match = PRICE_PATTERN.search(text)
+                if price_match:
+                    price_from = price_match.group(0)
+            
+            if name or desc:
+                normalized_services.append({
+                    "name": name,
+                    "desc": desc,
+                    "price_from": price_from
+                })
+        normalized["services"] = normalized_services
+        
+        # Map contacts
+        raw_contacts = raw_result.get("contacts", {})
+        normalized["contacts"]["phones"] = raw_contacts.get("phones", [])[:]
+        normalized["contacts"]["emails"] = raw_contacts.get("emails", [])[:]
+        
+        # Address - take first available
+        addresses = raw_contacts.get("address", [])
+        if isinstance(addresses, list) and addresses:
+            normalized["contacts"]["address"] = addresses[0].strip()
+        elif isinstance(addresses, str):
+            normalized["contacts"]["address"] = addresses.strip()
+        
+        # Social links
+        normalized["contacts"]["social"] = raw_contacts.get("social", [])[:]
+        
+        # Prices - could be used for tagline or about
+        prices = raw_result.get("prices", [])
+        if prices and not normalized["tagline"]:
+            # Use first price as tagline hint
+            normalized["tagline"] = f"Услуги от {prices[0]}"
+        
+        normalized["niche"] = "services"
+        return normalized

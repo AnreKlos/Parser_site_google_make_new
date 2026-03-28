@@ -13,8 +13,11 @@ import requests
 
 logger = logging.getLogger(__name__)
 
-# Prompt template from user
-PROMPT = """
+from dotenv import load_dotenv
+load_dotenv()
+
+# Prompt template for services niche (current)
+PROMPT_SERVICES = """
 Ты — парсер сайтов услуг (клиники, салоны, сервисные компании и любые сайты, где есть услуги/товары, цены и контакты).
 
 Тебе даётся HTML страницы (обрезанный фрагмент):
@@ -23,54 +26,116 @@ PROMPT = """
 {html}
 [HTML КОНЕЦ]
 
-Твоя задача — проанализировать структуру и извлечь данные. Найди и верни:
+Твоя задача — проанализировать структуру и извлечь данные. Найди и верни данные в следующем JSON-формате:
 
-1. Прайс-лист (таблицы или блоки с ценами):
-   - Список услуг с названиями и ценами.
-   - Постарайся понять, где название услуги, а где цена, даже если нет явной таблицы.
-
-2. Контакты:
-   - Телефоны.
-   - Email.
-   - Почтовый адрес (город, улица и т.п., если видно).
-   - Социальные сети (VK, Telegram, WhatsApp, Instagram, другие).
-
-3. Услуги:
-   - Список услуг/направлений с названием и кратким описанием (если есть).
+{
+  "domain": "",  // домен из URL (не нужно извлекать, будет заполнен автоматически)
+  "business_name": "",  // название компании/организации
+  "tagline": "",  // краткий слоган или описание
+  "about": "",  // информация о компании (о нас)
+  "services": [
+    {
+      "name": "",  // название услуги
+      "desc": "",  // описание услуги
+      "price_from": ""  // минимальная цена или диапазон, если указано
+    }
+  ],
+  "contacts": {
+    "phones": [],  // список телефонов
+    "emails": [],  // список email-адресов
+    "address": "",  // почтовый адрес
+    "work_time": "",  // время работы
+    "social": []  // ссылки на соцсети/мессенджеры
+  },
+  "benefits": [],  // преимущества/выгоды (если есть)
+  "testimonials": []  // отзывы клиентов (если есть)
+}
 
 Очень важно:
 - Ответ должен быть ТОЛЬКО в формате JSON, без пояснений, комментариев, текстов до или после.
-- Если какое-то поле не найдено — оставь соответствующий список пустым или строку пустой, но не убирай ключ.
+- Если какое-то поле не найдено — оставь пустым (строку пустой, список пустым), но не убирай ключ.
+- Старайся извлечь как можно больше информации, особенно из видимых текстов.
+"""
 
-Формат ответа строго такой:
+# Prompt template for auto_dealer niche
+PROMPT_AUTO_DEALER = """
+Ты — структурировщик данных для сайта автодилера.
 
-{{
-  "price": {{
-    "items": [
-      {{
-        "name": "Название услуги",
-        "price": "Цена как текст (например, '1500 ₽' или 'от 2000 руб.')"
-      }}
-    ]
-  }},
-  "contacts": {{
-    "phones": ["строки с телефонами"],
-    "emails": ["строки с email"],
-    "address": "строка с адресом или пустая строка",
-    "social": ["список ссылок на соцсети или мессенджеры"]
-  }},
-  "services": [
-    {{
-      "title": "Название услуги или раздела",
-      "desc": "Краткое описание, если есть, иначе пустая строка"
-    }}
-  ]
-}}
+ВХОД:
+Тебе даётся НЕ весь сайт, а HTML-ФРАГМЕНТЫ КАРТОЧЕК МОДЕЛЕЙ.
+Каждый фрагмент — это, как правило, тег <li class="menu-models__item"> или похожий контейнер, внутри которого есть:
+- название модели (внутри тега a, в атрибуте title или в div с классом, содержащим 'title' или 'name'),
+- цена (div с классом, содержащим 'price', текст вида 'от 3 299 000 ₽'),
+- иногда бейджи ('НОВЫЙ', 'СПЕЦПРЕДЛОЖЕНИЕ', 'ВЫГОДА' и т.п.).
 
-Требования:
-- Всегда возвращай корректный JSON.
-- Не используй комментарии.
-- Не добавляй лишние поля, только те, что описаны выше.
+Твоя задача — ПО КАЖДОМУ ТАКОМУ КОНТЕЙНЕРУ сформировать ОДНУ запись в массиве models[].
+
+ИТОГОВАЯ СТРУКТУРА JSON (строго такая):
+
+{
+  "domain": "строка, домен сайта без протокола",
+  "business_name": "короткое название бренда/дилера (например, 'HAVAL Авторитет-Авто+')",
+  "tagline": "одна фраза-оффер для главной (например, 'Новый Haval с выгодой до 450 000 ₽')",
+  "dealership_info": {
+    "address": "одна строка, основной адрес салона (город + улица + дом)",
+    "phones": ["список телефонов как на сайте"],
+    "work_time": "часы работы (если найдёшь, иначе пустая строка)"
+  },
+  "models": [
+    {
+      "name": "название модели, например 'Haval DARGO X'",
+      "price_from": "строка вида 'от 3 299 000 ₽' или '3 299 000 ₽'",
+      "short_specs": "1–2 коротких тезиса: тип кузова, привод, коробка, если есть (иначе пустая строка)",
+      "badge": "короткая метка: 'новинка', 'выгода', 'спецпредложение', 'хит'; если ничего нет — пустая строка"
+    }
+  ],
+  "special_offers": [
+    "список коротких текстов про акции: 'Выгода до 450 000 ₽ по программе трейд-ин', 'Второй автомобиль в семью' и т.п."
+  ],
+  "niche": "auto_dealer"
+}
+
+ОСОБЫЕ УКАЗАНИЯ ДЛЯ КАТАЛОГОВ ТИПА HAVAL / GAC:
+
+1. Считай, что КАЖДЫЙ <li class="menu-models__item"> или похожий блок = ОДНА модель в массиве models[].
+   - Из этого блока:
+     - name: бери из:
+       - атрибута title у <a> (например, title="DARGO X"),
+       - или текста в div с классом, содержащим 'item-title', 'model', 'name'.
+       - Если есть и бренд, и модель (например, логотип HAVAL и текст 'DARGO X'), собирай это как 'Haval DARGO X'.
+     - price_from: ищи текст внутри элементов, где класс содержит 'price' (например, 'menu-models__item-price').
+       - Приводи к виду 'от NNNN ₽' или 'NNNN ₽', убирая лишние пробелы и мусор.
+     - short_specs: если в этой же карточке есть краткое описание комплектации (4x4, AT, Comfort и т.п.), собери это в одну короткую строку. Если нет — оставь пустую строку.
+     - badge: если внутри карточки есть слова 'НОВЫЙ', 'СПЕЦПРЕДЛОЖЕНИЕ', 'ВЫГОДА', 'АКЦИЯ', 'LIMITED' — ставь 'новинка' или 'выгода'. Если ничего такого нет — пустая строка.
+
+2. НЕ создавай models из кредитных disclaimers или списков условий.
+   - Если в блоке нет признаков модели (нет названия машины, только текст про кредит/банк) — игнорируй его.
+
+3. business_name и dealership_info:
+   - По всему фрагменту HTML постарайся найти:
+     - указание официального дилера ('Авторитет-Авто+', 'официальный дилер HAVAL'),
+     - основной адрес (город + улица + дом),
+     - телефоны.
+   - Если информации мало — лучше оставить часть полей пустыми, чем придумывать.
+
+4. special_offers:
+   - Ищи короткие фразы про выгоды и программы:
+     - 'Выгода до 450 000 ₽',
+     - 'Специальные условия трейд-ин',
+     - 'Кредит от 0,01%'.
+   - В массив special_offers пиши короткие человеческие формулировки, без длинных юридических абзацев.
+
+ОГРАНИЧЕНИЯ:
+- ВСЕГДА возвращай КОРРЕКТНЫЙ JSON строго по указанной схеме.
+- НЕ добавляй другие поля.
+- В models должно быть от 3 до 12 элементов, если столько карточек есть во входном HTML.
+- Если для отдельной модели не удалось найти цену — оставь "price_from": "" (но модель всё равно добавь, если есть название).
+- Если не удалось найти ни одной модели — верни пустой массив "models": [].
+
+ВХОДНОЙ HTML для анализа:
+{html}
+
+Верни ТОЛЬКО JSON, без пояснений, комментариев и Markdown.
 """
 
 # OpenRouter configuration
@@ -78,7 +143,7 @@ OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL = "gpt-4o-mini"  # or another model
 
-def call_openrouter(html: str) -> Optional[Dict[str, Any]]:
+def call_openrouter(html: str, prompt: str) -> Optional[Dict[str, Any]]:
     """Call OpenRouter API with the prompt and HTML."""
     if not OPENROUTER_API_KEY:
         logger.warning("OPENROUTER_API_KEY not set, skipping API call")
@@ -86,7 +151,7 @@ def call_openrouter(html: str) -> Optional[Dict[str, Any]]:
     
     # Truncate HTML to avoid token limits (keep within ~20k chars)
     html_truncated = html[:20000]
-    prompt = PROMPT.replace("{html}", html_truncated)
+    full_prompt = prompt.replace("{html}", html_truncated)
     
     try:
         response = requests.post(
@@ -97,7 +162,7 @@ def call_openrouter(html: str) -> Optional[Dict[str, Any]]:
             },
             json={
                 "model": OPENROUTER_MODEL,
-                "messages": [{"role": "user", "content": prompt}],
+                "messages": [{"role": "user", "content": full_prompt}],
                 "temperature": 0.0,
                 "max_tokens": 2000
             },
@@ -119,6 +184,138 @@ def call_openrouter(html: str) -> Optional[Dict[str, Any]]:
     except Exception as e:
         logger.error(f"OpenRouter API call failed: {e}")
         return None
+
+def detect_niche(html: str) -> str:
+    """
+    Detect the niche of a website using heuristics and/or LLM.
+    Returns either "services" or "auto_dealer".
+    """
+    # First, try heuristic detection based on keywords
+    html_lower = html.lower()
+    
+    # Auto dealer keywords - expanded set
+    auto_keywords = [
+        # Core auto terms
+        'автосалон', 'автомобиль', 'автоцентр', 'дилер', 'официальный дилер',
+        'продажа автомобилей', 'продажа машин', 'купить авто', 'купить машину',
+        'новый автомобиль', 'новый авто', 'б/у автомобиль', 'б/у авто', 'с пробегом',
+        'автокредит', 'автокредит', 'trade-in', 'трейд-ин',
+        'test drive', 'тест-драйв', 'каталог автомобилей', 'каталог машин',
+        'комплектации', 'модельный ряд', 'год выпуска', 'пробег',
+        # Car brands
+        'toyota', 'bmw', 'mercedes', 'audi', 'lexus', 'nissan', 'honda',
+        'mitsubishi', 'ford', 'chevrolet', 'volkswagen', 'skoda', 'renault',
+        'kia', 'hyundai', 'geely', 'changan', 'haval', 'lada', 'uaz', 'gaz',
+        # Auto services
+        'сервис', 'сервисный центр', 'запчасти', 'шиномонтаж', 'шины',
+        'диагностика', 'кузовной ремонт', 'сто', 'автосервис',
+        # Locations and addresses
+        'мск', 'спб', 'москва', 'санкт-петербург', 'адрес:', 'ул. ', 'пр. ',
+        'просп.', 'город', 'городской',
+        # Price indicators specific to auto
+        'от', 'руб.', 'руб', '₽', 'миллионов', 'млн', 'тыс', 'лakh'
+    ]
+    
+    # Count auto keywords
+    auto_score = sum(1 for kw in auto_keywords if kw in html_lower)
+    
+    # Additional heuristic: look for price patterns typical for auto (e.g., "от 1.5 млн")
+    price_pattern = r'от\s+\d+[\.,]\d+\s*(млн|миллион|lakh|тыс)'
+    if re.search(price_pattern, html_lower):
+        auto_score += 2
+        logger.debug(f"Found auto-style price pattern, bonus +2")
+    
+    # If moderate auto signal, return auto_dealer (lowered from 3 to 2)
+    if auto_score >= 2:
+        logger.info(f"Auto dealer detected by heuristics (score: {auto_score})")
+        return "auto_dealer"
+    
+    # If we have OpenRouter API key, use LLM for more accurate detection
+    if OPENROUTER_API_KEY:
+        prompt = """
+Проанализируй HTML страницу и определи, к какой нише она относится.
+Верни ТОЛЬКО одно слово: "services" или "auto_dealer".
+
+Критерии:
+- "auto_dealer": сайты автосалонов, продажа автомобилей (новых/б/у), сервисы, запчасти. Признаки: 
+  * Названия машин (Toyota Camry, BMW X5 и т.п.)
+  * Цены в миллионах/лакх (1.5 млн руб, 25 лакх)
+  * Слова: "каталог", "модель", "комплектация", "год выпуска", "пробег", "дилер", "официальный"
+  * Кнопки "Купить", "Заказать", "Рассчитать кредит", "Trade-in"
+  * Списки автомобилей с фото и характеристиками
+- "services": все остальные сайты услуг (клиники, салоны красоты, сервисные компании, ремонт, образование и т.д.)
+
+Примеры:
+- Страница с таблицей "Toyota Camry 2024 - 3.5 млн руб" -> auto_dealer
+- Страница "Услуги: маникюр, стрижка, массаж" -> services
+- Страница "Ремонт холодильников на дому" -> services
+- Страница "Шиномонтаж и развал-схождение" -> services (даже если есть слово "шины", это не продажа машин)
+
+HTML:
+{html}
+        """.strip()
+        
+        try:
+            result = call_openrouter(html[:8000], prompt)
+            if result and isinstance(result, dict):
+                # Try to extract the niche from the response
+                content = result.get('choices', [{}])[0].get('message', {}).get('content', '').strip().lower()
+                if 'auto_dealer' in content:
+                    logger.info("Auto dealer detected by LLM")
+                    return "auto_dealer"
+                elif 'services' in content:
+                    logger.info("Services detected by LLM")
+                    return "services"
+        except Exception as e:
+            logger.error(f"LLM niche detection failed: {e}")
+    
+    # Default to services
+    logger.info("Defaulting to services niche")
+    return "services"
+
+def build_models_html_fragment(soup: BeautifulSoup, selectors: Dict[str, Any]) -> str:
+    """
+    For auto_dealer niche, extract HTML fragments around model cards.
+    Uses price selector to locate card elements and climbs up DOM to capture full cards.
+    Returns concatenated HTML of all cards, or full page if not found/not specified.
+    """
+    price_sel = selectors.get("price")
+    if not price_sel:
+        return str(soup)
+    
+    elements = soup.select(price_sel)
+    if not elements:
+        return str(soup)
+    
+    cards_html = []
+    for el in elements:
+        current = el
+        found_container = False
+        
+        # Smart container detection: climb up looking for semantic containers
+        while current.parent and current.parent.name not in ['body', 'html']:
+            parent = current.parent
+            classes = parent.get('class', [])
+            class_str = ' '.join(classes).lower()
+            
+            # Check if parent is a semantic container (list item or card/model container)
+            if parent.name == 'li' or 'item' in class_str or 'card' in class_str or 'model' in class_str:
+                cards_html.append(str(parent))
+                found_container = True
+                break
+            
+            current = parent
+        
+        # Fallback: if no semantic container found, climb 3 levels as before
+        if not found_container:
+            card = el
+            for _ in range(3):
+                if card.parent:
+                    card = card.parent
+            cards_html.append(str(card))
+    
+    fragment = "\n\n".join(cards_html)
+    return fragment if fragment.strip() else str(soup)
 
 def _heuristic_extract(soup: BeautifulSoup, selectors: Dict[str, Any], score: float) -> Dict[str, Any]:
     """Original heuristic extraction logic (fallback)."""
@@ -268,54 +465,118 @@ def _heuristic_extract(soup: BeautifulSoup, selectors: Dict[str, Any], score: fl
     
     return data
 
-def llm_extract(soup: BeautifulSoup, html: str, selectors: Dict[str, Any], score: float) -> Dict[str, Any]:
+def unified_to_old(unified: dict) -> dict:
+    """Convert unified structure to old format for markdown compatibility."""
+    old = {
+        "prices": [],
+        "contacts": {"phones": [], "emails": [], "address": [], "social": []},
+        "services": []
+    }
+    # Prices: collect price_from from services
+    for s in unified.get("services", []):
+        price = s.get("price_from", "").strip()
+        if price and price not in old["prices"]:
+            old["prices"].append(price)
+    # Services
+    for s in unified.get("services", []):
+        name = s.get("name", "").strip()
+        desc = s.get("desc", "").strip()
+        # Build text field
+        text_parts = []
+        if name:
+            text_parts.append(name)
+        if desc:
+            text_parts.append(desc)
+        price = s.get("price_from", "").strip()
+        if price:
+            text_parts.append(f"Цена: {price}")
+        text = "\n".join(text_parts)[:200]
+        old["services"].append({
+            "name": name,
+            "description": desc,
+            "text": text
+        })
+    # Contacts
+    uc = unified.get("contacts", {})
+    old["contacts"]["phones"] = uc.get("phones", [])[:]
+    old["contacts"]["emails"] = uc.get("emails", [])[:]
+    # address: unified is string, old expects list
+    addr = uc.get("address", "")
+    if addr:
+        if isinstance(addr, list):
+            old["contacts"]["address"] = addr[:]
+        else:
+            old["contacts"]["address"] = [addr]
+    else:
+        old["contacts"]["address"] = []
+    old["contacts"]["social"] = uc.get("social", [])[:]
+    return old
+
+def llm_extract(soup: BeautifulSoup, html: str, selectors: Dict[str, Any], score: float) -> dict:
     """
     Extract data using OpenRouter API with fallback to heuristics.
-    Returns data in internal format.
+    Detects niche first, then uses appropriate prompt.
+    Returns a dict with keys 'data' (old format) and 'normalized' (unified or None).
     """
+    # Detect niche
+    niche = detect_niche(html)
+    logger.info(f"Detected niche: {niche}")
+    
+    # Choose appropriate prompt and HTML for LLM
+    if niche == "auto_dealer":
+        prompt = PROMPT_AUTO_DEALER
+        html_for_llm = build_models_html_fragment(soup, selectors)
+        
+        # Extract header and footer for additional context
+        header = soup.find('header')
+        footer = soup.find('footer')
+        
+        if header:
+            header_text = str(header)[:3000]  # limit length
+            html_for_llm += f"\n\n<!-- HEADER INFO -->\n\n{header_text}"
+        
+        if footer:
+            footer_text = str(footer)[:3000]  # limit length
+            html_for_llm += f"\n\n<!-- FOOTER INFO -->\n\n{footer_text}"
+        
+        # Debug: save HTML fragment for auto_dealer
+        with open("debug_llm_input.html", "w", encoding="utf-8") as f:
+            f.write(html_for_llm)
+    else:
+        prompt = PROMPT_SERVICES
+        html_for_llm = html
+    
     # Try OpenRouter API if key is set
     if OPENROUTER_API_KEY:
-        api_result = call_openrouter(html)
+        api_result = call_openrouter(html_for_llm, prompt)
         if api_result:
-            # Convert API response to internal format
-            internal_data = {
-                "prices": [],
-                "contacts": {"phones": [], "emails": [], "address": [], "social": []},
-                "services": []
-            }
+            # Add niche to the result
+            api_result["niche"] = niche
             
-            # Prices
-            price_items = api_result.get("price", {}).get("items", [])
-            internal_data["prices"] = [item.get("price", "") for item in price_items if item.get("price")]
-            
-            # Contacts
-            contacts_api = api_result.get("contacts", {})
-            internal_data["contacts"]["phones"] = contacts_api.get("phones", [])
-            internal_data["contacts"]["emails"] = contacts_api.get("emails", [])
-            address = contacts_api.get("address", "")
-            internal_data["contacts"]["address"] = [address] if address else []
-            internal_data["contacts"]["social"] = contacts_api.get("social", [])
-            
-            # Services
-            services_api = api_result.get("services", [])
-            internal_data["services"] = [
-                {
-                    "name": s.get("title", ""),
-                    "description": s.get("desc", ""),
-                    "text": f"{s.get('title', '')}\n{s.get('desc', '')}"
+            # For auto_dealer, return normalized as-is (no conversion to old format)
+            if niche == "auto_dealer":
+                return {
+                    "data": _heuristic_extract(soup, selectors, score),  # fallback old format
+                    "normalized": api_result
                 }
-                for s in services_api
-            ]
-            
-            logger.info(f"LLM extraction returned: {len(internal_data['prices'])} prices, {len(internal_data['contacts']['phones'])} phones, {len(internal_data['services'])} services")
-            return internal_data
+            else:
+                # For services, convert to old format
+                old_data = unified_to_old(api_result)
+                return {
+                    "data": old_data,
+                    "normalized": api_result
+                }
     
     # Fallback to heuristic extraction
     logger.info("Falling back to heuristic extraction")
-    return _heuristic_extract(soup, selectors, score)
+    heuristic_data = _heuristic_extract(soup, selectors, score)
+    return {
+        "data": heuristic_data,
+        "normalized": None,
+        "niche": niche
+    }
 
 def _find_common_selector_for_strings(soup: BeautifulSoup, strings: List[str]) -> Optional[str]:
-    """Find a CSS selector that commonly contains the given strings."""
     if not strings:
         return None
     selector_counts = {}

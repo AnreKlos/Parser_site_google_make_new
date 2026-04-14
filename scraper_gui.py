@@ -1,5 +1,7 @@
 import sys
 import os
+import json
+import webbrowser
 from pathlib import Path
 from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
                                QHBoxLayout, QLineEdit, QPushButton, QTextEdit,
@@ -112,13 +114,32 @@ class MainWindow(QMainWindow):
                 json_path = str(Path(md_path).with_suffix('.json'))
                 self.log(f"DEBUG GUI json_path: {json_path}")
                 if os.path.exists(json_path):
+                    # Load and log normalized data for debugging
+                    try:
+                        with open(json_path, 'r', encoding='utf-8') as f:
+                            json_data = json.load(f)
+                        normalized = json_data.get('normalized', {})
+                        dealership_info = normalized.get('dealership_info', {})
+                        self.log(f"DEBUG normalized.address: {dealership_info.get('address', 'НЕТ')}")
+                        self.log(f"DEBUG normalized.phones: {dealership_info.get('phones', [])}")
+                    except Exception as e:
+                        self.log(f"Ошибка чтения JSON для отладки: {e}")
+                    
                     self.log("Генерация лендинга...")
                     try:
-                        output_html = gen_site.build_site(json_path, template_name='auto_dealer')
-                        self.log("Успех! Сайт лежит в папке output")
+                        output_path = gen_site.build_site(json_path, template_name='auto_dealer')
+                        self.log(f"Успех! Сайт сгенерирован: {output_path}")
+                        
+                        # Open in browser
+                        if output_path and os.path.exists(output_path):
+                            webbrowser.open_new_tab(output_path)
+                            self.log(f"Сайт открыт в браузере: {output_path}")
                     except Exception as e:
                         self.log(f"Ошибка генерации лендинга: {e}")
                         QMessageBox.critical(self, "Ошибка", f"Генерация лендинга не удалась:\n{e}")
+                else:
+                    self.log("Ошибка: JSON файл не найден")
+                    QMessageBox.critical(self, "Ошибка", "JSON файл не найден")
             else:
                 self.log("Ошибка: JSON файл не найден")
                 QMessageBox.critical(self, "Ошибка", "JSON файл не найден")

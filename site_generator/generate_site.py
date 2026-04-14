@@ -8,6 +8,26 @@ import os
 from pathlib import Path
 from typing import Dict, Any, Optional
 from jinja2 import Environment, FileSystemLoader, Template
+import re
+
+
+def clean_price(price_str: str) -> str:
+    """
+    Clean price string by removing any leading 'от' prefixes and normalizing.
+    
+    Args:
+        price_str: Original price string
+        
+    Returns:
+        Cleaned price string (without leading 'от')
+    """
+    if not price_str:
+        return price_str
+    # Remove any leading "от" (case-insensitive) and extra spaces
+    cleaned = price_str.strip()
+    # Use regex to remove one or more leading "от" with optional whitespace
+    cleaned = re.sub(r'^(от\s+)+', '', cleaned, flags=re.IGNORECASE)
+    return cleaned
 
 
 def load_normalized_json(json_path: str) -> Dict[str, Any]:
@@ -61,6 +81,46 @@ def build_site(json_path: str, template_name: str = 'modern_landing', output_bas
     # Load normalized data
     data = load_normalized_json(json_path)
     
+    # Clean price data: remove duplicate "от от" patterns
+    if 'models' in data and isinstance(data['models'], list):
+        for model in data['models']:
+            if 'price_from' in model and model['price_from']:
+                model['price_from'] = clean_price(model['price_from'])
+    
+    # Ensure contacts exists and apply protective validation
+    # Note: data is already the normalized dict from load_normalized_json()
+    contacts = data.get('contacts', {})
+    
+    # Validate address: if longer than 100 chars or empty, replace with placeholder
+    address = contacts.get('address', '')
+    if not address or len(address) > 100:
+        contacts['address'] = 'Адрес автосалона (укажите в настройках)'
+    
+    # Validate phones: if empty or missing, add placeholder
+    phones = contacts.get('phones', [])
+    if not phones or not isinstance(phones, list) or len(phones) == 0:
+        contacts['phones'] = ['+7 (XXX) XXX-XX-XX']
+    
+    # Validate work_time: if empty, set empty string
+    work_time = contacts.get('work_time', '')
+    if not work_time:
+        contacts['work_time'] = ''
+    
+    # Validate business_name: if empty, use domain
+    business_name = data.get('business_name', '')
+    if not business_name or not business_name.strip():
+        business_name = data.get('domain', 'auto-salon.ru')
+    
+    # Build context for template
+    context = {
+        'business_name': business_name,
+        'tagline': data.get('tagline', ''),
+        'models': data.get('models', []),
+        'contacts': contacts,
+        'benefits': data.get('benefits', []),
+        'special_offers': data.get('special_offers', []),
+    }
+    
     # Determine output directory based on domain
     domain = data.get('domain', 'site')
     output_dir = Path(output_base_dir) / domain
@@ -70,7 +130,7 @@ def build_site(json_path: str, template_name: str = 'modern_landing', output_bas
     template_dir = Path('site_generator/templates') / template_name
     
     # Render HTML
-    html = render_template(str(template_dir), 'index.html', data)
+    html = render_template(str(template_dir), 'index.html', context)
     
     # Save HTML
     output_path = output_dir / 'index.html'

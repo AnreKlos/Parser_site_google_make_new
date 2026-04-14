@@ -1,88 +1,242 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ business_name }} - Автосалон</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ business_name or 'Автосалон' }}</title>
+  <meta name="description" content="{{ tagline or 'Новые автомобили, специальные предложения и выгодные условия покупки.' }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="header-top">
-                <h1>{{ business_name }}</h1>
-                {% if tagline %}
-                <p class="tagline">{{ tagline }}</p>
-                {% endif %}
-            </div>
-            <div class="header-contacts">
-                {% if dealership_info.phones %}
-                <div class="contact-phones">
-                    {% for phone in dealership_info.phones %}
-                    <a href="tel:{{ phone }}" class="phone-link">{{ phone }}</a>
-                    {% endfor %}
-                </div>
-                {% endif %}
-                {% if dealership_info.address %}
-                <div class="contact-address">{{ dealership_info.address }}</div>
-                {% endif %}
-            </div>
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <div class="brand-name">{{ business_name or 'Автосалон' }}</div>
+          <div class="brand-sub">{{ tagline or 'Новые автомобили и специальные предложения' }}</div>
         </div>
-    </header>
+      </div>
 
-    <main>
+      <nav class="nav-links">
+        <a href="#models">Модели</a>
+        {% if benefits %}
+        <a href="#benefits">Преимущества</a>
+        {% endif %}
+        {% if special_offers %}
+        <a href="#offers">Предложения</a>
+        {% endif %}
+        <a href="#contacts">Контакты</a>
+      </nav>
+
+      {% if contacts and contacts.phones and contacts.phones|length > 0 %}
+      <a class="nav-cta" href="tel:{{ contacts.phones[0] }}">Позвонить</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div>
+            <span class="eyebrow">Официальный дилер</span>
+            <h1 class="hero-title">{{ business_name or 'Новые автомобили' }}</h1>
+            <p class="hero-text">
+              {{ tagline or 'Подберите автомобиль с прозрачными условиями покупки, актуальными предложениями и внимательным сопровождением на каждом этапе.' }}
+            </p>
+
+            <div class="hero-actions">
+              <a href="#models" class="btn btn-primary">Смотреть модели</a>
+              <a href="#contacts" class="btn btn-secondary">Оставить заявку</a>
+            </div>
+          </div>
+
+          <div class="hero-facts">
+            <div class="fact">
+              <strong>Trade-in</strong>
+              <span>Оценка и обмен автомобиля в одном месте</span>
+            </div>
+            <div class="fact">
+              <strong>Кредит</strong>
+              <span>Гибкие условия покупки и персональный расчёт</span>
+            </div>
+            <div class="fact">
+              <strong>Сервис</strong>
+              <span>Поддержка после покупки и сопровождение клиента</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          {% if models and models[0].image_url %}
+            <img src="{{ models[0].image_url }}" alt="{{ models[0].name or 'Автомобиль' }}">
+          {% else %}
+            <div class="model-placeholder">Premium mobility</div>
+          {% endif %}
+
+          <div class="hero-overlay">
+            <div class="hero-overlay-box">
+              <small>Специальное предложение</small>
+              <strong>
+                {% if special_offers and special_offers[0] and special_offers[0].title %}
+                  {{ special_offers[0].title }}
+                {% else %}
+                  Выгодные условия на новые автомобили в наличии
+                {% endif %}
+              </strong>
+            </div>
+            <div class="hero-chip">Доступно сейчас</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="models" class="section">
+      <div class="container">
+        <span class="eyebrow">Модельный ряд</span>
+        <h2 class="section-title">Автомобили, которые хочется увидеть вживую</h2>
+        <p class="section-text">
+          Подберите подходящую модель по характеру, бюджету и стилю вождения.
+        </p>
+
         {% if models %}
-        <section class="models">
-            <div class="container">
-                <h2>Наши автомобили</h2>
-                <div class="models-grid">
-                    {% for model in models %}
-                    <div class="model-card">
-                        <h3 class="model-name">{{ model.name }}</h3>
-                        {% if model.category %}
-                        <p class="model-category">{{ model.category }}</p>
-                        {% endif %}
-                        {% if model.price_from %}
-                        <p class="model-price">от {{ model.price_from }}</p>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-                </div>
+        <div class="models-grid">
+          {% for model in models %}
+          <article class="model-card">
+            <div class="model-media">
+              {% if model.image_url %}
+                <img src="{{ model.image_url }}" alt="{{ model.name or 'Модель автомобиля' }}">
+              {% else %}
+                <div class="model-placeholder">{{ model.name or 'Новая модель' }}</div>
+              {% endif %}
             </div>
-        </section>
-        {% endif %}
 
-        {% if dealership_info.work_time %}
-        <section class="work-time">
-            <div class="container">
-                <h2>Время работы</h2>
-                <p>{{ dealership_info.work_time }}</p>
-            </div>
-        </section>
-        {% endif %}
-    </main>
+            <div class="model-body">
+              <h3 class="model-title">{{ model.name or 'Модель' }}</h3>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <p>&copy; {{ business_name }}. Все права защищены.</p>
-                </div>
-                <div class="footer-contacts">
-                    {% if dealership_info.address %}
-                    <p>{{ dealership_info.address }}</p>
-                    {% endif %}
-                    {% if dealership_info.phones %}
-                    <p>
-                        Телефоны:
-                        {% for phone in dealership_info.phones %}
-                        <a href="tel:{{ phone }}">{{ phone }}</a>{% if not loop.last %}, {% endif %}
-                        {% endfor %}
-                    </p>
-                    {% endif %}
-                </div>
+              {% if model.price or model.price_from %}
+              <div class="model-price">{{ model.price or model.price_from }}</div>
+              {% else %}
+              <div class="model-price">Цена по запросу</div>
+              {% endif %}
+
+              <div class="model-description">
+                {{ model.description or 'Современная комплектация, продуманный комфорт и технологии для ежедневных поездок.' }}
+              </div>
+
+              <div class="model-meta">
+                <span>В наличии</span>
+                <span>Тест-драйв доступен</span>
+              </div>
             </div>
+          </article>
+          {% endfor %}
         </div>
-    </footer>
+        {% else %}
+        <div class="empty-box">Модельный ряд скоро будет обновлён.</div>
+        {% endif %}
+      </div>
+    </section>
+
+    {% if benefits and benefits|length > 0 %}
+    <section id="benefits" class="section">
+      <div class="container">
+        <span class="eyebrow">Почему выбирают нас</span>
+        <h2 class="section-title">Покупка без суеты и лишнего тумана</h2>
+        <p class="section-text">
+          Важна не только машина, но и то, как проходит весь путь до её получения.
+        </p>
+
+        <div class="benefits-grid">
+          <div class="benefit-main">
+            <span class="eyebrow">Подход</span>
+            <h3>Честная консультация, понятные условия и внимание к деталям</h3>
+            <p>
+              Мы собираем предложение вокруг клиента: подбираем автомобиль, обсуждаем сценарий покупки, помогаем с обменом, финансированием и дальнейшим сопровождением.
+            </p>
+          </div>
+
+          <div class="benefit-list">
+            {% for benefit in benefits %}
+            {% if benefit is mapping and benefit.text %}
+              <div class="benefit-item">{{ benefit.text }}</div>
+            {% elif benefit is string %}
+              <div class="benefit-item">{{ benefit }}</div>
+            {% else %}
+              <div class="benefit-item">{{ benefit }}</div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if special_offers and special_offers|length > 0 %}
+    <section id="offers" class="section">
+      <div class="container">
+        <span class="eyebrow">Спецпредложения</span>
+        <h2 class="section-title">Условия, ради которых стоит приехать сегодня</h2>
+        <p class="section-text">
+          Актуальные предложения на покупку, обмен и персональный расчёт условий.
+        </p>
+
+        <div class="offers-wrap">
+          {% for offer in special_offers[:2] %}
+          <article class="offer-card">
+            <span class="eyebrow">Предложение</span>
+            <h3>{{ offer.title or 'Выгодные условия покупки' }}</h3>
+            <p>{{ offer.description or 'Уточните детали у менеджера — подберём лучшее решение под ваш сценарий покупки.' }}</p>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <section id="contacts" class="section">
+      <div class="container">
+        <span class="eyebrow">Контакты</span>
+        <h2 class="section-title">Приезжайте, посмотрите, сравните вживую</h2>
+        <p class="section-text">
+          Самый короткий путь к решению — увидеть автомобиль лично и получить расчёт на месте.
+        </p>
+
+        <div class="contacts-card">
+          <div class="contacts-info">
+            {% if contacts and contacts.phones and contacts.phones|length > 0 %}
+            <div class="contact-row"><span>Телефон:</span>{{ contacts.phones[0] }}</div>
+            {% endif %}
+
+            {% if contacts and contacts.address %}
+            <div class="contact-row"><span>Адрес:</span>{{ contacts.address }}</div>
+            {% endif %}
+
+            {% if contacts and contacts.work_time %}
+            <div class="contact-row"><span>Время работы:</span>{{ contacts.work_time }}</div>
+            {% endif %}
+          </div>
+
+          <div>
+            {% if contacts and contacts.phones and contacts.phones|length > 0 %}
+            <a href="tel:{{ contacts.phones[0] }}" class="btn btn-primary">Связаться с менеджером</a>
+            {% else %}
+            <a href="#models" class="btn btn-primary">Выбрать автомобиль</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      © {{ business_name or 'Автосалон' }}. Актуальные условия и наличие уточняйте у менеджера.
+    </div>
+  </footer>
 </body>
 </html>

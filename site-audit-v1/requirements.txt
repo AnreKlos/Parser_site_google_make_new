@@ -1,0 +1,7 @@
+playwright
+httpx
+beautifulsoup4
+lxml
+pydantic
+python-dotenv
+pandas

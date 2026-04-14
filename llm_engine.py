@@ -522,22 +522,13 @@ def llm_extract(soup: BeautifulSoup, html: str, selectors: Dict[str, Any], score
     niche = detect_niche(html)
     logger.info(f"Detected niche: {niche}")
     
+    # Always run heuristic extraction first to get real contacts and business info
+    heuristic_data = _heuristic_extract(soup, selectors, score)
+    
     # Choose appropriate prompt and HTML for LLM
     if niche == "auto_dealer":
         prompt = PROMPT_AUTO_DEALER
         html_for_llm = build_models_html_fragment(soup, selectors)
-        
-        # Extract header and footer for additional context
-        header = soup.find('header')
-        footer = soup.find('footer')
-        
-        if header:
-            header_text = str(header)[:3000]  # limit length
-            html_for_llm += f"\n\n<!-- HEADER INFO -->\n\n{header_text}"
-        
-        if footer:
-            footer_text = str(footer)[:3000]  # limit length
-            html_for_llm += f"\n\n<!-- FOOTER INFO -->\n\n{footer_text}"
         
         # Debug: save HTML fragment for auto_dealer
         with open("debug_llm_input.html", "w", encoding="utf-8") as f:
@@ -553,11 +544,90 @@ def llm_extract(soup: BeautifulSoup, html: str, selectors: Dict[str, Any], score
             # Add niche to the result
             api_result["niche"] = niche
             
-            # For auto_dealer, return normalized as-is (no conversion to old format)
+            # For auto_dealer, merge heuristic contacts/business info with LLM models
             if niche == "auto_dealer":
+                # Start with LLM result
+                merged = api_result.copy()
+                
+                # Extract real contacts from heuristic data
+                heuristic_contacts = heuristic_data.get("contacts", {})
+                
+                # Build dealership_info from REAL heuristic data
+                addresses = heuristic_contacts.get("address", [])
+                heuristic_address = addresses[0] if addresses else ""
+                real_phones = heuristic_contacts.get("phones", [])
+                
+                # Get LLM's address and phones
+                llm_dealership = api_result.get("dealership_info", {})
+                llm_address = llm_dealership.get("address", "")
+                llm_phones = llm_dealership.get("phones", [])
+                
+                # Choose best address: prefer heuristic if it's shorter and looks like real address
+                final_address = llm_address
+                if heuristic_address:
+                    # Filter out disclaimer-like long texts
+                    disclaimer_keywords = [
+                        "не является публичной офертой", 
+                        "Условия кредитования", 
+                        "оформление кредита",
+                        "процентная ставка",
+                        "первоначальный взнос",
+                        "срок кредита",
+                        "документы для оформления",
+                        "предложение ограничено",
+                        "акция",
+                        "подробности",
+                        "подробное описание"
+                    ]
+                    
+                    heuristic_lower = heuristic_address.lower()
+                    llm_lower = llm_address.lower() if llm_address else ""
+                    
+                    # Check if LLM address is empty or looks like disclaimer
+                    llm_is_disclaimer = any(keyword in llm_lower for keyword in disclaimer_keywords) or len(llm_address) > 150
+                    
+                    # Check if heuristic address looks like a real physical address (has digits and reasonable length)
+                    has_digits = any(c.isdigit() for c in heuristic_address)
+                    is_reasonable_length = 10 < len(heuristic_address) < 120
+                    heuristic_is_good = has_digits and is_reasonable_length
+                    
+                    if llm_is_disclaimer or not llm_address:
+                        if heuristic_is_good:
+                            final_address = heuristic_address
+                            logger.info(f"Using heuristic address: {heuristic_address[:50]}...")
+                        else:
+                            final_address = heuristic_address  # Still use it as fallback
+                            logger.info(f"Using heuristic address (low quality): {heuristic_address[:50]}...")
+                    else:
+                        # Keep LLM address if it seems valid
+                        logger.info(f"Keeping LLM address: {llm_address[:50]}...")
+                
+                # For phones: use heuristic if LLM's is empty
+                final_phones = llm_phones if llm_phones else real_phones
+                if real_phones and not llm_phones:
+                    logger.info(f"Using heuristic phones: {real_phones}")
+                
+                # Override LLM placeholders with real data
+                merged["dealership_info"] = {
+                    "address": final_address,
+                    "phones": final_phones,
+                    "work_time": llm_dealership.get("work_time", "")
+                }
+                
+                # Use real business_name if LLM gave placeholder, otherwise keep LLM
+                if not api_result.get("business_name") or api_result.get("business_name", "").lower() in ["", "название компании", "бренд"]:
+                    merged["business_name"] = heuristic_contacts.get("company_name", "") or ""
+                
+                # Use real tagline if available
+                if not api_result.get("tagline") or api_result.get("tagline", "").lower() in ["", "слоган"]:
+                    merged["tagline"] = ""
+                
+                # Ensure domain is correct
+                merged["domain"] = api_result.get("domain", "")
+                
                 return {
-                    "data": _heuristic_extract(soup, selectors, score),  # fallback old format
-                    "normalized": api_result
+                    "data": heuristic_data,
+                    "normalized": merged
                 }
             else:
                 # For services, convert to old format
@@ -569,7 +639,6 @@ def llm_extract(soup: BeautifulSoup, html: str, selectors: Dict[str, Any], score
     
     # Fallback to heuristic extraction
     logger.info("Falling back to heuristic extraction")
-    heuristic_data = _heuristic_extract(soup, selectors, score)
     return {
         "data": heuristic_data,
         "normalized": None,

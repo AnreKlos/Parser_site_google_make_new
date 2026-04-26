@@ -13,6 +13,7 @@ import asyncio
 import json
 import re
 import urllib.parse
+from typing import Optional
 
 # Добавляем корень проекта в путь для импортов
 sys.path.insert(0, str(Path(__file__).parent))
@@ -27,6 +28,49 @@ st.set_page_config(
 
 # --- Пути к данным ---
 DB_PATH = Path("data/leads.db")
+SCRAPED_DATA_DIR = Path("data")
+
+
+def safe_print(text: str) -> None:
+    """Безопасный print с защитой от charmap ошибок на Windows."""
+    try:
+        print(text, flush=True)
+    except (UnicodeEncodeError, UnicodeError):
+        print(text.encode('cp1251', errors='replace').decode('cp1251'), flush=True)
+
+
+def load_scraped_data_for_lead(lead_id: int) -> Optional[dict]:
+    """
+    Загружает данные скрейпинга для лида из JSON файла.
+    Ищет файл по домену лида в data/{domain}.json
+    """
+    try:
+        # Загружаем website из БД (новое соединение)
+        with sqlite3.connect(DB_PATH) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT website FROM leads WHERE id = ?", (lead_id,))
+            row = cursor.fetchone()
+
+        if not row or not row[0]:
+            return None
+
+        website = row[0]
+        # Извлекаем домен из URL
+        domain = website
+        if "://" in domain:
+            domain = domain.split("://")[1]
+        domain = domain.rstrip("/").split("/")[0]
+
+        # Ищем JSON файл с данными скрейпинга
+        json_file = SCRAPED_DATA_DIR / f"{domain}.json"
+        if json_file.exists():
+            with open(json_file, 'r', encoding='utf-8') as f:
+                return json.load(f)
+
+        return None
+    except Exception as e:
+        print(f"Error loading scraped data for lead {lead_id}: {e}")
+        return None
 
 
 def add_hl_ru(url) -> str:
@@ -87,22 +131,16 @@ st.markdown("""
 
 
 # --- Функции работы с БД ---
-@st.cache_resource
-def get_connection():
-    """Создает соединение с БД"""
-    return sqlite3.connect(DB_PATH, check_same_thread=False)
-
-
 def load_leads() -> pd.DataFrame:
-    """Загружает все лиды из БД в DataFrame"""
+    """Загружает все лиды из БД в DataFrame (каждый раз новое соединение)"""
     if not DB_PATH.exists():
         return pd.DataFrame()
 
-    conn = get_connection()
-    df = pd.read_sql_query(
-        "SELECT id, name, google_rating, reviews_count, address, phone, website, google_maps_url, emails, social_links, status, tech_score, load_time_sec, audit_notes, pitch_text FROM leads ORDER BY id DESC",
-        conn
-    )
+    with sqlite3.connect(DB_PATH) as conn:
+        df = pd.read_sql_query(
+            "SELECT id, name, google_rating, reviews_count, address, phone, website, google_maps_url, emails, social_links, status, tech_score, load_time_sec, audit_notes, pitch_text, site_config_path, category FROM leads ORDER BY id DESC",
+            conn
+        )
     return df
 
 
@@ -263,7 +301,7 @@ def main():
         st.info("📭 База данных пуста. Запустите Радар для поиска лидов.")
     else:
         # Фильтры
-        col_filter1, col_filter2 = st.columns([1, 3])
+        col_filter1, col_filter2, col_filter3 = st.columns([1, 1, 2])
 
         with col_filter1:
             status_filter = st.multiselect(
@@ -273,6 +311,16 @@ def main():
             )
 
         with col_filter2:
+            # Фильтр по категории
+            all_categories = df["category"].dropna().unique().tolist() if "category" in df.columns else []
+            category_options = ["Все"] + sorted(all_categories)
+            category_filter = st.selectbox(
+                "Фильтр по категории:",
+                options=category_options,
+                index=0
+            )
+
+        with col_filter3:
             rating_min = st.slider(
                 "Минимальный рейтинг:",
                 min_value=0.0,
@@ -283,6 +331,8 @@ def main():
 
         # Применяем фильтры
         df_filtered = df[df["status"].isin(status_filter)]
+        if category_filter != "Все":
+            df_filtered = df_filtered[df_filtered["category"] == category_filter]
         df_filtered = df_filtered[df_filtered["google_rating"] >= rating_min]
 
         # --- Фильтры из sidebar ---
@@ -313,16 +363,33 @@ def main():
         st.write(f"Найдено: **{len(df_filtered)}** лидов")
 
         # Подготавливаем данные — БЕЗ pitch_text
-        df_table = df_filtered[["id", "name", "google_rating", "reviews_count", "tech_score", "website", "google_maps_url", "status"]].copy()
+        display_cols = ["id", "name", "category", "google_rating", "reviews_count", "tech_score", "website", "google_maps_url", "status"]
+        # Оставляем только те колонки, что есть в датафрейме
+        display_cols = [c for c in display_cols if c in df_filtered.columns]
+        df_table = df_filtered[display_cols].copy()
 
         # Форматируем колонки
         df_table["google_rating"] = df_table["google_rating"].apply(lambda x: f"⭐ {x:.1f}" if pd.notna(x) else "—")
         df_table["tech_score"] = df_table["tech_score"].apply(lambda x: f"{int(x)}" if pd.notna(x) else "—")
+        if "category" in df_table.columns:
+            df_table["category"] = df_table["category"].fillna("other")
 
         # Добавляем hl=ru к URL карт
         df_table["google_maps_url"] = df_table["google_maps_url"].apply(add_hl_ru)
 
-        df_table.columns = ["ID", "Название", "Рейтинг", "Отзывы", "Score", "Сайт", "Карты", "Статус"]
+        # Формируем названия колонок
+        col_rename = {
+            "id": "ID",
+            "name": "Название",
+            "category": "Категория",
+            "google_rating": "Рейтинг",
+            "reviews_count": "Отзывы",
+            "tech_score": "Score",
+            "website": "Сайт",
+            "google_maps_url": "Карты",
+            "status": "Статус",
+        }
+        df_table = df_table.rename(columns=col_rename)
 
         # Чистая таблица без интерактивности — ничего не прыгает
         st.dataframe(
@@ -333,6 +400,7 @@ def main():
                 "Сайт": st.column_config.LinkColumn("Сайт", width="small"),
                 "Карты": st.column_config.LinkColumn("Карты", width="small"),
                 "Название": st.column_config.TextColumn("Название", width="large"),
+                "Категория": st.column_config.TextColumn("Категория", width="small"),
                 "Score": st.column_config.TextColumn("Score", width="small"),
                 "Статус": st.column_config.TextColumn("Статус", width="small"),
                 "Рейтинг": st.column_config.TextColumn("Рейтинг", width="small"),
@@ -470,6 +538,79 @@ def main():
                     except Exception as e:
                         st.error(f"❌ Ошибка: {e}")
 
+            # Кнопка генерации JSON сайта
+            st.markdown("---")
+            st.markdown("### 🌐 Генерация сайта")
+
+            # --- Селектор выбора лида для генерации сайта ---
+            all_leads_for_gen = df_filtered.copy()
+            if not all_leads_for_gen.empty:
+                lead_options = [
+                    f"{int(row['id'])} — {row['name']}" 
+                    for _, row in all_leads_for_gen.iterrows()
+                ]
+                
+                # Находим индекс текущего выбранного лида (по питчу)
+                current_lead_label = f"{int(selected_row['id'])} — {selected_row['name']}"
+                default_index = lead_options.index(current_lead_label) if current_lead_label in lead_options else 0
+                
+                selected_lead_label = st.selectbox(
+                    "🏢 Выберите лид для генерации сайта:",
+                    options=lead_options,
+                    index=default_index,
+                    key="site_gen_lead_selector"
+                )
+                
+                # Извлекаем ID выбранного лида
+                selected_lead_id = int(selected_lead_label.split(" — ")[0])
+                
+                # Обновляем selected_row на основе выбора из селектора
+                if selected_lead_id != int(selected_row['id']):
+                    gen_row = all_leads_for_gen[all_leads_for_gen["id"] == selected_lead_id].iloc[0]
+                else:
+                    gen_row = selected_row
+            else:
+                selected_lead_id = int(selected_row['id'])
+                gen_row = selected_row
+
+            # Проверяем, есть ли уже сгенерированный JSON
+            site_config_exists = pd.notna(gen_row.get('site_config_path')) and gen_row.get('site_config_path')
+            if site_config_exists and Path(str(gen_row['site_config_path'])).exists():
+                st.success(f"✅ JSON уже сгенерирован: `{gen_row['site_config_path']}`")
+                
+                # Показываем превью JSON
+                try:
+                    with open(str(gen_row['site_config_path']), 'r', encoding='utf-8') as f:
+                        config_data = json.load(f)
+                    with st.expander("📄 Просмотр JSON"):
+                        json_string = json.dumps(config_data, ensure_ascii=False, indent=2)
+                        st.code(json_string, language="json")
+                except Exception:
+                    pass
+            else:
+                if st.button("🌐 Сгенерировать сайт (JSON)", key=f"gen_site_{selected_lead_id}"):
+                    with st.spinner("🤖 Генерация JSON конфигурации сайта..."):
+                        try:
+                            from services.site_config_generator import generate_site_config
+                            # Загружаем данные скрейпинга если есть
+                            scraped_data = load_scraped_data_for_lead(selected_lead_id)
+                            result = generate_site_config(selected_lead_id, scraped_data)
+                            if result:
+                                st.success(f"✅ JSON сайта сгенерирован для **{result['name']}**!")
+                                st.info(f"📁 Файл: `{result['file_path']}`")
+                                
+                                # Показываем превью
+                                with st.expander("📄 Просмотр JSON"):
+                                    json_string = json.dumps(result['config'], ensure_ascii=False, indent=2)
+                                    st.code(json_string, language="json")
+                                
+                                st.cache_resource.clear()
+                                st.rerun()
+                            else:
+                                st.error("❌ Не удалось сгенерировать JSON сайта")
+                        except Exception as e:
+                            st.error(f"❌ Ошибка: {e}")
+
             st.markdown("*💡 Выделите текст мышкой выше и скопируйте через Ctrl+C*")
         else:
             st.info("📭 У выбранных компаний ещё нет сгенерированных питчей. Запустите **Нейро-Сценариста** в боковой панели.")
@@ -498,11 +639,91 @@ def sidebar():
                 value=3
             )
 
+            radar_category = st.text_input(
+                "Категория (ниша) для сохранения:",
+                value="beauty",
+                help="Категория будет записана всем лидам, найденным в этом запуске Радара"
+            )
+
             radar_submitted = st.form_submit_button("🚀 Запустить Радар", type="primary")
 
             if radar_submitted:
-                st.info(f"🎯 Радар запущен с запросом: **{query}**")
-                st.info("⏳ Поиск лидов... (заглушка - будет привязан к реальному скрипту)")
+                if not query or not query.strip():
+                    st.error("❌ Введите поисковый запрос!")
+                else:
+                    # Загружаем API ключ
+                    import os
+                    from dotenv import load_dotenv
+                    load_dotenv()
+                    api_key = os.getenv("GOOGLE_PLACES_API_KEY")
+
+                    if not api_key:
+                        st.error("❌ GOOGLE_PLACES_API_KEY не найден в .env файле!")
+                    else:
+                        st.info(f"🎯 Радар запущен: **{query}**")
+                        
+                        # Контейнер для логов в реальном времени
+                        log_container = st.empty()
+                        radar_logs = []
+
+                        async def log_to_ui(message: str):
+                            radar_logs.append(message)
+                            # Показываем последние 15 строк логов
+                            recent = radar_logs[-15:]
+                            log_container.code("\n".join(recent), language="")
+
+                        def run_radar():
+                            """Обёртка для запуска async кода в Streamlit"""
+                            loop = asyncio.new_event_loop()
+                            asyncio.set_event_loop(loop)
+                            try:
+                                from services.google_radar import search_and_save, init_db
+
+                                # Инициализируем БД
+                                loop.run_until_complete(init_db())
+
+                                # Запускаем парсер
+                                leads = loop.run_until_complete(
+                                    search_and_save(
+                                        query=query,
+                                        api_key=api_key,
+                                        max_pages=max_pages,
+                                        page_delay=2,
+                                        log_callback=log_to_ui,
+                                        category=radar_category
+                                    )
+                                )
+                                return leads, None
+                            except Exception as e:
+                                import traceback
+                                tb = traceback.format_exc()
+                                safe_print(f"[ERROR] Критическая ошибка парсера: {str(e)}")
+                                safe_print(f"[ERROR] Traceback: {tb}")
+                                return None, (str(e), tb)
+                            finally:
+                                loop.close()
+
+                        with st.spinner("⏳ Парсинг лидов..."):
+                            leads, error = run_radar()
+
+                            if error:
+                                error_detail, tb = error
+                                st.error(f"❌ Ошибка парсера: {error_detail}")
+                                with st.expander("🔍 Полный traceback"):
+                                    st.code(tb, language="")
+                            else:
+                                # Показываем результаты
+                                st.success(f"✅ Радар завершён! Найдено **{len(leads)}** лидов.")
+                                with_site = sum(1 for l in leads if l.website)
+                                without_site = len(leads) - with_site
+                                st.info(f"🌐 С сайтом: **{with_site}**, 🚫 Без сайта: **{without_site}**")
+
+                                # Показываем все логи
+                                with st.expander("📋 Полные логи"):
+                                    st.code("\n".join(radar_logs), language="")
+
+                                # Обновляем кшированные данные
+                                st.cache_resource.clear()
 
         st.divider()
 
@@ -602,7 +823,7 @@ def sidebar():
         st.markdown("### ℹ️ Информация")
         st.markdown(f"""
         - **База данных:** `{DB_PATH}`
-        - **Версия:** 1.0.0
+        - **Версия:** 1.1.0
         """)
 
         if st.button("🗑️ Очистить кэш"):

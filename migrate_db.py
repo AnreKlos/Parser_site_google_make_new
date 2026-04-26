@@ -38,6 +38,9 @@ def migrate():
     if "raw_reviews" not in columns:
         new_columns.append("ALTER TABLE leads ADD COLUMN raw_reviews TEXT")
     
+    if "category" not in columns:
+        new_columns.append("ALTER TABLE leads ADD COLUMN category TEXT DEFAULT 'other'")
+    
     if new_columns:
         for sql in new_columns:
             cursor.execute(sql)

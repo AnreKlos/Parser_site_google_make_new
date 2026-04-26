@@ -72,6 +72,7 @@ async def upsert_lead(
     google_maps_url: str = None,
     status: str = "new",
     raw_reviews: str = None,
+    category: str = "other",
 ) -> Lead:
     """
     Upsert операция для лида
@@ -115,6 +116,8 @@ async def upsert_lead(
                 existing_lead.raw_reviews = raw_reviews
             if google_maps_url is not None:
                 existing_lead.google_maps_url = google_maps_url
+            if category is not None and category != "other":
+                existing_lead.category = category
             # Статус не меняем - он управляется вручную
             
             await session.commit()
@@ -133,6 +136,7 @@ async def upsert_lead(
                 google_maps_url=google_maps_url,
                 status=status,
                 raw_reviews=raw_reviews,
+                category=category,
             )
             session.add(new_lead)
             await session.commit()

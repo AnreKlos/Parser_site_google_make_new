@@ -50,10 +50,12 @@ class Lead(Base):
     audit_notes = Column(Text, nullable=True)
     pitch_text = Column(Text, nullable=True)
     raw_reviews = Column(Text, nullable=True)
-    
+    site_config_path = Column(Text, nullable=True)  # Путь к JSON конфигу сайта
+    category = Column(String(100), nullable=True, default="other")  # Категория/ниша лида
+
     def __repr__(self) -> str:
         return f"<Lead(id={self.id}, name='{self.name}', website='{self.website}', status='{self.status}')>"
-    
+
     def to_dict(self) -> dict:
         """Преобразует модель в словарь"""
         return {
@@ -73,4 +75,6 @@ class Lead(Base):
             "audit_notes": self.audit_notes,
             "pitch_text": self.pitch_text,
             "raw_reviews": self.raw_reviews,
+            "site_config_path": self.site_config_path,
+            "category": self.category,
         }

@@ -13,6 +13,7 @@ import asyncio
 import json
 import re
 import urllib.parse
+import subprocess
 from typing import Optional
 
 # Добавляем корень проекта в путь для импортов
@@ -29,6 +30,7 @@ st.set_page_config(
 # --- Пути к данным ---
 DB_PATH = Path("data/leads.db")
 SCRAPED_DATA_DIR = Path("data")
+CURATED_DATA_DIR = Path("data/curated")
 
 
 def safe_print(text: str) -> None:
@@ -81,6 +83,174 @@ def add_hl_ru(url) -> str:
         return f"{url}&hl=ru"
     else:
         return f"{url}?hl=ru"
+
+
+def slugify_name(name: str, lead_id: int) -> str:
+    """Собирает slug так же, как gemma_curator.py, чтобы совпадали имена файлов."""
+    translit_map = {
+        "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e", "ж": "zh", "з": "z",
+        "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r",
+        "с": "s", "т": "t", "у": "u", "ф": "f", "х": "h", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sch",
+        "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
+    }
+
+    lower = (name or "").strip().lower()
+    translit = "".join(translit_map.get(ch, ch) for ch in lower)
+    translit = re.sub(r"[^a-z0-9]+", "-", translit)
+    translit = re.sub(r"-+", "-", translit).strip("-")
+    return translit or f"lead-{lead_id}"
+
+
+def get_curated_file_path(lead_name: str, lead_id: int) -> Path:
+    slug = slugify_name(lead_name, lead_id)
+    return CURATED_DATA_DIR / f"{slug}.json"
+
+
+def get_content_status(lead_name: str, lead_id: int) -> str:
+    error_key = f"curator_error_{lead_id}"
+    if st.session_state.get(error_key):
+        return "❌ Ошибка"
+    return "🟢 Готов" if get_curated_file_path(lead_name, lead_id).exists() else "⚪ Не создан"
+
+
+def run_gemma_curator(lead_id: int) -> tuple[bool, str]:
+    """Запускает gemma_curator.py для одного лида и возвращает (ok, output)."""
+    try:
+        result = subprocess.run(
+            ["python", "gemma_curator.py", str(lead_id)],
+            capture_output=True,
+            text=True,
+            cwd=str(Path(__file__).parent),
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
+        output = (result.stdout or "") + ("\n" + result.stderr if result.stderr else "")
+        return result.returncode == 0, output.strip()
+    except Exception as exc:
+        return False, str(exc)
+
+
+def run_gemma_curator_with_status(lead_id: int) -> tuple[bool, str]:
+    """Запускает gemma_curator.py с живым прогрессом через st.status()."""
+    STAGE_MAP = (
+        ("Формируем список услуг", "🛍 Генерирую список услуг..."),
+        ("Базовые услуги", "🛍 Список услуг готов"),
+        ("Готовим слоган", "✨ Генерирую слоган..."),
+        ("Слоган готов", "✨ Слоган готов"),
+        ("Готовим блок", "📝 Пишу about..."),
+        ("нас' готов", "📝 About готов"),
+        ("Отбираем лучшие отзывы", "⭐ Отбираю лучшие отзывы..."),
+        ("Отобрано отзывов", "⭐ Отзывы отобраны"),
+        ("Генерируем FAQ", "❓ Создаю FAQ..."),
+        ("FAQ готов", "❓ FAQ готов"),
+        ("Пишем описания услуг", "🛍 Описываю услуги..."),
+        ("Описания услуг", "🛍 Описания готовы"),
+        ("Curated JSON", "✅ Сохраняю результат..."),
+        ("Курация завершена", "✅ Готово!"),
+    )
+
+    all_output: list[str] = []
+    ok = False
+    try:
+        with st.status("⏳ Гемма работает... обычно занимает 30–90 сек", expanded=True) as status_box:
+            status_box.write("🔍 Читаю данные лида...")
+            try:
+                proc = subprocess.Popen(
+                    ["python", "-u", "gemma_curator.py", str(lead_id)],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    cwd=str(Path(__file__).parent),
+                    encoding="utf-8",
+                    errors="replace",
+                )
+                for raw_line in proc.stdout:
+                    line = raw_line.strip()
+                    if not line:
+                        continue
+                    all_output.append(line)
+                    for keyword, stage_label in STAGE_MAP:
+                        if keyword in line:
+                            status_box.write(stage_label)
+                            break
+                proc.wait()
+                ok = proc.returncode == 0
+            except Exception as exc:
+                all_output.append(str(exc))
+                ok = False
+
+            if ok:
+                status_box.update(label="✅ Курация завершена!", state="complete", expanded=False)
+            else:
+                status_box.update(label="❌ Ошибка курации", state="error", expanded=True)
+    except Exception as outer_exc:
+        st.error(f"❌ Ошибка запуска куратора: {outer_exc}")
+        all_output.append(str(outer_exc))
+
+    return ok, "\n".join(all_output)
+
+
+def render_curated_content(curated: dict, lead_id: int) -> None:
+    about_text = str(curated.get("about", "") or "")
+    tagline = str((curated.get("meta") or {}).get("tagline", "") or "")
+    reviews = curated.get("reviews") if isinstance(curated.get("reviews"), list) else []
+    faq = curated.get("faq") if isinstance(curated.get("faq"), list) else []
+    services = curated.get("services") if isinstance(curated.get("services"), list) else []
+
+    st.markdown("#### 🏷 Tagline")
+    st.text_area("Слоган", value=tagline, height=70, key=f"tagline_{lead_id}")
+
+    st.markdown("#### 📝 About")
+    st.text_area("О нас", value=about_text, height=150, key=f"about_{lead_id}")
+
+    st.markdown("#### ⭐ Reviews")
+    if reviews:
+        for idx, item in enumerate(reviews, start=1):
+            author = str(item.get("author", "Клиент")) if isinstance(item, dict) else "Клиент"
+            text = str(item.get("text", "")) if isinstance(item, dict) else str(item)
+            st.text_area(
+                f"Отзыв {idx} ({author})",
+                value=text,
+                height=110,
+                key=f"review_{lead_id}_{idx}",
+            )
+    else:
+        st.caption("Отзывы отсутствуют")
+
+    st.markdown("#### ❓ FAQ")
+    if faq:
+        for idx, item in enumerate(faq, start=1):
+            if not isinstance(item, dict):
+                continue
+            q = str(item.get("q", ""))
+            a = str(item.get("a", ""))
+            st.text_area(
+                f"FAQ {idx}",
+                value=f"Q: {q}\nA: {a}",
+                height=120,
+                key=f"faq_{lead_id}_{idx}",
+            )
+    else:
+        st.caption("FAQ отсутствует")
+
+    st.markdown("#### 🛍 Services")
+    if services:
+        for idx, item in enumerate(services, start=1):
+            if not isinstance(item, dict):
+                continue
+            title = str(item.get("title", ""))
+            short = str(item.get("short", ""))
+            desc = str(item.get("description", ""))
+            price = str(item.get("priceFrom", ""))
+            st.text_area(
+                f"Услуга {idx}: {title}",
+                value=f"Цена: {price}\nКоротко: {short}\n\nОписание:\n{desc}",
+                height=170,
+                key=f"service_{lead_id}_{idx}",
+            )
+    else:
+        st.caption("Услуги отсутствуют")
+
 
 # --- CSS стили для красивого отображения ---
 st.markdown("""
@@ -301,7 +471,7 @@ def main():
         st.info("📭 База данных пуста. Запустите Радар для поиска лидов.")
     else:
         # Фильтры
-        col_filter1, col_filter2, col_filter3 = st.columns([1, 1, 2])
+        col_filter1, col_filter2, col_filter3, col_filter4 = st.columns([1, 1, 1, 1])
 
         with col_filter1:
             status_filter = st.multiselect(
@@ -329,11 +499,35 @@ def main():
                 step=0.1
             )
 
+        with col_filter4:
+            content_filter = st.selectbox(
+                "Контент:",
+                options=["Все", "🟢 Готов", "⚪ Не создан"],
+                index=0,
+                key="content_filter_select",
+            )
+
         # Применяем фильтры
         df_filtered = df[df["status"].isin(status_filter)]
         if category_filter != "Все":
             df_filtered = df_filtered[df_filtered["category"] == category_filter]
         df_filtered = df_filtered[df_filtered["google_rating"] >= rating_min]
+
+        # Фильтр по статусу контента
+        if content_filter == "🟢 Готов":
+            df_filtered = df_filtered[
+                df_filtered.apply(
+                    lambda row: get_curated_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists(),
+                    axis=1,
+                )
+            ]
+        elif content_filter == "⚪ Не создан":
+            df_filtered = df_filtered[
+                ~df_filtered.apply(
+                    lambda row: get_curated_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists(),
+                    axis=1,
+                )
+            ]
 
         # --- Фильтры из sidebar ---
         hide_perfect = st.session_state.get("hide_perfect", True)
@@ -368,6 +562,12 @@ def main():
         display_cols = [c for c in display_cols if c in df_filtered.columns]
         df_table = df_filtered[display_cols].copy()
 
+        # Статус curated-контента
+        df_table["content_status"] = df_table.apply(
+            lambda row: get_content_status(str(row.get("name", "")), int(row.get("id", 0))),
+            axis=1,
+        )
+
         # Форматируем колонки
         df_table["google_rating"] = df_table["google_rating"].apply(lambda x: f"⭐ {x:.1f}" if pd.notna(x) else "—")
         df_table["tech_score"] = df_table["tech_score"].apply(lambda x: f"{int(x)}" if pd.notna(x) else "—")
@@ -388,6 +588,7 @@ def main():
             "website": "Сайт",
             "google_maps_url": "Карты",
             "status": "Статус",
+            "content_status": "Контент",
         }
         df_table = df_table.rename(columns=col_rename)
 
@@ -403,11 +604,119 @@ def main():
                 "Категория": st.column_config.TextColumn("Категория", width="small"),
                 "Score": st.column_config.TextColumn("Score", width="small"),
                 "Статус": st.column_config.TextColumn("Статус", width="small"),
+                "Контент": st.column_config.TextColumn("Контент", width="small"),
                 "Рейтинг": st.column_config.TextColumn("Рейтинг", width="small"),
                 "Отзывы": st.column_config.NumberColumn("Отзывы", width="small"),
                 "ID": st.column_config.NumberColumn("ID", width="small"),
             }
         )
+
+        st.markdown("---")
+        st.subheader("🎨 Gemma Content Curator")
+
+        unprocessed_ids = [
+            (int(row["id"]), str(row.get("name", "")))
+            for _, row in df_filtered.iterrows()
+            if not get_curated_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists()
+        ]
+        curated_count = len(df_filtered) - len(unprocessed_ids)
+
+        batch_col, stat_col = st.columns([2, 3])
+        with stat_col:
+            st.caption(f"📊 Обработано **{curated_count}** из **{len(df_filtered)}** лидов")
+        with batch_col:
+            if st.button(
+                f"🚀 Курировать всех необработанных ({len(unprocessed_ids)})",
+                key="curate_all_btn",
+                type="primary",
+                disabled=len(unprocessed_ids) == 0,
+                use_container_width=True,
+            ):
+                prog_placeholder = st.empty()
+                prog_bar = st.progress(0)
+                done = 0
+                for lid, lname in unprocessed_ids:
+                    prog_placeholder.write(
+                        f"Обрабатываю: **{lname}** (ID={lid}) — {done + 1}/{len(unprocessed_ids)}"
+                    )
+                    ok_batch, _ = run_gemma_curator(lid)
+                    if ok_batch:
+                        st.session_state.pop(f"curator_error_{lid}", None)
+                    else:
+                        st.session_state[f"curator_error_{lid}"] = "Ошибка при batch-курации"
+                    done += 1
+                    prog_bar.progress(done / len(unprocessed_ids))
+                prog_placeholder.empty()
+                prog_bar.empty()
+                st.success(f"✅ Обработано {done} из {len(unprocessed_ids)} лидов")
+                st.rerun()
+
+        lead_select_options = [
+            f"{int(row['id'])} — {row['name']}"
+            for _, row in df_filtered.iterrows()
+        ]
+
+        if lead_select_options:
+            selected_label = st.selectbox(
+                "Открыть лид:",
+                options=lead_select_options,
+                key="curator_lead_selector",
+            )
+            sel_lead_id = int(selected_label.split(" — ")[0])
+            sel_lead_row = df_filtered[df_filtered["id"].astype(int) == sel_lead_id].iloc[0]
+            sel_lead_name = str(sel_lead_row.get("name", f"Lead {sel_lead_id}"))
+            sel_curated_path = get_curated_file_path(sel_lead_name, sel_lead_id)
+            content_exists = sel_curated_path.exists()
+
+            st.caption(f"Файл: `{sel_curated_path}`")
+
+            if content_exists:
+                btn_view_col, btn_regen_col = st.columns(2)
+                with btn_view_col:
+                    if st.button("👁 Просмотреть контент", key="curator_view_btn", use_container_width=True):
+                        st.session_state["curator_show_content"] = sel_lead_id
+                with btn_regen_col:
+                    if st.button("🔄 Перегенерировать", key="curator_regen_btn", use_container_width=True):
+                        try:
+                            sel_curated_path.unlink(missing_ok=True)
+                        except Exception as exc:
+                            st.error(f"❌ Не удалось удалить JSON: {exc}")
+                        else:
+                            ok_regen, out_regen = run_gemma_curator_with_status(sel_lead_id)
+                            if ok_regen:
+                                st.session_state.pop(f"curator_error_{sel_lead_id}", None)
+                                st.session_state["curator_show_content"] = sel_lead_id
+                            else:
+                                st.session_state[f"curator_error_{sel_lead_id}"] = out_regen or "Ошибка"
+                            st.rerun()
+            else:
+                if st.button(
+                    "🎨 Курировать через Гемму",
+                    key="curator_curate_btn",
+                    type="primary",
+                ):
+                    ok_cur, out_cur = run_gemma_curator_with_status(sel_lead_id)
+                    if ok_cur:
+                        st.session_state.pop(f"curator_error_{sel_lead_id}", None)
+                        st.session_state["curator_show_content"] = sel_lead_id
+                    else:
+                        st.session_state[f"curator_error_{sel_lead_id}"] = out_cur or "Ошибка"
+                    st.rerun()
+
+            if st.session_state.get(f"curator_error_{sel_lead_id}"):
+                with st.expander("❌ Последняя ошибка курации"):
+                    st.code(
+                        st.session_state[f"curator_error_{sel_lead_id}"][:3000],
+                        language="",
+                    )
+
+            if st.session_state.get("curator_show_content") == sel_lead_id and content_exists:
+                try:
+                    with open(sel_curated_path, "r", encoding="utf-8") as f:
+                        curated = json.load(f)
+                    render_curated_content(curated, sel_lead_id)
+                except Exception as exc:
+                    st.error(f"❌ Ошибка чтения curated JSON: {exc}")
 
         st.divider()
 

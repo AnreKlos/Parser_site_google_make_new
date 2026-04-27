@@ -1,0 +1,30 @@
+{
+  "lead_id": 18,
+  "lead_name": "Салон маникюра \"Ноктюрн\"",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/noktyurn/82222610409/",
+    "rating": 5.0,
+    "reviews_count": null,
+    "reviews_list": [],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/7691421/2a0000018426fc35dac42cfa6ff5990126be/S",
+      "https://avatars.mds.yandex.net/get-altay/5751673/2a0000017c9f9266debef0b942981a336c25/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/5486790/2a0000017c92d8080a1ffbc8314dbfb8764c/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/5509094/2a0000017c92ad5ed8587c8900d8f44ebf81/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/15650736/2a0000019cdcf713b0627d80988c532e3ddd/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/9829646/2a00000191a778c023676d08887aab1fb9ef/M_height",
+      "https://avatars.mds.yandex.net/get-altay/1554359/2a00000169fd722adcb8dff8e7ae2932e9f1/M_height",
+      "https://avatars.mds.yandex.net/get-altay/16243748/2a000001987e77f34c8099abadbcaff68eb4/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Транспортная ул., 2",
+    "phones": [],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:30:42"
+  },
+  "merged_reviews_count": 0
+}

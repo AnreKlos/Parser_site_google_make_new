@@ -1,0 +1,45 @@
+{
+  "lead_id": 20,
+  "lead_name": "Модная Цирюльня",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/modnaya_tsiryulnya/103155909189/",
+    "rating": 4.5,
+    "reviews_count": 451,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Часто посещаю салон «Модная цирюльня» и всегда остаюсь в восторге! Потрясающий сервис, прекрасная атмосфера, чуткие мастера-профессионалы своего дела! Выражаю благодарность мастеру эпиляции-Гомоновой Татьяне.…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Мой любимый салон! Педикюр делаю у самого лучшего мастера - Натальи Торяник, а маникюр у Луговой Юлии. Всегда идеальное качество, скорость и очень красивый результат!",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/1705560/2a0000016cd8613460aecd1b910a25ff0e29/S",
+      "https://avatars.mds.yandex.net/get-altay/10963815/2a0000018cf277f3c930c424e997cd06e373/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/10141118/2a0000018cf277f3c54c506e5fb2afb97441/XXL_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/10022375/2a0000018d7f90b3a5eb91c9408924dcb0b9/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/13009487/2a0000018d7f8fb2861219e5c7f99f5f1aaf/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/10022375/2a0000018d7f8f9523742e837578870bf485/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/13009487/2a0000018d7f8f7a829a384324b91523c60d/M_height",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/16021390/2a0000019a2aabee6b3ae06feea7a3dce29d/S",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Красноармейская ул., 170Б",
+    "phones": [],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:29:37"
+  },
+  "merged_reviews_count": 6
+}

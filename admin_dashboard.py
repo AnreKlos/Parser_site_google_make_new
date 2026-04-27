@@ -31,6 +31,7 @@ st.set_page_config(
 DB_PATH = Path("data/leads.db")
 SCRAPED_DATA_DIR = Path("data")
 CURATED_DATA_DIR = Path("data/curated")
+YANDEX_DATA_DIR = Path("data/yandex")
 
 
 def safe_print(text: str) -> None:
@@ -111,6 +112,45 @@ def get_content_status(lead_name: str, lead_id: int) -> str:
     if st.session_state.get(error_key):
         return "❌ Ошибка"
     return "🟢 Готов" if get_curated_file_path(lead_name, lead_id).exists() else "⚪ Не создан"
+
+
+def get_yandex_file_path(lead_name: str, lead_id: int) -> Path:
+    slug = slugify_name(lead_name, lead_id)
+    return YANDEX_DATA_DIR / f"{slug}.json"
+
+
+def get_yandex_status(lead_name: str, lead_id: int) -> str:
+    return "🟢 Обогащён" if get_yandex_file_path(lead_name, lead_id).exists() else "⚪ Не обогащён"
+
+
+def get_yandex_maps_url(lead_name: str, lead_id: int) -> str:
+    path = get_yandex_file_path(lead_name, lead_id)
+    if not path.exists():
+        return ""
+    try:
+        with open(path, encoding="utf-8") as f:
+            d = json.load(f)
+        return str(d.get("yandex", {}).get("source_url") or "")
+    except Exception:
+        return ""
+
+
+def run_yandex_enricher(lead_id: int) -> tuple[bool, str]:
+    try:
+        result = subprocess.run(
+            ["python", "yandex_enricher.py", str(lead_id)],
+            capture_output=True,
+            text=True,
+            cwd=str(Path(__file__).parent),
+            encoding="utf-8",
+            errors="replace",
+            timeout=120,
+            check=False,
+        )
+        output = (result.stdout or "") + ("\n" + result.stderr if result.stderr else "")
+        return result.returncode == 0, output.strip()
+    except Exception as exc:
+        return False, str(exc)
 
 
 def run_gemma_curator(lead_id: int) -> tuple[bool, str]:
@@ -250,6 +290,57 @@ def render_curated_content(curated: dict, lead_id: int) -> None:
             )
     else:
         st.caption("Услуги отсутствуют")
+
+
+def render_yandex_data(data: dict, lead_id: int) -> None:
+    yandex = data.get("yandex", {})
+    if not yandex:
+        st.warning("Нет данных Яндекс")
+        return
+
+    m1, m2, m3 = st.columns(3)
+    with m1:
+        st.metric("Рейтинг Яндекс", f"⭐ {yandex.get('rating') or '—'}")
+    with m2:
+        st.metric("Отзывов на Яндекс", yandex.get("reviews_count") or "—")
+    with m3:
+        st.metric("Фото", len(yandex.get("photos", [])))
+
+    if yandex.get("address"):
+        st.caption(f"📍 {yandex['address']}")
+    if yandex.get("phones"):
+        st.caption(f"📞 {', '.join(yandex['phones'])}")
+    if yandex.get("working_hours"):
+        st.caption(f"🕐 {yandex['working_hours']}")
+
+    reviews = yandex.get("reviews_list", [])
+    if reviews:
+        st.markdown("#### ⭐ Отзывы с Яндекс")
+        for idx, item in enumerate(reviews, start=1):
+            author = str(item.get("author", "Клиент"))
+            text = str(item.get("text", ""))
+            date = str(item.get("date") or "")
+            label = f"Отзыв {idx} — {author}" + (f" ({date})" if date else "")
+            st.text_area(label, value=text, height=100, key=f"ya_review_{lead_id}_{idx}")
+    else:
+        st.caption("Отзывы не найдены")
+
+    services = yandex.get("services", [])
+    if services:
+        with st.expander(f"🛍 Услуги/цены ({len(services)} шт.)"):
+            for item in services:
+                name = str(item.get("name", ""))
+                price = str(item.get("price", ""))
+                if name and price and name != price:
+                    st.markdown(f"- **{name}** — {price}")
+
+    photos = yandex.get("photos", [])
+    if photos:
+        with st.expander(f"📷 Фото ({len(photos)} шт.)"):
+            cols = st.columns(4)
+            for i, url in enumerate(photos):
+                if url and url.startswith("http"):
+                    cols[i % 4].image(url, use_container_width=True)
 
 
 # --- CSS стили для красивого отображения ---
@@ -422,177 +513,163 @@ def build_send_links(pitch_text: str, row: pd.Series) -> dict:
 
 # --- Главная страница ---
 def main():
-    # Заголовок
     st.markdown('<p class="main-header">🎯 KURSOR Command Center</p>', unsafe_allow_html=True)
     st.markdown("### Пульт управления базой лидов")
     st.divider()
 
-    # Загрузка данных
     df = load_leads()
     stats = get_stats(df)
 
-    # --- KPI Метрики ---
     col1, col2, col3, col4 = st.columns(4)
-
     with col1:
-        st.metric(
-            label="📊 Всего лидов",
-            value=stats["total"],
-            delta=None
-        )
-
+        st.metric(label="📊 Всего лидов", value=stats["total"], delta=None)
     with col2:
-        st.metric(
-            label="🆕 Новых (new)",
-            value=stats["new_count"],
-            delta=None
-        )
-
+        st.metric(label="🆕 Новых (new)", value=stats["new_count"], delta=None)
     with col3:
-        st.metric(
-            label="⭐ Средний рейтинг",
-            value=f"{stats['avg_rating']:.1f}",
-            delta=None
-        )
-
+        st.metric(label="⭐ Средний рейтинг", value=f"{stats['avg_rating']:.1f}", delta=None)
     with col4:
-        st.metric(
-            label="📝 Всего отзывов",
-            value=f"{stats['total_reviews']:,}",
-            delta=None
-        )
+        st.metric(label="📝 Всего отзывов", value=f"{stats['total_reviews']:,}", delta=None)
 
     st.divider()
-
-    # --- Таблица лидов ---
     st.subheader("📋 База лидов")
 
     if df.empty:
         st.info("📭 База данных пуста. Запустите Радар для поиска лидов.")
-    else:
-        # Фильтры
-        col_filter1, col_filter2, col_filter3, col_filter4 = st.columns([1, 1, 1, 1])
+        return
 
-        with col_filter1:
-            status_filter = st.multiselect(
-                "Фильтр по статусу:",
-                options=df["status"].unique().tolist(),
-                default=df["status"].unique().tolist()
-            )
+    col_filter1, col_filter2, col_filter3, col_filter4 = st.columns([1, 1, 1, 1])
+    with col_filter1:
+        status_filter = st.multiselect(
+            "Фильтр по статусу:",
+            options=df["status"].unique().tolist(),
+            default=df["status"].unique().tolist(),
+        )
+    with col_filter2:
+        all_categories = df["category"].dropna().unique().tolist() if "category" in df.columns else []
+        category_options = ["Все"] + sorted(all_categories)
+        category_filter = st.selectbox("Фильтр по категории:", options=category_options, index=0)
+    with col_filter3:
+        rating_min = st.slider("Минимальный рейтинг:", min_value=0.0, max_value=5.0, value=0.0, step=0.1)
+    with col_filter4:
+        content_filter = st.selectbox(
+            "Контент:",
+            options=["Все", "🟢 Готов", "⚪ Не создан"],
+            index=0,
+            key="content_filter_select",
+        )
 
-        with col_filter2:
-            # Фильтр по категории
-            all_categories = df["category"].dropna().unique().tolist() if "category" in df.columns else []
-            category_options = ["Все"] + sorted(all_categories)
-            category_filter = st.selectbox(
-                "Фильтр по категории:",
-                options=category_options,
-                index=0
-            )
+    df_filtered = df[df["status"].isin(status_filter)]
+    if category_filter != "Все":
+        df_filtered = df_filtered[df_filtered["category"] == category_filter]
+    df_filtered = df_filtered[df_filtered["google_rating"] >= rating_min]
 
-        with col_filter3:
-            rating_min = st.slider(
-                "Минимальный рейтинг:",
-                min_value=0.0,
-                max_value=5.0,
-                value=0.0,
-                step=0.1
-            )
-
-        with col_filter4:
-            content_filter = st.selectbox(
-                "Контент:",
-                options=["Все", "🟢 Готов", "⚪ Не создан"],
-                index=0,
-                key="content_filter_select",
-            )
-
-        # Применяем фильтры
-        df_filtered = df[df["status"].isin(status_filter)]
-        if category_filter != "Все":
-            df_filtered = df_filtered[df_filtered["category"] == category_filter]
-        df_filtered = df_filtered[df_filtered["google_rating"] >= rating_min]
-
-        # Фильтр по статусу контента
-        if content_filter == "🟢 Готов":
-            df_filtered = df_filtered[
-                df_filtered.apply(
-                    lambda row: get_curated_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists(),
-                    axis=1,
-                )
-            ]
-        elif content_filter == "⚪ Не создан":
-            df_filtered = df_filtered[
-                ~df_filtered.apply(
-                    lambda row: get_curated_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists(),
-                    axis=1,
-                )
-            ]
-
-        # --- Фильтры из sidebar ---
-        hide_perfect = st.session_state.get("hide_perfect", True)
-        max_score_filter = st.session_state.get("max_score_filter", 85)
-
-        # Скрыть идеальные (score == 100)
-        if hide_perfect:
-            df_filtered = df_filtered[
-                (df_filtered["tech_score"] != 100) |
-                (df_filtered["tech_score"].isna())
-            ]
-
-        # Фильтр по максимальному score (оставляем new с пустым score)
+    if content_filter == "🟢 Готов":
         df_filtered = df_filtered[
-            (df_filtered["tech_score"] <= max_score_filter) |
-            (df_filtered["tech_score"].isna()) |
-            (df_filtered["status"] == "new")
+            df_filtered.apply(
+                lambda row: get_curated_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists(),
+                axis=1,
+            )
+        ]
+    elif content_filter == "⚪ Не создан":
+        df_filtered = df_filtered[
+            ~df_filtered.apply(
+                lambda row: get_curated_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists(),
+                axis=1,
+            )
         ]
 
-        # --- Сортировка: проблемные вверху ---
-        df_filtered["_sort_key"] = df_filtered["tech_score"].fillna(999)
-        df_filtered = df_filtered.sort_values("_sort_key", ascending=True)
-        df_filtered = df_filtered.drop(columns=["_sort_key"])
+    hide_perfect = st.session_state.get("hide_perfect", True)
+    max_score_filter = st.session_state.get("max_score_filter", 85)
+    if hide_perfect:
+        df_filtered = df_filtered[(df_filtered["tech_score"] != 100) | (df_filtered["tech_score"].isna())]
+    df_filtered = df_filtered[
+        (df_filtered["tech_score"] <= max_score_filter)
+        | (df_filtered["tech_score"].isna())
+        | (df_filtered["status"] == "new")
+    ]
 
-        # --- Таблица лидов (без питчей, только данные) ---
+    if df_filtered.empty:
+        st.info("По текущим фильтрам лиды не найдены")
+        return
+
+    df_filtered = df_filtered.copy()
+    df_filtered["_sort_key"] = df_filtered["tech_score"].fillna(999)
+    df_filtered = df_filtered.sort_values("_sort_key", ascending=True).drop(columns=["_sort_key"])
+
+    lead_options = [f"{int(row['id'])} — {row['name']}" for _, row in df_filtered.iterrows()]
+    valid_ids = set(df_filtered["id"].astype(int).tolist())
+    if "selected_lead_id" not in st.session_state or int(st.session_state["selected_lead_id"]) not in valid_ids:
+        st.session_state["selected_lead_id"] = int(df_filtered.iloc[0]["id"])
+
+    tab_base, tab_pipeline = st.tabs(["📊 База лидов", "🎨 Контент-конвейер"])
+
+    with tab_base:
         st.subheader("📊 Все лиды")
         st.write(f"Найдено: **{len(df_filtered)}** лидов")
 
-        # Подготавливаем данные — БЕЗ pitch_text
+        def normalize_url_for_table(value: object) -> object:
+            if value is None or (isinstance(value, float) and pd.isna(value)):
+                return None
+            raw = str(value).strip()
+            if not raw:
+                return None
+            if raw.lower().startswith(("http://", "https://")):
+                return raw
+            return None
+
         display_cols = ["id", "name", "category", "google_rating", "reviews_count", "tech_score", "website", "google_maps_url", "status"]
-        # Оставляем только те колонки, что есть в датафрейме
         display_cols = [c for c in display_cols if c in df_filtered.columns]
         df_table = df_filtered[display_cols].copy()
 
-        # Статус curated-контента
         df_table["content_status"] = df_table.apply(
             lambda row: get_content_status(str(row.get("name", "")), int(row.get("id", 0))),
             axis=1,
         )
+        df_table["yandex_status"] = df_table.apply(
+            lambda row: get_yandex_status(str(row.get("name", "")), int(row.get("id", 0))),
+            axis=1,
+        )
+        df_table["yandex_maps_url"] = df_table.apply(
+            lambda row: get_yandex_maps_url(str(row.get("name", "")), int(row.get("id", 0))),
+            axis=1,
+        )
+        df_table["two_gis_url"] = df_table.apply(
+            lambda row: (
+                f"https://2gis.ru/search/{urllib.parse.quote_plus(str(row.get('address') or '').strip())}"
+                if str(row.get("address") or "").strip()
+                else None
+            ),
+            axis=1,
+        )
 
-        # Форматируем колонки
         df_table["google_rating"] = df_table["google_rating"].apply(lambda x: f"⭐ {x:.1f}" if pd.notna(x) else "—")
         df_table["tech_score"] = df_table["tech_score"].apply(lambda x: f"{int(x)}" if pd.notna(x) else "—")
         if "category" in df_table.columns:
             df_table["category"] = df_table["category"].fillna("other")
 
-        # Добавляем hl=ru к URL карт
-        df_table["google_maps_url"] = df_table["google_maps_url"].apply(add_hl_ru)
+        df_table["website"] = df_table["website"].apply(normalize_url_for_table)
+        df_table["google_maps_url"] = df_table["google_maps_url"].apply(add_hl_ru).apply(normalize_url_for_table)
+        df_table["yandex_maps_url"] = df_table["yandex_maps_url"].apply(normalize_url_for_table)
+        df_table["two_gis_url"] = df_table["two_gis_url"].apply(normalize_url_for_table)
 
-        # Формируем названия колонок
-        col_rename = {
-            "id": "ID",
-            "name": "Название",
-            "category": "Категория",
-            "google_rating": "Рейтинг",
-            "reviews_count": "Отзывы",
-            "tech_score": "Score",
-            "website": "Сайт",
-            "google_maps_url": "Карты",
-            "status": "Статус",
-            "content_status": "Контент",
-        }
-        df_table = df_table.rename(columns=col_rename)
+        df_table = df_table.rename(
+            columns={
+                "id": "ID",
+                "name": "Название",
+                "category": "Категория",
+                "google_rating": "Рейтинг",
+                "reviews_count": "Отзывы",
+                "tech_score": "Score",
+                "website": "Сайт",
+                "google_maps_url": "Карты",
+                "status": "Статус",
+                "content_status": "Контент",
+                "yandex_status": "Яндекс",
+                "yandex_maps_url": "Я.Maps",
+                "two_gis_url": "2GIS",
+            }
+        )
 
-        # Чистая таблица без интерактивности — ничего не прыгает
         st.dataframe(
             df_table,
             use_container_width=True,
@@ -600,329 +677,242 @@ def main():
             column_config={
                 "Сайт": st.column_config.LinkColumn("Сайт", width="small"),
                 "Карты": st.column_config.LinkColumn("Карты", width="small"),
+                "Я.Maps": st.column_config.LinkColumn("Я.Maps", width="small"),
+                "2GIS": st.column_config.LinkColumn("2GIS", width="small"),
                 "Название": st.column_config.TextColumn("Название", width="large"),
                 "Категория": st.column_config.TextColumn("Категория", width="small"),
                 "Score": st.column_config.TextColumn("Score", width="small"),
                 "Статус": st.column_config.TextColumn("Статус", width="small"),
                 "Контент": st.column_config.TextColumn("Контент", width="small"),
+                "Яндекс": st.column_config.TextColumn("Яндекс", width="small"),
                 "Рейтинг": st.column_config.TextColumn("Рейтинг", width="small"),
                 "Отзывы": st.column_config.NumberColumn("Отзывы", width="small"),
                 "ID": st.column_config.NumberColumn("ID", width="small"),
-            }
+            },
         )
 
-        st.markdown("---")
-        st.subheader("🎨 Gemma Content Curator")
+        c1, c2 = st.columns([3, 1])
+        with c1:
+            table_selected_label = st.selectbox("Открыть лид в конвейере:", options=lead_options, key="base_lead_selector")
+        with c2:
+            if st.button("➡ Перейти", use_container_width=True):
+                st.session_state["selected_lead_id"] = int(table_selected_label.split(" — ")[0])
+                st.success("Лид выбран. Перейдите на вкладку «🎨 Контент-конвейер»")
 
-        unprocessed_ids = [
-            (int(row["id"]), str(row.get("name", "")))
-            for _, row in df_filtered.iterrows()
-            if not get_curated_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists()
-        ]
-        curated_count = len(df_filtered) - len(unprocessed_ids)
+    with tab_pipeline:
+        selected_idx = next(
+            (i for i, lbl in enumerate(lead_options) if int(lbl.split(" — ")[0]) == int(st.session_state["selected_lead_id"])),
+            0,
+        )
+        selected_label = st.selectbox(
+            "Выбрать лида для работы:",
+            options=lead_options,
+            index=selected_idx,
+            key="pipeline_lead_selector",
+        )
+        selected_lead_id = int(selected_label.split(" — ")[0])
+        st.session_state["selected_lead_id"] = selected_lead_id
 
-        batch_col, stat_col = st.columns([2, 3])
-        with stat_col:
-            st.caption(f"📊 Обработано **{curated_count}** из **{len(df_filtered)}** лидов")
-        with batch_col:
-            if st.button(
-                f"🚀 Курировать всех необработанных ({len(unprocessed_ids)})",
-                key="curate_all_btn",
-                type="primary",
-                disabled=len(unprocessed_ids) == 0,
-                use_container_width=True,
-            ):
-                prog_placeholder = st.empty()
-                prog_bar = st.progress(0)
-                done = 0
-                for lid, lname in unprocessed_ids:
-                    prog_placeholder.write(
-                        f"Обрабатываю: **{lname}** (ID={lid}) — {done + 1}/{len(unprocessed_ids)}"
-                    )
-                    ok_batch, _ = run_gemma_curator(lid)
-                    if ok_batch:
-                        st.session_state.pop(f"curator_error_{lid}", None)
-                    else:
-                        st.session_state[f"curator_error_{lid}"] = "Ошибка при batch-курации"
-                    done += 1
-                    prog_bar.progress(done / len(unprocessed_ids))
-                prog_placeholder.empty()
-                prog_bar.empty()
-                st.success(f"✅ Обработано {done} из {len(unprocessed_ids)} лидов")
-                st.rerun()
+        selected_row = df_filtered[df_filtered["id"].astype(int) == selected_lead_id].iloc[0]
+        selected_name = str(selected_row.get("name", f"Lead {selected_lead_id}"))
+        selected_curated_path = get_curated_file_path(selected_name, selected_lead_id)
+        selected_ya_path = get_yandex_file_path(selected_name, selected_lead_id)
+        selected_ya_url = get_yandex_maps_url(selected_name, selected_lead_id)
 
-        lead_select_options = [
-            f"{int(row['id'])} — {row['name']}"
-            for _, row in df_filtered.iterrows()
-        ]
+        yandex_rating = "—"
+        if selected_ya_path.exists():
+            try:
+                with open(selected_ya_path, "r", encoding="utf-8") as f:
+                    yandex_rating = (json.load(f).get("yandex", {}) or {}).get("rating") or "—"
+            except Exception:
+                yandex_rating = "—"
 
-        if lead_select_options:
-            selected_label = st.selectbox(
-                "Открыть лид:",
-                options=lead_select_options,
-                key="curator_lead_selector",
-            )
-            sel_lead_id = int(selected_label.split(" — ")[0])
-            sel_lead_row = df_filtered[df_filtered["id"].astype(int) == sel_lead_id].iloc[0]
-            sel_lead_name = str(sel_lead_row.get("name", f"Lead {sel_lead_id}"))
-            sel_curated_path = get_curated_file_path(sel_lead_name, sel_lead_id)
-            content_exists = sel_curated_path.exists()
+        st.markdown("### 🧾 Карточка лида")
+        m1, m2, m3, m4 = st.columns(4)
+        with m1:
+            st.metric("Название", selected_name)
+        with m2:
+            google_val = selected_row.get("google_rating")
+            st.metric("Рейтинг Google", f"⭐ {google_val:.1f}" if pd.notna(google_val) else "—")
+        with m3:
+            st.metric("Рейтинг Яндекс", f"⭐ {yandex_rating}" if yandex_rating != "—" else "—")
+        with m4:
+            st.metric("Телефон", selected_row.get("phone") or "—")
+        st.caption(f"📍 {selected_row.get('address') or '—'}")
 
-            st.caption(f"Файл: `{sel_curated_path}`")
+        audit_status = "🟢 Аудит" if pd.notna(selected_row.get("tech_score")) else "⚪ Аудит"
+        content_status = get_content_status(selected_name, selected_lead_id)
+        yandex_status = get_yandex_status(selected_name, selected_lead_id)
+        pitch_status = "🟢 Питч" if pd.notna(selected_row.get("pitch_text")) and str(selected_row.get("pitch_text")).strip() else "⚪ Питч"
+        st.markdown(f"{audit_status}  |  🎨 {content_status}  |  🗺 {yandex_status}  |  ✉ {pitch_status}")
 
+        links = []
+        if selected_row.get("website"):
+            links.append(f"[🌐 Сайт]({selected_row.get('website')})")
+        if selected_row.get("google_maps_url"):
+            links.append(f"[🗺 Google]({add_hl_ru(str(selected_row.get('google_maps_url')))})")
+        if selected_ya_url:
+            links.append(f"[🧭 Я.Maps]({selected_ya_url})")
+        if selected_row.get("address"):
+            links.append(f"[📍 2GIS](https://2gis.ru/search/{urllib.parse.quote_plus(str(selected_row.get('address')))})")
+        if links:
+            st.markdown(" | ".join(links))
+
+        with st.expander("🎨 Curator", expanded=False):
+            st.caption(f"Файл: `{selected_curated_path}`")
+            content_exists = selected_curated_path.exists()
             if content_exists:
-                btn_view_col, btn_regen_col = st.columns(2)
-                with btn_view_col:
-                    if st.button("👁 Просмотреть контент", key="curator_view_btn", use_container_width=True):
-                        st.session_state["curator_show_content"] = sel_lead_id
-                with btn_regen_col:
-                    if st.button("🔄 Перегенерировать", key="curator_regen_btn", use_container_width=True):
+                cv1, cv2 = st.columns(2)
+                with cv1:
+                    if st.button("👁 Просмотреть контент", key="curator_view_btn_single", use_container_width=True):
+                        st.session_state["curator_show_content"] = selected_lead_id
+                with cv2:
+                    if st.button("🔄 Перегенерировать", key="curator_regen_btn_single", use_container_width=True):
                         try:
-                            sel_curated_path.unlink(missing_ok=True)
+                            selected_curated_path.unlink(missing_ok=True)
                         except Exception as exc:
                             st.error(f"❌ Не удалось удалить JSON: {exc}")
                         else:
-                            ok_regen, out_regen = run_gemma_curator_with_status(sel_lead_id)
+                            ok_regen, out_regen = run_gemma_curator_with_status(selected_lead_id)
                             if ok_regen:
-                                st.session_state.pop(f"curator_error_{sel_lead_id}", None)
-                                st.session_state["curator_show_content"] = sel_lead_id
+                                st.session_state.pop(f"curator_error_{selected_lead_id}", None)
+                                st.session_state["curator_show_content"] = selected_lead_id
                             else:
-                                st.session_state[f"curator_error_{sel_lead_id}"] = out_regen or "Ошибка"
+                                st.session_state[f"curator_error_{selected_lead_id}"] = out_regen or "Ошибка"
                             st.rerun()
             else:
-                if st.button(
-                    "🎨 Курировать через Гемму",
-                    key="curator_curate_btn",
-                    type="primary",
-                ):
-                    ok_cur, out_cur = run_gemma_curator_with_status(sel_lead_id)
+                if st.button("🎨 Курировать через Гемму", key="curator_curate_btn_single", type="primary"):
+                    ok_cur, out_cur = run_gemma_curator_with_status(selected_lead_id)
                     if ok_cur:
-                        st.session_state.pop(f"curator_error_{sel_lead_id}", None)
-                        st.session_state["curator_show_content"] = sel_lead_id
+                        st.session_state.pop(f"curator_error_{selected_lead_id}", None)
+                        st.session_state["curator_show_content"] = selected_lead_id
                     else:
-                        st.session_state[f"curator_error_{sel_lead_id}"] = out_cur or "Ошибка"
+                        st.session_state[f"curator_error_{selected_lead_id}"] = out_cur or "Ошибка"
                     st.rerun()
-
-            if st.session_state.get(f"curator_error_{sel_lead_id}"):
-                with st.expander("❌ Последняя ошибка курации"):
-                    st.code(
-                        st.session_state[f"curator_error_{sel_lead_id}"][:3000],
-                        language="",
-                    )
-
-            if st.session_state.get("curator_show_content") == sel_lead_id and content_exists:
+            if st.session_state.get(f"curator_error_{selected_lead_id}"):
+                st.code(st.session_state[f"curator_error_{selected_lead_id}"][:3000], language="")
+            if st.session_state.get("curator_show_content") == selected_lead_id and content_exists:
                 try:
-                    with open(sel_curated_path, "r", encoding="utf-8") as f:
-                        curated = json.load(f)
-                    render_curated_content(curated, sel_lead_id)
+                    with open(selected_curated_path, "r", encoding="utf-8") as f:
+                        render_curated_content(json.load(f), selected_lead_id)
                 except Exception as exc:
                     st.error(f"❌ Ошибка чтения curated JSON: {exc}")
 
-        st.divider()
-
-        # --- Селектор для выбора компании с питчем ---
-        pitched_companies = df_filtered[
-            df_filtered["pitch_text"].notna() & (df_filtered["pitch_text"] != "")
-        ].copy()
-
-        if not pitched_companies.empty:
-            company_options = pitched_companies["name"].tolist()
-            # Сбрасываем селектор при изменении фильтров
-            if "selected_company" not in st.session_state:
-                st.session_state["selected_company"] = company_options[0]
-
-            selected_company = st.selectbox(
-                "📬 Выберите компанию для просмотра питча:",
-                options=company_options,
-                index=company_options.index(st.session_state["selected_company"])
-                if st.session_state["selected_company"] in company_options
-                else 0,
-                key="pitch_selector"
-            )
-
-            # Сохраняем выбор
-            st.session_state["selected_company"] = selected_company
-
-            # Находим выбранную строку
-            selected_row = pitched_companies[pitched_companies["name"] == selected_company].iloc[0]
-            pitch_text = selected_row["pitch_text"]
-            score = selected_row["tech_score"]
-
-            # Информация о компании
-            score_icon = "❌" if pd.notna(score) and score < 50 else "⚠️" if pd.notna(score) and score < 80 else "✅"
-            st.subheader(f"📬 Питч для: {selected_company}")
-            maps_url = add_hl_ru(selected_row['google_maps_url']) if pd.notna(selected_row['google_maps_url']) and selected_row['google_maps_url'] else None
-            maps_link = f"[📍 Карты]({maps_url})" if maps_url else "📍 Карты: —"
-            st.markdown(
-                f"**Score:** {score_icon} {int(score) if pd.notna(score) else '—'}  |  "
-                f"**Рейтинг:** ⭐ {selected_row['google_rating']:.1f}  |  "
-                f"**Сайт:** {selected_row['website'] or '—'}  |  "
-                f"{maps_link}"
-            )
-
-            # --- Контакты (email, соцсети) ---
-            contacts_parts = []
-
-            # Email
-            emails_raw = selected_row.get("emails")
-            if pd.notna(emails_raw) and emails_raw:
-                try:
-                    emails_list = json.loads(emails_raw)
-                    if emails_list:
-                        emails_display = ", ".join(emails_list)
-                        contacts_parts.append(f"📧 **Email:** {emails_display}")
-                except (json.JSONDecodeError, TypeError):
-                    pass
-
-            # Соцсети
-            social_raw = selected_row.get("social_links")
-            if pd.notna(social_raw) and social_raw:
-                try:
-                    social_dict = json.loads(social_raw)
-                    if social_dict:
-                        social_parts = []
-                        for platform, urls in social_dict.items():
-                            icon = "📱"
-                            if platform == "telegram":
-                                icon = "✈️"
-                            elif platform == "whatsapp":
-                                icon = "💬"
-                            for u in urls:
-                                social_parts.append(f"{icon} [{platform}]({u})")
-                        contacts_parts.append(" **Соцсети:** " + "  ".join(social_parts))
-                except (json.JSONDecodeError, TypeError):
-                    pass
-
-            if contacts_parts:
-                st.markdown("  \n".join(contacts_parts))
-
-            st.divider()
-
-            # Полный питч в text_area — легко выделить и скопировать
-            # ВАЖНО: без key! Иначе Streamlit кэширует значение в session_state
-            # и при смене компании текст питча не обновляется
-            st.text_area(
-                "Текст питча:",
-                value=pitch_text,
-                height=300,
-                label_visibility="collapsed"
-            )
-
-            # --- Транспортный узел: кнопки быстрой отправки ---
-            st.markdown("### 🚀 Отправить питч")
-            send_links = build_send_links(pitch_text, selected_row)
-
-            btn_col1, btn_col2, btn_col3 = st.columns(3)
-
-            with btn_col1:
-                if send_links.get("whatsapp"):
-                    st.link_button("💬 WhatsApp", send_links["whatsapp"], use_container_width=True)
-                else:
-                    st.caption("💬 WhatsApp: нет телефона")
-
-            with btn_col2:
-                if send_links.get("telegram"):
-                    st.link_button("✈️ Telegram", send_links["telegram"], use_container_width=True)
-                else:
-                    st.caption("✈️ Telegram: нет ссылки")
-
-            with btn_col3:
-                if send_links.get("email"):
-                    st.link_button("📧 Email", send_links["email"], use_container_width=True)
-                else:
-                    st.caption("📧 Email: нет почты")
-
-            # Кнопка перегенерации питча для конкретного лида
-            if st.button("🔄 Перегенерировать питч", key=f"regen_{selected_row['id']}"):
-                with st.spinner("🤖 Генерация нового варианта..."):
-                    try:
-                        from services.pitch_builder import generate_single_pitch
-                        result = generate_single_pitch(int(selected_row['id']))
-                        if result:
-                            st.success(f"✅ Новый питч для **{result['name']}** сгенерирован!")
-                            st.cache_resource.clear()
-                            st.rerun()
-                        else:
-                            st.error("❌ Не удалось сгенерировать питч")
-                    except Exception as e:
-                        st.error(f"❌ Ошибка: {e}")
-
-            # Кнопка генерации JSON сайта
-            st.markdown("---")
-            st.markdown("### 🌐 Генерация сайта")
-
-            # --- Селектор выбора лида для генерации сайта ---
-            all_leads_for_gen = df_filtered.copy()
-            if not all_leads_for_gen.empty:
-                lead_options = [
-                    f"{int(row['id'])} — {row['name']}" 
-                    for _, row in all_leads_for_gen.iterrows()
-                ]
-                
-                # Находим индекс текущего выбранного лида (по питчу)
-                current_lead_label = f"{int(selected_row['id'])} — {selected_row['name']}"
-                default_index = lead_options.index(current_lead_label) if current_lead_label in lead_options else 0
-                
-                selected_lead_label = st.selectbox(
-                    "🏢 Выберите лид для генерации сайта:",
-                    options=lead_options,
-                    index=default_index,
-                    key="site_gen_lead_selector"
-                )
-                
-                # Извлекаем ID выбранного лида
-                selected_lead_id = int(selected_lead_label.split(" — ")[0])
-                
-                # Обновляем selected_row на основе выбора из селектора
-                if selected_lead_id != int(selected_row['id']):
-                    gen_row = all_leads_for_gen[all_leads_for_gen["id"] == selected_lead_id].iloc[0]
-                else:
-                    gen_row = selected_row
-            else:
-                selected_lead_id = int(selected_row['id'])
-                gen_row = selected_row
-
-            # Проверяем, есть ли уже сгенерированный JSON
-            site_config_exists = pd.notna(gen_row.get('site_config_path')) and gen_row.get('site_config_path')
-            if site_config_exists and Path(str(gen_row['site_config_path'])).exists():
-                st.success(f"✅ JSON уже сгенерирован: `{gen_row['site_config_path']}`")
-                
-                # Показываем превью JSON
-                try:
-                    with open(str(gen_row['site_config_path']), 'r', encoding='utf-8') as f:
-                        config_data = json.load(f)
-                    with st.expander("📄 Просмотр JSON"):
-                        json_string = json.dumps(config_data, ensure_ascii=False, indent=2)
-                        st.code(json_string, language="json")
-                except Exception:
-                    pass
-            else:
-                if st.button("🌐 Сгенерировать сайт (JSON)", key=f"gen_site_{selected_lead_id}"):
-                    with st.spinner("🤖 Генерация JSON конфигурации сайта..."):
+        with st.expander("🗺 Yandex", expanded=False):
+            st.caption(f"Файл: `{selected_ya_path}`")
+            ya_exists = selected_ya_path.exists()
+            if ya_exists:
+                yv1, yv2 = st.columns(2)
+                with yv1:
+                    if st.button("👁 Просмотреть данные Яндекс", key="ya_view_btn_single", use_container_width=True):
+                        st.session_state["ya_show_data"] = selected_lead_id
+                with yv2:
+                    if st.button("🔄 Перегенерировать", key="ya_regen_btn_single", use_container_width=True):
                         try:
-                            from services.site_config_generator import generate_site_config
-                            # Загружаем данные скрейпинга если есть
-                            scraped_data = load_scraped_data_for_lead(selected_lead_id)
-                            result = generate_site_config(selected_lead_id, scraped_data)
+                            selected_ya_path.unlink(missing_ok=True)
+                        except Exception as ya_exc:
+                            st.error(f"❌ Не удалось удалить JSON: {ya_exc}")
+                        else:
+                            ok_ya_r, out_ya_r = run_yandex_enricher(selected_lead_id)
+                            if not ok_ya_r:
+                                st.session_state[f"ya_error_{selected_lead_id}"] = out_ya_r or "Ошибка"
+                            st.rerun()
+            else:
+                if st.button("🗺 Обогатить с Яндекса", key="ya_enrich_btn_single", type="primary"):
+                    ok_ya_s, out_ya_s = run_yandex_enricher(selected_lead_id)
+                    if not ok_ya_s:
+                        st.session_state[f"ya_error_{selected_lead_id}"] = out_ya_s or "Ошибка"
+                    st.rerun()
+            if st.session_state.get(f"ya_error_{selected_lead_id}"):
+                st.code(st.session_state[f"ya_error_{selected_lead_id}"][:3000], language="")
+            if st.session_state.get("ya_show_data") == selected_lead_id and ya_exists:
+                try:
+                    with open(selected_ya_path, "r", encoding="utf-8") as f:
+                        render_yandex_data(json.load(f), selected_lead_id)
+                except Exception as exc:
+                    st.error(f"❌ Ошибка чтения Yandex JSON: {exc}")
+
+        with st.expander("✉ Pitch", expanded=False):
+            pitch_text = str(selected_row.get("pitch_text") or "").strip()
+            if not pitch_text:
+                st.info("📭 Для этого лида пока нет питча. Запустите Нейро-Сценариста в боковой панели.")
+            else:
+                score = selected_row.get("tech_score")
+                score_icon = "❌" if pd.notna(score) and score < 50 else "⚠️" if pd.notna(score) and score < 80 else "✅"
+                maps_url = add_hl_ru(selected_row["google_maps_url"]) if pd.notna(selected_row.get("google_maps_url")) and selected_row.get("google_maps_url") else None
+                maps_link = f"[📍 Карты]({maps_url})" if maps_url else "📍 Карты: —"
+                rating_value = selected_row.get("google_rating")
+                rating_text = f"⭐ {rating_value:.1f}" if pd.notna(rating_value) else "—"
+                st.markdown(
+                    f"**Score:** {score_icon} {int(score) if pd.notna(score) else '—'}  |  "
+                    f"**Рейтинг:** {rating_text}  |  "
+                    f"**Сайт:** {selected_row.get('website') or '—'}  |  {maps_link}"
+                )
+                st.text_area("Текст питча:", value=pitch_text, height=260, label_visibility="collapsed")
+
+                send_links = build_send_links(pitch_text, selected_row)
+                pb1, pb2, pb3 = st.columns(3)
+                with pb1:
+                    if send_links.get("whatsapp"):
+                        st.link_button("💬 WhatsApp", send_links["whatsapp"], use_container_width=True)
+                    else:
+                        st.caption("💬 WhatsApp: нет телефона")
+                with pb2:
+                    if send_links.get("telegram"):
+                        st.link_button("✈️ Telegram", send_links["telegram"], use_container_width=True)
+                    else:
+                        st.caption("✈️ Telegram: нет ссылки")
+                with pb3:
+                    if send_links.get("email"):
+                        st.link_button("📧 Email", send_links["email"], use_container_width=True)
+                    else:
+                        st.caption("📧 Email: нет почты")
+
+                if st.button("🔄 Перегенерировать питч", key=f"regen_{selected_lead_id}"):
+                    with st.spinner("🤖 Генерация нового варианта..."):
+                        try:
+                            from services.pitch_builder import generate_single_pitch
+                            result = generate_single_pitch(int(selected_lead_id))
                             if result:
-                                st.success(f"✅ JSON сайта сгенерирован для **{result['name']}**!")
-                                st.info(f"📁 Файл: `{result['file_path']}`")
-                                
-                                # Показываем превью
-                                with st.expander("📄 Просмотр JSON"):
-                                    json_string = json.dumps(result['config'], ensure_ascii=False, indent=2)
-                                    st.code(json_string, language="json")
-                                
+                                st.success(f"✅ Новый питч для **{result['name']}** сгенерирован!")
                                 st.cache_resource.clear()
                                 st.rerun()
                             else:
-                                st.error("❌ Не удалось сгенерировать JSON сайта")
+                                st.error("❌ Не удалось сгенерировать питч")
                         except Exception as e:
                             st.error(f"❌ Ошибка: {e}")
 
-            st.markdown("*💡 Выделите текст мышкой выше и скопируйте через Ctrl+C*")
-        else:
-            st.info("📭 У выбранных компаний ещё нет сгенерированных питчей. Запустите **Нейро-Сценариста** в боковой панели.")
+                st.markdown("### 🌐 Генерация сайта")
+                site_config_exists = pd.notna(selected_row.get("site_config_path")) and selected_row.get("site_config_path")
+                if site_config_exists and Path(str(selected_row["site_config_path"])).exists():
+                    st.success(f"✅ JSON уже сгенерирован: `{selected_row['site_config_path']}`")
+                    try:
+                        with open(str(selected_row["site_config_path"]), "r", encoding="utf-8") as f:
+                            config_data = json.load(f)
+                        with st.expander("📄 Просмотр JSON"):
+                            st.code(json.dumps(config_data, ensure_ascii=False, indent=2), language="json")
+                    except Exception:
+                        pass
+                else:
+                    if st.button("🌐 Сгенерировать сайт (JSON)", key=f"gen_site_{selected_lead_id}"):
+                        with st.spinner("🤖 Генерация JSON конфигурации сайта..."):
+                            try:
+                                from services.site_config_generator import generate_site_config
+                                scraped_data = load_scraped_data_for_lead(selected_lead_id)
+                                result = generate_site_config(selected_lead_id, scraped_data)
+                                if result:
+                                    st.success(f"✅ JSON сайта сгенерирован для **{result['name']}**!")
+                                    st.info(f"📁 Файл: `{result['file_path']}`")
+                                    with st.expander("📄 Просмотр JSON"):
+                                        st.code(json.dumps(result["config"], ensure_ascii=False, indent=2), language="json")
+                                    st.cache_resource.clear()
+                                    st.rerun()
+                                else:
+                                    st.error("❌ Не удалось сгенерировать JSON сайта")
+                            except Exception as e:
+                                st.error(f"❌ Ошибка: {e}")
+
+                st.markdown("*💡 Выделите текст мышкой выше и скопируйте через Ctrl+C*")
 
 
 # --- Sidebar (Панель управления) ---

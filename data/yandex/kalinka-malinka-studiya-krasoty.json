@@ -1,0 +1,92 @@
+{
+  "lead_id": 58,
+  "lead_name": "Калинка-Малинка студия красоты",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/kalinka_malinka/37303361445/",
+    "rating": 5.0,
+    "reviews_count": 128,
+    "reviews_list": [
+      {
+        "author": "Розовый Слоненок",
+        "text": "Была у мастеров на макияж и прическу в 4 руки. Премиум образ услуга. Мастер Алина по макияжу, по прическе не помню, к сожалению. Мне ОЧЕНЬ понравилось!!!! Столько комплиментов было!!! Мужчина мой мне сделал комплименты, но спустя пару дней услышала как он…",
+        "rating": null,
+        "date": "21 июля 2025",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Розовый Слоненок",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Анна Шашкова",
+        "text": "Лучшая студия в Брянске Делаю здесь макияж, прически, маникюр и педикюр уже много лет Девочки всегда делают все идеально, я никогда не переживаю за свой образ",
+        "rating": null,
+        "date": "29 декабря 2024",
+        "source": "yandex"
+      },
+      {
+        "author": "Мия миу",
+        "text": "Делала макияж на свадьбу у Алины и прическу у Татьяны. Очень приятные девушки. Макияж продержался отлично,и очень понравился. А вот прическа подвела,хотя очень сильно понравилась . Делала Мальвинку,все очень…",
+        "rating": null,
+        "date": "20 августа 2025",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/14402637/2a00000191d4f16ae1bd557240612b96237e/S",
+      "https://avatars.mds.yandex.net/get-altay/14185024/2a000001938b2a75bd93ebbb6e75e8ea6123/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/15032884/2a0000019628d60927f676a21f21ec785ef0/XXL_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/2808945/2a00000190b033db9acdcb82d93ed3f63e67/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/2808945/2a00000194a832f325646035bd92e975e68f/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/5280674/2a00000190b030214e5a23e95cd5511fdbdb/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/13672565/2a00000194abd4ccc1742dfcdbab88669c1c/M_height",
+      "https://avatars.mds.yandex.net/get-altay/14021354/2a0000019411a59dbab87384bb4f74f76e56/S",
+      "https://avatars.mds.yandex.net/get-altay/14094067/2a0000019411a59cbca5718a3c19c8b652d3/S"
+    ],
+    "services": [
+      {
+        "name": "Маникюр + укрепление гелем",
+        "price": "200 ₽"
+      },
+      {
+        "name": "Свадебный макияж варьируется от до 6000р",
+        "price": "4000 ₽"
+      },
+      {
+        "name": "варьируется от до 6000р",
+        "price": "4000 ₽"
+      },
+      {
+        "name": "Причёски ВЫПОЛНЯЕТСЯ НА ЧИСТЫЕ ВЫМЫТЫЕ ВАМИ ВОЛОСЫ",
+        "price": "4500 ₽"
+      },
+      {
+        "name": "Оформление бровей1",
+        "price": "1400 ₽"
+      },
+      {
+        "name": "Вечерний макияж варьируется от до 5000р",
+        "price": "3500 ₽"
+      },
+      {
+        "name": "варьируется от до 5000р",
+        "price": "3500 ₽"
+      }
+    ],
+    "address": "Брянск, Советская ул., 122",
+    "phones": [
+      "80583514662",
+      "+7 910 034 43 88",
+      "+7 (910) 034-43-88"
+    ],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "additional_addresses": [],
+    "scraped_at": "2026-04-27 03:12:36"
+  },
+  "merged_reviews_count": 17
+}

@@ -1,0 +1,57 @@
+{
+  "lead_id": 41,
+  "lead_name": "Студия красоты CHIC",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/",
+    "rating": 5.0,
+    "reviews_count": 438,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Это место действительно волшебное ✨✨✨ С самого момента входа в спа салон ощущается атмосфера спокойствия и умиротворения. Каждый элемент интерьера продуман до мелочей, создавая ощущение уюта и расслабления…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Спасибо специалисту Ирине. Был 26.04.2026 на расслабляющие массаже 2 часа. Ирина отличный мастер. Профессионально, деликатно, так как нужно делать расслабляющий массаж. Рекомендую и сам салон и мастера",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "23.02.26 побывали в г.Брянск, Посетила Спа комплекс Резиденция Wellness, осталась очень довольна. Останавливались в цете города и важно найти было себе развлечение в шаговой доступности. Комплекс расположен близко к центральной площади, внутри всё очень красиво.…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/19547455/2a0000019d290cbc323b4937bafeb809e7d7/S",
+      "https://avatars.mds.yandex.net/get-altay/1554359/2a00000169fd722adcb8dff8e7ae2932e9f1/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/1879929/2a00000169fd7260f99bf9455d4e5b0b536f/XXL_height",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/9761215/2a0000018d3272d4958ff2733bf337984aca/M_height",
+      "https://avatars.mds.yandex.net/get-altay/1868686/2a0000016a3fe2e981056ddbd289bff476c8/M_height",
+      "https://avatars.mds.yandex.net/get-altay/6236523/2a0000017f267c9d0b597a4a8ab2d03cbfcc/M_height",
+      "https://avatars.mds.yandex.net/get-altay/17753003/2a0000019cd6fd90bc4f3c2c11b896e4869d/S",
+      "https://avatars.mds.yandex.net/get-altay/18101536/2a0000019cd6fd74f9bebafa61f2a358122b/S",
+      "https://avatars.mds.yandex.net/get-altay/18107333/2a0000019cd6fd708459062dc4faf2ce1590/S",
+      "https://avatars.mds.yandex.net/get-altay/18111423/2a0000019cd6fd978f5e656fff6ade0aca8c/S",
+      "https://avatars.mds.yandex.net/get-altay/18134977/2a0000019cd6fd87cbce7e940d99beaff438/S",
+      "https://avatars.mds.yandex.net/get-altay/18754568/2a0000019cd6fd816470001d54630c62b7a4/S",
+      "https://avatars.mds.yandex.net/get-altay/20011141/2a0000019cd6fd7b0c6e9fce7471d832d8d2/S",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Пролетарская ул., 15",
+    "phones": [],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "https://residenc.ru/",
+    "scraped_at": "2026-04-27 02:23:44"
+  },
+  "merged_reviews_count": 3
+}

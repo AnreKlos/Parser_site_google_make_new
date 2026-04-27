@@ -1,0 +1,47 @@
+{
+  "lead_id": 25,
+  "lead_name": "Кристина, Салон Красоты",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/kristina/1789833754/",
+    "rating": 4.4,
+    "reviews_count": 94,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Впервые посетил это место в конце декабря 2024 - перед Новым годом . Стригла меня владелица салона ( Кристина ) . Очень классное обслуживание , милая беседа и шикарная стрижка . В январе решил посетить это место еще раз , но на этот раз стригла…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "После смены коллектива стригут как зря, особенно новая Саша, которая постригла за 20 минут, ничего не подровняла и взяли у меня за это 600 рублей! Стригся здесь с 2016 года постоянно, но теперь вообще не приду",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Девчонки-парикмахеры с опытом работы. Видно что идут в ногу с молодёжью и знают и могут посоветовать по стрижке. У меня 2 ребенка и у них постоянно меняются запросы на стрижку, так без проблем можно довериться парикмахеру Галине и Александре в…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/1426646/2a0000016998f4e2d53fc7919969b71b18ad/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/4265086/2a00000182a7a14b12e1335be012e6ba99d7/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/8093564/2a000001849097ff837acebe790ae78eb05d/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/8093564/2a000001849097ff837acebe790ae78eb05d/S",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Московский просп., 20",
+    "phones": [],
+    "working_hours": "Больше не работает",
+    "website": "",
+    "scraped_at": "2026-04-27 02:27:51"
+  },
+  "merged_reviews_count": 6
+}

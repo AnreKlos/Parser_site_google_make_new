@@ -1,0 +1,39 @@
+{
+  "lead_id": 50,
+  "lead_name": "Скарлетт",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/parikmakherskaya_skarlett/1049932444/",
+    "rating": 4.1,
+    "reviews_count": 31,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Очень уютная парикмахерская у дома. Удобно, можно позвонить, если свободно, то быстро приехать. Мастера всегда очень хорошие. Цены демократичные. Есть все, что нужно",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "На самом деле одна из тысячи обычных парикмахерских. Цены завышены примерно на 30-40 прпоцентов, качество среднее. На входе сидит ОЧЕНЬ не приветливая администратор, она же рычит клиентам по телефону. Впечатление негативное. Рядом есть другая парикмахерская, так вот, то…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/4587805/2a0000017758b820d25752bc130e4e7a3e0b/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/9761215/2a0000018c199f9a5ce7ede4fd25957a216f/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/10879408/2a0000019207448e49c14cf3dfd55977708f/XXL_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Чебоксары, Московский просп., 20",
+    "phones": [],
+    "working_hours": "Больше не работает",
+    "website": "",
+    "scraped_at": "2026-04-27 02:21:59"
+  },
+  "merged_reviews_count": 2
+}

@@ -1,0 +1,58 @@
+{
+  "lead_id": 17,
+  "lead_name": "Имидж",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/salon_krasoty_imidzh/1020754392/",
+    "rating": 4.5,
+    "reviews_count": 107,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Не советую мастера Людмилу! Просто потому что она безответственная! Имейте ввиду, что вы можете придти в салон на стрижку, а её не будет. И даже не позвонила, не извинилась что у неё там что-то приключилось. Я понимаю, все мы люди, но можно позвонить??!! А потом мастера пишут гадости, что клиенты не добросовестные, а сами то?!",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Отличный салон. Хожу туда уже более 5ти лет на брови к косметологу Наталье Викторовне, всегда довольна результатом. Чистота, комфорт, приятная беседа и индивидуальный подход к каждому клиенту",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Наталья Мисникова",
+        "text": "Очень доброжелательный персонал и просто потрясающий солярий, где лампы постоянно меняют, не смотря на это очень приятный ценник!!!",
+        "rating": null,
+        "date": "27 июня 2025",
+        "source": "yandex"
+      },
+      {
+        "author": "Наталья Мисникова",
+        "text": "Очень доброжелательный персонал и просто потрясающий солярий, где лампы постоянно меняют, не смотря на это очень приятный ценник!!!",
+        "rating": null,
+        "date": "27 июня 2025",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/939994/2a000001628771e0de363242acb4fc8de2f4/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/1020917/2a000001628771ef35877f314dad69eb28f1/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/939994/2a000001628771f6677b9149cdbbde7111af/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/2816622/2a000001741ffed4b6007298a7bd9d3ac2b7/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/9829646/2a00000191a778c023676d08887aab1fb9ef/M_height",
+      "https://avatars.mds.yandex.net/get-altay/16243748/2a000001987e77f34c8099abadbcaff68eb4/M_height",
+      "https://avatars.mds.yandex.net/get-altay/1554359/2a00000169fd722adcb8dff8e7ae2932e9f1/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Московский просп., 18Б",
+    "phones": [],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:31:14"
+  },
+  "merged_reviews_count": 6
+}

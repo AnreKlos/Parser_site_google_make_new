@@ -1,0 +1,48 @@
+{
+  "lead_id": 92,
+  "lead_name": "Шик",
+  "city": "пр. Станке Димитрова",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/shik/1311939520/",
+    "rating": 4.3,
+    "reviews_count": 177,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Посещаю данный салон на протяжении нескольких лет . Недавно попробовала наращивание ресниц у мастера Даши , очень понравилось учитывая , что ресницы очень сложные ! Сделала работу за 2,5 часа очень аккуратно (3д)И цена очень доступная.Мелирование и окрашивание…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Спасибо Дарье за наращивание ресниц. Пока делает долго ( как рассказывала делала перерыв, поэтому и цена небольшая). Но очень внимательная и работы качественные. Прихожу уже второй раз. По носке больше месяца (потом делаем коррекцию)",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Прекрасное качественное место, ходила туда в солярий, приятный персонал, и адекватные цены А главное что это единственный солярий от которого действительно есть эффект буквально за первую…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/2363990/2a0000017b1d1330e65b3aace3849adc639c/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/879259/2a00000161c2381d274832ad5879dc462779/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/16411237/2a0000019c8e1682007824a31c0e6e8f614d/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/9237948/2a00000189a79f8a54b19e0c705ebbf11bd4/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, просп. Станке Димитрова, 67",
+    "phones": [],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:21:19"
+  },
+  "merged_reviews_count": 3
+}

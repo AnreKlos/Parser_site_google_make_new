@@ -1,0 +1,40 @@
+{
+  "lead_id": 64,
+  "lead_name": "Косметология",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/ng_balans/144051791502/gallery/",
+    "rating": null,
+    "reviews_count": 1,
+    "reviews_list": [],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/15231053/2a000001956bc2f68db8ac62a658209dab7a/XXXL",
+      "https://avatars.mds.yandex.net/get-altay/15148849/2a000001957f4894f6913f0d372c46c4cb8c/XXXL",
+      "https://avatars.mds.yandex.net/get-vh/14919272/2a0000019ab5626488e89143554643da5374/smart_crop_500x500",
+      "https://avatars.mds.yandex.net/get-vh/13749859/2a0000019ab561efa672976493d482a25194/smart_crop_500x500",
+      "https://avatars.mds.yandex.net/get-altay/14297579/2a0000019735d1e6cd171ff8eeebbb085a01/XXXL",
+      "https://avatars.mds.yandex.net/get-vh/16277283/2a0000019ab55b17465574997b5361c6c017/smart_crop_500x500",
+      "https://avatars.mds.yandex.net/get-vh/13950505/2a0000019a6e86bc230a1060758d21caf37b/smart_crop_500x500",
+      "https://avatars.mds.yandex.net/get-vh/15065920/2a00000198f5ca86adbf0e6382536867521f/smart_crop_500x500",
+      "https://avatars.mds.yandex.net/get-vh/13590591/2a00000198f5cb5982d8f7074fa30b315f5d/smart_crop_500x500",
+      "https://avatars.mds.yandex.net/get-vh/15386257/2a00000196f793d45792aab8db302a243396/smart_crop_500x500",
+      "https://avatars.mds.yandex.net/get-vh/13303071/2a000001957f50359ecd4477850b446814f2/smart_crop_500x500",
+      "https://avatars.mds.yandex.net/get-altay/15366886/2a000001957f4972c8b5c5ee507313858a43/XXXL",
+      "https://avatars.mds.yandex.net/get-altay/15081387/2a000001958064810b155304e1a6a27c4052/XXXL",
+      "https://avatars.mds.yandex.net/get-altay/15383884/2a00000196f75818c814ebf45719c14b13db/XXXL",
+      "https://avatars.mds.yandex.net/get-altay/15586709/2a00000197d4bc29020083f2fc717253d16b/XXXL",
+      "https://avatars.mds.yandex.net/get-altay/18111128/2a0000019c751ee736a507b47ef9015342fb/XXXL",
+      "https://avatars.mds.yandex.net/get-altay/16480821/2a0000019b2bfc9f418d9aa889da87ca0022/XXXL",
+      "https://avatars.mds.yandex.net/get-altay/14584627/2a0000019735d59b83fb4b764cd017f3bb82/XXXL",
+      "https://avatars.mds.yandex.net/get-altay/16390227/2a00000197e5a69341018d9609c75c84c3cf/XXXL",
+      "https://avatars.mds.yandex.net/get-altay/15205167/2a0000019580634621a40cc08a5a66abdc5f/XXXL"
+    ],
+    "services": [],
+    "address": "",
+    "phones": [],
+    "working_hours": "",
+    "website": "",
+    "scraped_at": "2026-04-27 02:33:27"
+  },
+  "merged_reviews_count": 0
+}

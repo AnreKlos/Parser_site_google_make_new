@@ -1,0 +1,56 @@
+{
+  "lead_id": 60,
+  "lead_name": "Плаза",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/biznes_tsentr_plaza/1109672843/",
+    "rating": 4.4,
+    "reviews_count": 310,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Обычный бизнес центр, каких сейчас много. Переделали из одно из зданий завода Электросигнал, который сейчас уменьшился в разы. Хороший ремонт, офисы оборудованы кондиционерами, сами кабинеты достаточно просторные, уборка входит в аренду, на территории чистота…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Хороший офисный центр, парковка с шлагбаумом, охрана подскажет на какой этаж и какой кабинет вам нужен! Красота",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Отличное место для офиса, чисто, просторно, есть куда сходить на обед покушать, есть рядом магазины, есть где в пятницу попить пива)) небольшая проблема с парковкой, но место найти можно",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/481843/2a000001622bed6bcb74de48188d138e601e/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/5615085/2a0000017d0b7d9ec6db2e793cecac4d399f/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/5583647/2a0000017d0511c56cc0a9925e78d9e795f8/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/5098810/2a000001827cfdf714a8fd67743f20573b38/S_height",
+      "https://avatars.mds.yandex.net/get-altay/6221595/2a0000017f4ba8cc59f7cde7cb3c1b1fe423/S_height",
+      "https://avatars.mds.yandex.net/get-altay/16137047/2a00000197fea4e387dd48ceb98f6a4ad52e/S_height",
+      "https://avatars.mds.yandex.net/get-altay/14329771/2a00000194a6efa3e6bed43ae315d3865543/S_height",
+      "https://avatars.mds.yandex.net/get-altay/13477341/2a0000019049e7384af73f840196368dbe9a/S_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/ya-taxi-24.svg",
+      "https://avatars.mds.yandex.net/get-altay/18114977/2a0000019cdd30aeca5b0b4b55e731774446/M_height",
+      "https://avatars.mds.yandex.net/get-altay/224414/2a0000015c20f0c0debad135b1cd3c124428/M_height",
+      "https://avatars.mds.yandex.net/get-altay/13611210/2a00000191300eef2b5341a17826f0589789/M_height",
+      "https://avatars.mds.yandex.net/get-altay/5236021/2a0000017b5e2038fe236aef1d14af6b3793/S",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Воронеж, Московский просп., 7Е",
+    "phones": [],
+    "working_hours": "График работы не указан",
+    "website": "",
+    "scraped_at": "2026-04-27 02:32:22"
+  },
+  "merged_reviews_count": 3
+}

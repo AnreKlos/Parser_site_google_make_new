@@ -1,0 +1,44 @@
+{
+  "lead_id": 62,
+  "lead_name": "Красотка, салон красоты",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/krasotka/128248323984/",
+    "rating": 4.3,
+    "reviews_count": 174,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Очень странный администратор в данном салоне.Записалась на стрижку-по приезду сказали,что стричь не будут,долгое ожидание,по итогу администратор ушла без каких либо комментариев😁",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Хороший салон, очень нравится мастер Виктория, прекрасно стрижёт и укладывает волосы!! 🥰",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/1483503/2a000001677800c7c8c3a29b69236babcc2e/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/4303674/2a000001783ee699665b054253bfea8889b4/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/15389657/2a00000197f00932e36669bd89f0204400d9/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/15650736/2a0000019cdcf713b0627d80988c532e3ddd/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/16338459/2a000001992b9171ccfa049e3263bff46b67/M_height",
+      "https://avatars.mds.yandex.net/get-altay/920214/2a00000161fb05ceb602ad9de3c285dc923b/M_height",
+      "https://avatars.mds.yandex.net/get-altay/5615085/2a0000017e6c86af786e61d5e7069d7e1c7a/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Литейная ул., 68, корп. 2",
+    "phones": [],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:32:52"
+  },
+  "merged_reviews_count": 4
+}

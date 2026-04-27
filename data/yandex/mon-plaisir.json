@@ -1,0 +1,44 @@
+{
+  "lead_id": 22,
+  "lead_name": "Mon Plaisir",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/mon_plisir/221154436134/",
+    "rating": 4.3,
+    "reviews_count": 91,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Хочу поделиться своими впечатлениями от обучения по архитектуре бровей у Ларисы Алексеевны. Это просто восторг! Я получила колоссальный объем информации, настоящую выжимку из многолетнего опыта Ларисы Алексеевны – только самое главное, самое ценное, и даже…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Девочки! Посещаю ваш салон почти год. Хочу выразить вам огромную благодарность! У вас редкая и удивительная способность дарить женщинам радость, удовольствие и привлекательность. Хожу к вам с большим удовольствием! Атмосфера и интерьер- Супер! А мастера -…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/1363376/2a000001634f18288ba1a7c760e35aac0d1b/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/2094876/2a0000016d10fdab88840b1e2881332ecf51/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/14377326/2a0000019386fd9e37b64ce77a4983150bcc/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/2816622/2a000001741ffed4b6007298a7bd9d3ac2b7/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/9829646/2a00000191a778c023676d08887aab1fb9ef/M_height",
+      "https://avatars.mds.yandex.net/get-altay/18112381/2a0000019d3f0594b8b4bd1590c2869f1baa/M_height",
+      "https://avatars.mds.yandex.net/get-altay/2405086/2a000001761e2d045d122f33022b2e664347/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, ул. Челюскинцев, 11",
+    "phones": [],
+    "working_hours": "Закрыто до 9:30 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:28:30"
+  },
+  "merged_reviews_count": 2
+}

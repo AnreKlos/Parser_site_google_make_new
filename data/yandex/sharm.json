@@ -1,0 +1,44 @@
+{
+  "lead_id": 90,
+  "lead_name": "Шарм",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/sharm/1068977632/",
+    "rating": 4.3,
+    "reviews_count": 94,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Мне понравилось как администратор быстро подобрал окошко для записи. Мастер Людмила сделала мне классную стрижку. Мои волосы стали выглядеть гуще и очень красиво",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Добрый вечер. 4 ноября была записана на стрижку к мастеру Людмиле, пришла к определённому времени, дверь закрыта, салон 4 и 5 ноября закрыт по техническим причинам. Очень сильно была расстроена, что не предупредили, записывалась заранее",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/4509886/2a0000017758d3e845490f998b96d0697f45/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/1363018/2a00000162d459139cd07c6e103cbcc8c3b5/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/1371862/2a00000162d4591acde61a882891ccd35905/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/13594632/2a000001945568e07e78647fe572933de3a2/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/16338459/2a000001992b9171ccfa049e3263bff46b67/M_height",
+      "https://avatars.mds.yandex.net/get-altay/920214/2a00000161fb05ceb602ad9de3c285dc923b/M_height",
+      "https://avatars.mds.yandex.net/get-altay/18112381/2a0000019d3f0594b8b4bd1590c2869f1baa/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Литейная ул., 62",
+    "phones": [],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:34:44"
+  },
+  "merged_reviews_count": 4
+}

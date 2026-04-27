@@ -1,0 +1,46 @@
+{
+  "lead_id": 33,
+  "lead_name": "In Style",
+  "city": "Новозыбковская ул.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/in_style/215506638102/",
+    "rating": 4.6,
+    "reviews_count": 64,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Позвонила спросила есть ли окошко прям ближайшее, назначили время, потом перезвонили и сказали, что могут принять и раньше. ❤️‍🔥пришла, встретили хорошо, чай ,кофе 😌 мастер Екатерина сделала окраску быстро и качественно, весь персонал улыбчивый , посмеялись от души)…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Мой любимый салон, ходим всей семьей🤗несмотря на то что переехали в другой конец города, все равно ходим только туда❤️ была на окрашивании и стрижки у всех мастеров, очень внимательные, вежливые, прям релаксируешь постоянно)",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/16431464/2a00000197f37281598e7e813ef9e6e189a8/S",
+      "https://avatars.mds.yandex.net/get-altay/7742431/2a000001846c53612f5ac3b5cdbc33b93015/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/4001569/2a00000175a471f294fd3ee86164093c3b19/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/4054675/2a00000175a471e8f83019c92d2d0929f1d2/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/7456447/2a00000184ac47b7f45c063f11c88805da51/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/14761495/2a0000019a0099036106586471d5e13f54ae/M_height",
+      "https://avatars.mds.yandex.net/get-altay/10092863/2a0000018d5ee8c6b1fbfe25f0678b3799fb/M_height",
+      "https://avatars.mds.yandex.net/get-altay/15383884/2a000001985b051b564d00fb2b2912baac53/M_height",
+      "https://avatars.mds.yandex.net/get-altay/15285331/2a0000019686b2ed37863f018d2c692f9e83/S",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Воронеж, ул. 45-й Стрелковой Дивизии, 259/2",
+    "phones": [],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:25:29"
+  },
+  "merged_reviews_count": 2
+}

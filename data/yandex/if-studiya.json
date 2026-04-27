@@ -1,0 +1,58 @@
+{
+  "lead_id": 59,
+  "lead_name": "IF Студия",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/studiya_if/1706863892/",
+    "rating": 4.7,
+    "reviews_count": 89,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Была на лазерной эпиляции у специалиста Анны. Хочу сказать спасибо большое ей за отзывчивое отношение, за профессиональную работу своего дела. В студии чисто, комфортно, играет расслабляющая музыка, совершенно не больно. Все под чутким взглядом мастера выполняется…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Отличный салон, очень приветливая хозяйка-Ирина Михайловна, которая сама отличный мастер маникюра и педикюра, также парикмахер Юля-настоящий профессионал. Внимательное и доброе отношение к клиентам…Вкусный кофе…)",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Делала маникюр у Татьяны, спасибо ей большое. Опрятная, дружелюбная! И недорого. Чистенько ☺️👍",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/6334827/2a0000017f8c96357c94bf6d0b6f29ab49da/S",
+      "https://avatars.mds.yandex.net/get-altay/2385630/2a00000173ce86455bb4c01e327a12794980/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/6236523/2a0000017f8c9b4832dfa8c30a6a8028267f/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/6222916/2a0000017f8c9b28dd02c2a12ff47e092650/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/11302718/2a000001905a2b24246b64691168cad3aab1/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/ya-taxi-24.svg",
+      "https://avatars.mds.yandex.net/get-altay/16309283/2a00000196f748c9e314a49d01254903c3b1/M_height",
+      "https://avatars.mds.yandex.net/get-altay/16137047/2a00000198f092e15bb95493055a649548dc/M_height",
+      "https://avatars.mds.yandex.net/get-altay/16243748/2a000001987e77f34c8099abadbcaff68eb4/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [
+      {
+        "name": "Студия",
+        "price": "500 ₽"
+      }
+    ],
+    "address": "Брянск, ул. Костычева, 68",
+    "phones": [],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:08:48"
+  },
+  "merged_reviews_count": 4
+}

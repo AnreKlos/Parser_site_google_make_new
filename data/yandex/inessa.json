@@ -1,0 +1,60 @@
+{
+  "lead_id": 49,
+  "lead_name": "Инесса",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/parikmakherskaya_inessa/1106428740/",
+    "rating": 4.1,
+    "reviews_count": 56,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Очень хорошая парикмахерская, и цены приемлемые, а мастера - профессионалы высшего уровня. Пользуюсь на протяжении 10-и лет и очень довольна. Всех благ девчонкам и процветания",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Очень хорошая парикмахерская . Умелый и опытный персонал работает очень хорошо",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "ААнонимный отзыв",
+        "text": "Пользуюсь услугами 4года.замечательнный мастер Екатерина отзывчивый увлеченный мастер высокой к валификации Удачи всех благ дальнейшего творчества в специальности",
+        "rating": null,
+        "date": "27 февраля 2020",
+        "source": "yandex"
+      },
+      {
+        "author": "ААнонимный отзыв",
+        "text": "Пользуюсь услугами 4года.замечательнный мастер Екатерина отзывчивый увлеченный мастер высокой к валификации Удачи всех благ дальнейшего творчества в специальности",
+        "rating": null,
+        "date": "27 февраля 2020",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Пользуюсь услугами 4года.замечательнный мастер Екатерина отзывчивый увлеченный мастер высокой к валификации Удачи всех благ дальнейшего творчества в специальности",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/1359533/2a00000162c168fac459e84b512683c76e6d/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/4537001/2a000001793ac5eb8a696125049f7e76a17c/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/1001354/2a00000162c168f4a29a0570bacc68235bb9/XXL_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Московский просп., 138А",
+    "phones": [],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:22:32"
+  },
+  "merged_reviews_count": 5
+}

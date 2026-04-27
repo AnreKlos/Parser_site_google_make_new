@@ -1,0 +1,45 @@
+{
+  "lead_id": 31,
+  "lead_name": "Студия красоты PICASSO",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/picasso/239684461573/",
+    "rating": 4.4,
+    "reviews_count": 51,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Хочу похвалить и порекомендовать мастера Кристину ! Очень внимательно относится к желанию клиента, обслуживание на высшем уровне ! Стоимость стрижки - просто 🔥…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Недавно я посетила салон красоты Picasso, и хочу поделиться своим впечатлением после окрашивания волос",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/4797538/2a000001770a9d68d108f224a77364463a27/S",
+      "https://avatars.mds.yandex.net/get-altay/4303674/2a00000177725d95ad59ffba009778554ab8/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/4456415/2a00000177725e2f7bc2a89a23ea11392e9f/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/11187599/2a0000018ccfd2c6b66fdf77c9359ed3ca9e/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/2816622/2a000001741ffed4b6007298a7bd9d3ac2b7/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/9829646/2a00000191a778c023676d08887aab1fb9ef/M_height",
+      "https://avatars.mds.yandex.net/get-altay/16338459/2a000001992b9171ccfa049e3263bff46b67/M_height",
+      "https://avatars.mds.yandex.net/get-altay/18112381/2a0000019d3f0594b8b4bd1590c2869f1baa/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Московский просп., 106",
+    "phones": [],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:26:01"
+  },
+  "merged_reviews_count": 2
+}

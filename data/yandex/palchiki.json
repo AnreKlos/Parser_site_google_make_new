@@ -1,0 +1,36 @@
+{
+  "lead_id": 19,
+  "lead_name": "Пальчики",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/palchiki/165601945221/",
+    "rating": 3.7,
+    "reviews_count": 14,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Класс сходите не пожелеете очень классный салон",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/1514203/2a0000016d01e0ca9bc2a5879ca603a98663/S",
+      "https://avatars.mds.yandex.net/get-altay/200322/2a0000015b3330eeebf4011331994899de2a/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/247136/2a0000015b39fc061709b46fe6ae2b0e7049/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/859900/2a0000015eb3c8164f5d126460a2dd8a5ee0/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/16374562/2a00000199b6643016f7a625f623542b2d24/M_height",
+      "https://avatars.mds.yandex.net/get-altay/4079915/2a00000179e5e7e144c08a9dd2bb8d8b8f17/M_height",
+      "https://avatars.mds.yandex.net/get-altay/16137047/2a00000198f092e15bb95493055a649548dc/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Московский просп., 5",
+    "phones": [],
+    "working_hours": "Больше не работает",
+    "website": "http://www.palchiki.com/",
+    "scraped_at": "2026-04-27 02:30:08"
+  },
+  "merged_reviews_count": 4
+}

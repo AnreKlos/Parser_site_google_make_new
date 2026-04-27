@@ -1,0 +1,61 @@
+{
+  "lead_id": 40,
+  "lead_name": "Анна-Mi",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/parikmakherskaya_anna_mi/1790029371/",
+    "rating": 3.9,
+    "reviews_count": 28,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Хорошая парикмахерская. Цены нормальные, мастера отличные. Можно навести красоту: маникюр, педикюр, укладку, стрижку, окраску волос. Здесь же центры продаж Орифлейм и Эйвон",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Светлана Владимировна Федосенко",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Светлана Владимировна Федосенко",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Отвратительное отношение к клиентам. Была записана на стрижку. Пришла за пять минут до начала записи. Мастер взял за пять минут до моего прихода человека без записи. Мне было сказано Ждите пока закончу. Я же…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/216588/2a0000015b399fc920810958bd71d3ad9621/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/374295/2a0000015b39d1ba7ecc2fc75bba049b5abf/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/236825/2a0000015b39d1c7bb50fd5675d8724cd131/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/9829646/2a00000191a778c023676d08887aab1fb9ef/M_height",
+      "https://avatars.mds.yandex.net/get-altay/2405086/2a000001761e2d045d122f33022b2e664347/M_height",
+      "https://avatars.mds.yandex.net/get-altay/16243748/2a000001987e77f34c8099abadbcaff68eb4/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [
+      {
+        "name": "Анна",
+        "price": "300 ₽"
+      }
+    ],
+    "address": "Брянск, ул. Богдана Хмельницкого, 16",
+    "phones": [],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:24:19"
+  },
+  "merged_reviews_count": 3
+}

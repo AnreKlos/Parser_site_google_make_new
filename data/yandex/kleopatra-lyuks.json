@@ -1,0 +1,51 @@
+{
+  "lead_id": 27,
+  "lead_name": "Клеопатра-Люкс",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/kleopatra/1010357548/",
+    "rating": 4.5,
+    "reviews_count": 167,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Записалась по телефону на долговременную укладку и стрижку. Спросила стоимость данной услуги. Пришла в назначенное время женщина за стойкой сказала проходить сразу мыть голову, она же и начала делать все манипуляции с волосами(накручивать, обрабатывать раствором), я ей в…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Вот уже 2 месяца, как я посещаю массажный кабинет в салоне Клеопатра. Я раньше даже не слышала о биоэнергитсеском массаже . Но всё-таки решила попробовать, и не пожалела. Это нечто потрясающее. С ручным массажем не…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Впервые посетила массаж в салоне Клеопатра. Это не просто массаж - это таинство! Выражаю большую благодарность Елене за ее особый подход к этой процедуре! Она прошлась по всем возможным точкам на моем теле. Это наслаждение!!! То самое, что люди ищут, когда хотят уйти от проблем, забыться. Кто не был на таком массаже, тот ещё где то на дне жизни",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/988435/2a000001614291be53022f462fcb2b14fd8f/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/3915926/2a000001760975749785c4c86cb7cad12638/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/7979597/2a00000191dd2732c1019c0342a402de4ea2/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/2816622/2a000001741ffed4b6007298a7bd9d3ac2b7/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/9829646/2a00000191a778c023676d08887aab1fb9ef/M_height",
+      "https://avatars.mds.yandex.net/get-altay/5615085/2a0000017e6c86af786e61d5e7069d7e1c7a/M_height",
+      "https://avatars.mds.yandex.net/get-altay/492154/2a00000162496da752106d1b330d847a258e/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Московский просп., 86",
+    "phones": [],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:26:42"
+  },
+  "merged_reviews_count": 4
+}

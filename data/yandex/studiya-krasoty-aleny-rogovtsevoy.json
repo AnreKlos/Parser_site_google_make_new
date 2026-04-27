@@ -1,0 +1,56 @@
+{
+  "lead_id": 16,
+  "lead_name": "Студия красоты Алёны Роговцевой",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/beauty_studio_alyona_rogovtseva/81490194348/",
+    "rating": 5.0,
+    "reviews_count": 263,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Каждый раз, выходя от Алёны, чувствую себя обновленной и полноценной. Ресницы выглядят естественно, но при этом выразительно. Никакого…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Данную студию посещаю уже более 3-х лет, и только сейчас дошли руки написать отзыв. Мастер Алена работает быстро и качественно, уделяя внимание каждой ресничке. Результат получается естественным и красивым. Ресницы держатся идеально, не осыпаются и сохраняют…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Хочу поблагодарить Алёну за восхитительные реснички! Делала ламинирование, так же за коррекцию бровей, все очень понравилось! Красивые брови! Алена все делает с чувством, подходит творчески к своей работе, отточенное мастерство видно в каждом действии!…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/4042551/2a0000017f89e9bb53de7c484d6b0de13dfa/S",
+      "https://avatars.mds.yandex.net/get-altay/15288133/2a00000197cd54502a157d07445ee5da16c5/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/4374841/2a00000178ec695c924e489ea74ab7787a01/XXL_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/12412149/2a0000018c1ce5478026033ac628a0bfbae1/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/5392818/2a0000018a81463dd6bfb50dd59235503bb2/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/12411943/2a0000018c55968d081fa0977507ce875fc4/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/1356083/2a00000193126fc4aadc1180d782c86ea6f3/M_height",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-discovery-int/1534577/2a00000196448018d60ab50a465b0a658c41/XXS",
+      "https://avatars.mds.yandex.net/get-altay/16137047/2a00000198f092e15bb95493055a649548dc/M_height",
+      "https://avatars.mds.yandex.net/get-altay/4079915/2a00000179e5e7e144c08a9dd2bb8d8b8f17/M_height",
+      "https://avatars.mds.yandex.net/get-altay/16374562/2a00000199b6643016f7a625f623542b2d24/M_height",
+      "https://avatars.mds.yandex.net/get-altay/18148618/2a0000019cc99d157220db910eaf233ac8f1/S",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Московский просп., 49А",
+    "phones": [],
+    "working_hours": "Закрыто до 8:30 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:31:47"
+  },
+  "merged_reviews_count": 3
+}

@@ -1,0 +1,44 @@
+{
+  "lead_id": 21,
+  "lead_name": "Дуэт",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/duet/209500737333/",
+    "rating": 4.3,
+    "reviews_count": 23,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Я первый раз посетила салон Алены Алферовой. Алена уже собиралась домой, но приняла меня , не каждый так может) У меня масса положительных впечатлений от работы Алены, обслуживания , доброжелательности. Отличный салон, советую и цены очень хорошие",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Замечательный мастер Алена, делаю у неё постоянно медицинский педикюр. Салон чистый, персонал приветливый",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/3954938/2a0000017674fdf4698521e0084c056eed4d/S",
+      "https://avatars.mds.yandex.net/get-altay/1784518/2a0000016a344c977f87e37ec12462003389/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/1775373/2a0000016a344c84f2e93a68549f79cd8f58/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/1899727/2a0000016a344c855603f12b54267d4fcb76/XXL_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/ya-taxi-24.svg",
+      "https://avatars.mds.yandex.net/get-altay/4660612/2a00000179494d88d6d58c6847c27305b2a2/M_height",
+      "https://avatars.mds.yandex.net/get-altay/7979597/2a000001919969aa6d73937e7e9498fb80f7/M_height",
+      "https://avatars.mds.yandex.net/get-altay/2776464/2a00000173a9974cc0f331468f8b750484db/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Санкт-Петербург, Московский просп., 199",
+    "phones": [],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:29:03"
+  },
+  "merged_reviews_count": 4
+}

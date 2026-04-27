@@ -1,0 +1,51 @@
+{
+  "lead_id": 42,
+  "lead_name": "Империя красоты",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/imperiya_krasoty/1233233662/",
+    "rating": 4.3,
+    "reviews_count": 295,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "В процессе тщательного выбора специалиста в области парикмахерского искусства я приняла решение записаться на процедуру мелирования в салон «Империя красоты», расположенный по адресу: Пушкина, 65. Критерием выбора мастера послужили мои интуитивные предпочтения,…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Записалась заранее на 20 марта в 18:00 за неделю к мастеру Ирине( это было принципиально). Мне за полчаса до стрижки позвонили и сказали,что я могу прийти раньше. Пришла я значит и меня пригласили к креслу. Я села и тут я понимаю,что меня будет стрич не Ирина,а…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Была на процедуре детокс-обертывание(на ноги) очень понравилась! Сначала скрабирование кожи ног, потом обертывание влажными салфетками и пленкой. Ножки после такой процедуры становятся легкими и отдохнувшими, кожа гладкая. По времени занимает примерно 35-40…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/4365916/2a00000179e0a0832f41f8a169a8246ec719/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/1489947/2a0000018719e6ff8eee963cca5cf0aa036d/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/5115998/2a0000018ed16120bb36a5e110e4b0e0bb94/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/14800460/2a00000195f0e51ba8c90625f1706d7a098f/L",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/16309283/2a00000196f748c9e314a49d01254903c3b1/M_height",
+      "https://avatars.mds.yandex.net/get-altay/16243748/2a000001987e77f34c8099abadbcaff68eb4/M_height",
+      "https://avatars.mds.yandex.net/get-altay/18112381/2a0000019d3f0594b8b4bd1590c2869f1baa/M_height",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, ул. Пушкина, 65",
+    "phones": [],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:23:11"
+  },
+  "merged_reviews_count": 4
+}

@@ -1,0 +1,55 @@
+{
+  "lead_id": 26,
+  "lead_name": "MOOD",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/mood/96195832006/",
+    "rating": 5.0,
+    "reviews_count": 266,
+    "reviews_list": [
+      {
+        "author": "Клиент",
+        "text": "Обслуживание очень хорошее,Настя- мастер своего дела, хожу к Насте 5год,мне очень нравится,делает ресницы качественно и быстро. Хожу с ресницами 1,5-2 месяца. Я очень довольна работой своего мастера, рекомендую. В салоне прекрасная атмосфера, лёгкая музыка, просто…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Сегодня была на окрашивании волос после долгого перерыва в технике Airtouch, и хочется поблагодарить топ специалиста Марию! Подобранный цвет для тонирования, техника окрашивания и состояние волос после процедуры просто идеальное👍🏼. Мне кажется я нашла…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      },
+      {
+        "author": "Клиент",
+        "text": "Сегодня была записана к начинающему мастеру на маникюр к Анисовой Екатерине. Все отлично было сделано и я осталась довольна. Иногда подходила мастер и контролировала работу, советовала как лучше сделать, так как один ноготь был у меня немного сломан . Так же от…",
+        "rating": null,
+        "date": "",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      "https://avatars.mds.yandex.net/get-altay/17863912/2a0000019a294d42eb44418493d8a83ac70e/S",
+      "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018ba575a0cf9df698ac0edd383dd8/XXL_height",
+      "https://avatars.mds.yandex.net/get-altay/11072941/2a0000018ba57585ad0901df3e1cb1773382/XXL_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/2791887/2a0000019706497a569589f4319a429a6a12/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8/M_height",
+      "https://avatars.mds.yandex.net/get-sprav-products/1530321/2a0000019a2f042cdae83e8a23834102f222/M_height",
+      "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/XXS",
+      "https://avatars.mds.yandex.net/get-altay/9829646/2a00000191a778c023676d08887aab1fb9ef/M_height",
+      "https://avatars.mds.yandex.net/get-altay/2385630/2a000001735880709a4c74daaef5fcaa8fa3/M_height",
+      "https://avatars.mds.yandex.net/get-altay/2405086/2a000001761e2d045d122f33022b2e664347/M_height",
+      "https://avatars.mds.yandex.net/get-altay/16480821/2a00000198e6f9b873d399ab5c533998b314/S",
+      "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/static/v57/icons/core/logo-web-ru-80x40.svg"
+    ],
+    "services": [],
+    "address": "Брянск, Московский просп., 10/11",
+    "phones": [],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "scraped_at": "2026-04-27 02:27:16"
+  },
+  "merged_reviews_count": 3
+}

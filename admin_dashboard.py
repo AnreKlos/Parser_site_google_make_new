@@ -32,6 +32,9 @@ DB_PATH = Path("data/leads.db")
 SCRAPED_DATA_DIR = Path("data")
 CURATED_DATA_DIR = Path("data/curated")
 YANDEX_DATA_DIR = Path("data/yandex")
+EXTRACTED_DATA_DIR = Path("data/extracted")
+NEURALSYNC_ROOT = Path(r"D:\2 Clode Proj\1\neuralsync")
+NEURALSYNC_CONFIGS_DIR = NEURALSYNC_ROOT / "src" / "configs"
 
 
 def safe_print(text: str) -> None:
@@ -87,7 +90,7 @@ def add_hl_ru(url) -> str:
 
 
 def slugify_name(name: str, lead_id: int) -> str:
-    """Собирает slug так же, как gemma_curator.py, чтобы совпадали имена файлов."""
+    """Собирает slug так же, как content_curator.py, чтобы совпадали имена файлов."""
     translit_map = {
         "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e", "ж": "zh", "з": "z",
         "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r",
@@ -105,6 +108,11 @@ def slugify_name(name: str, lead_id: int) -> str:
 def get_curated_file_path(lead_name: str, lead_id: int) -> Path:
     slug = slugify_name(lead_name, lead_id)
     return CURATED_DATA_DIR / f"{slug}.json"
+
+
+def get_extracted_file_path(lead_name: str, lead_id: int) -> Path:
+    slug = slugify_name(lead_name, lead_id)
+    return EXTRACTED_DATA_DIR / f"{slug}.json"
 
 
 def get_content_status(lead_name: str, lead_id: int) -> str:
@@ -135,6 +143,66 @@ def get_yandex_maps_url(lead_name: str, lead_id: int) -> str:
         return ""
 
 
+def get_site_config_path(lead_name: str, lead_id: int) -> Path:
+    slug = slugify_name(lead_name, lead_id)
+    return NEURALSYNC_CONFIGS_DIR / f"{slug}.config.js"
+
+
+def get_site_config_status(lead_name: str, lead_id: int) -> str:
+    return "🟢 Собран" if get_site_config_path(lead_name, lead_id).exists() else "⚪ Не собран"
+
+
+def run_config_builder(lead_id: int, no_copy: bool = False) -> tuple[bool, str]:
+    try:
+        cmd = ["python", "config_builder.py", str(lead_id)]
+        if no_copy:
+            cmd.append("--no-copy")
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            cwd=str(Path(__file__).parent),
+            encoding="utf-8",
+            errors="replace",
+            timeout=300,
+            check=False,
+        )
+        output = (result.stdout or "") + ("\n" + result.stderr if result.stderr else "")
+        return result.returncode == 0, output.strip()
+    except Exception as exc:
+        return False, str(exc)
+
+
+def run_block_extractor(lead_id: int) -> tuple[bool, str]:
+    try:
+        result = subprocess.run(
+            ["python", "block_extractor.py", str(lead_id)],
+            capture_output=True,
+            text=True,
+            cwd=str(Path(__file__).parent),
+            encoding="utf-8",
+            errors="replace",
+            timeout=180,
+            check=False,
+        )
+        output = (result.stdout or "") + ("\n" + result.stderr if result.stderr else "")
+        return result.returncode == 0, output.strip()
+    except Exception as exc:
+        return False, str(exc)
+
+
+def run_config_builder_batch(lead_ids: list[int]) -> tuple[list[int], dict[int, str]]:
+    success_ids: list[int] = []
+    failures: dict[int, str] = {}
+    for lead_id in lead_ids:
+        ok, out = run_config_builder(lead_id)
+        if ok:
+            success_ids.append(lead_id)
+        else:
+            failures[lead_id] = out or "Ошибка"
+    return success_ids, failures
+
+
 def run_yandex_enricher(lead_id: int) -> tuple[bool, str]:
     try:
         result = subprocess.run(
@@ -153,11 +221,11 @@ def run_yandex_enricher(lead_id: int) -> tuple[bool, str]:
         return False, str(exc)
 
 
-def run_gemma_curator(lead_id: int) -> tuple[bool, str]:
-    """Запускает gemma_curator.py для одного лида и возвращает (ok, output)."""
+def run_content_curator(lead_id: int) -> tuple[bool, str]:
+    """Запускает content_curator.py для одного лида и возвращает (ok, output)."""
     try:
         result = subprocess.run(
-            ["python", "gemma_curator.py", str(lead_id)],
+            ["python", "content_curator.py", str(lead_id)],
             capture_output=True,
             text=True,
             cwd=str(Path(__file__).parent),
@@ -171,21 +239,19 @@ def run_gemma_curator(lead_id: int) -> tuple[bool, str]:
         return False, str(exc)
 
 
-def run_gemma_curator_with_status(lead_id: int) -> tuple[bool, str]:
-    """Запускает gemma_curator.py с живым прогрессом через st.status()."""
+def run_content_curator_with_status(lead_id: int) -> tuple[bool, str]:
+    """Запускает content_curator.py с живым прогрессом через st.status()."""
     STAGE_MAP = (
-        ("Формируем список услуг", "🛍 Генерирую список услуг..."),
-        ("Базовые услуги", "🛍 Список услуг готов"),
-        ("Готовим слоган", "✨ Генерирую слоган..."),
+        ("Готовим слоган", "✨ Готовлю слоган..."),
         ("Слоган готов", "✨ Слоган готов"),
-        ("Готовим блок", "📝 Пишу about..."),
-        ("нас' готов", "📝 About готов"),
-        ("Отбираем лучшие отзывы", "⭐ Отбираю лучшие отзывы..."),
-        ("Отобрано отзывов", "⭐ Отзывы отобраны"),
-        ("Генерируем FAQ", "❓ Создаю FAQ..."),
+        ("Готовим блок 'О нас'", "📝 Пишу блок «О нас»..."),
+        ("Блок 'О нас' готов", "📝 Блок «О нас» готов"),
+        ("Отбираем и редактируем отзывы", "⭐ Отбираю и чищу отзывы..."),
+        ("Отобрано отзывов", "⭐ Отзывы готовы"),
+        ("Формируем услуги", "🛍 Формирую услуги..."),
+        ("Услуги готовы", "🛍 Услуги готовы"),
+        ("Генерируем FAQ", "❓ Генерирую FAQ..."),
         ("FAQ готов", "❓ FAQ готов"),
-        ("Пишем описания услуг", "🛍 Описываю услуги..."),
-        ("Описания услуг", "🛍 Описания готовы"),
         ("Curated JSON", "✅ Сохраняю результат..."),
         ("Курация завершена", "✅ Готово!"),
     )
@@ -193,11 +259,11 @@ def run_gemma_curator_with_status(lead_id: int) -> tuple[bool, str]:
     all_output: list[str] = []
     ok = False
     try:
-        with st.status("⏳ Гемма работает... обычно занимает 30–90 сек", expanded=True) as status_box:
+        with st.status("⏳ Content Curator работает... обычно занимает 10–30 сек", expanded=True) as status_box:
             status_box.write("🔍 Читаю данные лида...")
             try:
                 proc = subprocess.Popen(
-                    ["python", "-u", "gemma_curator.py", str(lead_id)],
+                    ["python", "-u", "content_curator.py", str(lead_id)],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,
                     cwd=str(Path(__file__).parent),
@@ -604,8 +670,28 @@ def main():
     tab_base, tab_pipeline = st.tabs(["📊 База лидов", "🎨 Контент-конвейер"])
 
     with tab_base:
-        st.subheader("📊 Все лиды")
-        st.write(f"Найдено: **{len(df_filtered)}** лидов")
+        h1, h2 = st.columns([3, 1])
+        with h1:
+            st.subheader("📊 Все лиды")
+            st.write(f"Найдено: **{len(df_filtered)}** лидов")
+        with h2:
+            batch_config_ids = [
+                int(row["id"])
+                for _, row in df_filtered.iterrows()
+                if get_curated_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists()
+                and get_yandex_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists()
+                and not get_site_config_path(str(row.get("name", "")), int(row.get("id", 0))).exists()
+            ]
+            if st.button(f"📦 Сгенерировать конфиги ({len(batch_config_ids)})", use_container_width=True, disabled=len(batch_config_ids) == 0):
+                with st.spinner("Собираю конфиги..."):
+                    ok_ids, err_map = run_config_builder_batch(batch_config_ids)
+                if ok_ids:
+                    st.success(f"✅ Собрано конфигов: {len(ok_ids)}")
+                if err_map:
+                    st.error(f"❌ Ошибок: {len(err_map)}")
+                    for bid, bout in list(err_map.items())[:3]:
+                        st.code(f"ID={bid}\n{bout[:1800]}", language="")
+                st.rerun()
 
         def normalize_url_for_table(value: object) -> object:
             if value is None or (isinstance(value, float) and pd.isna(value)):
@@ -627,6 +713,10 @@ def main():
         )
         df_table["yandex_status"] = df_table.apply(
             lambda row: get_yandex_status(str(row.get("name", "")), int(row.get("id", 0))),
+            axis=1,
+        )
+        df_table["config_status"] = df_table.apply(
+            lambda row: get_site_config_status(str(row.get("name", "")), int(row.get("id", 0))),
             axis=1,
         )
         df_table["yandex_maps_url"] = df_table.apply(
@@ -665,6 +755,7 @@ def main():
                 "status": "Статус",
                 "content_status": "Контент",
                 "yandex_status": "Яндекс",
+                "config_status": "📦 Конфиг",
                 "yandex_maps_url": "Я.Maps",
                 "two_gis_url": "2GIS",
             }
@@ -685,6 +776,7 @@ def main():
                 "Статус": st.column_config.TextColumn("Статус", width="small"),
                 "Контент": st.column_config.TextColumn("Контент", width="small"),
                 "Яндекс": st.column_config.TextColumn("Яндекс", width="small"),
+                "📦 Конфиг": st.column_config.TextColumn("📦 Конфиг", width="small"),
                 "Рейтинг": st.column_config.TextColumn("Рейтинг", width="small"),
                 "Отзывы": st.column_config.NumberColumn("Отзывы", width="small"),
                 "ID": st.column_config.NumberColumn("ID", width="small"),
@@ -717,6 +809,8 @@ def main():
         selected_name = str(selected_row.get("name", f"Lead {selected_lead_id}"))
         selected_curated_path = get_curated_file_path(selected_name, selected_lead_id)
         selected_ya_path = get_yandex_file_path(selected_name, selected_lead_id)
+        selected_extracted_path = get_extracted_file_path(selected_name, selected_lead_id)
+        selected_cfg_path = get_site_config_path(selected_name, selected_lead_id)
         selected_ya_url = get_yandex_maps_url(selected_name, selected_lead_id)
 
         yandex_rating = "—"
@@ -743,8 +837,9 @@ def main():
         audit_status = "🟢 Аудит" if pd.notna(selected_row.get("tech_score")) else "⚪ Аудит"
         content_status = get_content_status(selected_name, selected_lead_id)
         yandex_status = get_yandex_status(selected_name, selected_lead_id)
+        config_status = get_site_config_status(selected_name, selected_lead_id)
         pitch_status = "🟢 Питч" if pd.notna(selected_row.get("pitch_text")) and str(selected_row.get("pitch_text")).strip() else "⚪ Питч"
-        st.markdown(f"{audit_status}  |  🎨 {content_status}  |  🗺 {yandex_status}  |  ✉ {pitch_status}")
+        st.markdown(f"{audit_status}  |  🎨 {content_status}  |  🗺 {yandex_status}  |  📦 {config_status}  |  ✉ {pitch_status}")
 
         links = []
         if selected_row.get("website"):
@@ -758,7 +853,7 @@ def main():
         if links:
             st.markdown(" | ".join(links))
 
-        with st.expander("🎨 Curator", expanded=False):
+        with st.expander("🎨 Контент", expanded=False):
             st.caption(f"Файл: `{selected_curated_path}`")
             content_exists = selected_curated_path.exists()
             if content_exists:
@@ -773,7 +868,7 @@ def main():
                         except Exception as exc:
                             st.error(f"❌ Не удалось удалить JSON: {exc}")
                         else:
-                            ok_regen, out_regen = run_gemma_curator_with_status(selected_lead_id)
+                            ok_regen, out_regen = run_content_curator_with_status(selected_lead_id)
                             if ok_regen:
                                 st.session_state.pop(f"curator_error_{selected_lead_id}", None)
                                 st.session_state["curator_show_content"] = selected_lead_id
@@ -781,8 +876,8 @@ def main():
                                 st.session_state[f"curator_error_{selected_lead_id}"] = out_regen or "Ошибка"
                             st.rerun()
             else:
-                if st.button("🎨 Курировать через Гемму", key="curator_curate_btn_single", type="primary"):
-                    ok_cur, out_cur = run_gemma_curator_with_status(selected_lead_id)
+                if st.button("🎨 Сгенерировать контент", key="curator_curate_btn_single", type="primary"):
+                    ok_cur, out_cur = run_content_curator_with_status(selected_lead_id)
                     if ok_cur:
                         st.session_state.pop(f"curator_error_{selected_lead_id}", None)
                         st.session_state["curator_show_content"] = selected_lead_id
@@ -831,6 +926,129 @@ def main():
                         render_yandex_data(json.load(f), selected_lead_id)
                 except Exception as exc:
                     st.error(f"❌ Ошибка чтения Yandex JSON: {exc}")
+
+        with st.expander("🔍 Парсинг блоков с сайта", expanded=False):
+            st.caption(f"Файл: `{selected_extracted_path}`")
+            extracted_exists = selected_extracted_path.exists()
+
+            if extracted_exists:
+                ex1, ex2 = st.columns(2)
+                with ex1:
+                    if st.button("👁 Просмотреть", key="extract_view_btn_single", use_container_width=True):
+                        st.session_state["extract_show_data"] = selected_lead_id
+                with ex2:
+                    if st.button("🔄 Перезапустить", key="extract_rerun_btn_single", use_container_width=True):
+                        ok_ex_r, out_ex_r = run_block_extractor(selected_lead_id)
+                        if ok_ex_r:
+                            st.session_state.pop(f"extract_error_{selected_lead_id}", None)
+                            st.session_state["extract_show_data"] = selected_lead_id
+                        else:
+                            st.session_state[f"extract_error_{selected_lead_id}"] = out_ex_r or "Ошибка"
+                        st.rerun()
+            else:
+                if st.button("🔍 Извлечь блоки", key="extract_run_btn_single", type="primary"):
+                    ok_ex_s, out_ex_s = run_block_extractor(selected_lead_id)
+                    if ok_ex_s:
+                        st.session_state.pop(f"extract_error_{selected_lead_id}", None)
+                        st.session_state["extract_show_data"] = selected_lead_id
+                    else:
+                        st.session_state[f"extract_error_{selected_lead_id}"] = out_ex_s or "Ошибка"
+                    st.rerun()
+
+            if st.session_state.get(f"extract_error_{selected_lead_id}"):
+                st.code(st.session_state[f"extract_error_{selected_lead_id}"][:3000], language="")
+
+            if st.session_state.get("extract_show_data") == selected_lead_id and extracted_exists:
+                try:
+                    with open(selected_extracted_path, "r", encoding="utf-8") as f:
+                        extracted_payload = json.load(f)
+                    services = extracted_payload.get("serviceCarousel") if isinstance(extracted_payload.get("serviceCarousel"), list) else []
+                    faq = extracted_payload.get("faq_accordion") if isinstance(extracted_payload.get("faq_accordion"), list) else []
+                    st.info(f"Найдено: services={len(services)} | faq={len(faq)}")
+                    if services:
+                        with st.expander(f" Услуги ({len(services)})"):
+                            for i, item in enumerate(services[:12], start=1):
+                                title = str(item.get("name") or item.get("title") or "") if isinstance(item, dict) else ""
+                                price = str(item.get("price") or "") if isinstance(item, dict) else ""
+                                desc = str(item.get("description") or "") if isinstance(item, dict) else ""
+                                image = str(item.get("image") or item.get("image_url") or "") if isinstance(item, dict) else ""
+                                st.text_area(
+                                    f"Услуга {i}: {title}",
+                                    value=f"Цена: {price}\nФото: {image}\nОписание: {desc}",
+                                    height=120,
+                                    key=f"extract_service_{selected_lead_id}_{i}",
+                                )
+                    if faq:
+                        with st.expander(f" FAQ ({len(faq)})"):
+                            for i, item in enumerate(faq[:12], start=1):
+                                if not isinstance(item, dict):
+                                    continue
+                                q = str(item.get("q") or "")
+                                a = str(item.get("a") or "")
+                                st.text_area(
+                                    f"FAQ {i}",
+                                    value=f"Q: {q}\nA: {a}",
+                                    height=120,
+                                    key=f"extract_faq_{selected_lead_id}_{i}",
+                                )
+                except Exception as exc:
+                    st.error(f"❌ Ошибка чтения extracted JSON: {exc}")
+
+        with st.expander("📦 Конфиг сайта", expanded=False):
+            st.caption(f"Файл: `{selected_cfg_path}`")
+            cfg_exists = selected_cfg_path.exists()
+            curated_exists = selected_curated_path.exists()
+            yandex_exists = selected_ya_path.exists()
+
+            missing_sources = []
+            if not curated_exists:
+                missing_sources.append("curated")
+            if not yandex_exists:
+                missing_sources.append("yandex")
+
+            if cfg_exists:
+                cc1, cc2 = st.columns(2)
+                with cc1:
+                    if st.button("👁 Просмотреть", key="cfg_view_btn_single", use_container_width=True):
+                        st.session_state["cfg_show_data"] = selected_lead_id
+                with cc2:
+                    if st.button("🔄 Пересобрать", key="cfg_rebuild_btn_single", use_container_width=True):
+                        ok_cfg_r, out_cfg_r = run_config_builder(selected_lead_id)
+                        if ok_cfg_r:
+                            st.session_state.pop(f"cfg_error_{selected_lead_id}", None)
+                            st.session_state["cfg_show_data"] = selected_lead_id
+                        else:
+                            st.session_state[f"cfg_error_{selected_lead_id}"] = out_cfg_r or "Ошибка"
+                        st.rerun()
+            else:
+                if missing_sources:
+                    st.warning(f"Нельзя собрать конфиг: не готовы источники — {', '.join(missing_sources)}")
+                if st.button(
+                    "📦 Собрать конфиг",
+                    key="cfg_build_btn_single",
+                    type="primary",
+                    disabled=bool(missing_sources),
+                ):
+                    ok_cfg_b, out_cfg_b = run_config_builder(selected_lead_id)
+                    if ok_cfg_b:
+                        st.session_state.pop(f"cfg_error_{selected_lead_id}", None)
+                        st.session_state["cfg_show_data"] = selected_lead_id
+                    else:
+                        st.session_state[f"cfg_error_{selected_lead_id}"] = out_cfg_b or "Ошибка"
+                    st.rerun()
+
+            if st.session_state.get(f"cfg_error_{selected_lead_id}"):
+                st.code(st.session_state[f"cfg_error_{selected_lead_id}"][:3000], language="")
+
+            if st.session_state.get("cfg_show_data") == selected_lead_id and cfg_exists:
+                size_kb = selected_cfg_path.stat().st_size / 1024 if selected_cfg_path.exists() else 0
+                st.info(f"Путь: `{selected_cfg_path}` | Размер: {size_kb:.1f} KB")
+
+            st.caption(
+                "После сборки выполните в репозитории neuralsync: "
+                "git add . && git commit -m 'Add <slug> config' && git push. "
+                "Vercel передеплоит автоматически."
+            )
 
         with st.expander("✉ Pitch", expanded=False):
             pitch_text = str(selected_row.get("pitch_text") or "").strip()

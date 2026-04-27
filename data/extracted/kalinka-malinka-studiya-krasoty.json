@@ -1,0 +1,45 @@
+{
+  "lead_id": 58,
+  "lead_name": "Калинка-Малинка студия красоты",
+  "source_url": "https://kalinkamalinkabr.orgs.biz/",
+  "extracted_at": "2026-04-27 18:05:23",
+  "serviceCarousel": [
+    {
+      "name": "Вечерний макияж",
+      "price": "1 500 ₽",
+      "image": "https://sun9-36.userapi.com/impf/c638520/v638520234/4b1ea/h-0EZyVHqTI.jpg?size=400x0&crop=0,0.082,1,0.667&quality=95&sign=0f2b995ad00c5598dd0b0b1219bea368&c_uniq_tag=KvNbJYiTmFn_KsBIU1DmFL8p8e_TF-mhcxY6bVKINts",
+      "description": "Яркий макияж на вечер или мероприятие/праздник"
+    },
+    {
+      "name": "Легкий макияж",
+      "price": "1 200 ₽",
+      "image": "https://sun9-67.userapi.com/impf/c639228/v639228234/464a0/35iwZ6-bhdI.jpg?size=400x0&crop=0.012,0.173,0.976,0.651&quality=95&sign=1457318e8a967bb23bd11ba76cf8d172&c_uniq_tag=0y-5r6Ir16IjYUFPf4lXiy4hJDOuNDdIydmLrNGxOPg",
+      "description": "Дневной макияж, нюд"
+    },
+    {
+      "name": "Курс \"Макияж для себя\"",
+      "price": "3 500 ₽",
+      "image": "https://sun9-12.userapi.com/impf/c841433/v841433712/34972/IJMPKH7CfTk.jpg?size=0x400&crop=0.008,0.008,0.984,0.984&quality=95&sign=75725cb5ddbe10350a0065c44abf31af&c_uniq_tag=qoBp0DlsnOJieyRY9KckuV-d7or9ZH-k1Z994nfsEE4",
+      "description": "Макияж - страшное оружие в руках женщины. В настоящее время каждая должна быть визажистом для себя! Не умеете краситься? Хотите научиться правильно рисовать стрелки и оформлять брови? Приходите! Я научу! Продолжительность индивидуального курса «Макияж для с..."
+    },
+    {
+      "name": "Оформление бровей",
+      "price": "700 ₽",
+      "image": "https://sun9-34.userapi.com/impf/c639523/v639523234/5326e/Fj3XCCmWhvM.jpg?size=0x400&crop=0.008,0.008,0.984,0.984&quality=95&sign=47b325b04e547545abe31e04c9256f6a&c_uniq_tag=ZWjNPFTuUwY1iN89oq5yeQc--ZOYzEBxnMjEd1m6FAA",
+      "description": "Коррекция и окрашивание бровей краской -700р. Коррекция и окрашивание бровей хной - 900р. Акция вторника: Коррекция и окрашивание бровей краской - 500р. Коррекция и окрашивание бровей хной - 700р."
+    },
+    {
+      "name": "Маникюр с покрытием гель-лак",
+      "price": "900 ₽",
+      "image": "https://sun9-53.userapi.com/impf/c639216/v639216234/53350/ZpjjLp6bm4w.jpg?size=0x400&crop=0.008,0.008,0.984,0.984&quality=95&sign=9e2abab07e16c0b69c1be3fbe6bbdb00&c_uniq_tag=hsf8_MMNkZ1tLwELAJMkBCB29F0muMOKPbZa50Pdyqc",
+      "description": "📞 344388"
+    },
+    {
+      "name": "Свадебный макияж",
+      "price": "1 500 ₽",
+      "image": "https://sun9-58.userapi.com/impf/c639622/v639622234/582dc/uroBmBHoL8A.jpg?size=400x0&crop=0.004,0.043,0.996,0.663&quality=95&sign=b26aff7d9f5da9e5c9a76d7128039478&c_uniq_tag=fHGJa1eCdsQ7KI4Vaj99znSvLRjyglM7tqC6g-286xs",
+      "description": "Возможен выезд на дом или ранний выезд в студию"
+    }
+  ],
+  "faq_accordion": []
+}

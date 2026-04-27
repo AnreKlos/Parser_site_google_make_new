@@ -24,12 +24,19 @@ from db.models import Lead
 BASE_DIR = Path(__file__).parent
 YANDEX_DATA_DIR = BASE_DIR / "data" / "yandex"
 LOG_PATH = YANDEX_DATA_DIR / "scrape_log.txt"
+CAPTCHA_LOG_PATH = YANDEX_DATA_DIR / "captcha_log.txt"
+SESSION_STATE_PATH = YANDEX_DATA_DIR / ".session.json"
+LAST_RUNS_PATH = YANDEX_DATA_DIR / ".last_live_runs.json"
 MAX_LEADS_PER_RUN = 30
-USER_AGENT = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/124.0.0.0 Safari/537.36"
-)
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+]
 
 
 def safe_print(text: str) -> None:
@@ -53,6 +60,111 @@ def write_log(message: str) -> None:
     with open(LOG_PATH, "a", encoding="utf-8") as f:
         f.write(line + "\n")
     safe_print(line)
+
+
+def write_captcha_log(lead_id: Optional[int], url: str) -> None:
+    ensure_data_dirs()
+    line = f"[{timestamp()}] lead_id={lead_id if lead_id is not None else '-'} url={url or '-'}"
+    with open(CAPTCHA_LOG_PATH, "a", encoding="utf-8") as f:
+        f.write(line + "\n")
+
+
+def choose_user_agent() -> str:
+    return random.choice(USER_AGENTS)
+
+
+def get_context_kwargs(user_agent: str) -> Dict[str, Any]:
+    kwargs: Dict[str, Any] = {
+        "user_agent": user_agent,
+        "viewport": {"width": 1920, "height": 1080},
+        "locale": "ru-RU",
+    }
+    if SESSION_STATE_PATH.exists():
+        kwargs["storage_state"] = str(SESSION_STATE_PATH)
+    return kwargs
+
+
+async def save_session_state(context) -> None:
+    try:
+        ensure_data_dirs()
+        await context.storage_state(path=str(SESSION_STATE_PATH))
+        write_log(f"💾 Сессия сохранена: {SESSION_STATE_PATH}")
+    except Exception as exc:
+        write_log(f"⚠️ Не удалось сохранить session state: {exc}")
+
+
+def load_last_live_runs() -> Dict[str, float]:
+    if not LAST_RUNS_PATH.exists():
+        return {}
+    try:
+        with open(LAST_RUNS_PATH, "r", encoding="utf-8") as f:
+            raw = json.load(f)
+        if isinstance(raw, dict):
+            out: Dict[str, float] = {}
+            for k, v in raw.items():
+                try:
+                    out[str(k)] = float(v)
+                except (TypeError, ValueError):
+                    continue
+            return out
+    except Exception:
+        return {}
+    return {}
+
+
+def save_last_live_runs(data: Dict[str, float]) -> None:
+    ensure_data_dirs()
+    with open(LAST_RUNS_PATH, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def mark_live_run(lead_id: int) -> None:
+    data = load_last_live_runs()
+    data[str(lead_id)] = time.time()
+    save_last_live_runs(data)
+
+
+def get_minutes_since_last_live_run(lead_id: int) -> Optional[int]:
+    data = load_last_live_runs()
+    last_ts = data.get(str(lead_id))
+    if not last_ts:
+        return None
+    elapsed = max(0, int((time.time() - float(last_ts)) // 60))
+    return elapsed
+
+
+def get_cache_age_seconds(path: Path) -> Optional[float]:
+    if not path.exists():
+        return None
+    return max(0.0, time.time() - path.stat().st_mtime)
+
+
+def read_cached_payload(path: Path) -> Optional[Dict[str, Any]]:
+    if not path.exists():
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            payload = json.load(f)
+        return payload if isinstance(payload, dict) else None
+    except Exception as exc:
+        write_log(f"⚠️ Не удалось прочитать кеш {path}: {exc}")
+        return None
+
+
+def summarize_result_from_payload(payload: Dict[str, Any], output_path: Path, cached: bool) -> Dict[str, Any]:
+    yandex = payload.get("yandex") if isinstance(payload.get("yandex"), dict) else {}
+    reviews_list = yandex.get("reviews_list") if isinstance(yandex.get("reviews_list"), list) else []
+    photos = yandex.get("photos") if isinstance(yandex.get("photos"), list) else []
+    return {
+        "lead_id": payload.get("lead_id"),
+        "slug": output_path.stem,
+        "output_path": str(output_path),
+        "reviews_total": int(payload.get("merged_reviews_count") or len(reviews_list)),
+        "yandex_reviews": len(reviews_list),
+        "photos": len(photos),
+        "rating": yandex.get("rating"),
+        "cached": cached,
+    }
 
 
 def random_pause(min_seconds: int, max_seconds: int, reason: str = "") -> None:
@@ -338,7 +450,9 @@ async def search_lead_on_yandex(name: str, city: str, lead_address: str = "", le
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
-        context = await browser.new_context(user_agent=USER_AGENT, viewport={"width": 1920, "height": 1080}, locale="ru-RU")
+        user_agent = choose_user_agent()
+        write_log(f"🕵️ UA (поиск): {user_agent.split(' Chrome/')[1].split(' ')[0] if ' Chrome/' in user_agent else user_agent}")
+        context = await browser.new_context(**get_context_kwargs(user_agent))
         page = await context.new_page()
 
         try:
@@ -346,6 +460,8 @@ async def search_lead_on_yandex(name: str, city: str, lead_address: str = "", le
             await page.wait_for_timeout(3000)
 
             if await has_captcha_signals(page):
+                await save_session_state(context)
+                write_captcha_log(lead_id, page.url)
                 raise RuntimeError("Обнаружена капча на этапе поиска")
 
             try:
@@ -497,12 +613,14 @@ async def search_lead_on_yandex(name: str, city: str, lead_address: str = "", le
             await browser.close()
 
 
-async def scrape_yandex_card(url: str) -> Dict[str, Any]:
+async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[str, Any]:
     write_log(f"🧭 Открываю карточку: {url}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
-        context = await browser.new_context(user_agent=USER_AGENT, viewport={"width": 1920, "height": 1080}, locale="ru-RU")
+        user_agent = choose_user_agent()
+        write_log(f"🕵️ UA (карточка): {user_agent.split(' Chrome/')[1].split(' ')[0] if ' Chrome/' in user_agent else user_agent}")
+        context = await browser.new_context(**get_context_kwargs(user_agent))
         page = await context.new_page()
 
         try:
@@ -510,6 +628,8 @@ async def scrape_yandex_card(url: str) -> Dict[str, Any]:
             await page.wait_for_timeout(3500)
 
             if await has_captcha_signals(page):
+                await save_session_state(context)
+                write_captcha_log(lead_id, page.url)
                 raise RuntimeError("Обнаружена капча на карточке")
 
             try:
@@ -727,6 +847,8 @@ async def scrape_yandex_card(url: str) -> Dict[str, Any]:
             )
 
             if await has_captcha_signals(page):
+                await save_session_state(context)
+                write_captcha_log(lead_id, page.url)
                 raise RuntimeError("Обнаружена капча после скролла")
 
             reviews = []
@@ -773,7 +895,7 @@ async def scrape_yandex_card(url: str) -> Dict[str, Any]:
             await browser.close()
 
 
-async def enrich_lead(lead_id: int) -> Optional[Dict[str, Any]]:
+async def enrich_lead(lead_id: int, force: bool = False) -> Optional[Dict[str, Any]]:
     ensure_data_dirs()
     write_log(f"🚀 Старт enrich для lead_id={lead_id}")
 
@@ -788,14 +910,37 @@ async def enrich_lead(lead_id: int) -> Optional[Dict[str, Any]]:
         lead_name = lead.name or f"Lead {lead_id}"
         city = detect_city(lead.address)
 
+        slug = slugify_name(lead_name, lead_id)
+        out_path = YANDEX_DATA_DIR / f"{slug}.json"
+
+        cache_age = get_cache_age_seconds(out_path)
+        if cache_age is not None and cache_age <= 24 * 60 * 60 and not force:
+            cached_payload = read_cached_payload(out_path)
+            if cached_payload:
+                write_log(f"♻️ Использую кеш (<24ч): {out_path}")
+                return summarize_result_from_payload(cached_payload, out_path, cached=True)
+
+        minutes_since_last = get_minutes_since_last_live_run(lead_id)
+        if minutes_since_last is not None and minutes_since_last < 60 and not force:
+            wait_minutes = max(1, 60 - minutes_since_last)
+            write_log(
+                f"⏸ лид {lead_id} обработан {minutes_since_last} минут назад, подождите {wait_minutes} минут до следующего прогона"
+            )
+            return None
+
+        if minutes_since_last is not None and minutes_since_last < 60 and force:
+            write_log(f"⚠️ --force: игнорирую cooldown для лида {lead_id} ({minutes_since_last} минут с прошлого live-прогона)")
+
+        mark_live_run(lead_id)
+
         yandex_url = await search_lead_on_yandex(lead_name, city, str(lead.address or ""), lead_id=lead_id)
         if not yandex_url:
             write_log(f"⚠️ Не нашли карточку Яндекс для '{lead_name}'")
             return None
 
-        random_pause(3, 7, "между поиском и скрейпингом")
+        random_pause(8, 15, "между поиском и скрейпингом")
 
-        scraped = await scrape_yandex_card(yandex_url)
+        scraped = await scrape_yandex_card(yandex_url, lead_id=lead_id)
 
         existing_reviews = parse_existing_reviews(lead.raw_reviews)
         merged_reviews = dedupe_reviews(existing_reviews + scraped.get("reviews_list", []))
@@ -820,9 +965,6 @@ async def enrich_lead(lead_id: int) -> Optional[Dict[str, Any]]:
 
         await session.commit()
 
-    slug = slugify_name(lead_name, lead_id)
-    out_path = YANDEX_DATA_DIR / f"{slug}.json"
-
     payload = {
         "lead_id": lead_id,
         "lead_name": lead_name,
@@ -835,18 +977,10 @@ async def enrich_lead(lead_id: int) -> Optional[Dict[str, Any]]:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
     write_log(f"✅ Сохранён JSON: {out_path}")
-    return {
-        "lead_id": lead_id,
-        "slug": slug,
-        "output_path": str(out_path),
-        "reviews_total": len(merged_reviews),
-        "yandex_reviews": len(scraped.get("reviews_list", [])),
-        "photos": len(scraped.get("photos", [])),
-        "rating": scraped.get("rating"),
-    }
+    return summarize_result_from_payload(payload, out_path, cached=False)
 
 
-def run_batch(lead_ids: List[int]) -> int:
+def run_batch(lead_ids: List[int], force: bool = False) -> int:
     if len(lead_ids) > MAX_LEADS_PER_RUN:
         safe_print(f"❌ Превышен лимит: максимум {MAX_LEADS_PER_RUN} лидов за запуск")
         return 1
@@ -861,11 +995,12 @@ def run_batch(lead_ids: List[int]) -> int:
 
         lead_start = time.perf_counter()
         try:
-            result = asyncio.run(enrich_lead(lead_id))
+            result = asyncio.run(enrich_lead(lead_id, force=force))
             if result:
                 lead_secs = time.perf_counter() - lead_start
+                cache_label = " (cache)" if result.get("cached") else ""
                 safe_print(
-                    f"✅ ID={lead_id} | rating={result['rating']} | "
+                    f"✅ ID={lead_id}{cache_label} | rating={result['rating']} | "
                     f"reviews={result['yandex_reviews']} | photos={result['photos']} | "
                     f"time={lead_secs:.1f}s"
                 )
@@ -884,7 +1019,7 @@ def run_batch(lead_ids: List[int]) -> int:
             safe_print(f"❌ Ошибка ID={lead_id}: {exc}")
 
         if idx < len(lead_ids):
-            random_pause(15, 30, "между лидами")
+            random_pause(30, 60, "между лидами")
 
     total_secs = time.perf_counter() - started_at
     safe_print(f"🏁 Готово за {total_secs:.1f} сек. Ошибок: {errors}")
@@ -894,9 +1029,10 @@ def run_batch(lead_ids: List[int]) -> int:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Yandex Maps Enricher (scraping, no API)")
     parser.add_argument("lead_ids", nargs="+", type=int, help="Lead ID(s) из БД")
+    parser.add_argument("--force", action="store_true", help="Игнорировать кеш 24ч и выполнить свежий прогон")
     args = parser.parse_args()
 
-    exit_code = run_batch(args.lead_ids)
+    exit_code = run_batch(args.lead_ids, force=args.force)
     sys.exit(exit_code)
 
 

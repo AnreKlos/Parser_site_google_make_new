@@ -3,25 +3,62 @@
 
 import argparse
 import asyncio
+import base64
 import json
+import mimetypes
 import os
 import re
+import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+import google.auth
+import google.auth.transport.requests
 import requests
+from dotenv import load_dotenv
 from sqlalchemy import select
 
 from db.database import get_async_session
 from db.models import Lead
 
+load_dotenv()
+
 
 # --- НАСТРОЙКИ CURATOR ---
-OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "gemma4:e4b"
+GEMINI_MODEL = "gemini-2.5-flash-lite"
+GOOGLE_CLOUD_PROJECT = os.getenv("GOOGLE_CLOUD_PROJECT")
+GOOGLE_CLOUD_LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
 REQUEST_TIMEOUT = 60
 MAX_JSON_RETRIES = 2
 OUTPUT_DIR = Path(__file__).parent / "data" / "curated"
+
+_vertex_credentials = None
+_vertex_auth_req = None
+
+
+def _get_vertex_url() -> str:
+    loc = GOOGLE_CLOUD_LOCATION
+    proj = GOOGLE_CLOUD_PROJECT
+    return (
+        f"https://{loc}-aiplatform.googleapis.com/v1/projects/{proj}"
+        f"/locations/{loc}/publishers/google/models/{GEMINI_MODEL}:generateContent"
+    )
+
+
+def _get_bearer_token() -> Optional[str]:
+    global _vertex_credentials, _vertex_auth_req
+    try:
+        if _vertex_credentials is None:
+            _vertex_credentials, _ = google.auth.default(
+                scopes=["https://www.googleapis.com/auth/cloud-platform"]
+            )
+            _vertex_auth_req = google.auth.transport.requests.Request()
+        if not _vertex_credentials.valid:
+            _vertex_credentials.refresh(_vertex_auth_req)
+        return _vertex_credentials.token
+    except Exception as exc:
+        safe_print(f"\u274c Не удалось получить Bearer токен Vertex AI: {exc}")
+        return None
 
 FALLBACK_AUTHORS = ["Мария", "Анна", "Ольга", "Елена", "Наталья", "Татьяна"]
 
@@ -79,33 +116,153 @@ def extract_json_from_text(text: str) -> Optional[Any]:
     return None
 
 
-def call_ollama_json(prompt: str) -> Optional[Any]:
-    """Вызывает Ollama и возвращает распарсенный JSON с ретраями."""
+def _parse_vertex_text(data: dict, attempt: int, total: int) -> str:
+    """Пробует оба пути ответа Vertex AI и логирует структуру при неудаче."""
+    candidates = data.get("candidates")
+    if candidates:
+        raw = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+        if raw:
+            return raw
+    predictions = data.get("predictions")
+    if predictions:
+        raw = predictions[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+        if raw:
+            safe_print(f"\u2139\ufe0f Попытка {attempt}/{total}: использован путь 'predictions' в ответе Vertex AI")
+            return raw
+    safe_print(
+        f"\u26a0\ufe0f Попытка {attempt}/{total}: неожиданная структура ответа Vertex AI: "
+        + json.dumps(data)[:400]
+    )
+    return ""
+
+
+def call_gemini_json(prompt: str) -> Optional[Any]:
+    """Вызывает Gemini через Vertex AI и возвращает распарсенный JSON с ретраями."""
+    if not GOOGLE_CLOUD_PROJECT:
+        safe_print("\u274c GOOGLE_CLOUD_PROJECT не найден в окружении")
+        return None
+
     total_attempts = MAX_JSON_RETRIES + 1
     payload = {
-        "model": MODEL_NAME,
-        "prompt": prompt,
-        "stream": False,
-        "format": "json",
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 2000},
     }
 
     for attempt in range(1, total_attempts + 1):
+        if attempt > 1:
+            time.sleep(2)
+        token = _get_bearer_token()
+        if not token:
+            break
         try:
-            response = requests.post(OLLAMA_URL, json=payload, timeout=REQUEST_TIMEOUT)
+            response = requests.post(
+                _get_vertex_url(),
+                json=payload,
+                headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+                timeout=REQUEST_TIMEOUT,
+            )
+            if response.status_code >= 400:
+                try:
+                    err = response.json().get("error", {})
+                    detail = compact_text(
+                        f"status={err.get('status', '')}; message={err.get('message', '')}"
+                    )
+                except ValueError:
+                    detail = compact_text(response.text[:500])
+                safe_print(
+                    f"\u26a0\ufe0f Попытка {attempt}/{total_attempts}: Vertex AI HTTP {response.status_code}. {detail}"
+                )
             response.raise_for_status()
             data = response.json()
-            raw_text = data.get("response", "")
+            raw_text = _parse_vertex_text(data, attempt, total_attempts)
             parsed = extract_json_from_text(raw_text)
             if parsed is not None:
                 return parsed
-
-            safe_print(f"⚠️ Попытка {attempt}/{total_attempts}: невалидный JSON от Gemma")
+            safe_print(f"\u26a0\ufe0f Попытка {attempt}/{total_attempts}: невалидный JSON от Gemini")
         except requests.exceptions.RequestException as exc:
-            safe_print(f"⚠️ Попытка {attempt}/{total_attempts}: ошибка запроса к Ollama: {exc}")
+            safe_print(f"\u26a0\ufe0f Попытка {attempt}/{total_attempts}: ошибка запроса к Vertex AI: {exc}")
         except ValueError as exc:
-            safe_print(f"⚠️ Попытка {attempt}/{total_attempts}: ошибка декодирования ответа: {exc}")
+            safe_print(f"\u26a0\ufe0f Попытка {attempt}/{total_attempts}: ошибка декодирования ответа: {exc}")
 
-    safe_print("❌ Gemma не вернула валидный JSON после всех попыток")
+    safe_print("\u274c Gemini не вернула валидный JSON после всех попыток")
+    return None
+
+
+def analyze_image_url(image_url: str, prompt: str) -> Optional[Any]:
+    """Скачивает изображение по URL и отправляет его в Gemini (Vertex AI) как inlineData."""
+    if not GOOGLE_CLOUD_PROJECT:
+        safe_print("\u274c GOOGLE_CLOUD_PROJECT не найден в окружении")
+        return None
+
+    if not image_url:
+        return None
+
+    try:
+        image_resp = requests.get(image_url, timeout=15)
+        image_resp.raise_for_status()
+    except requests.exceptions.RequestException as exc:
+        safe_print(f"\u26a0\ufe0f Не удалось скачать изображение: {exc}")
+        return None
+
+    content_type = (image_resp.headers.get("Content-Type") or "").split(";")[0].strip()
+    mime_type = content_type if content_type.startswith("image/") else ""
+    if not mime_type:
+        guessed, _ = mimetypes.guess_type(image_url)
+        mime_type = guessed if guessed and guessed.startswith("image/") else "image/jpeg"
+
+    image_b64 = base64.b64encode(image_resp.content).decode()
+
+    payload = {
+        "contents": [
+            {
+                "role": "user",
+                "parts": [
+                    {"text": prompt},
+                    {"inlineData": {"mimeType": mime_type, "data": image_b64}},
+                ],
+            }
+        ],
+        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 1000},
+    }
+
+    total_attempts = MAX_JSON_RETRIES + 1
+    for attempt in range(1, total_attempts + 1):
+        if attempt > 1:
+            time.sleep(2)
+        token = _get_bearer_token()
+        if not token:
+            break
+        try:
+            response = requests.post(
+                _get_vertex_url(),
+                json=payload,
+                headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+                timeout=REQUEST_TIMEOUT,
+            )
+            if response.status_code >= 400:
+                try:
+                    err = response.json().get("error", {})
+                    detail = compact_text(
+                        f"status={err.get('status', '')}; message={err.get('message', '')}"
+                    )
+                except ValueError:
+                    detail = compact_text(response.text[:500])
+                safe_print(
+                    f"\u26a0\ufe0f Попытка {attempt}/{total_attempts}: Vertex AI HTTP {response.status_code} (image). {detail}"
+                )
+            response.raise_for_status()
+            data = response.json()
+            raw_text = _parse_vertex_text(data, attempt, total_attempts)
+            parsed = extract_json_from_text(raw_text)
+            if parsed is not None:
+                return parsed
+            safe_print(f"\u26a0\ufe0f Попытка {attempt}/{total_attempts}: невалидный JSON от Gemini (image)")
+        except requests.exceptions.RequestException as exc:
+            safe_print(f"\u26a0\ufe0f Попытка {attempt}/{total_attempts}: ошибка запроса к Vertex AI (image): {exc}")
+        except ValueError as exc:
+            safe_print(f"\u26a0\ufe0f Попытка {attempt}/{total_attempts}: ошибка декодирования ответа (image): {exc}")
+
+    safe_print("\u274c Gemini не вернула валидный JSON по изображению")
     return None
 
 
@@ -222,7 +379,7 @@ def _select_review_indices(reviews: List[Dict[str, Any]], top_k: int) -> List[in
 Отзывы:
 {reviews_json}"""
 
-    parsed = call_ollama_json(prompt)
+    parsed = call_gemini_json(prompt)
     if not isinstance(parsed, dict):
         return list(range(top_k))
 
@@ -259,7 +416,7 @@ def _polish_reviews(reviews: List[Dict[str, Any]], count: int) -> List[Dict[str,
 Данные:
 {chunk_json}"""
 
-    parsed = call_ollama_json(prompt)
+    parsed = call_gemini_json(prompt)
     if isinstance(parsed, dict) and isinstance(parsed.get("reviews"), list):
         polished: List[Dict[str, str]] = []
         for i, item in enumerate(parsed["reviews"]):
@@ -372,7 +529,7 @@ def write_about_text(
 Стиль: {tone}, элегантно, без штампов и эмодзи.
 Верни СТРОГО JSON: {{"text": "..."}}."""
 
-    parsed = call_ollama_json(prompt)
+    parsed = call_gemini_json(prompt)
     if isinstance(parsed, dict):
         text = compact_text(str(parsed.get("text", "")))
         if text:
@@ -394,7 +551,7 @@ def generate_faq(business_name: str, services: List[str], city: str, count: int 
 Коротко, конкретно, без воды и сленга.
 Верни СТРОГО JSON: {{"faq": [{{"q":"...","a":"..."}}]}}."""
 
-    parsed = call_ollama_json(prompt)
+    parsed = call_gemini_json(prompt)
     if isinstance(parsed, dict) and isinstance(parsed.get("faq"), list):
         items: List[Dict[str, str]] = []
         for item in parsed["faq"]:
@@ -443,7 +600,7 @@ def generate_services_seed(category: str, business_name: str, city: str, count: 
 Верни СТРОГО JSON: {{"services": [{{"title":"...","priceFrom":"от 0000 ₽"}}]}}.
 Названия услуг — на русском."""
 
-    parsed = call_ollama_json(prompt)
+    parsed = call_gemini_json(prompt)
     if isinstance(parsed, dict) and isinstance(parsed.get("services"), list):
         result: List[Dict[str, str]] = []
         for item in parsed["services"]:
@@ -485,7 +642,7 @@ def write_service_descriptions(services_list: List[Dict[str, str]]) -> List[Dict
 Услуги:
 {services_json}"""
 
-    parsed = call_ollama_json(prompt)
+    parsed = call_gemini_json(prompt)
     if isinstance(parsed, dict) and isinstance(parsed.get("services"), list):
         result: List[Dict[str, str]] = []
         for item in parsed["services"]:
@@ -548,7 +705,7 @@ def generate_tagline(
 Без штампов, без эмодзи.
 Верни СТРОГО JSON: {{"tagline":"..."}}."""
 
-    parsed = call_ollama_json(prompt)
+    parsed = call_gemini_json(prompt)
     if isinstance(parsed, dict):
         tagline = compact_text(str(parsed.get("tagline", "")))
         if tagline:
@@ -562,7 +719,7 @@ def generate_tagline(
 
 async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
     """Главная функция курации контента по lead_id."""
-    safe_print(f"🔍 Запуск Gemma Curator для lead_id={lead_id}")
+    safe_print(f"🔍 Запуск Gemini Curator для lead_id={lead_id}")
 
     async with get_async_session() as session:
         result = await session.execute(select(Lead).where(Lead.id == lead_id))
@@ -627,9 +784,9 @@ def main() -> None:
     args = parser.parse_args()
 
     safe_print("=" * 60)
-    safe_print("🚀 Gemma Content Curator")
-    safe_print(f"🤖 Модель: {MODEL_NAME}")
-    safe_print(f"🌐 Ollama: {OLLAMA_URL}")
+    safe_print("🚀 Gemini Content Curator")
+    safe_print(f"🤖 Модель: {GEMINI_MODEL}")
+    safe_print("🌐 Gemini API: generativelanguage.googleapis.com")
     safe_print(f"📁 Output: {OUTPUT_DIR}")
     safe_print("=" * 60)
 

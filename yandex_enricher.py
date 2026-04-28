@@ -154,6 +154,7 @@ def read_cached_payload(path: Path) -> Optional[Dict[str, Any]]:
 def summarize_result_from_payload(payload: Dict[str, Any], output_path: Path, cached: bool) -> Dict[str, Any]:
     yandex = payload.get("yandex") if isinstance(payload.get("yandex"), dict) else {}
     reviews_list = yandex.get("reviews_list") if isinstance(yandex.get("reviews_list"), list) else []
+    reviews_list = reviews_list[:30]  # берём только последние 30
     photos = yandex.get("photos") if isinstance(yandex.get("photos"), list) else []
     return {
         "lead_id": payload.get("lead_id"),

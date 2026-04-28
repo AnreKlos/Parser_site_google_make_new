@@ -2,7 +2,7 @@
   "lead_id": 58,
   "lead_name": "Калинка-Малинка студия красоты",
   "source_url": "https://kalinkamalinkabr.orgs.biz/",
-  "extracted_at": "2026-04-27 18:05:23",
+  "extracted_at": "2026-04-28 15:22:24",
   "serviceCarousel": [
     {
       "name": "Вечерний макияж",
@@ -41,5 +41,25 @@
       "description": "Возможен выезд на дом или ранний выезд в студию"
     }
   ],
-  "faq_accordion": []
+  "faq_accordion": [],
+  "team": [],
+  "photos_by_block": {
+    "hero": [
+      "/kalinka-malinka-studiya-krasoty/hero/hero_1.jpg"
+    ],
+    "gallery": [
+      "/kalinka-malinka-studiya-krasoty/gallery/gallery_1.jpg",
+      "/kalinka-malinka-studiya-krasoty/gallery/gallery_2.jpg",
+      "/kalinka-malinka-studiya-krasoty/gallery/gallery_3.jpg",
+      "/kalinka-malinka-studiya-krasoty/gallery/gallery_4.jpg",
+      "/kalinka-malinka-studiya-krasoty/gallery/gallery_5.jpg"
+    ],
+    "team": [],
+    "about": [],
+    "services": [
+      "/kalinka-malinka-studiya-krasoty/services/services_1.jpg"
+    ]
+  },
+  "team_photos": [],
+  "photos_fetched_at": "2026-04-28 15:25:09"
 }

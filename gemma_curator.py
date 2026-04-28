@@ -733,15 +733,48 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
     city = detect_city(lead.address)
     category = compact_text(lead.category or "other")
     raw_reviews = parse_raw_reviews(lead.raw_reviews)
+    slug = slugify_name(business_name, lead_id)
 
     safe_print(f"🎯 Найден лид: {business_name} | category={category} | reviews={len(raw_reviews)}")
+
+    # --- Загрузка extracted данных (спарсенных с сайта) ---
+    extracted_path = Path(__file__).parent / "data" / "extracted" / f"{slug}.json"
+    extracted: Dict[str, Any] = {}
+    if extracted_path.exists():
+        try:
+            with open(extracted_path, encoding="utf-8") as f:
+                extracted = json.load(f)
+            safe_print(f"📦 Загружены extracted данные: {extracted_path.name}")
+        except Exception as exc:
+            safe_print(f"⚠️ Не удалось загрузить extracted файл: {exc}")
 
     # audit_notes используется как внутренний контекст для Gemma
     about_source = extract_about_source(lead.audit_notes)
     tagline_source = extract_tagline_source(lead.audit_notes)
 
-    services_seed = generate_services_seed(category, business_name, city, count=5)
+    # --- Услуги: extracted или LLM ---
+    extracted_carousel = [item for item in (extracted.get("serviceCarousel") or []) if item.get("name")]
+    if extracted_carousel:
+        services_seed = [
+            {
+                "title": compact_text(item["name"]),
+                "priceFrom": compact_text(item.get("price", "")) or "от 1500 ₽",
+            }
+            for item in extracted_carousel
+        ]
+        safe_print(f"📦 Услуги из extracted: {len(services_seed)} шт.")
+    else:
+        services_seed = generate_services_seed(category, business_name, city, count=5)
     service_titles = [s["title"] for s in services_seed]
+
+    # --- Отзывы: extracted или DB ---
+    extracted_reviews = [r for r in (extracted.get("reviews") or []) if r.get("text")]
+    if extracted_reviews:
+        raw_reviews = [
+            {"author": compact_text(r.get("author", "")), "text": compact_text(r["text"])}
+            for r in extracted_reviews
+        ]
+        safe_print(f"📦 Отзывы из extracted: {len(raw_reviews)} шт.")
 
     tagline = generate_tagline(business_name, service_titles, city, source_tagline=tagline_source)
     about_text = write_about_text(
@@ -755,7 +788,6 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
     faq_items = generate_faq(business_name, service_titles, city, count=5)
     service_cards = write_service_descriptions(services_seed)
 
-    slug = slugify_name(business_name, lead_id)
     output_payload: Dict[str, Any] = {
         "slug": slug,
         "meta": {

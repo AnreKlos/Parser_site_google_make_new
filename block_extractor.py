@@ -458,6 +458,110 @@ async def _extract_faq_from_known_paths(page) -> List[Dict[str, str]]:
     return []
 
 
+async def _extract_team_from_page(page) -> List[Dict[str, str]]:
+    raw_team = await page.evaluate(
+        r"""
+        () => {
+          const out = [];
+          const seen = new Set();
+          const keyWords = ['мастер', 'команд', 'специалист', 'сотрудник', 'team', 'staff'];
+
+          const normalize = (v) => (v || '').replace(/\s+/g, ' ').trim();
+          const isLikelyName = (v) => {
+            const t = normalize(v);
+            if (!t || t.length < 3 || t.length > 60) return false;
+            if (/https?:\/\//i.test(t)) return false;
+            if (/^[\d\s.,:;!?()\-+]+$/.test(t)) return false;
+            return true;
+          };
+
+          const roots = Array.from(document.querySelectorAll('section, div')).filter(el => {
+            const head = (el.querySelector('h1,h2,h3,h4,.title,.heading,[class*="title"],[class*="heading"]')?.textContent || '').toLowerCase();
+            return keyWords.some(k => head.includes(k));
+          }).slice(0, 20);
+
+          for (const root of roots) {
+            const imgs = Array.from(root.querySelectorAll('img'));
+            for (const img of imgs) {
+              const rawSrc = img.getAttribute('src') || img.getAttribute('data-src') || '';
+              const src = normalize(rawSrc);
+              if (!src) continue;
+
+              let name = '';
+              let node = img;
+              for (let depth = 0; depth < 6 && node && node !== document.body; depth++) {
+                const picks = node.querySelectorAll('h2,h3,h4,p,.name,.title,[class*="name"],[class*="master"]');
+                for (const p of picks) {
+                  const txt = normalize(p.textContent || '');
+                  if (isLikelyName(txt)) {
+                    name = txt;
+                    break;
+                  }
+                }
+                if (name || node === root) break;
+                node = node.parentElement;
+              }
+
+              if (!name) continue;
+
+              let photoUrl = src;
+              try {
+                photoUrl = new URL(src, window.location.href).href;
+              } catch (_) {
+                continue;
+              }
+
+              const dedupeKey = `${name.toLowerCase()}|${photoUrl}`;
+              if (seen.has(dedupeKey)) continue;
+              seen.add(dedupeKey);
+              out.push({ name, photo_url: photoUrl });
+              if (out.length >= 10) break;
+            }
+            if (out.length >= 10) break;
+          }
+
+          return out;
+        }
+        """
+    )
+
+    team: List[Dict[str, str]] = []
+    for item in raw_team if isinstance(raw_team, list) else []:
+        if not isinstance(item, dict):
+            continue
+        name = compact(str(item.get("name") or ""))
+        photo_url = compact(str(item.get("photo_url") or ""))
+        if not name or not photo_url:
+            continue
+        if len(name) < 3 or len(name) > 60:
+            continue
+        team.append({"name": name, "photo_url": photo_url})
+        if len(team) >= 10:
+            break
+    return team
+
+
+async def _extract_both_in_one_visit(url: str) -> Tuple[List[Dict[str, str]], List[Dict[str, str]], List[Dict[str, str]]]:
+    playwright = browser = context = page = None
+    try:
+        playwright, browser, context, page = await _open_page(url)
+        services = await _extract_services_from_page(page)
+        faq = await _extract_faq_from_page(page)
+        team = await _extract_team_from_page(page)
+        if not faq:
+            faq = await _extract_faq_from_faq_link(page)
+        if not faq:
+            faq = await _extract_faq_from_known_paths(page)
+        return services, faq, team
+    finally:
+        if context is not None:
+            await context.close()
+        if browser is not None:
+            await browser.close()
+        if playwright is not None:
+            await playwright.stop()
+
+
 async def extract_services_carousel(url: str) -> List[Dict[str, str]]:
     if not url:
         return []
@@ -502,26 +606,6 @@ async def extract_faq_accordion(url: str) -> List[Dict[str, str]]:
             await playwright.stop()
 
 
-async def _extract_both_in_one_visit(url: str) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
-    playwright = browser = context = page = None
-    try:
-        playwright, browser, context, page = await _open_page(url)
-        services = await _extract_services_from_page(page)
-        faq = await _extract_faq_from_page(page)
-        if not faq:
-            faq = await _extract_faq_from_faq_link(page)
-        if not faq:
-            faq = await _extract_faq_from_known_paths(page)
-        return services, faq
-    finally:
-        if context is not None:
-            await context.close()
-        if browser is not None:
-            await browser.close()
-        if playwright is not None:
-            await playwright.stop()
-
-
 async def extract_all(lead_id: int) -> Optional[Dict[str, Any]]:
     lead = load_lead(lead_id)
     if not lead:
@@ -538,7 +622,7 @@ async def extract_all(lead_id: int) -> Optional[Dict[str, Any]]:
     log(f"🔍 Парсинг блоков: lead_id={lead_id} | {lead_name}")
 
     try:
-        services, faq = await _extract_both_in_one_visit(website)
+        services, faq, team = await _extract_both_in_one_visit(website)
     except Exception as exc:
         log(f"❌ Ошибка парсинга блоков: {exc}")
         return None
@@ -561,7 +645,10 @@ async def extract_all(lead_id: int) -> Optional[Dict[str, Any]]:
         "extracted_at": timestamp(),
         "serviceCarousel": service_carousel,
         "faq_accordion": faq,
+        "team": team,
     }
+
+    log(f"✅ team: {len(team)} мастеров")
 
     EXTRACTED_DIR.mkdir(parents=True, exist_ok=True)
     out_path = EXTRACTED_DIR / f"{slug}.json"

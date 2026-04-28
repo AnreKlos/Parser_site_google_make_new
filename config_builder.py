@@ -13,6 +13,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+import requests
+
 BASE_DIR = Path(__file__).parent
 DB_PATH = BASE_DIR / "data" / "leads.db"
 CURATED_DIR = BASE_DIR / "data" / "curated"
@@ -148,6 +150,36 @@ def list_image_urls(slug: str, folder: str) -> List[str]:
         if p.is_file() and p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp", ".gif"}:
             files.append(f"/{slug}/{folder}/{p.name}")
     return files
+
+
+def download_hero_photo(slug: str, photos_list: List[str]) -> Optional[str]:
+    """Берёт первый URL из photos_list где размер XXL_height.
+    Скачивает в public/<slug>/hero/hero_1.jpg.
+    Возвращает путь /<slug>/hero/hero_1.jpg или None."""
+    xxl_url = None
+    for url in photos_list:
+        if isinstance(url, str) and "XXL_height" in url:
+            xxl_url = url
+            break
+
+    if not xxl_url:
+        log("⚠️ Не найден URL с XXL_height в photos")
+        return None
+
+    hero_dir = RADAR_PUBLIC_DIR / slug / "hero"
+    hero_dir.mkdir(parents=True, exist_ok=True)
+    output_path = hero_dir / "hero_1.jpg"
+
+    try:
+        resp = requests.get(xxl_url, timeout=30)
+        resp.raise_for_status()
+        with open(output_path, "wb") as f:
+            f.write(resp.content)
+        log(f"📥 Hero фото скачано: {output_path}")
+        return f"/{slug}/hero/hero_1.jpg"
+    except Exception as exc:
+        log(f"⚠️ Ошибка скачивания hero фото: {exc}")
+        return None
 
 
 def short_about_text(text: str, fallback: str) -> str:
@@ -313,6 +345,42 @@ def prettify_name_from_filename(filename: str) -> str:
     return " ".join(words)
 
 
+def _hero_brand_name(lead_name: str) -> str:
+    """Возвращает короткое название для titleLine2.
+    Убирает слова: студия, красоты, салон, beauty, studio,
+    center, центр, spa, спа — если они не единственное слово."""
+    noise = {
+        "студия", "красоты", "салон", "beauty", "studio",
+        "center", "центр", "spa", "спа", "сервис", "service",
+    }
+    words = lead_name.strip().split()
+    filtered = [w for w in words if w.lower() not in noise]
+    result = " ".join(filtered).strip()
+    return result if result else lead_name.strip()
+
+
+def _hero_line1(lead: dict) -> str:
+    cat = (lead.get("category") or "").lower()
+    if "nail" in cat:
+        return "Студия маникюра"
+    if "brow" in cat:
+        return "Студия бровей"
+    if "barber" in cat:
+        return "Барбершоп"
+    return "Моностудия"
+
+
+def _hero_line1_small(lead: dict) -> str:
+    cat = (lead.get("category") or "").lower()
+    if "nail" in cat:
+        return "идеального маникюра"
+    if "brow" in cat:
+        return "оформления бровей"
+    if "barber" in cat:
+        return "мужских стрижек"
+    return "по созданию образа"
+
+
 def build_config(lead_id: int) -> Dict[str, Any]:
     lead = load_lead(lead_id)
     if not lead:
@@ -406,8 +474,9 @@ def build_config(lead_id: int) -> Dict[str, Any]:
             "slug": slug,
             "brand": {
                 "name": lead_name,
+                "shortName": _hero_brand_name(lead_name),
                 "slug": slug,
-                "tagline": curated_tagline or fallback_title_line1,
+                "tagline": curated_tagline or "",
             },
             "name": lead_name,
             "fullName": f"{lead_name} — {curated_tagline or fallback_title_line1}",
@@ -435,8 +504,10 @@ def build_config(lead_id: int) -> Dict[str, Any]:
             "hero": {
                 "enabled": True,
                 "image": hero_image,
-                "titleLine1": curated_tagline or fallback_title_line1,
-                "titleLine2": lead_name,
+                "titleLine1": _hero_line1(lead),
+                "titleLine1Small": _hero_line1_small(lead),
+                "titleLine1SmallSize": "default",
+                "titleLine2": _hero_brand_name(lead_name),
                 "topLabel": "Премиум студия красоты",
                 "lead": short_about_text(curated_about, "Подчеркнем вашу индивидуальность и соберем образ под событие и настроение."),
             },

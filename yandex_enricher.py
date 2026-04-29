@@ -960,7 +960,11 @@ async def enrich_lead(lead_id: int, force: bool = False) -> Optional[Dict[str, A
             lead.phone = str(phones[0])
 
         if not lead.website and scraped.get("website"):
-            lead.website = str(scraped["website"])
+            # Фильтруем соцсети — не сохраняем их как website
+            website = str(scraped["website"])
+            SKIP_DOMAINS = ("instagram.com", "facebook.com", "t.me", "ok.ru", "youtube.com")
+            if not any(d in website for d in SKIP_DOMAINS):
+                lead.website = website
 
         lead.raw_reviews = json.dumps(merged_reviews, ensure_ascii=False)
 

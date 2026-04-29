@@ -2,7 +2,7 @@
   "lead_id": 58,
   "lead_name": "Калинка-Малинка студия красоты",
   "source_url": "https://kalinkamalinkabr.orgs.biz/",
-  "extracted_at": "2026-04-28 15:22:24",
+  "extracted_at": "2026-04-29 09:05:16",
   "serviceCarousel": [
     {
       "name": "Вечерний макияж",
@@ -32,7 +32,7 @@
       "name": "Маникюр с покрытием гель-лак",
       "price": "900 ₽",
       "image": "https://sun9-53.userapi.com/impf/c639216/v639216234/53350/ZpjjLp6bm4w.jpg?size=0x400&crop=0.008,0.008,0.984,0.984&quality=95&sign=9e2abab07e16c0b69c1be3fbe6bbdb00&c_uniq_tag=hsf8_MMNkZ1tLwELAJMkBCB29F0muMOKPbZa50Pdyqc",
-      "description": "📞 344388"
+      "description": "344388"
     },
     {
       "name": "Свадебный макияж",
@@ -41,7 +41,28 @@
       "description": "Возможен выезд на дом или ранний выезд в студию"
     }
   ],
-  "faq_accordion": [],
+  "faq_accordion": [
+    {
+      "q": "Как записаться на услугу в студии красоты Калинка-Малинка?",
+      "a": "Записаться можно по телефону: 344-388, в личных сообщениях или онлайн через сервис yclients.com"
+    },
+    {
+      "q": "Какие услуги предоставляет студия красоты Калинка-Малинка?",
+      "a": "Студия предоставляет услуги макияжа, коррекции бровей, ламинирования ресниц, маникюра и другие"
+    },
+    {
+      "q": "Каков график работы студии красоты Калинка-Малинка?",
+      "a": "График работы: пн - выходной, вт - вс: с 10:00 до 20:00, выезд возможен раньше по договоренности"
+    },
+    {
+      "q": "Могу ли я записаться на услугу онлайн?",
+      "a": "Да, записаться на услугу можно онлайн через сервис yclients.com"
+    },
+    {
+      "q": "Какие новости и акции есть в студии красоты Калинка-Малинка?",
+      "a": "Последние новости и акции можно найти на сайте студии или в социальных сетях"
+    }
+  ],
   "team": [],
   "photos_by_block": {
     "hero": [
@@ -52,14 +73,13 @@
       "/kalinka-malinka-studiya-krasoty/gallery/gallery_2.jpg",
       "/kalinka-malinka-studiya-krasoty/gallery/gallery_3.jpg",
       "/kalinka-malinka-studiya-krasoty/gallery/gallery_4.jpg",
-      "/kalinka-malinka-studiya-krasoty/gallery/gallery_5.jpg"
+      "/kalinka-malinka-studiya-krasoty/gallery/gallery_5.jpg",
+      "/kalinka-malinka-studiya-krasoty/gallery/gallery_6.jpg"
     ],
     "team": [],
     "about": [],
-    "services": [
-      "/kalinka-malinka-studiya-krasoty/services/services_1.jpg"
-    ]
+    "services": []
   },
   "team_photos": [],
-  "photos_fetched_at": "2026-04-28 15:25:09"
+  "photos_fetched_at": "2026-04-29 10:10:49"
 }

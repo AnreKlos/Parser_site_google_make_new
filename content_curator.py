@@ -28,9 +28,11 @@ FALLBACK_AUTHORS = ["Мария", "Анна", "Ольга", "Елена", "На�
 DATA_BLOCK_TEMPLATE = """## ДАННЫЕ О САЛОНЕ (используй ТОЛЬКО их, не выдумывай):
 Название: {name}
 Город: {city} | Адрес: {address}
-Услуги: {services}
-Рейтинг: {rating} ({reviews_count} отзывов)
 Часы работы: {hours}
+Категория: {category}
+Реальные услуги этого салона (используй только их, не придумывай новых): {real_services}
+Реальные цены с Яндекс.Карт: {real_prices}
+Рейтинг: {rating} из 5 ({reviews_count} отзывов на Яндекс.Картах)
 Позиционирование с сайта: {tagline}
 ---
 ПРАВИЛА (нарушение = провал задачи):
@@ -56,7 +58,9 @@ DATA_BLOCK_TEMPLATE = """## ДАННЫЕ О САЛОНЕ (используй Т�
 - title услуги: убирай цифры и спецсимволы в конце названия
   («Оформление бровей1» → «Оформление бровей», «Маникюр2» → «Маникюр»)
 - Запрещено: «подчеркнёт твою индивидуальность», «раскроет твой потенциал»,
-  «подчеркнёт твою красоту» — заменяй конкретным результатом"""
+  «подчеркнёт твою красоту» — заменяй конкретным результатом
+- Генерируй только те услуги которые есть в поле real_services.
+  Если real_services не пустой — не добавляй услуги которых там нет."""
 
 
 def safe_print(text: str) -> None:
@@ -395,6 +399,13 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
     safe_print("🔍 Формируем услуги...")
     system = "Ты контент-редактор beauty-сайтов. Описания услуг закрывают страхи, не продают воздух. Возвращай только JSON."
     
+    # Парсим real_prices из JSON
+    real_prices_dict = {}
+    try:
+        real_prices_dict = json.loads(context.get("real_prices", "{}"))
+    except (json.JSONDecodeError, TypeError):
+        real_prices_dict = {}
+    
     data_block = DATA_BLOCK_TEMPLATE.format(**context)
     
     user = data_block + f"""
@@ -411,6 +422,7 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
   Свадебный макияж → акцент: пробный визит + стойкость весь день
   Вечерний макияж  → акцент: скорость сборки + яркость образа
   Не копировать структуру соседней услуги даже частично
+- Используй только name и price из real_services. description бери только если он описывает саму услугу, а не условия записи, требования к клиенту или контактные данные. Если description содержит телефон, адрес, инструкцию или предупреждение — оставь поле пустым.
 
 Реальные цены с Яндекс.Карт: {context.get("yandex_prices", "")}
 
@@ -441,7 +453,19 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
             title = sanitize_service_title(str(item.get("title") or ""))
             short = compact_text(str(item.get("short") or ""))
             description = compact_text(str(item.get("description") or ""))
-            price = compact_text(str(item.get("priceFrom") or ""))
+            
+            # Ищем цену в real_services по совпадению названия
+            price = None
+            title_lower = title.lower()
+            for real_name, real_price in real_prices_dict.items():
+                if title_lower in real_name.lower() or real_name.lower() in title_lower:
+                    price = compact_text(str(real_price))
+                    break
+            
+            # Если цены нет в real_services — берем из LLM
+            if not price:
+                price = compact_text(str(item.get("priceFrom") or ""))
+            
             if not title:
                 continue
             if not short:
@@ -645,8 +669,34 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
                 continue
             clean_name = name.split("варьируется")[0].strip()
             clean_name = clean_name.replace("ВЫПОЛНЯЕТСЯ НА ЧИСТЫЕ ВЫМЫТЫЕ ВАМИ ВОЛОСЫ", "").strip()
+            clean_name = re.sub(r'\d+$', '', clean_name).strip()
             if clean_name:
                 yandex_prices[clean_name.lower()] = price
+
+    real_services = [
+        s.get("name", "")
+        for s in extracted_data.get("serviceCarousel", [])
+        if s.get("name")
+        and len(s.get("name", "")) < 60
+        and not any(x in s.get("name", "") for x in
+                    ["📞", "варьируется", "ВЫПОЛНЯЕТСЯ", "344"])
+    ]
+    
+    # Собираем цены из serviceCarousel
+    carousel_prices = {}
+    for s in extracted_data.get("serviceCarousel", []):
+        name = s.get("name", "").strip()
+        price = s.get("price", "")
+        if name and price:
+            price_digits = re.sub(r'[^\d]', '', price)
+            try:
+                if price_digits and int(price_digits) >= 100:
+                    carousel_prices[name.lower()] = price
+            except (ValueError, TypeError):
+                pass
+    
+    # Объединяем: carousel_prices + yandex_prices (яндекс приоритетнее)
+    merged_prices = {**carousel_prices, **yandex_prices}
     
     # Позиционирование с сайта
     yandex_info = yandex_data.get("yandex", {})
@@ -668,6 +718,8 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
         "hours": real_hours,
         "category": category,
         "yandex_prices": json.dumps(yandex_prices, ensure_ascii=False),
+        "real_services": ", ".join(real_services) if real_services else "",
+        "real_prices": json.dumps(merged_prices, ensure_ascii=False),
     }
 
     about_source = extract_about_source(lead.audit_notes)
@@ -695,7 +747,14 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
     # (лучше пусто чем плохо)
     curated_reviews = clean_reviews
     service_cards = generate_services(salon_context, count=5)
-    faq_items = generate_faq(salon_context, service_cards, count=5)
+    
+    # Используем реальные FAQ из extracted_data если есть
+    real_faq = extracted_data.get("faq_accordion", [])
+    if real_faq:
+        faq_items = [{"q": item.get("q", ""), "a": item.get("a", "")} for item in real_faq[:5]]
+        safe_print(f"✅ FAQ из источника: {len(faq_items)}")
+    else:
+        faq_items = generate_faq(salon_context, service_cards, count=5)
 
     output_payload: Dict[str, Any] = {
         "slug": slug,

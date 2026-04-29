@@ -15,6 +15,8 @@ from typing import Any, Dict, List, Optional
 
 import requests
 
+from block_flags import compute_block_flags
+
 BASE_DIR = Path(__file__).parent
 DB_PATH = BASE_DIR / "data" / "leads.db"
 CURATED_DIR = BASE_DIR / "data" / "curated"
@@ -409,6 +411,22 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     team_images = list_image_urls(slug, "team")
     log(f"📖 Читаю public/{slug}/ ({len(hero_images)} фото в hero, {len(gallery_images)} в gallery, {len(team_images)} в team)")
 
+    # Сборка photo_map для compute_block_flags
+    photo_map = {
+        "hero": hero_images,
+        "gallery": gallery_images,
+        "team": team_images,
+        "about": about_images,
+    }
+
+    # Вычисляем флаги блоков
+    block_flags = compute_block_flags(
+        extracted=extracted_payload,
+        photos=photo_map,
+        yandex=yandex_payload,
+    )
+    log(f"🚩 Block flags: {block_flags}")
+
     curated_meta = curated.get("meta") if isinstance(curated.get("meta"), dict) else {}
     curated_tagline = str(curated_meta.get("tagline") or "").strip()
     curated_about = str(curated.get("about") or "").strip()
@@ -556,6 +574,7 @@ def build_config(lead_id: int) -> Dict[str, Any]:
         "features": {
             "chatWidget": DEFAULT_CHAT_WIDGET,
         },
+        "block_flags": block_flags,
     }
 
     if coords:

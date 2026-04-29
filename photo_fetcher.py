@@ -547,6 +547,14 @@ def _download_to_path(url: str, path: Path) -> bool:
 
 
 def distribute_and_download(candidates: List[PhotoCandidate], slug: str, dry_run: bool = False) -> Dict[str, List[str]]:
+    # Чистим старые фото донора перед новой загрузкой
+    if not dry_run:
+        slug_dir = PUBLIC_DIR / slug
+        if slug_dir.exists():
+            import shutil
+            shutil.rmtree(slug_dir)
+            log(f"🗑️ Очищена папка: {slug_dir}")
+    
     photo_map: Dict[str, List[str]] = {k: [] for k in FOLDER_LIMITS.keys()}
 
     for c in candidates:
@@ -664,6 +672,13 @@ async def fetch_photos(
     lead_name = str(lead.get("name") or f"Lead {lead_id}")
     slug = slugify_name(lead_name, lead_id)
     website = str(lead.get("website") or "").strip()
+    
+    # Фильтруем соцсети — пропускаем их как website
+    SKIP_SITE_DOMAINS = ("instagram.com", "facebook.com", "t.me", "ok.ru", "youtube.com")
+    if website and any(d in website for d in SKIP_SITE_DOMAINS):
+        log(f"⚠️ website — соцсеть, пропускаем: {website}")
+        website = ""
+    
     vk_url = str(lead.get("vk_url") or "").strip()
     if not vk_url:
         vk_url = resolve_vk_from_yandex(slug)

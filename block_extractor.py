@@ -145,6 +145,31 @@ def clean_description(value: str) -> str:
         if idx > 0:
             text = text[:idx].strip()
     text = re.sub(r"ПОДРОБНЕЕ", "", text, flags=re.IGNORECASE)
+    
+    # Фильтруем строки с императивными конструкциями и телефонами
+    imperative_patterns = [
+        r"ВЫПОЛНЯЕТСЯ",
+        r"ЗАПИСЬ",
+        r"ТОЛЬКО",
+        r"ВНИМАНИЕ",
+        r"📞",
+        r"\d{3,4}[-\s]?\d{2,3}[-\s]?\d{2}",
+    ]
+    for pattern in imperative_patterns:
+        text = re.sub(pattern, "", text, flags=re.IGNORECASE)
+    
+    # Фильтруем строки начинающиеся с заглавных букв (императив)
+    lines = text.split('. ')
+    filtered_lines = []
+    for line in lines:
+        line = line.strip()
+        if line and len(line) > 3:
+            # Если строка начинается с заглавной буквы и содержит императив — пропускаем
+            if line[0].isupper() and any(x in line.upper() for x in ["ВЫПОЛНЯЕТСЯ", "ЗАПИСЬ", "ТОЛЬКО", "ВНИМАНИЕ", "ПРЕДВАРИТЕЛЬНО"]):
+                continue
+            filtered_lines.append(line)
+    text = '. '.join(filtered_lines)
+    
     text = compact(text)
     if len(text) > 260:
         text = text[:257].rstrip() + "..."
@@ -541,12 +566,141 @@ async def _extract_team_from_page(page) -> List[Dict[str, str]]:
     return team
 
 
+async def _extract_faq_accordion(page) -> List[Dict[str, str]]:
+    """Извлекает FAQ из div#faq-accordion с div.faq-item."""
+    current_url = page.url
+    base_url = str(page.url).split('/')[0] + '//' + str(page.url).split('/')[2]
+    
+    # Если ушли со стартовой страницы — возвращаемся
+    if '/product/' in current_url or '/services/' in current_url:
+        await page.goto(base_url, wait_until='domcontentloaded')
+        await asyncio.sleep(3.0)
+        # Скроллим до низа чтобы FAQ загрузился
+        await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        await asyncio.sleep(2.0)
+    
+    # Скроллим к FAQ и ждём появления
+    try:
+        await page.evaluate("""
+            () => {
+                const el = document.querySelector('#faq-accordion')
+                    || document.querySelector('[id*="faq"]')
+                    || document.querySelector('[class*="faq"]');
+                if (el) el.scrollIntoView({ behavior: 'instant', block: 'center' });
+            }
+        """)
+        await asyncio.sleep(2.0)
+        
+        # Ждём появления элементов в DOM
+        await page.wait_for_selector(
+            '#faq-accordion, .faq-item, [itemprop="mainEntity"]',
+            timeout=8000
+        )
+        await asyncio.sleep(1.0)
+    except Exception:
+        pass  # если не нашли — идём дальше, вернём []
+
+    try:
+        # Раскрываем все вопросы гармошки кликом
+        faq_triggers = await page.query_selector_all(
+            '#faq-accordion .faq-item h3, '
+            '#faq-accordion .faq-item [class*="question"], '
+            '#faq-accordion .faq-item [class*="title"], '
+            '#faq-accordion [itemtype*="Question"] h3'
+        )
+        for trigger in faq_triggers:
+            try:
+                await trigger.scroll_into_view_if_needed()
+                await trigger.click()
+                await asyncio.sleep(0.4)
+            except Exception:
+                pass
+        await asyncio.sleep(1.0)
+    except Exception:
+        pass
+
+    debug = await page.evaluate("""
+        () => {
+            // Ищем по всем возможным признакам FAQ
+            return {
+                faq_accordion: !!document.querySelector('#faq-accordion'),
+                faq_items: document.querySelectorAll('.faq-item').length,
+                h3_itemprop: document.querySelectorAll('h3[itemprop]').length,
+                p_itemprop: document.querySelectorAll('p[itemprop]').length,
+                // Ищем любые id/классы со словом faq
+                ids_with_faq: Array.from(document.querySelectorAll('[id*="faq"],[id*="FAQ"]')).map(e => e.id).slice(0,5),
+                classes_with_faq: Array.from(document.querySelectorAll('[class*="faq"],[class*="FAQ"]')).map(e => e.className).slice(0,5),
+                // Schema.org Question
+                schema_questions: document.querySelectorAll('[itemtype*="Question"]').length,
+                // Просто все h3 на странице
+                all_h3_count: document.querySelectorAll('h3').length,
+                all_h3_texts: Array.from(document.querySelectorAll('h3')).map(e => e.textContent.trim().slice(0,50)).slice(0,10),
+                // Текущий URL
+                url: window.location.href
+            }
+        }
+    """)
+    log(f"=== FAQ DEBUG EXTENDED ===")
+    for k, v in debug.items():
+        log(f"  {k}: {v}")
+
+    raw_faq = await page.evaluate(
+        r"""
+        () => {
+          const out = [];
+          const accordion = document.querySelector('#faq-accordion');
+          if (!accordion) return out;
+
+          const items = accordion.querySelectorAll('.faq-item');
+          items.forEach(item => {
+            const question = item.querySelector('h3[itemprop="name"]')?.textContent || '';
+            const answer = item.querySelector('p[itemprop="text"]')?.textContent || '';
+            if (question && answer) {
+              out.push({ question: question.trim(), answer: answer.trim() });
+            }
+          });
+          return out;
+        }
+        """
+    )
+
+    faq: List[Dict[str, str]] = []
+    for item in raw_faq if isinstance(raw_faq, list) else []:
+        if not isinstance(item, dict):
+            continue
+        q = compact(str(item.get("question") or ""))
+        a = compact(str(item.get("answer") or ""))
+        if q and a:
+            faq.append({"q": q, "a": a})
+    return faq[:10]
+
+
 async def _extract_both_in_one_visit(url: str) -> Tuple[List[Dict[str, str]], List[Dict[str, str]], List[Dict[str, str]]]:
     playwright = browser = context = page = None
     try:
         playwright, browser, context, page = await _open_page(url)
         services = await _extract_services_from_page(page)
-        faq = await _extract_faq_from_page(page)
+        # Скроллим до низа страницы чтобы orgs.biz раскрыл lazy-блоки
+        await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        await asyncio.sleep(2.0)
+        await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        await asyncio.sleep(1.5)
+        
+        # Кликаем по всем закрытым заголовкам гармошки чтобы раскрыть
+        await page.evaluate("""
+            () => {
+                const headers = document.querySelectorAll(
+                    '.accordion-header, .faq-question, [class*="accordion"] button, '
+                    + '[class*="faq"] button, summary'
+                );
+                headers.forEach(h => { try { h.click(); } catch(e) {} });
+            }
+        """)
+        await asyncio.sleep(1.5)
+        # Специфичный паттерн div#faq-accordion
+        faq = await _extract_faq_accordion(page)
+        if not faq:
+            faq = await _extract_faq_from_page(page)
         team = await _extract_team_from_page(page)
         if not faq:
             faq = await _extract_faq_from_faq_link(page)

@@ -21,7 +21,7 @@ from sqlalchemy import select
 from db.database import get_async_session
 from db.models import Lead
 
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 YANDEX_DATA_DIR = BASE_DIR / "data" / "yandex"
 LOG_PATH = YANDEX_DATA_DIR / "scrape_log.txt"
 CAPTCHA_LOG_PATH = YANDEX_DATA_DIR / "captcha_log.txt"

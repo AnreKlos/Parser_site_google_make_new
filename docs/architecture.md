@@ -10,6 +10,7 @@
 | `core/` | Парсинг **одного донора**: URL → data | Скрейперы, детекторы селекторов, парсеры блоков | Работу с БД, lead_id |
 | `services/` | Бизнес-логика над БД | Радар, аудитор, питч-генератор, block_extractor | Чистый парсинг URL без БД |
 | `llm/` | Только LLM-взаимодействие | OpenRouter engine, Vertex AI кураторы | Скрейпинг, обогащение из не-LLM |
+| `enrichment/` | Обогащение данных без LLM | REST API запросы, скачивание медиа | LLM-вызовы, парсинг доноров |
 | `db/` | Слой данных | SQLAlchemy модели, async-сессии | Бизнес-логику |
 | `utils/` | Чистые утилиты | slugify, фильтры текста, JSON-парсеры | Что-то с БД, LLM или сетью |
 | `migrations/` | Миграции БД | Ручные скрипты (план: Alembic) | — |
@@ -41,8 +42,10 @@
 - `llm_engine.py` — клиент OpenRouter
 - `curator.py` — Vertex AI / Gemini кастомный куратор (бывш. gemma_curator)
 - `content_curator.py` — курация контента (слоган, About, отзывы, FAQ)
-- `yandex_enricher.py` — обогащение с Яндекс.Карт *(не-LLM, переедет в enrichment/ — Шаг 4)*
-- `photo_fetcher.py` — скачивание фото *(не-LLM, переедет в enrichment/ — Шаг 4)*
+
+### enrichment/
+- `yandex.py` — обогащение через Яндекс.Карты API (name+city → phone, hours, photos_urls)
+- `photos.py` — скачивание фотографий с внешних источников (сайт, Яндекс, VK)
 
 ### db/
 - `models.py` — `Lead`, `AuditLog`

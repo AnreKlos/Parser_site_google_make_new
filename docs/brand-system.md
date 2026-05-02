@@ -19,4 +19,4 @@
 ## Hero-фото
 
 Скачивается через `download_hero_photo()` в `public/{slug}/hero/`.
-Источник — Яндекс.Карты (через `llm/yandex_enricher.py`).
+Источник — Яндекс.Карты (через `enrichment/yandex.py`).

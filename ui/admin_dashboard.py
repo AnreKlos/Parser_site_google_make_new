@@ -203,9 +203,9 @@ def run_config_builder_batch(lead_ids: list[int]) -> tuple[list[int], dict[int, 
 
 
 def run_yandex_enricher(lead_id: int) -> tuple[bool, str]:
-    """Обогащение через llm.yandex_enricher напрямую."""
+    """Обогащение через enrichment.yandex напрямую."""
     try:
-        from llm.yandex_enricher import enrich_lead
+        from enrichment.yandex import enrich_lead
         result = asyncio.run(enrich_lead(lead_id))
         if result is None or result is False:
             return False, f"Обогащение не выполнено для lead_id={lead_id}"

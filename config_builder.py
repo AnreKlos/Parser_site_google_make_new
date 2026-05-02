@@ -17,6 +17,81 @@ import requests
 
 from block_flags import compute_block_flags
 
+
+def is_junk_service_title(title: str) -> bool:
+    """Проверяет, является ли title мусорным."""
+    if not title:
+        return True
+    
+    title_lower = title.lower().strip()
+    title_stripped = title.strip()
+    
+    # Пустой или слишком короткий
+    if len(title_stripped) < 3:
+        return True
+    
+    # Состоит в основном из цифр
+    if re.fullmatch(r"[\d\sр₽.,]+", title_stripped):
+        return True
+    
+    # Мусорные фразы (семантический мусор)
+    junk_phrases = [
+        "варьируется",
+        "от до",
+        "выполняется",
+        "на чистые",
+        "вымытые вами волосы",
+        "подробности",
+        "уточняйте",
+    ]
+    for phrase in junk_phrases:
+        if phrase in title_lower:
+            return True
+    
+    # CAPS-инструкция (служебная информация в CAPS)
+    if title_stripped.isupper():
+        instruction_words = ["выполняется", "на чистые", "вымытые", "предварительно", "требуется"]
+        if any(word in title_lower for word in instruction_words):
+            return True
+    
+    return False
+
+
+def is_junk_service_description(description: str, title: str) -> bool:
+    """Проверяет, является ли description мусорным."""
+    if not description:
+        return False
+    
+    desc_stripped = description.strip()
+    
+    # Description полностью дублирует title
+    if desc_stripped.lower() == title.lower():
+        return True
+    
+    # Description состоит только из телефона
+    if re.fullmatch(r"[\d\s\-\(\)]+", desc_stripped):
+        return True
+    
+    return False
+
+
+def generate_neutral_service_description(title: str) -> str:
+    """Генерирует нейтральное описание услуги на основе title."""
+    title_lower = title.lower()
+    
+    if "маник" in title_lower:
+        return "Аккуратная процедура с вниманием к форме, покрытию и комфорту во время визита."
+    elif "макияж" in title_lower:
+        return "Макияж под образ, событие и индивидуальные особенности внешности."
+    elif "бров" in title_lower:
+        return "Деликатная работа с формой и оттенком для естественного и аккуратного результата."
+    elif "ресниц" in title_lower:
+        return "Услуга с вниманием к выразительности взгляда и гармонии образа."
+    elif "волос" in title_lower or "уклад" in title_lower or "окрашив" in title_lower:
+        return "Процедура с учетом структуры волос, желаемого образа и аккуратного результата."
+    else:
+        return "Профессиональная услуга с аккуратным результатом и вниманием к деталям."
+
 BASE_DIR = Path(__file__).parent
 DB_PATH = BASE_DIR / "data" / "leads.db"
 CURATED_DIR = BASE_DIR / "data" / "curated"
@@ -240,6 +315,9 @@ def merge_services(curated_services: List[Dict[str, Any]], yandex_services: List
         price = str(item.get("price") or "").strip()
         if not name:
             continue
+        # Фильтруем мусорные названия из yandex
+        if is_junk_service_title(name):
+            continue
         yandex_pool.append({"name": name, "price": price, "norm": normalize_service_title(name)})
 
     used_yandex = set()
@@ -253,6 +331,14 @@ def merge_services(curated_services: List[Dict[str, Any]], yandex_services: List
         short = str(item.get("short") or "").strip()
         description = str(item.get("description") or "").strip()
         price_from = str(item.get("priceFrom") or "").strip()
+        
+        # Фильтруем мусорные описания
+        if is_junk_service_description(description, title):
+            description = short
+        
+        # Если description пустой или равен title, подставляем нейтральное описание
+        if not description or description.lower() == title.lower():
+            description = generate_neutral_service_description(title)
 
         norm_title = normalize_service_title(title)
         best_idx = None
@@ -291,11 +377,15 @@ def merge_services(curated_services: List[Dict[str, Any]], yandex_services: List
     for idx, y_item in enumerate(yandex_pool):
         if idx in used_yandex:
             continue
+        name = y_item["name"]
+        # Фильтруем, если name слишком короткий или выглядит как мусор
+        if is_junk_service_title(name):
+            continue
         merged.append(
             {
-                "title": y_item["name"],
-                "short": y_item["name"],
-                "description": y_item["name"],
+                "title": name,
+                "short": name,
+                "description": generate_neutral_service_description(name),
                 "priceFrom": y_item.get("price") or "по запросу",
             }
         )

@@ -73,13 +73,14 @@
       "/kalinka-malinka-studiya-krasoty/gallery/gallery_2.jpg",
       "/kalinka-malinka-studiya-krasoty/gallery/gallery_3.jpg",
       "/kalinka-malinka-studiya-krasoty/gallery/gallery_4.jpg",
-      "/kalinka-malinka-studiya-krasoty/gallery/gallery_5.jpg",
-      "/kalinka-malinka-studiya-krasoty/gallery/gallery_6.jpg"
+      "/kalinka-malinka-studiya-krasoty/gallery/gallery_5.jpg"
     ],
     "team": [],
     "about": [],
-    "services": []
+    "services": [
+      "/kalinka-malinka-studiya-krasoty/services/services_1.jpg"
+    ]
   },
   "team_photos": [],
-  "photos_fetched_at": "2026-04-29 10:10:49"
+  "photos_fetched_at": "2026-04-29 10:42:54"
 }

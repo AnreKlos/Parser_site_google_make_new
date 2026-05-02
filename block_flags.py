@@ -26,8 +26,8 @@ def compute_block_flags(extracted: dict, photos: dict, yandex: dict) -> dict:
     reviews = yandex_data.get("reviews") if isinstance(yandex_data, dict) else []
     reviews_count = len(reviews or [])
 
-    phone = (extracted.get("phone") or yandex_data.get("phone") if isinstance(yandex_data, dict) else "").strip()
-    address = (extracted.get("address") or yandex_data.get("address") if isinstance(yandex_data, dict) else "").strip()
+    phone = str(extracted.get("phone") or (yandex_data.get("phone") if isinstance(yandex_data, dict) else "")).strip()
+    address = str(extracted.get("address") or (yandex_data.get("address") if isinstance(yandex_data, dict) else "")).strip()
 
     # TEAM: только если есть блок команды на сайте
     # Условие: в extracted["team"] есть записи с именем (name/first_name/last_name)

@@ -387,6 +387,57 @@ def write_about_text(context: Dict[str, Any], source_text: str = "") -> str:
     )
 
 
+def is_junk_service_title(title: str) -> bool:
+    """Проверяет, является ли title мусорным."""
+    if not title:
+        return True
+    
+    title_lower = title.lower().strip()
+    title_stripped = title.strip()
+    
+    # Пустой или слишком короткий
+    if len(title_stripped) < 3:
+        return True
+    
+    # Состоит в основном из цифр
+    if re.fullmatch(r"[\d\sр₽.,]+", title_stripped):
+        return True
+    
+    # Мусорные фразы
+    junk_phrases = [
+        "варьируется",
+        "от до",
+        "выполняется",
+        "на чистые",
+        "вымытые вами волосы",
+        "подробности",
+        "уточняйте",
+    ]
+    for phrase in junk_phrases:
+        if phrase in title_lower:
+            return True
+    
+    # CAPS-инструкция (более 50% заглавных букв и содержит слова-инструкции)
+    if title_stripped.isupper():
+        instruction_words = ["выполняется", "на чистые", "вымытые", "предварительно", "требуется"]
+        if any(word in title_lower for word in instruction_words):
+            return True
+    
+    return False
+
+
+def normalize_service_title(title: str) -> str:
+    """Нормализует title услуги, убирая мусор."""
+    value = compact_text(title)
+    # Убираем хвосты с ценами и пояснениями
+    value = re.sub(r"(?i)варьируется[^.,;:]*", "", value)
+    value = re.sub(r"\bот\s*\d+[\sр₽]*до\s*\d+[\sр₽]*", "", value)
+    value = re.sub(r"\b\d{3,}\s*[р₽]?\b", "", value)
+    value = re.sub(r"\s+", " ", value).strip()
+    value = compact_text(value)
+    return value
+
+
 def sanitize_service_title(title: str) -> str:
     value = compact_text(title)
     value = re.sub(r"(?i)варьируется[^.,;:]*", "", value)
@@ -451,6 +502,13 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
             if not isinstance(item, dict):
                 continue
             title = sanitize_service_title(str(item.get("title") or ""))
+            title = normalize_service_title(title)
+            
+            # Фильтруем мусорные названия
+            if is_junk_service_title(title):
+                safe_print(f"⚠️ Пропущена мусорная услуга: {title}")
+                continue
+            
             short = compact_text(str(item.get("short") or ""))
             description = compact_text(str(item.get("description") or ""))
             
@@ -475,9 +533,19 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
             if not price:
                 price = "по запросу"
             out.append({"title": title, "short": short, "description": description, "priceFrom": price})
-        if out:
-            safe_print(f"✅ Услуги готовы: {len(out[:count])}")
-            return out[:count]
+        
+        # Убираем дубли по title
+        seen_titles = set()
+        unique_out = []
+        for item in out:
+            title_lower = item["title"].lower()
+            if title_lower not in seen_titles:
+                seen_titles.add(title_lower)
+                unique_out.append(item)
+        
+        if unique_out:
+            safe_print(f"✅ Услуги готовы: {len(unique_out[:count])}")
+            return unique_out[:count]
 
     fallback = [
         {"title": "Маникюр", "short": "Аккуратный маникюр", "description": "Форма, покрытие и чистый результат с учетом пожеланий.", "priceFrom": "от 1500 ₽"},

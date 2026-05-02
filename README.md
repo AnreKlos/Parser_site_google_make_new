@@ -377,22 +377,6 @@ SQLAlchemy cascade (удалит логи), и `ON DELETE SET NULL` станет
 и оставить `SET NULL`. Если логи не нужны после удаления лида —
 оставить cascade и убрать `ON DELETE SET NULL`.
 
-#### 6. `db/database.py` — мёртвый код `_touch_lead`
-
-Функция `_touch_lead(session, lead)` объявлена в `db/database.py`,
-но нигде не вызывается. `updated_at` обновляется напрямую через
-`lead.updated_at = now`.
-
-**План:** либо начать её использовать вместо ручных обновлений,
-либо удалить.
-
-#### 7. `db/database.py` — unused import `desc`
-
-`from sqlalchemy import select, func, desc` — `desc` импортирован,
-но не используется (сортировка делается через метод `sort_col.desc()`).
-
-**План:** убрать `desc` из импорта при следующем коммите в `db/`.
-
 
 ---
 

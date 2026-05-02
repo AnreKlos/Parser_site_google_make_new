@@ -10,7 +10,7 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
-from sqlalchemy import select, func, desc
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from contextlib import asynccontextmanager
 
@@ -76,11 +76,6 @@ async def get_async_session():
     """Алиас для get_session (для совместимости)"""
     async with get_session() as session:
         yield session
-
-
-async def _touch_lead(session: AsyncSession, lead: Lead) -> None:
-    """Обновить updated_at у лида."""
-    lead.updated_at = datetime.now(timezone.utc)
 
 
 async def _log_action(

@@ -14,6 +14,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from contextlib import asynccontextmanager
 
 from .models import Base, Lead, AuditLog
+from .schemas import LogCreated, LogStatusChanged
 
 
 # Путь к файлу базы данных
@@ -75,7 +76,14 @@ async def _log_action(
     lead_id: Optional[int] = None,
     details: Optional[dict] = None,
 ) -> AuditLog:
-    """Создать запись в audit_logs."""
+    """Создать запись в audit_logs. Валидирует details через Pydantic перед записью."""
+    if action == "created":
+        details = LogCreated.model_validate(details).model_dump()
+    elif action == "status_changed":
+        details = LogStatusChanged.model_validate(details).model_dump(by_alias=True)
+    elif details is not None and not isinstance(details, dict):
+        raise ValueError(f"details must be dict or None, got {type(details).__name__}")
+
     log = AuditLog(
         lead_id=lead_id,
         action=action,

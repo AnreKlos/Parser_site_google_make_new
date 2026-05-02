@@ -52,6 +52,13 @@ class Settings(BaseSettings):
                 "database_url",
                 f"sqlite+aiosqlite:///{self.db_path}",
             )
+        if not self.neuralsync_root:
+            # Fallback: sibling directory «neuralsync» in the same parent
+            object.__setattr__(
+                self,
+                "neuralsync_root",
+                str(self.root_dir.parent / "neuralsync"),
+            )
 
 
 settings = Settings()

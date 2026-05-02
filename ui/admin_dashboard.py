@@ -13,8 +13,9 @@ import asyncio
 import json
 import re
 import urllib.parse
-import subprocess
 from typing import Optional
+
+from config_builder.cli import run_build_for_ui
 
 # Добавляем корень проекта в путь для импортов
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -153,24 +154,12 @@ def get_site_config_status(lead_name: str, lead_id: int) -> str:
 
 
 def run_config_builder(lead_id: int, no_copy: bool = False) -> tuple[bool, str]:
-    try:
-        cmd = ["python", "config_builder.py", str(lead_id)]
-        if no_copy:
-            cmd.append("--no-copy")
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            cwd=str(Path(__file__).parent),
-            encoding="utf-8",
-            errors="replace",
-            timeout=300,
-            check=False,
-        )
-        output = (result.stdout or "") + ("\n" + result.stderr if result.stderr else "")
-        return result.returncode == 0, output.strip()
-    except Exception as exc:
-        return False, str(exc)
+    """Build site config for *lead_id* and write to neuralsync.
+
+    Wraps ``config_builder.cli.run_build_for_ui`` for backward-compatible
+    ``(success: bool, message: str)`` contract.
+    """
+    return run_build_for_ui(lead_id, no_copy=no_copy)
 
 
 def run_block_extractor(lead_id: int) -> tuple[bool, str]:

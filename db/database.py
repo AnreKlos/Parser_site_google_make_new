@@ -6,6 +6,7 @@ Uses SQLAlchemy with aiosqlite for async SQLite operations
 """
 
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
@@ -39,11 +40,23 @@ async_session = async_sessionmaker(
 
 
 async def init_db() -> None:
-    """Инициализация базы данных - создание всех таблиц"""
+    """Инициализация базы данных.
+
+    Если установлена переменная окружения ALEMBIC_MANAGED=1,
+    пропускает create_all и полагается на ``alembic upgrade head``.
+
+    По умолчанию (dev-режим) создаёт таблицы через create_all.
+    """
     DB_DIR.mkdir(parents=True, exist_ok=True)
+    if os.environ.get("ALEMBIC_MANAGED"):
+        print(
+            "[DB] ALEMBIC_MANAGED=1 — create_all пропущен, "
+            "убедитесь что alembic upgrade head выполнен."
+        )
+        return
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    print(f"[DB] База данных инициализирована: {DB_PATH}")
+    print(f"[DB] create_all: база данных инициализирована: {DB_PATH}")
 
 
 @asynccontextmanager

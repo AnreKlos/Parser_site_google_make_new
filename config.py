@@ -22,6 +22,7 @@ class Settings(BaseSettings):
 
     # Database
     db_path: str = ""  # computed in model_post_init if empty
+    database_url: str = ""  # computed in model_post_init for Alembic
 
     # ------------------------------------------------------------------
     # OpenRouter (LLM)
@@ -45,6 +46,12 @@ class Settings(BaseSettings):
     def model_post_init(self, __context) -> None:
         if not self.db_path:
             object.__setattr__(self, "db_path", str(self.data_dir / "leads.db"))
+        if not self.database_url:
+            object.__setattr__(
+                self,
+                "database_url",
+                f"sqlite+aiosqlite:///{self.db_path}",
+            )
 
 
 settings = Settings()

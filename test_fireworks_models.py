@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 api_key = os.getenv('FIREWORKS_API_KEY')
-print(f"API Key: {api_key[:15]}...{api_key[-5:]}")
 
 # Получаем список моделей
 response = requests.get(

@@ -203,86 +203,51 @@ def run_config_builder_batch(lead_ids: list[int]) -> tuple[list[int], dict[int, 
 
 
 def run_yandex_enricher(lead_id: int) -> tuple[bool, str]:
+    """Обогащение через llm.yandex_enricher напрямую."""
     try:
-        result = subprocess.run(
-            ["python", "yandex_enricher.py", str(lead_id)],
-            capture_output=True,
-            text=True,
-            cwd=str(Path(__file__).parent),
-            encoding="utf-8",
-            errors="replace",
-            timeout=120,
-            check=False,
-        )
-        output = (result.stdout or "") + ("\n" + result.stderr if result.stderr else "")
-        return result.returncode == 0, output.strip()
+        from llm.yandex_enricher import enrich_lead
+        result = asyncio.run(enrich_lead(lead_id))
+        if result is None or result is False:
+            return False, f"Обогащение не выполнено для lead_id={lead_id}"
+        return True, f"OK: lead_id={lead_id} | rating={result.get('rating', '?')} reviews={result.get('reviews_count', 0)}"
     except Exception as exc:
-        return False, str(exc)
+        import traceback
+        return False, f"Исключение: {exc}\n{traceback.format_exc()}"
 
 
 def run_content_curator(lead_id: int) -> tuple[bool, str]:
-    """Запускает content_curator.py для одного лида и возвращает (ok, output)."""
+    """Запускає content_curator напряму через llm.content_curator."""
     try:
-        result = subprocess.run(
-            ["python", "content_curator.py", str(lead_id)],
-            capture_output=True,
-            text=True,
-            cwd=str(Path(__file__).parent),
-            encoding="utf-8",
-            errors="replace",
-            check=False,
-        )
-        output = (result.stdout or "") + ("\n" + result.stderr if result.stderr else "")
-        return result.returncode == 0, output.strip()
+        from llm.content_curator import curate_lead
+        result = asyncio.run(curate_lead(lead_id))
+        if result is None or result is False:
+            return False, f"Курація не выполнена для lead_id={lead_id}"
+        return True, f"OK: lead_id={lead_id}"
     except Exception as exc:
-        return False, str(exc)
+        import traceback
+        return False, f"Исключення: {exc}\n{traceback.format_exc()}"
 
 
 def run_content_curator_with_status(lead_id: int) -> tuple[bool, str]:
-    """Запускает content_curator.py с живым прогрессом через st.status()."""
-    STAGE_MAP = (
-        ("Готовим слоган", "✨ Готовлю слоган..."),
-        ("Слоган готов", "✨ Слоган готов"),
-        ("Готовим блок 'О нас'", "📝 Пишу блок «О нас»..."),
-        ("Блок 'О нас' готов", "📝 Блок «О нас» готов"),
-        ("Отбираем и редактируем отзывы", "⭐ Отбираю и чищу отзывы..."),
-        ("Отобрано отзывов", "⭐ Отзывы готовы"),
-        ("Формируем услуги", "🛍 Формирую услуги..."),
-        ("Услуги готовы", "🛍 Услуги готовы"),
-        ("Генерируем FAQ", "❓ Генерирую FAQ..."),
-        ("FAQ готов", "❓ FAQ готов"),
-        ("Curated JSON", "✅ Сохраняю результат..."),
-        ("Курация завершена", "✅ Готово!"),
-    )
-
-    all_output: list[str] = []
+    """Запускает content_curator напрямую с минимальным прогрессом в UI."""
     ok = False
+    output = ""
     try:
-        with st.status("⏳ Content Curator работает... обычно занимает 10–30 сек", expanded=True) as status_box:
-            status_box.write("🔍 Читаю данные лида...")
+        with st.status("⏳ Content Curator работает...", expanded=True) as status_box:
+            status_box.write("🔍 Курирую контент через Vertex AI...")
             try:
-                proc = subprocess.Popen(
-                    ["python", "-u", "content_curator.py", str(lead_id)],
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    cwd=str(Path(__file__).parent),
-                    encoding="utf-8",
-                    errors="replace",
-                )
-                for raw_line in proc.stdout:
-                    line = raw_line.strip()
-                    if not line:
-                        continue
-                    all_output.append(line)
-                    for keyword, stage_label in STAGE_MAP:
-                        if keyword in line:
-                            status_box.write(stage_label)
-                            break
-                proc.wait()
-                ok = proc.returncode == 0
+                from llm.content_curator import curate_lead
+                result = asyncio.run(curate_lead(lead_id))
+                if result is None or result is False:
+                    ok = False
+                    output = f"Курация вернула пустой результат для lead_id={lead_id}"
+                else:
+                    ok = True
+                    output = f"OK: lead_id={lead_id}"
             except Exception as exc:
-                all_output.append(str(exc))
+                import traceback
                 ok = False
+                output = f"Исключение: {exc}\n{traceback.format_exc()}"
 
             if ok:
                 status_box.update(label="✅ Курация завершена!", state="complete", expanded=False)
@@ -290,9 +255,8 @@ def run_content_curator_with_status(lead_id: int) -> tuple[bool, str]:
                 status_box.update(label="❌ Ошибка курации", state="error", expanded=True)
     except Exception as outer_exc:
         st.error(f"❌ Ошибка запуска куратора: {outer_exc}")
-        all_output.append(str(outer_exc))
-
-    return ok, "\n".join(all_output)
+        output = str(outer_exc)
+    return ok, output
 
 
 def render_curated_content(curated: dict, lead_id: int) -> None:

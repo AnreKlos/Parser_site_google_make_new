@@ -30,13 +30,13 @@ def load_lead(lead_id: int) -> Optional[Dict[str, Any]]:
     return dict(row) if row else None
 
 
-def read_json_if_exists(path: Path) -> Optional[Dict[str, Any]]:
-    """Read a JSON file as dict, return ``None`` if missing or not a dict."""
+def read_json_if_exists(path: Path) -> dict[str, Any]:
+    """Read a JSON file as dict, return ``{}`` if missing or not a dict."""
     if not path.exists():
-        return None
+        return {}
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
-    return data if isinstance(data, dict) else None
+    return data if isinstance(data, dict) else {}
 
 
 def list_image_urls(slug: str, folder: str) -> List[str]:

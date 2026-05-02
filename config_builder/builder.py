@@ -40,13 +40,30 @@ EXTRACTED_DIR = settings.data_dir / "extracted"
 
 
 # ======================================================================
+# Internal helpers — safe extraction from JSON-derived dicts
+# ======================================================================
+
+
+def _get_list(d: dict[str, Any], key: str) -> list[Any]:
+    """Return *d[key]* if it is a list, otherwise an empty list."""
+    v = d.get(key)
+    return v if isinstance(v, list) else []
+
+
+def _get_dict(d: dict[str, Any], key: str) -> dict[str, Any]:
+    """Return *d[key]* if it is a dict, otherwise an empty dict."""
+    v = d.get(key)
+    return v if isinstance(v, dict) else {}
+
+
+# ======================================================================
 # Section builders (private helpers)
 # ======================================================================
 
 
 def _build_meta_block(lead: dict, slug: str, curated: dict, city: str) -> dict:
     """Build the ``meta`` block of the config."""
-    curated_meta = curated.get("meta") if isinstance(curated.get("meta"), dict) else {}
+    curated_meta = _get_dict(curated, "meta")
     curated_tagline = str(curated_meta.get("tagline") or "").strip()
     lead_name = str(lead.get("name") or f"Lead {slug}")
     fallback_title = (
@@ -210,14 +227,14 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     extracted_path = EXTRACTED_DIR / f"{slug}.json"
 
     log(f"📖 Читаю curated/{slug}.json")
-    curated = read_json_if_exists(curated_path) or {}
+    curated = read_json_if_exists(curated_path)
 
     log(f"📖 Читаю yandex/{slug}.json")
-    yandex_payload = read_json_if_exists(yandex_path) or {}
-    yandex = yandex_payload.get("yandex") if isinstance(yandex_payload.get("yandex"), dict) else {}
+    yandex_payload = read_json_if_exists(yandex_path)
+    yandex = _get_dict(yandex_payload, "yandex")
 
     log(f"📖 Читаю extracted/{slug}.json")
-    extracted_payload = read_json_if_exists(extracted_path) or {}
+    extracted_payload = read_json_if_exists(extracted_path)
 
     # Image directories
     hero_images = list_image_urls(slug, "hero")
@@ -235,18 +252,18 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     log(f"🚩 Block flags: {block_flags}")
 
     # Curated fields
-    curated_meta = curated.get("meta") if isinstance(curated.get("meta"), dict) else {}
+    curated_meta = _get_dict(curated, "meta")
     curated_tagline = str(curated_meta.get("tagline") or "").strip()
     curated_about = str(curated.get("about") or "").strip()
-    curated_reviews = curated.get("reviews") if isinstance(curated.get("reviews"), list) else []
-    curated_faq = curated.get("faq") if isinstance(curated.get("faq"), list) else []
-    curated_services = curated.get("services") if isinstance(curated.get("services"), list) else []
+    curated_services = _get_list(curated, "services")
+    curated_reviews = _get_list(curated, "reviews")
+    curated_faq = _get_list(curated, "faq")
 
     # Extracted fields
-    extracted_services_raw = extracted_payload.get("serviceCarousel") if isinstance(extracted_payload.get("serviceCarousel"), list) else []
-    if not extracted_services_raw and isinstance(extracted_payload.get("services_carousel"), list):
-        extracted_services_raw = extracted_payload.get("services_carousel")
-    extracted_faq_raw = extracted_payload.get("faq_accordion") if isinstance(extracted_payload.get("faq_accordion"), list) else []
+    extracted_services_raw = _get_list(extracted_payload, "serviceCarousel")
+    if not extracted_services_raw:
+        extracted_services_raw = _get_list(extracted_payload, "services_carousel")
+    extracted_faq_raw = _get_list(extracted_payload, "faq_accordion")
     extracted_services = normalize_extracted_services(extracted_services_raw)
     extracted_faq = normalize_extracted_faq(extracted_faq_raw)
 
@@ -257,7 +274,7 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     address = yandex_address or lead_address
 
     # Phones
-    y_phones = yandex.get("phones") if isinstance(yandex.get("phones"), list) else []
+    y_phones = _get_list(yandex, "phones")
     phones = [str(p).strip() for p in y_phones if str(p).strip()]
     fallback_phone = str(lead.get("phone") or "").strip()
     if not phones and fallback_phone:
@@ -266,14 +283,15 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     phone_raw = to_phone_raw(phone_main)
 
     # Contacts extras
-    coords = yandex.get("coordinates") if isinstance(yandex.get("coordinates"), dict) else None
-    additional_addresses = yandex.get("additional_addresses") if isinstance(yandex.get("additional_addresses"), list) else []
+    coords_raw = yandex.get("coordinates")
+    coords = coords_raw if isinstance(coords_raw, dict) else None
+    additional_addresses = _get_list(yandex, "additional_addresses")
     social_links = pick_social_links(lead)
 
     # Services merging
     merged_services = merge_services(
         curated_services,
-        yandex.get("services") if isinstance(yandex.get("services"), list) else [],
+        _get_list(yandex, "services"),
     )
 
     # FAQ

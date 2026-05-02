@@ -14,7 +14,7 @@ from urllib.parse import urlparse
 
 from playwright.async_api import async_playwright
 
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent
 DB_PATH = BASE_DIR / "data" / "leads.db"
 EXTRACTED_DIR = BASE_DIR / "data" / "extracted"
 

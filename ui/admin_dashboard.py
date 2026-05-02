@@ -174,21 +174,20 @@ def run_config_builder(lead_id: int, no_copy: bool = False) -> tuple[bool, str]:
 
 
 def run_block_extractor(lead_id: int) -> tuple[bool, str]:
+    """Запускает извлечение блоков напрямую через services.block_extractor.
+
+    Возвращает (success, output_text). output_text может быть пустым
+    при успехе — UI не показывает stdout extract_all.
+    """
     try:
-        result = subprocess.run(
-            ["python", "block_extractor.py", str(lead_id)],
-            capture_output=True,
-            text=True,
-            cwd=str(Path(__file__).parent),
-            encoding="utf-8",
-            errors="replace",
-            timeout=180,
-            check=False,
-        )
-        output = (result.stdout or "") + ("\n" + result.stderr if result.stderr else "")
-        return result.returncode == 0, output.strip()
+        from services.block_extractor import extract_all
+        result = asyncio.run(extract_all(lead_id))
+        if result is None:
+            return False, f"extract_all вернул None для lead_id={lead_id} (лид не найден или ошибка парсинга)"
+        return True, f"OK: services={result.get('services', 0)} faq={result.get('faq', 0)} → {result.get('output_path', '')}"
     except Exception as exc:
-        return False, str(exc)
+        import traceback
+        return False, f"Исключение: {exc}\n{traceback.format_exc()}"
 
 
 def run_config_builder_batch(lead_ids: list[int]) -> tuple[list[int], dict[int, str]]:

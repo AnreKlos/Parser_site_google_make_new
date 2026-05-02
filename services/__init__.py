@@ -16,10 +16,12 @@ from .google_radar import search_and_save, show_saved_leads
 from .pitch_builder import generate_pitches, generate_single_pitch, generate_pitches_sync
 from .site_config_generator import generate_site_config, generate_site_configs_sync
 from .xray_auditor import run_xray_audit, run_xray_audit_sync
+from .block_extractor import extract_all, extract_services_carousel, extract_faq_accordion
 
 __all__ = [
     "search_and_save", "show_saved_leads",
     "generate_pitches", "generate_single_pitch", "generate_pitches_sync",
     "generate_site_config", "generate_site_configs_sync",
     "run_xray_audit", "run_xray_audit_sync",
+    "extract_all", "extract_services_carousel", "extract_faq_accordion",
 ]

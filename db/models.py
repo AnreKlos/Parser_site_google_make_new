@@ -4,8 +4,9 @@
 SQLAlchemy models for KURSOR Radar
 """
 
-from sqlalchemy import Column, Integer, String, Float, Text
-from sqlalchemy.orm import DeclarativeBase
+from datetime import datetime, timezone
+from sqlalchemy import Column, Integer, String, Float, Text, DateTime, ForeignKey
+from sqlalchemy.orm import DeclarativeBase, relationship
 
 
 class Base(DeclarativeBase):
@@ -16,7 +17,7 @@ class Base(DeclarativeBase):
 class Lead(Base):
     """
     Модель лида (потенциального клиента)
-    
+
     Атрибуты:
         id: Уникальный идентификатор
         name: Название компании
@@ -31,9 +32,11 @@ class Lead(Base):
         audit_notes: Заметки аудита (найденные проблемы)
         pitch_text: Сгенерированный питч
         raw_reviews: Негативные отзывы (JSON)
+        created_at: Дата создания записи
+        updated_at: Дата последнего обновления
     """
     __tablename__ = "leads"
-    
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(255), nullable=False)
     google_rating = Column(Float, nullable=True)
@@ -52,6 +55,11 @@ class Lead(Base):
     raw_reviews = Column(Text, nullable=True)
     site_config_path = Column(Text, nullable=True)  # Путь к JSON конфигу сайта
     category = Column(String(100), nullable=True, default="other")  # Категория/ниша лида
+    created_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+    # Связи
+    audit_logs = relationship("AuditLog", back_populates="lead", cascade="all, delete-orphan")
 
     def __repr__(self) -> str:
         return f"<Lead(id={self.id}, name='{self.name}', website='{self.website}', status='{self.status}')>"
@@ -77,4 +85,41 @@ class Lead(Base):
             "raw_reviews": self.raw_reviews,
             "site_config_path": self.site_config_path,
             "category": self.category,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
+        }
+
+
+class AuditLog(Base):
+    """
+    Модель лога операций над лидами и системой.
+
+    Атрибуты:
+        id: Уникальный идентификатор
+        lead_id: ID лида (NULL для системных операций)
+        action: Тип действия (created, status_changed, parsed, pitched, contacted, error)
+        details: JSON с дополнительным контекстом
+        created_at: Когда произошло действие
+    """
+    __tablename__ = "audit_logs"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    lead_id = Column(Integer, ForeignKey("leads.id", ondelete="SET NULL"), nullable=True, index=True)
+    action = Column(String(50), nullable=False, index=True)
+    details = Column(Text, nullable=True)  # JSON
+    created_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc), index=True)
+
+    # Связи
+    lead = relationship("Lead", back_populates="audit_logs")
+
+    def __repr__(self) -> str:
+        return f"<AuditLog(id={self.id}, lead_id={self.lead_id}, action='{self.action}')>"
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "lead_id": self.lead_id,
+            "action": self.action,
+            "details": self.details,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
         }

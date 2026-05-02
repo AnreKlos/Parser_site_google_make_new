@@ -8,7 +8,7 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
                                QLabel, QCheckBox, QMessageBox)
 from PySide6.QtCore import Qt
 
-from scraper_core import run_parse
+from core.scraper import run_parse
 import site_generator.generate_site as gen_site
 
 

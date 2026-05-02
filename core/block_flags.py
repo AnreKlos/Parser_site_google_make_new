@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
+from config import settings
 from typing import Any, Dict
 
 
@@ -39,18 +37,18 @@ def compute_block_flags(extracted: dict, photos: dict, yandex: dict) -> dict:
         if name:
             real_team_items.append(item)
 
-    has_team_block = len(real_team_items) >= 1  # можно сделать >=2, если хотим "команду", а не одиночку
+    has_team_block = len(real_team_items) >= settings.min_team_items  # можно сделать >=2, если хотим "команду", а не одиночку
 
     block_flags = {
         # Hero нужен, если есть хотя бы одно hero-фото
-        "hero": len(hero_photos) >= 1,
+        "hero": len(hero_photos) >= settings.min_hero_photos,
 
-        # Галерея — если есть >=3 нормальных фото
-        "gallery": len(gallery_photos) >= 3,
+        # Галерея — если есть >= N нормальных фото
+        "gallery": len(gallery_photos) >= settings.min_gallery_photos,
 
         # Команда — ТОЛЬКО если в extracted есть реальные мастера с именами.
         # Фото берем только из site_team / photos["team"], а не из Яндекса.
-        "team": has_team_block and len(team_photos) >= 1,
+        "team": has_team_block and len(team_photos) >= settings.min_team_items,
 
         # Услуги — если реально есть услуги/категории
         "services": len(services_raw) >= 1,

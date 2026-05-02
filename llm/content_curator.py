@@ -6,6 +6,7 @@ import asyncio
 import json
 import os
 import re
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -13,17 +14,15 @@ import requests
 from dotenv import load_dotenv
 from sqlalchemy import select
 
+from config import settings
 from db.database import get_async_session
 from db.models import Lead
+from utils import slugify_name, compact_text, detect_city, fallback_author_name, is_junk_service_title, extract_json_from_text, FALLBACK_AUTHORS
 
-OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-OPENROUTER_MODEL = "openai/gpt-4o-mini"
-REQUEST_TIMEOUT = 35
-MAX_JSON_RETRIES = 2
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 OUTPUT_DIR = Path(__file__).parent / "data" / "curated"
-NEURALSYNC_ENV_PATH = Path(r"D:\2 Clode Proj\1\neuralsync\.env")
-
-FALLBACK_AUTHORS = ["Мария", "Анна", "Ольга", "Елена", "Наталья", "Татьяна"]
 
 DATA_BLOCK_TEMPLATE = """## ДАННЫЕ О САЛОНЕ (используй ТОЛЬКО их, не выдумывай):
 Название: {name}
@@ -63,83 +62,12 @@ DATA_BLOCK_TEMPLATE = """## ДАННЫЕ О САЛОНЕ (используй Т�
   Если real_services не пустой — не добавляй услуги которых там нет."""
 
 
-def safe_print(text: str) -> None:
-    try:
-        print(text, flush=True)
-    except (UnicodeEncodeError, UnicodeError):
-        print(text.encode("cp1251", errors="replace").decode("cp1251"), flush=True)
-
-
 def init_env() -> None:
     load_dotenv()
-    if not os.getenv("OPENROUTER_API_KEY") and NEURALSYNC_ENV_PATH.exists():
-        load_dotenv(NEURALSYNC_ENV_PATH)
 
 
-def extract_json_from_text(text: str) -> Optional[Any]:
-    if text is None:
-        return None
-    candidate = text.strip()
-    if not candidate:
-        return None
-
-    try:
-        return json.loads(candidate)
-    except (json.JSONDecodeError, TypeError):
-        pass
-
-    md_match = re.search(r"```(?:json)?\s*(.*?)\s*```", candidate, re.DOTALL | re.IGNORECASE)
-    if md_match:
-        try:
-            return json.loads(md_match.group(1).strip())
-        except (json.JSONDecodeError, TypeError):
-            pass
-
-    obj_match = re.search(r"\{[\s\S]*\}", candidate)
-    if obj_match:
-        try:
-            return json.loads(obj_match.group(0))
-        except (json.JSONDecodeError, TypeError):
-            pass
-
-    arr_match = re.search(r"\[[\s\S]*\]", candidate)
-    if arr_match:
-        try:
-            return json.loads(arr_match.group(0))
-        except (json.JSONDecodeError, TypeError):
-            pass
-
-    return None
 
 
-def compact_text(text: str) -> str:
-    return re.sub(r"\s+", " ", (text or "").strip())
-
-
-def slugify_name(name: str, lead_id: int) -> str:
-    translit_map = {
-        "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e", "ж": "zh", "з": "z",
-        "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r",
-        "с": "s", "т": "t", "у": "u", "ф": "f", "х": "h", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sch",
-        "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
-    }
-    lower = (name or "").strip().lower()
-    translit = "".join(translit_map.get(ch, ch) for ch in lower)
-    translit = re.sub(r"[^a-z0-9]+", "-", translit)
-    translit = re.sub(r"-+", "-", translit).strip("-")
-    return translit or f"lead-{lead_id}"
-
-
-def detect_city(address: Optional[str]) -> str:
-    if not address:
-        return "вашем городе"
-    parts = [p.strip() for p in str(address).split(",") if p.strip()]
-    if not parts:
-        return "вашем городе"
-    first = re.sub(r"^г\.?\s*", "", parts[0], flags=re.IGNORECASE).strip()
-    if first and not re.match(r"^\d", first):
-        return first
-    return "вашем городе"
 
 
 def extract_about_source(audit_notes: Optional[str]) -> str:
@@ -190,23 +118,14 @@ def parse_raw_reviews(raw_reviews: Optional[str]) -> List[Dict[str, Any]]:
     return out
 
 
-def fallback_author_name(raw_author: Optional[str], index: int) -> str:
-    author = compact_text(raw_author or "")
-    if author and re.search(r"[А-Яа-я]", author):
-        first = re.sub(r"[^А-Яа-яA-Za-z]", "", author.split()[0])
-        if first:
-            return first.capitalize()
-    return FALLBACK_AUTHORS[index % len(FALLBACK_AUTHORS)]
-
-
 def call_openrouter_json(system_prompt: str, user_prompt: str) -> Optional[Any]:
-    api_key = os.getenv("OPENROUTER_API_KEY")
+    api_key = settings.openrouter_api_key or os.getenv("OPENROUTER_API_KEY")
     if not api_key:
         raise RuntimeError("OPENROUTER_API_KEY не найден в окружении (.env)")
 
-    total_attempts = MAX_JSON_RETRIES + 1
+    total_attempts = settings.max_json_retries + 1
     payload = {
-        "model": OPENROUTER_MODEL,
+        "model": settings.openrouter_model,
         "temperature": 0.2,
         "response_format": {"type": "json_object"},
         "messages": [
@@ -224,7 +143,7 @@ def call_openrouter_json(system_prompt: str, user_prompt: str) -> Optional[Any]:
 
     for attempt in range(1, total_attempts + 1):
         try:
-            response = requests.post(OPENROUTER_URL, headers=headers, json=payload, timeout=REQUEST_TIMEOUT)
+            response = requests.post(settings.openrouter_url, headers=headers, json=payload, timeout=settings.request_timeout)
             response.raise_for_status()
             body = response.json()
             content = (
@@ -235,18 +154,18 @@ def call_openrouter_json(system_prompt: str, user_prompt: str) -> Optional[Any]:
             parsed = extract_json_from_text(content)
             if parsed is not None:
                 return parsed
-            safe_print(f"⚠️ Попытка {attempt}/{total_attempts}: невалидный JSON от OpenRouter")
+            print(f"⚠️ Попытка {attempt}/{total_attempts}: невалидный JSON от OpenRouter")
         except requests.exceptions.RequestException as exc:
-            safe_print(f"⚠️ Попытка {attempt}/{total_attempts}: ошибка запроса OpenRouter: {exc}")
+            print(f"⚠️ Попытка {attempt}/{total_attempts}: ошибка запроса OpenRouter: {exc}")
         except ValueError as exc:
-            safe_print(f"⚠️ Попытка {attempt}/{total_attempts}: ошибка декодирования JSON: {exc}")
+            print(f"⚠️ Попытка {attempt}/{total_attempts}: ошибка декодирования JSON: {exc}")
 
-    safe_print("❌ OpenRouter не вернул валидный JSON после всех попыток")
+    print("❌ OpenRouter не вернул валидный JSON после всех попыток")
     return None
 
 
 def curate_reviews(raw_reviews: List[Dict[str, Any]], count: int = 5) -> List[Dict[str, str]]:
-    safe_print("🔍 Отбираем и редактируем отзывы...")
+    print("🔍 Отбираем и редактируем отзывы...")
     if not raw_reviews:
         return []
 
@@ -273,7 +192,7 @@ def curate_reviews(raw_reviews: List[Dict[str, Any]], count: int = 5) -> List[Di
             author = compact_text(str(item.get("author") or "")) or fallback_author_name(None, i)
             cleaned.append({"author": author, "text": text})
         if cleaned:
-            safe_print(f"✅ Отобрано отзывов: {len(cleaned[:count])}")
+            print(f"✅ Отобрано отзывов: {len(cleaned[:count])}")
             return cleaned[:count]
 
     fallback: List[Dict[str, str]] = []
@@ -284,12 +203,12 @@ def curate_reviews(raw_reviews: List[Dict[str, Any]], count: int = 5) -> List[Di
                 "text": compact_text(str(item.get("text") or "")),
             }
         )
-    safe_print("⚠️ Использован fallback для отзывов")
+    print("⚠️ Использован fallback для отзывов")
     return fallback
 
 
 def generate_tagline(context: Dict[str, Any], source_tagline: str = "") -> str:
-    safe_print("🔍 Готовим слоган...")
+    print("🔍 Готовим слоган...")
     system = "Ты топ-копирайтер beauty-индустрии России. Специализация — Hero-заголовки. Возвращай только JSON."
     
     data_block = DATA_BLOCK_TEMPLATE.format(**context)
@@ -333,15 +252,15 @@ def generate_tagline(context: Dict[str, Any], source_tagline: str = "") -> str:
     if isinstance(parsed, dict):
         value = compact_text(str(parsed.get("tagline") or ""))
         if value:
-            safe_print("✅ Слоган готов")
+            print("✅ Слоган готов")
             return value
 
-    safe_print("⚠️ Использован fallback для слогана")
+    print("⚠️ Использован fallback для слогана")
     return "Эстетика, в которой важна каждая деталь."
 
 
 def write_about_text(context: Dict[str, Any], source_text: str = "") -> str:
-    safe_print("🔍 Готовим блок 'О нас'...")
+    print("🔍 Готовим блок 'О нас'...")
     system = "Ты копирайтер beauty-сайтов. Знаешь реальные отзывы с 2GIS и iRecommend. Возвращай только JSON."
     
     data_block = DATA_BLOCK_TEMPLATE.format(**context)
@@ -377,53 +296,14 @@ def write_about_text(context: Dict[str, Any], source_text: str = "") -> str:
     if isinstance(parsed, dict):
         text = compact_text(str(parsed.get("text") or ""))
         if text:
-            safe_print("✅ Блок 'О нас' готов")
+            print("✅ Блок 'О нас' готов")
             return text
 
-    safe_print("⚠️ Использован fallback для блока 'О нас'")
+    print("⚠️ Использован fallback для блока 'О нас'")
     return (
         f"{business_name} в {city} — пространство эстетичного сервиса и аккуратной заботы о деталях. "
         "Мы собираем востребованные услуги в одном месте, чтобы визит был комфортным и предсказуемым по результату."
     )
-
-
-def is_junk_service_title(title: str) -> bool:
-    """Проверяет, является ли title мусорным."""
-    if not title:
-        return True
-    
-    title_lower = title.lower().strip()
-    title_stripped = title.strip()
-    
-    # Пустой или слишком короткий
-    if len(title_stripped) < 3:
-        return True
-    
-    # Состоит в основном из цифр
-    if re.fullmatch(r"[\d\sр₽.,]+", title_stripped):
-        return True
-    
-    # Мусорные фразы
-    junk_phrases = [
-        "варьируется",
-        "от до",
-        "выполняется",
-        "на чистые",
-        "вымытые вами волосы",
-        "подробности",
-        "уточняйте",
-    ]
-    for phrase in junk_phrases:
-        if phrase in title_lower:
-            return True
-    
-    # CAPS-инструкция (более 50% заглавных букв и содержит слова-инструкции)
-    if title_stripped.isupper():
-        instruction_words = ["выполняется", "на чистые", "вымытые", "предварительно", "требуется"]
-        if any(word in title_lower for word in instruction_words):
-            return True
-    
-    return False
 
 
 def normalize_service_title(title: str) -> str:
@@ -447,7 +327,7 @@ def sanitize_service_title(title: str) -> str:
 
 
 def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str, str]]:
-    safe_print("🔍 Формируем услуги...")
+    print("🔍 Формируем услуги...")
     system = "Ты контент-редактор beauty-сайтов. Описания услуг закрывают страхи, не продают воздух. Возвращай только JSON."
     
     # Парсим real_prices из JSON
@@ -506,7 +386,7 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
             
             # Фильтруем мусорные названия
             if is_junk_service_title(title):
-                safe_print(f"⚠️ Пропущена мусорная услуга: {title}")
+                print(f"⚠️ Пропущена мусорная услуга: {title}")
                 continue
             
             short = compact_text(str(item.get("short") or ""))
@@ -544,7 +424,7 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
                 unique_out.append(item)
         
         if unique_out:
-            safe_print(f"✅ Услуги готовы: {len(unique_out[:count])}")
+            print(f"✅ Услуги готовы: {len(unique_out[:count])}")
             return unique_out[:count]
 
     fallback = [
@@ -554,12 +434,12 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
         {"title": "Макияж", "short": "Образ под событие", "description": "Дневной, вечерний или праздничный макияж под ваш формат мероприятия.", "priceFrom": "от 2000 ₽"},
         {"title": "Укладка", "short": "Финальный акцент", "description": "Легкая или объемная укладка с учетом длины и структуры волос.", "priceFrom": "от 1800 ₽"},
     ]
-    safe_print("⚠️ Использован fallback для услуг")
+    print("⚠️ Использован fallback для услуг")
     return fallback[:count]
 
 
 def generate_faq(context: Dict[str, Any], services: List[Dict[str, str]], count: int = 5) -> List[Dict[str, str]]:
-    safe_print("🔍 Генерируем FAQ...")
+    print("🔍 Генерируем FAQ...")
     system = "Ты редактор FAQ beauty-сайта. Знаешь реальные возражения клиенток с 2GIS. Возвращай только JSON."
     
     data_block = DATA_BLOCK_TEMPLATE.format(**context)
@@ -602,7 +482,7 @@ A: «Металлические — автоклав после каждого �
             if q and a:
                 out.append({"q": q, "a": a})
         if out:
-            safe_print(f"✅ FAQ готов: {len(out[:count])}")
+            print(f"✅ FAQ готов: {len(out[:count])}")
             return out[:count]
 
     fallback = [
@@ -612,7 +492,7 @@ A: «Металлические — автоклав после каждого �
         {"q": "Как узнать итоговую стоимость?", "a": "Мы заранее согласуем состав услуги и ориентировочную стоимость до начала работы."},
         {"q": "Что взять с собой на первый визит?", "a": "Достаточно описать ожидаемый результат, при желании можно показать фото-референсы."},
     ]
-    safe_print("⚠️ Использован fallback для FAQ")
+    print("⚠️ Использован fallback для FAQ")
     return fallback[:count]
 
 
@@ -621,7 +501,7 @@ def filter_reviews(reviews: list) -> list:
     if not reviews:
         return []
 
-    safe_print("🔍 Фильтруем отзывы...")
+    print("🔍 Фильтруем отзывы...")
     system = "Ты редактор beauty-сайта. Отбираешь отзывы для публикации. Возвращай только JSON."
 
     user = f"""Вот список отзывов клиентов: {json.dumps(reviews, ensure_ascii=False)}
@@ -637,7 +517,7 @@ def filter_reviews(reviews: list) -> list:
     try:
         api_key = os.getenv("OPENROUTER_API_KEY")
         payload = {
-            "model": OPENROUTER_MODEL,
+            "model": settings.openrouter_model,
             "temperature": 0.2,
             "response_format": {"type": "json_object"},
             "messages": [
@@ -651,7 +531,7 @@ def filter_reviews(reviews: list) -> list:
             "HTTP-Referer": "http://localhost:8501",
             "X-Title": "KURSOR Content Curator",
         }
-        response = requests.post(OPENROUTER_URL, headers=headers, json=payload, timeout=REQUEST_TIMEOUT)
+        response = requests.post(settings.openrouter_url, headers=headers, json=payload, timeout=settings.request_timeout)
         response.raise_for_status()
         body = response.json()
         raw = body.get("choices", [{}])[0].get("message", {}).get("content", "")
@@ -662,25 +542,25 @@ def filter_reviews(reviews: list) -> list:
         data = json.loads(cleaned)
         result = data.get("reviews", [])
         if result:
-            safe_print(f"✅ filter_reviews: прошло {len(result)} из {len(reviews)}")
+            print(f"✅ filter_reviews: прошло {len(result)} из {len(reviews)}")
             return result
         else:
-            safe_print("⚠️ filter_reviews: модель вернула пустой список — берём первый отзыв")
+            print("⚠️ filter_reviews: модель вернула пустой список — берём первый отзыв")
             return reviews[:1]
     except Exception as e:
-        safe_print(f"⚠️ filter_reviews ERROR: {e} — берём первый отзыв")
+        print(f"⚠️ filter_reviews ERROR: {e} — берём первый отзыв")
         return reviews[:1]
 
 
 async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
-    safe_print(f"🔍 Запуск Content Curator для lead_id={lead_id}")
+    print(f"🔍 Запуск Content Curator для lead_id={lead_id}")
 
     async with get_async_session() as session:
         result = await session.execute(select(Lead).where(Lead.id == lead_id))
         lead = result.scalar_one_or_none()
 
     if not lead:
-        safe_print(f"❌ Лид с ID={lead_id} не найден")
+        print(f"❌ Лид с ID={lead_id} не найден")
         return None
 
     business_name = compact_text(lead.name or f"Lead {lead_id}")
@@ -712,7 +592,7 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
         and r.get("text") != r.get("author")
     ]
 
-    safe_print(f"🎯 Найден лид: {business_name} | category={category} | reviews={len(raw_reviews)}")
+    print(f"🎯 Найден лид: {business_name} | category={category} | reviews={len(raw_reviews)}")
 
     # Реальные услуги из двух источников
     extracted_services = extracted_data.get("services", [])
@@ -820,7 +700,7 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
     real_faq = extracted_data.get("faq_accordion", [])
     if real_faq:
         faq_items = [{"q": item.get("q", ""), "a": item.get("a", "")} for item in real_faq[:5]]
-        safe_print(f"✅ FAQ из источника: {len(faq_items)}")
+        print(f"✅ FAQ из источника: {len(faq_items)}")
     else:
         faq_items = generate_faq(salon_context, service_cards, count=5)
 
@@ -841,7 +721,7 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(output_payload, f, ensure_ascii=False, indent=2)
 
-    safe_print(f"✅ Curated JSON сохранён: {out_path}")
+    print(f"✅ Curated JSON сохранён: {out_path}")
     return {"lead_id": lead_id, "slug": slug, "output_path": str(out_path), "data": output_payload}
 
 
@@ -852,21 +732,21 @@ def main() -> None:
     parser.add_argument("lead_id", type=int, help="Lead ID from SQLite database")
     args = parser.parse_args()
 
-    safe_print("=" * 60)
-    safe_print("🚀 Content Curator")
-    safe_print(f"🤖 Модель: {OPENROUTER_MODEL}")
-    safe_print(f"🌐 OpenRouter: {OPENROUTER_URL}")
-    safe_print(f"🔑 OPENROUTER_API_KEY: {'yes' if bool(os.getenv('OPENROUTER_API_KEY')) else 'no'}")
-    safe_print(f"📁 Output: {OUTPUT_DIR}")
-    safe_print("=" * 60)
+    print("=" * 60)
+    print("🚀 Content Curator")
+    print(f"🤖 Модель: {settings.openrouter_model}")
+    print(f"🌐 OpenRouter: {settings.openrouter_url}")
+    print(f"🔑 OPENROUTER_API_KEY: {'yes' if bool(os.getenv('OPENROUTER_API_KEY')) else 'no'}")
+    print(f"📁 Output: {OUTPUT_DIR}")
+    print("=" * 60)
 
     result = asyncio.run(curate_lead(args.lead_id))
     if not result:
-        safe_print("❌ Курация не выполнена")
+        print("❌ Курация не выполнена")
         return
 
-    safe_print("\n🏁 Курация завершена успешно")
-    safe_print(f"📄 Файл: {result['output_path']}")
+    print("\n🏁 Курация завершена успешно")
+    print(f"📄 Файл: {result['output_path']}")
 
 
 if __name__ == "__main__":

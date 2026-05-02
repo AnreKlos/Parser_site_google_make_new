@@ -15,91 +15,21 @@ from typing import Any, Dict, List, Optional
 
 import requests
 
-from block_flags import compute_block_flags
+from core.block_flags import compute_block_flags
+from config import settings
+from utils import slugify_name, is_junk_service_title, is_junk_service_description, generate_neutral_service_description, detect_city
 
 
-def is_junk_service_title(title: str) -> bool:
-    """Проверяет, является ли title мусорным."""
-    if not title:
-        return True
-    
-    title_lower = title.lower().strip()
-    title_stripped = title.strip()
-    
-    # Пустой или слишком короткий
-    if len(title_stripped) < 3:
-        return True
-    
-    # Состоит в основном из цифр
-    if re.fullmatch(r"[\d\sр₽.,]+", title_stripped):
-        return True
-    
-    # Мусорные фразы (семантический мусор)
-    junk_phrases = [
-        "варьируется",
-        "от до",
-        "выполняется",
-        "на чистые",
-        "вымытые вами волосы",
-        "подробности",
-        "уточняйте",
-    ]
-    for phrase in junk_phrases:
-        if phrase in title_lower:
-            return True
-    
-    # CAPS-инструкция (служебная информация в CAPS)
-    if title_stripped.isupper():
-        instruction_words = ["выполняется", "на чистые", "вымытые", "предварительно", "требуется"]
-        if any(word in title_lower for word in instruction_words):
-            return True
-    
-    return False
 
 
-def is_junk_service_description(description: str, title: str) -> bool:
-    """Проверяет, является ли description мусорным."""
-    if not description:
-        return False
-    
-    desc_stripped = description.strip()
-    
-    # Description полностью дублирует title
-    if desc_stripped.lower() == title.lower():
-        return True
-    
-    # Description состоит только из телефона
-    if re.fullmatch(r"[\d\s\-\(\)]+", desc_stripped):
-        return True
-    
-    return False
-
-
-def generate_neutral_service_description(title: str) -> str:
-    """Генерирует нейтральное описание услуги на основе title."""
-    title_lower = title.lower()
-    
-    if "маник" in title_lower:
-        return "Аккуратная процедура с вниманием к форме, покрытию и комфорту во время визита."
-    elif "макияж" in title_lower:
-        return "Макияж под образ, событие и индивидуальные особенности внешности."
-    elif "бров" in title_lower:
-        return "Деликатная работа с формой и оттенком для естественного и аккуратного результата."
-    elif "ресниц" in title_lower:
-        return "Услуга с вниманием к выразительности взгляда и гармонии образа."
-    elif "волос" in title_lower or "уклад" in title_lower or "окрашив" in title_lower:
-        return "Процедура с учетом структуры волос, желаемого образа и аккуратного результата."
-    else:
-        return "Профессиональная услуга с аккуратным результатом и вниманием к деталям."
-
-BASE_DIR = Path(__file__).parent
-DB_PATH = BASE_DIR / "data" / "leads.db"
+BASE_DIR = settings.root_dir
+DB_PATH = settings.db_path
 CURATED_DIR = BASE_DIR / "data" / "curated"
 YANDEX_DIR = BASE_DIR / "data" / "yandex"
 EXTRACTED_DIR = BASE_DIR / "data" / "extracted"
 RADAR_PUBLIC_DIR = BASE_DIR / "public"
 
-NEURALSYNC_ROOT = Path(r"D:\2 Clode Proj\1\neuralsync")
+NEURALSYNC_ROOT = Path(settings.neuralsync_root) if settings.neuralsync_root else Path(r"D:\2 Clode Proj\1\neuralsync")
 NEURALSYNC_CONFIGS_DIR = NEURALSYNC_ROOT / "src" / "configs"
 NEURALSYNC_PUBLIC_DIR = NEURALSYNC_ROOT / "public"
 
@@ -155,20 +85,6 @@ def log(message: str) -> None:
     print(message, flush=True)
 
 
-def slugify_name(name: str, lead_id: int) -> str:
-    translit_map = {
-        "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e", "ж": "zh", "з": "z",
-        "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r",
-        "с": "s", "т": "t", "у": "u", "ф": "f", "х": "h", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sch",
-        "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
-    }
-    lower = (name or "").strip().lower()
-    translit = "".join(translit_map.get(ch, ch) for ch in lower)
-    translit = re.sub(r"[^a-z0-9]+", "-", translit)
-    translit = re.sub(r"-+", "-", translit).strip("-")
-    return translit or f"lead-{lead_id}"
-
-
 def slug_to_var_name(slug: str) -> str:
     parts = [p for p in re.split(r"[^a-zA-Z0-9]+", slug) if p]
     if not parts:
@@ -176,29 +92,6 @@ def slug_to_var_name(slug: str) -> str:
     first = parts[0].lower()
     rest = [p[:1].upper() + p[1:] for p in parts[1:]]
     return f"{first}{''.join(rest)}Config"
-
-
-def detect_city(address: str) -> str:
-    if not address:
-        return ""
-    parts = [p.strip() for p in address.split(",") if p.strip()]
-    street_markers = (
-        "ул", "улица", "пр-т", "проспект", "пер", "переулок", "шоссе", "б-р", "бул", "наб", "дом", "д.",
-    )
-    skip_words = {"россия", "russia", "российская федерация"}
-    for part in parts:
-        cleaned = re.sub(r"^г\.?\s*", "", part, flags=re.IGNORECASE).strip()
-        low = cleaned.lower()
-        if not cleaned or low in skip_words:
-            continue
-        if any(low.startswith(m) for m in street_markers):
-            continue
-        if "обл" in low or "район" in low or "округ" in low or "край" in low:
-            continue
-        if re.search(r"\d", low):
-            continue
-        return cleaned
-    return ""
 
 
 def load_lead(lead_id: int) -> Optional[Dict[str, Any]]:

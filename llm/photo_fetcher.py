@@ -19,11 +19,11 @@ import requests
 from dotenv import load_dotenv
 from playwright.async_api import async_playwright
 
-from gemma_curator import analyze_image_url
+from llm.curator import analyze_image_url
 
 load_dotenv()
 
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent
 DB_PATH = BASE_DIR / "data" / "leads.db"
 YANDEX_DIR = BASE_DIR / "data" / "yandex"
 EXTRACTED_DIR = BASE_DIR / "data" / "extracted"
@@ -554,7 +554,7 @@ def distribute_and_download(candidates: List[PhotoCandidate], slug: str, dry_run
             import shutil
             shutil.rmtree(slug_dir)
             log(f"🗑️ Очищена папка: {slug_dir}")
-    
+
     photo_map: Dict[str, List[str]] = {k: [] for k in FOLDER_LIMITS.keys()}
 
     for c in candidates:
@@ -672,13 +672,13 @@ async def fetch_photos(
     lead_name = str(lead.get("name") or f"Lead {lead_id}")
     slug = slugify_name(lead_name, lead_id)
     website = str(lead.get("website") or "").strip()
-    
+
     # Фильтруем соцсети — пропускаем их как website
     SKIP_SITE_DOMAINS = ("instagram.com", "facebook.com", "t.me", "ok.ru", "youtube.com")
     if website and any(d in website for d in SKIP_SITE_DOMAINS):
         log(f"⚠️ website — соцсеть, пропускаем: {website}")
         website = ""
-    
+
     vk_url = str(lead.get("vk_url") or "").strip()
     if not vk_url:
         vk_url = resolve_vk_from_yandex(slug)

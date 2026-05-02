@@ -11,10 +11,9 @@ from typing import Dict, Any, List, Optional
 from bs4 import BeautifulSoup
 import requests
 
-logger = logging.getLogger(__name__)
+from config import settings
 
-from dotenv import load_dotenv
-load_dotenv()
+logger = logging.getLogger(__name__)
 
 # Prompt template for services niche (current)
 PROMPT_SERVICES = """
@@ -139,9 +138,7 @@ PROMPT_AUTO_DEALER = """
 """
 
 # OpenRouter configuration
-OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
-OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-OPENROUTER_MODEL = "gpt-4o-mini"  # or another model
+OPENROUTER_API_KEY = settings.openrouter_api_key or os.getenv('OPENROUTER_API_KEY')
 
 def call_openrouter(html: str, prompt: str) -> Optional[Dict[str, Any]]:
     """Call OpenRouter API with the prompt and HTML."""
@@ -155,13 +152,13 @@ def call_openrouter(html: str, prompt: str) -> Optional[Dict[str, Any]]:
     
     try:
         response = requests.post(
-            OPENROUTER_URL,
+            settings.openrouter_url,
             headers={
                 "Authorization": f"Bearer {OPENROUTER_API_KEY}",
                 "Content-Type": "application/json"
             },
             json={
-                "model": OPENROUTER_MODEL,
+                "model": settings.openrouter_model,
                 "messages": [{"role": "user", "content": full_prompt}],
                 "temperature": 0.0,
                 "max_tokens": 2000

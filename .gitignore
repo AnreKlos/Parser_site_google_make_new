@@ -30,5 +30,12 @@ site_generator/output/
 .DS_Store
 Thumbs.db
 
+# AI assistants
+.claude/
+.qwen/
+
+# Build artifacts
+*.pyc
+
 # Logs
 *.log

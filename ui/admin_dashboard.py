@@ -17,7 +17,7 @@ import subprocess
 from typing import Optional
 
 # Добавляем корень проекта в путь для импортов
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # --- Конфигурация страницы ---
 st.set_page_config(

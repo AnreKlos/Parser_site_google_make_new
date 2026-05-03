@@ -39,3 +39,10 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Bridge runtime logs
+logs/
+
+# Misc artifacts
+figma_screenshot.png
+llm/data/

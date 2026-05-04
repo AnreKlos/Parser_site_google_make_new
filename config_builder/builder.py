@@ -307,6 +307,49 @@ def _build_sections_config(
             sections['price'] = {'enabled': False, 'groups': []}
     # Для сетей (is_chain=True) вообще НЕ создаём секцию price
     
+    # Fallback для about если дублирует hero.lead
+    hero_lead = sections.get('hero', {}).get('lead', '')
+    about_text = sections.get('about', {}).get('text', '')
+    
+    # Упрощённое правило: если about.text начинается с первых 20 символов hero.lead или содержит hero.lead
+    if about_text and hero_lead and (about_text.startswith(hero_lead[:20]) or hero_lead in about_text):
+        print(f"[DEBUG] about source: original (duplicates hero.lead)")
+        # Собираем fallback about жёстко без hero.lead
+        brand_name = lead.get('name', 'Студия красоты')
+        city_name = city or ''
+        rating = yandex.get('rating', '0') if isinstance(yandex, dict) else '0'
+        reviews_count = yandex.get('reviews_count', yandex.get('review_count', 0)) if isinstance(yandex, dict) else 0
+        
+        # Берём 2-3 основные услуги из services
+        services_list = []
+        for item in merged_services[:3]:
+            if isinstance(item, dict):
+                title = item.get('title', '')
+                if title:
+                    services_list.append(title)
+        
+        # Формируем fallback about
+        if services_list:
+            services_str = ', '.join(services_list)
+        else:
+            services_str = 'макияж, брови и маникюр'
+        
+        fallback_about = f"{brand_name} — студия красоты"
+        if city_name:
+            fallback_about += f" в {city_name}"
+        fallback_about += f", где можно записаться на {services_str}. Здесь делают ставку на аккуратный результат, понятный сервис и комфортную запись без лишней суеты."
+        if rating and rating != '0':
+            fallback_about += f" По данным Яндекс.Карт, у студии рейтинг {rating}"
+            if reviews_count:
+                fallback_about += f" и {reviews_count} отзывов."
+            else:
+                fallback_about += "."
+        
+        sections['about']['text'] = fallback_about
+        print(f"[DEBUG] about source: fallback (replaced duplicate)")
+    else:
+        print(f"[DEBUG] about source: original (no duplicate)")
+    
     return sections
 
 
@@ -493,3 +536,4 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     }
 
     return config
+

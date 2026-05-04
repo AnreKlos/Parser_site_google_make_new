@@ -91,8 +91,11 @@ def pick_social_links(lead: Dict[str, Any]) -> List[Dict[str, str]]:
 
 
 def normalize_service_title(value: str) -> str:
-    """Lowercase, strip special chars, collapse whitespace."""
-    return re.sub(r"\s+", " ", re.sub(r"[^\w\sа-яё]", " ", (value or "").lower())).strip()
+    """Lowercase, strip special chars, collapse whitespace, remove trailing digits."""
+    # Удаляем хвостовые цифры
+    value = re.sub(r'\d+$', '', value or '')
+    # Lowercase, strip special chars, collapse whitespace
+    return re.sub(r'\s+', ' ', re.sub(r'[^\w\sа-яё]', ' ', value.lower())).strip()
 
 
 def normalize_extracted_services(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -355,6 +358,26 @@ def merge_services(
 
     # Применяем расширенный фильтр и ограничиваем количество
     filtered_merged = filter_enhanced_services(merged, max_count=6)
+    
+    # Near-duplicate правило для бровей
+    # Если несколько услуг содержат корень "бров", оставляем более короткий вариант
+    brows_items = []
+    brows_indices = []
+    for idx, item in enumerate(filtered_merged):
+        norm_title = normalize_service_title(item.get('title', ''))
+        if 'бров' in norm_title:
+            brows_items.append((idx, item, norm_title))
+            brows_indices.append(idx)
+    
+    if len(brows_items) > 1:
+        # Сортируем по длине normalized title (короче = чище)
+        brows_items.sort(key=lambda x: len(x[2]))
+        # Оставляем только первый (самый короткий)
+        keep_idx = brows_items[0][0]
+        print(f"[DEBUG] Near-duplicate brows rule: keeping '{filtered_merged[keep_idx]['title']}'")
+        # Удаляем остальные
+        filtered_merged = [item for idx, item in enumerate(filtered_merged) 
+                          if idx not in [bi for bi, _, _ in brows_items[1:]]]
     
     return filtered_merged
 

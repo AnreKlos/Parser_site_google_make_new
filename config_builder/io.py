@@ -39,6 +39,34 @@ def read_json_if_exists(path: Path) -> dict[str, Any]:
     return data if isinstance(data, dict) else {}
 
 
+def read_json_with_fallback(path: Path, fallback_pattern: str = None) -> dict[str, Any]:
+    """Read a JSON file with fallback to alternate pattern.
+    
+    Args:
+        path: Primary path to try
+        fallback_pattern: If path doesn't exist, try this pattern (e.g., "{slug}.json")
+    
+    Returns:
+        dict with file contents, or empty dict if neither file exists
+    """
+    if path.exists():
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    
+    if fallback_pattern:
+        # Extract directory and filename from path
+        dir_path = path.parent
+        # Try fallback pattern
+        fallback_path = dir_path / fallback_pattern
+        if fallback_path.exists():
+            with open(fallback_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            return data if isinstance(data, dict) else {}
+    
+    return {}
+
+
 def list_image_urls(slug: str, folder: str) -> List[str]:
     """Web-relative URLs for images in ``public/<slug>/<folder>/``."""
     root = RADAR_PUBLIC_DIR / slug / folder

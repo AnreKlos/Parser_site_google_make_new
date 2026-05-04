@@ -564,6 +564,12 @@ def build_price_section(
             #     print(f"  ❌ Фильтр 2 (is_junk)")
             #     continue
             
+            # Фильтр: обучающие программы — не услуги салона
+            education_keywords = ['курс', 'обучение', 'мастер-класс', 'семинар', 'тренинг', 'школа']
+            if any(kw in title.lower() for kw in education_keywords):
+                print(f"  ❌ Фильтр: обучение (не услуга салона)")
+                continue
+            
             # Фильтр 3: цена должна содержать числа
             if not raw_price or not re.search(r'\d+', str(raw_price)):
                 print(f"  ❌ Фильтр 3 (нет цены)")

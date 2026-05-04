@@ -129,7 +129,18 @@ def get_yandex_file_path(lead_name: str, lead_id: int) -> Path:
 
 
 def get_yandex_status(lead_name: str, lead_id: int) -> str:
-    return "🟢 Обогащён" if get_yandex_file_path(lead_name, lead_id).exists() else "⚪ Не обогащён"
+    path = get_yandex_file_path(lead_name, lead_id)
+    if not path.exists():
+        return "⚪ Не обогащён"
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            d = json.load(f)
+        _meta = d.get("yandex", {}).get("_meta", {})
+        if _meta.get("has_full", True):  # Legacy files without _meta are considered full
+            return "🟢 Full"
+        return "🟡 Light"
+    except Exception:
+        return "🟢 Обогащён"
 
 
 def get_yandex_maps_url(lead_name: str, lead_id: int) -> str:
@@ -228,14 +239,14 @@ def run_config_builder_batch(lead_ids: list[int]) -> tuple[list[int], dict[int, 
     return success_ids, failures
 
 
-def run_yandex_enricher(lead_id: int) -> tuple[bool, str]:
+def run_yandex_enricher(lead_id: int, mode: str = "light") -> tuple[bool, str]:
     """Обогащение через enrichment.yandex напрямую."""
     try:
         from enrichment.yandex import enrich_lead
-        result = asyncio.run(enrich_lead(lead_id))
+        result = asyncio.run(enrich_lead(lead_id, mode=mode))
         if result is None or result is False:
-            return False, f"Обогащение не выполнено для lead_id={lead_id}"
-        return True, f"OK: lead_id={lead_id} | rating={result.get('rating', '?')} reviews={result.get('reviews_count', 0)}"
+            return False, f"Обогащение не выполнено для lead_id={lead_id} mode={mode}"
+        return True, f"OK: lead_id={lead_id} mode={mode} | rating={result.get('rating', '?')} reviews={result.get('reviews_count', 0)}"
     except Exception as exc:
         import traceback
         return False, f"Исключение: {exc}\n{traceback.format_exc()}"
@@ -900,28 +911,47 @@ def main():
         with st.expander("🗺 Yandex", expanded=False):
             st.caption(f"Файл: `{selected_ya_path}`")
             ya_exists = selected_ya_path.exists()
+
+            # Check if file has full mode
+            has_full = False
             if ya_exists:
-                yv1, yv2 = st.columns(2)
+                try:
+                    with open(selected_ya_path, "r", encoding="utf-8") as f:
+                        d = json.load(f)
+                    _meta = d.get("yandex", {}).get("_meta", {})
+                    has_full = _meta.get("has_full", True)  # Legacy files without _meta are considered full
+                except Exception:
+                    pass
+
+            if ya_exists:
+                yv1, yv2, yv3 = st.columns(3)
                 with yv1:
-                    if st.button("👁 Просмотреть данные Яндекс", key="ya_view_btn_single", width='stretch'):
+                    if st.button("👁 Данные", key="ya_view_btn_single", width='stretch'):
                         st.session_state["ya_show_data"] = selected_lead_id
                 with yv2:
-                    if st.button("🔄 Перегенерировать", key="ya_regen_btn_single", width='stretch'):
+                    if st.button("� Light", key="ya_light_btn_single", width='stretch'):
                         try:
                             selected_ya_path.unlink(missing_ok=True)
                         except Exception as ya_exc:
                             st.error(f"❌ Не удалось удалить JSON: {ya_exc}")
                         else:
-                            ok_ya_r, out_ya_r = run_yandex_enricher(selected_lead_id)
-                            if not ok_ya_r:
-                                st.session_state[f"ya_error_{selected_lead_id}"] = out_ya_r or "Ошибка"
+                            ok_ya_l, out_ya_l = run_yandex_enricher(selected_lead_id, mode="light")
+                            if not ok_ya_l:
+                                st.session_state[f"ya_error_{selected_lead_id}"] = out_ya_l or "Ошибка"
                             st.rerun()
+                with yv3:
+                    if st.button("📸 Full", key="ya_full_btn_single", width='stretch', disabled=has_full):
+                        ok_ya_f, out_ya_f = run_yandex_enricher(selected_lead_id, mode="full")
+                        if not ok_ya_f:
+                            st.session_state[f"ya_error_{selected_lead_id}"] = out_ya_f or "Ошибка"
+                        st.rerun()
             else:
-                if st.button("🗺 Обогатить с Яндекса", key="ya_enrich_btn_single", type="primary"):
-                    ok_ya_s, out_ya_s = run_yandex_enricher(selected_lead_id)
+                if st.button("🗺 Обогатить (Light)", key="ya_enrich_btn_single", type="primary"):
+                    ok_ya_s, out_ya_s = run_yandex_enricher(selected_lead_id, mode="light")
                     if not ok_ya_s:
                         st.session_state[f"ya_error_{selected_lead_id}"] = out_ya_s or "Ошибка"
                     st.rerun()
+
             if st.session_state.get(f"ya_error_{selected_lead_id}"):
                 st.code(st.session_state[f"ya_error_{selected_lead_id}"][:3000], language="")
             if st.session_state.get("ya_show_data") == selected_lead_id and ya_exists:

@@ -1,0 +1,69 @@
+{
+  "lead_id": 72,
+  "lead_name": "Инфанта",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/infanta/1682365925/",
+    "rating": 4.1,
+    "reviews_count": 54,
+    "photos_count": 3,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "Инфанта4,1Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "женской стрижки:350–",
+        "price": "800 ₽"
+      },
+      {
+        "name": "мужской стрижки:200–",
+        "price": "600 ₽"
+      }
+    ],
+    "address": "Брянск, ул. Менжинского, 1",
+    "phones": [
+      "88885816418",
+      "+7 (900) 362-15-28",
+      "+7 (900) 362-15-28"
+    ],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 00:49:28",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "Инфанта4,1Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "женской стрижки:350–",
+        "price": "800 ₽"
+      },
+      {
+        "name": "мужской стрижки:200–",
+        "price": "600 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:49:29",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 0
+}

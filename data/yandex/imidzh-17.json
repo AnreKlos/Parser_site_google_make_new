@@ -1,0 +1,77 @@
+{
+  "lead_id": 17,
+  "lead_name": "Имидж",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/salon_krasoty_imidzh/1020754392/",
+    "rating": 4.5,
+    "reviews_count": 108,
+    "photos_count": 5,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "Имидж4,5Стрижка: от Би Хеппи",
+        "price": "400 ₽"
+      },
+      {
+        "name": "Имидж4,5Стрижка: от",
+        "price": "400 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "400 ₽"
+      },
+      {
+        "name": "женской стрижки:400–",
+        "price": "600 ₽"
+      },
+      {
+        "name": "мужской стрижки:300–",
+        "price": "450 ₽"
+      }
+    ],
+    "address": "Брянск, Московский просп., 18Б",
+    "phones": [
+      "80156932374",
+      "+7 483 261 37 26",
+      "86458333333"
+    ],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 00:20:03",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "Имидж4,5Стрижка: от Би Хеппи",
+        "price": "400 ₽"
+      },
+      {
+        "name": "Имидж4,5Стрижка: от",
+        "price": "400 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "400 ₽"
+      },
+      {
+        "name": "женской стрижки:400–",
+        "price": "600 ₽"
+      },
+      {
+        "name": "мужской стрижки:300–",
+        "price": "450 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:20:03",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 6
+}

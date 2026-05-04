@@ -15,8 +15,9 @@ import re
 import time
 from datetime import datetime
 from difflib import SequenceMatcher
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Literal
 from urllib.parse import quote_plus, urljoin
+import aiohttp
 
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 from playwright.async_api import async_playwright
@@ -27,6 +28,7 @@ from db.models import Lead
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 YANDEX_DATA_DIR = BASE_DIR / "data" / "yandex"
+PUBLIC_DIR = Path(r"D:\2 Clode Proj\1\neuralsync\src\public")
 LOG_PATH = YANDEX_DATA_DIR / "scrape_log.txt"
 CAPTCHA_LOG_PATH = YANDEX_DATA_DIR / "captcha_log.txt"
 SESSION_STATE_PATH = YANDEX_DATA_DIR / ".session.json"
@@ -263,7 +265,49 @@ def normalize_name(text: str) -> str:
 
 
 def fuzzy_match_score(a: str, b: str) -> float:
-    return SequenceMatcher(None, normalize_name(a), normalize_name(b)).ratio()
+    if not a or not b:
+        return 0.0
+    return SequenceMatcher(None, a.lower(), b.lower()).ratio()
+
+
+BEAUTY_KEYWORDS = {
+    "салон", "студия красоты", "парикмахерская", "барбершоп",
+    "маникюр", "педикюр", "косметология", "брови", "ресницы",
+    "окрашивание", "стрижка", "укладка", "макияж", "волосы",
+    "эпиляция", "депиляция", "наращивание", "ламинирование",
+    "кератин", "ботокс", "филлеры", "чистка", "пилинг",
+    "массаж", "спа", "wellness", "солярий", "загар"
+}
+
+NON_BEAUTY_KEYWORDS = {
+    "стоматология", "клиника", "больница", "аптека", "ресторан",
+    "кафе", "бар", "паб", "магазин", "супермаркет", "рынок",
+    "авто", "сервис", "ремонт", "стройка", "недвижимость",
+    "юридический", "адвокат", "нотариус", "бухгалтер", "аудит"
+}
+
+
+def calculate_category_match(text: str) -> float:
+    """Calculate category match score based on beauty-related keywords."""
+    if not text:
+        return 0.5  # Neutral if no text
+    
+    text_lower = text.lower()
+    
+    # Check for non-beauty keywords (strong negative signal)
+    for keyword in NON_BEAUTY_KEYWORDS:
+        if keyword in text_lower:
+            return 0.0
+    
+    # Check for beauty keywords (positive signal)
+    beauty_count = sum(1 for keyword in BEAUTY_KEYWORDS if keyword in text_lower)
+    
+    if beauty_count >= 2:
+        return 1.0
+    elif beauty_count == 1:
+        return 0.8
+    else:
+        return 0.5  # Neutral
 
 
 def address_contains_city(card_address: str, city: str) -> bool:
@@ -440,7 +484,7 @@ def normalize_services(raw_services: List[Dict[str, Any]]) -> List[Dict[str, Any
         price = normalize_price_text(str(item.get("price", "")))
         description = str(item.get("description", "")).strip()
         duration_min = item.get("duration_min")
-        
+
         if not name or not price:
             continue
         if len(name) < 4 or re.fullmatch(r"[\d\s]+", name):
@@ -449,17 +493,87 @@ def normalize_services(raw_services: List[Dict[str, Any]]) -> List[Dict[str, Any
         if key in seen:
             continue
         seen.add(key)
-        
+
         service_item: Dict[str, Any] = {"name": name, "price": price}
         if description:
             service_item["description"] = description
         if duration_min and isinstance(duration_min, (int, float)):
             service_item["duration_min"] = int(duration_min)
-        
+
         result.append(service_item)
         if len(result) >= 20:
             break
     return result
+
+
+async def download_photos(photo_urls: List[str], slug: str, lead_id: int) -> List[Dict[str, Any]]:
+    """Downloads photos from Yandex URLs to public directory."""
+    if not photo_urls:
+        return []
+
+    target_dir = PUBLIC_DIR / f"{slug}-{lead_id}" / "yandex"
+    target_dir.mkdir(parents=True, exist_ok=True)
+
+    downloaded = []
+    headers = {
+        "User-Agent": random.choice(USER_AGENTS),
+        "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
+    }
+
+    async with aiohttp.ClientSession(headers=headers) as session:
+        for idx, url in enumerate(photo_urls[:10]):  # Max 10 photos
+            try:
+                # Get image first to check dimensions
+                async with session.get(url, timeout=aiohttp.ClientTimeout(total=30)) as resp:
+                    if resp.status != 200:
+                        continue
+                    content_type = resp.headers.get("Content-Type", "")
+                    if "gif" in content_type.lower():
+                        continue  # Skip GIFs
+
+                    image_data = await resp.read()
+
+                # Try to get image dimensions (simple check)
+                import io
+                from PIL import Image
+
+                try:
+                    img = Image.open(io.BytesIO(image_data))
+                    width, height = img.size
+                    if width < 800:
+                        continue  # Skip small images
+                except Exception:
+                    continue  # Skip if can't read dimensions
+
+                # Check format
+                allowed_formats = ("jpg", "jpeg", "png", "webp")
+                if img.format and img.format.lower() not in allowed_formats:
+                    continue
+
+                # Save file
+                ext = img.format.lower() if img.format else "jpg"
+                filename = f"photo_{idx + 1}.{ext}"
+                filepath = target_dir / filename
+
+                with open(filepath, "wb") as f:
+                    f.write(image_data)
+
+                downloaded.append({
+                    "filename": filename,
+                    "size_bytes": len(image_data),
+                    "width": width,
+                    "height": height,
+                    "original_url": url
+                })
+
+                write_log(f"📸 Фото скачано: {filename} ({len(image_data)} bytes, {width}x{height})")
+
+            except Exception as e:
+                write_log(f"⚠️ Ошибка скачивания фото {idx}: {e}")
+                continue
+
+    write_log(f"📸 Скачано {len(downloaded)} фото в {target_dir}")
+    return downloaded
 
 
 def parse_existing_reviews(raw_reviews: Optional[str]) -> List[Dict[str, Any]]:
@@ -619,52 +733,82 @@ async def search_lead_on_yandex(name: str, city: str, lead_address: str = "", le
                 card_title = meta.get("title") or listed_title
                 card_address = meta.get("address") or ""
 
-                score_from_card_title = fuzzy_match_score(name, card_title) if card_title else 0.0
-                score_from_list_title = fuzzy_match_score(name, listed_title) if listed_title else 0.0
-                name_score = max(score_from_card_title, score_from_list_title)
-                addr_score = fuzzy_match_score(lead_address, card_address) if lead_address and card_address else 0.0
+                # Calculate individual signal scores
+                name_score = max(
+                    fuzzy_match_score(name, card_title) if card_title else 0.0,
+                    fuzzy_match_score(name, listed_title) if listed_title else 0.0
+                )
+                
+                # City match: must be in address or fuzzy match
+                city_score = 0.0
+                if city:
+                    if address_contains_city(card_address, city):
+                        city_score = 1.0
+                    else:
+                        city_score = fuzzy_match_score(city, card_address) if card_address else 0.0
+                
+                # Address match: soft signal, not a hard gate
+                address_score = fuzzy_match_score(lead_address, card_address) if lead_address and card_address else 0.0
+                
+                # Category match: beauty-related keywords
+                category_text = f"{card_title} {card_address}"
+                category_score = calculate_category_match(category_text)
 
-                city_ok = not city or address_contains_city(card_address, city)
-                street_ok = bool(street_keyword and address_contains_street(card_address, street_keyword))
-                house_ok = bool(house_number and address_contains_house(card_address, house_number))
-                address_fuzzy_ok = bool(lead_address and card_address and addr_score >= 0.6)
-                has_location_requirements = bool(street_keyword or house_number)
-                location_ok = city_ok and (street_ok or house_ok or address_fuzzy_ok or not has_location_requirements)
-
-                if not location_ok and city_ok and name_score >= 0.9 and addr_score >= 0.4:
-                    location_ok = True
-                    write_log(f"⚠️ Мягкий матч по имени в городе: {full_url} | addr='{card_address[:120]}'")
-
-                if not location_ok:
-                    write_log(f"↪ Пропуск карточки по адресу: {full_url} | addr='{card_address[:120]}'")
-                    continue
-
-                total_score = (name_score * 0.55) + (addr_score * 0.45)
-
-                write_log(
-                    f"🧪 Кандидат: name={name_score:.2f} addr={addr_score:.2f} total={total_score:.2f} | {full_url}"
+                # Weighted final score
+                final_score = (
+                    name_score * 0.5 +
+                    city_score * 0.2 +
+                    address_score * 0.15 +
+                    category_score * 0.15
                 )
 
-                if total_score > best_score:
-                    best_score = total_score
-                    best_url = full_url
+                # Hard rejection rules
+                # Reject if city is clearly wrong (city_score < 0.5)
+                if city and city_score < 0.5:
+                    write_log(f"↪ Пропуск: неверный город (city_score={city_score:.2f}): {full_url}")
+                    continue
+                
+                # Reject if name is completely different (name_score < 0.5)
+                if name_score < 0.5:
+                    write_log(f"↪ Пропуск: название не совпадает (name_score={name_score:.2f}): {full_url}")
+                    continue
+                
+                # Reject if category is clearly non-beauty (category_score == 0.0)
+                if category_score == 0.0:
+                    write_log(f"↪ Пропуск: неверная категория (category_score={category_score:.2f}): {full_url}")
+                    continue
 
-            if best_url and best_score >= 0.7:
+                # Acceptance rules
+                # Accept if final_score >= 0.65 AND name_score >= 0.65 AND city_score >= 0.8
+                if final_score >= 0.65 and name_score >= 0.65 and city_score >= 0.8:
+                    write_log(
+                        f"🧪 Кандидат: name={name_score:.2f} city={city_score:.2f} addr={address_score:.2f} cat={category_score:.2f} total={final_score:.2f} | {full_url}"
+                    )
+                    
+                    if final_score > best_score:
+                        best_score = final_score
+                        best_url = full_url
+                else:
+                    write_log(
+                        f"↪ Пропуск: score too low (name={name_score:.2f} city={city_score:.2f} addr={address_score:.2f} cat={category_score:.2f} total={final_score:.2f}): {full_url}"
+                    )
+
+            if best_url and best_score >= 0.65:
                 write_log(f"✅ Найдена карточка: {best_url} (score={best_score:.2f})")
                 return best_url
 
             if lead_id is not None:
-                write_log(f"❌ Совпадение по адресу не найдено для lead_id={lead_id}")
+                write_log(f"❌ Совпадение не найдено для lead_id={lead_id}")
             else:
-                write_log("❌ Совпадение по адресу не найдено")
+                write_log("❌ Совпадение не найдено")
             return None
         finally:
             await context.close()
             await browser.close()
 
 
-async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[str, Any]:
-    write_log(f"🧭 Открываю карточку: {url}")
+async def scrape_yandex_card(url: str, lead_id: Optional[int] = None, mode: Literal["light", "full"] = "light", timeout_sec: int = 60) -> Dict[str, Any]:
+    write_log(f"🧭 Открываю карточку: {url} mode={mode}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
@@ -674,8 +818,8 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[st
         page = await context.new_page()
 
         try:
-            await page.goto(url, wait_until="domcontentloaded", timeout=35000)
-            await page.wait_for_timeout(3500)
+            await page.goto(url, wait_until="domcontentloaded", timeout=timeout_sec * 1000)
+            await page.wait_for_timeout(2000 if mode == "light" else 3500)
 
             if await has_captcha_signals(page):
                 await save_session_state(context)
@@ -696,13 +840,15 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[st
                 except Exception:
                     continue
 
-            for _ in range(12):
-                try:
-                    await page.get_by_text("Показать ещё", exact=False).first.click(timeout=700)
-                except Exception:
-                    pass
-                await page.mouse.wheel(0, random.randint(1300, 2200))
-                await page.wait_for_timeout(random.randint(900, 1700))
+            # Only scroll and load more reviews in full mode
+            if mode == "full":
+                for _ in range(12):
+                    try:
+                        await page.get_by_text("Показать ещё", exact=False).first.click(timeout=700)
+                    except Exception:
+                        pass
+                    await page.mouse.wheel(0, random.randint(1300, 2200))
+                    await page.wait_for_timeout(random.randint(900, 1700))
 
             raw = await page.evaluate(
                 r"""
@@ -920,46 +1066,51 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[st
                 raise RuntimeError("Обнаружена капча после скролла")
 
             reviews = []
-            for item in raw.get("reviews_list", [])[:30]:
-                author = clean_author(str(item.get("author") or "Клиент"))
-                text = clean_review_text(re.sub(r"\s+", " ", str(item.get("text", "")).strip()))
-                raw_date = str(item.get("date") or "").strip()
-                
-                # T08 requirements: min 30 chars, require date
-                if len(text) < 30 or is_noise_review_text(text):
-                    continue
-                if text.lower() == author.lower():
-                    continue
-                if not raw_date:
-                    continue
-                
-                # Parse date to YYYY-MM-DD
-                parsed_date = parse_russian_date(raw_date)
-                if not parsed_date:
-                    continue
-                
-                reviews.append(
-                    {
-                        "author": author,
-                        "text": text,
-                        "rating": parse_float(str(item.get("rating", ""))),
-                        "date": parsed_date,
-                        "source": "yandex",
-                    }
-                )
+            if mode == "full":
+                for item in raw.get("reviews_list", [])[:30]:
+                    author = clean_author(str(item.get("author") or "Клиент"))
+                    text = clean_review_text(re.sub(r"\s+", " ", str(item.get("text", "")).strip()))
+                    raw_date = str(item.get("date") or "").strip()
 
-            reviews = dedupe_reviews(reviews)
-            
+                    # T08 requirements: min 30 chars, require date
+                    if len(text) < 30 or is_noise_review_text(text):
+                        continue
+                    if text.lower() == author.lower():
+                        continue
+                    if not raw_date:
+                        continue
+
+                    # Parse date to YYYY-MM-DD
+                    parsed_date = parse_russian_date(raw_date)
+                    if not parsed_date:
+                        continue
+
+                    reviews.append(
+                        {
+                            "author": author,
+                            "text": text,
+                            "rating": parse_float(str(item.get("rating", ""))),
+                            "date": parsed_date,
+                            "source": "yandex",
+                        }
+                    )
+
+                reviews = dedupe_reviews(reviews)
+
             # T08: enriched extracted structure
-            yandex_reviews = reviews[:15]  # Max 10-15 reviews
+            yandex_reviews = reviews[:15] if mode == "full" else []
             service_carousel = normalize_services(list(raw.get("services", [])))
+            photos_list = list(raw.get("photos", []))[:20] if mode == "full" else []
+            reviews_list = reviews[:30] if mode == "full" else []
+            photos_count = len(raw.get("photos", [])) if mode == "light" else len(photos_list)
 
             result = {
                 "source_url": url,
                 "rating": parse_float(str(raw.get("rating_text", ""))),
                 "reviews_count": parse_int(str(raw.get("reviews_count_text", ""))),
-                "reviews_list": reviews[:30],
-                "photos": list(raw.get("photos", []))[:20],
+                "photos_count": photos_count,
+                "reviews_list": reviews_list,
+                "photos": photos_list,
                 "services": normalize_services(list(raw.get("services", []))),
                 "address": str(raw.get("address") or "").strip(),
                 "phones": list(raw.get("phones", [])),
@@ -973,7 +1124,7 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[st
             }
 
             write_log(
-                f"✅ Карточка собрана: rating={result['rating']} reviews={len(result['reviews_list'])} photos={len(result['photos'])}"
+                f"✅ Карточка собрана mode={mode}: rating={result['rating']} reviews_count={result['reviews_count']} photos_count={result['photos_count']}"
             )
             return result
         finally:
@@ -981,9 +1132,9 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[st
             await browser.close()
 
 
-async def enrich_lead(lead_id: int, force: bool = False) -> Optional[Dict[str, Any]]:
+async def enrich_lead(lead_id: int, force: bool = False, mode: Literal["light", "full"] = "light") -> Optional[Dict[str, Any]]:
     ensure_data_dirs()
-    write_log(f"🚀 Старт enrich для lead_id={lead_id}")
+    write_log(f"🚀 Старт enrich для lead_id={lead_id} mode={mode}")
 
     async with get_async_session() as session:
         res = await session.execute(select(Lead).where(Lead.id == lead_id))
@@ -999,12 +1150,35 @@ async def enrich_lead(lead_id: int, force: bool = False) -> Optional[Dict[str, A
         slug = slugify_name(lead_name, lead_id)
         out_path = YANDEX_DATA_DIR / f"{slug}-{lead_id}.json"
 
-        cache_age = get_cache_age_seconds(out_path)
-        if cache_age is not None and cache_age <= 24 * 60 * 60 and not force:
-            cached_payload = read_cached_payload(out_path)
-            if cached_payload:
-                write_log(f"♻️ Использую кеш (<24ч): {out_path}")
-                return summarize_result_from_payload(cached_payload, out_path, cached=True)
+        # Check if file exists and its _meta
+        existing_payload = read_cached_payload(out_path)
+        has_full = False
+        if existing_payload:
+            _meta = existing_payload.get("yandex", {}).get("_meta", {})
+            has_full = _meta.get("has_full", True)  # Legacy files without _meta are considered full
+            if mode == "light" and not force and has_full:
+                write_log(f"♻️ Файл уже в full режиме, skip light: {out_path}")
+                return summarize_result_from_payload(existing_payload, out_path, cached=True)
+            if mode == "full" and has_full and not force:
+                write_log(f"♻️ Файл уже в full режиме: {out_path}")
+                return summarize_result_from_payload(existing_payload, out_path, cached=True)
+
+        # FULL mode requires light mode first
+        if mode == "full" and not existing_payload:
+            write_log(f"🔄 FULL mode требует light mode, запускаю light сначала")
+            light_result = await enrich_lead(lead_id, force=force, mode="light")
+            if not light_result:
+                write_log(f"❌ Light mode failed, cannot proceed to full")
+                return None
+            existing_payload = read_cached_payload(out_path)
+
+        # Cache check for light mode (skip for full mode as it's intentional re-run)
+        if mode == "light":
+            cache_age = get_cache_age_seconds(out_path)
+            if cache_age is not None and cache_age <= 24 * 60 * 60 and not force:
+                if existing_payload:
+                    write_log(f"♻️ Использую кеш (<24ч): {out_path}")
+                    return summarize_result_from_payload(existing_payload, out_path, cached=True)
 
         minutes_since_last = get_minutes_since_last_live_run(lead_id)
         if minutes_since_last is not None and minutes_since_last < 60 and not force:
@@ -1026,7 +1200,44 @@ async def enrich_lead(lead_id: int, force: bool = False) -> Optional[Dict[str, A
 
         random_pause(8, 15, "между поиском и скрейпингом")
 
-        scraped = await scrape_yandex_card(yandex_url, lead_id=lead_id)
+        # Determine timeout based on mode
+        timeout_sec = 10 if mode == "light" else 60
+        scraped = await scrape_yandex_card(yandex_url, lead_id=lead_id, mode=mode, timeout_sec=timeout_sec)
+
+        # Sanity check for light mode: address OR source_url required
+        if mode == "light":
+            if not scraped.get("address") and not scraped.get("source_url"):
+                write_log(f"❌ Light mode sanity check failed: нет address и source_url")
+                raise RuntimeError("Light mode требует address или source_url")
+
+        # Download photos in full mode
+        if mode == "full" and scraped.get("photos"):
+            photo_urls = [p for p in scraped["photos"] if isinstance(p, str) and p.startswith("http")]
+            if photo_urls:
+                write_log(f"📸 Скачиваю {len(photo_urls)} фото...")
+                downloaded_photos = await download_photos(photo_urls, slug, lead_id)
+                scraped["photos"] = downloaded_photos
+                scraped["photos_count"] = len(downloaded_photos)
+            else:
+                scraped["photos"] = []
+                scraped["photos_count"] = 0
+
+        # Build _meta
+        _meta = {
+            "mode": mode,
+            "has_full": mode == "full",
+            "scraped_at": timestamp(),
+            "parser_version": "2.0"
+        }
+        if mode == "full":
+            _meta["full_scraped_at"] = timestamp()
+        elif existing_payload and existing_payload.get("yandex", {}).get("_meta"):
+            # Preserve full_scraped_at from existing file if upgrading from light to full
+            existing_meta = existing_payload["yandex"]["_meta"]
+            if existing_meta.get("full_scraped_at"):
+                _meta["full_scraped_at"] = existing_meta["full_scraped_at"]
+
+        scraped["_meta"] = _meta
 
         existing_reviews = parse_existing_reviews(lead.raw_reviews)
         merged_reviews = dedupe_reviews(existing_reviews + scraped.get("reviews_list", []))
@@ -1066,7 +1277,7 @@ async def enrich_lead(lead_id: int, force: bool = False) -> Optional[Dict[str, A
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
-    write_log(f"✅ Сохранён JSON: {out_path}")
+    write_log(f"✅ Сохранён JSON: {out_path} mode={mode}")
     return summarize_result_from_payload(payload, out_path, cached=False)
 
 

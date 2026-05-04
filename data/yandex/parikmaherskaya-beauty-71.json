@@ -1,0 +1,67 @@
+{
+  "lead_id": 71,
+  "lead_name": "Парикмахерская BEAUTY",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/parikmakherskaya_beauty/30020048112/",
+    "rating": 4.1,
+    "reviews_count": 3,
+    "photos_count": 1,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "Парикмахерская BEAUTY4,1Стрижка: от",
+        "price": "300 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "300 ₽"
+      },
+      {
+        "name": "женской стрижки:300–",
+        "price": "500 ₽"
+      },
+      {
+        "name": "мужской стрижки:250–",
+        "price": "350 ₽"
+      }
+    ],
+    "address": "Брянск, ул. Менжинского, 4",
+    "phones": [
+      "87034820494",
+      "+7 (953) 286-62-86",
+      "+7 (953) 286-62-86"
+    ],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "additional_addresses": [],
+    "scraped_at": "2026-05-05 00:48:40",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "Парикмахерская BEAUTY4,1Стрижка: от",
+        "price": "300 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "300 ₽"
+      },
+      {
+        "name": "женской стрижки:300–",
+        "price": "500 ₽"
+      },
+      {
+        "name": "мужской стрижки:250–",
+        "price": "350 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:48:40",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 0
+}

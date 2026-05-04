@@ -1,0 +1,33 @@
+{
+  "lead_id": 70,
+  "lead_name": "Студия дизайна взгляда",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/studiya_dizayna_vzglyada/14978298831/",
+    "rating": 4.4,
+    "reviews_count": 6,
+    "photos_count": 4,
+    "reviews_list": [],
+    "photos": [],
+    "services": [],
+    "address": "Брянск, Московский просп., 106, стр. 4",
+    "phones": [
+      "8962084-1227",
+      "83630809275",
+      "+7 999 621 43 61"
+    ],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "additional_addresses": [],
+    "scraped_at": "2026-05-05 00:47:47",
+    "yandexReviews": [],
+    "serviceCarousel": [],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:47:47",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 0
+}

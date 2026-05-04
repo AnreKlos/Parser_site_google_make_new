@@ -1,0 +1,69 @@
+{
+  "lead_id": 21,
+  "lead_name": "Дуэт",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/duet/209500737333/",
+    "rating": 4.3,
+    "reviews_count": 23,
+    "photos_count": 6,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "Дуэт4,3Стрижка: от",
+        "price": "650 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "650 ₽"
+      },
+      {
+        "name": "женской стрижки:650–",
+        "price": "1000 ₽"
+      },
+      {
+        "name": "мужской стрижки:350–",
+        "price": "750 ₽"
+      }
+    ],
+    "address": "Санкт-Петербург, Московский просп., 199",
+    "phones": [
+      "84863701704",
+      "+7 (921) 657-22-40",
+      "+7 (921) 657-22-40"
+    ],
+    "working_hours": "Больше не работает",
+    "website": "",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 01:21:30",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "Дуэт4,3Стрижка: от",
+        "price": "650 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "650 ₽"
+      },
+      {
+        "name": "женской стрижки:650–",
+        "price": "1000 ₽"
+      },
+      {
+        "name": "мужской стрижки:350–",
+        "price": "750 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 01:21:31",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 4
+}

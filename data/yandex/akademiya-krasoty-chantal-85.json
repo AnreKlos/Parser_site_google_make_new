@@ -1,0 +1,75 @@
+{
+  "lead_id": 85,
+  "lead_name": "Академия красоты Chantal",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/chantal/200485395735/",
+    "rating": 4.2,
+    "reviews_count": 136,
+    "photos_count": 4,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "Chantal4,2Стрижка: от Авокадо Мэри Голд Мелюр",
+        "price": "350 ₽"
+      },
+      {
+        "name": "Chantal4,2Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "женской стрижки:350–",
+        "price": "1400 ₽"
+      },
+      {
+        "name": "мужской стрижки:200–",
+        "price": "1000 ₽"
+      }
+    ],
+    "address": "Брянск, ул. имени А.Ф. Войстроченко, 6",
+    "phones": [
+      "+7 (930) 827-75-00",
+      "+7 (930) 827-75-00",
+      "86458333333"
+    ],
+    "working_hours": "Больше не работает",
+    "website": "",
+    "additional_addresses": [],
+    "scraped_at": "2026-05-05 00:55:19",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "Chantal4,2Стрижка: от Авокадо Мэри Голд Мелюр",
+        "price": "350 ₽"
+      },
+      {
+        "name": "Chantal4,2Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "женской стрижки:350–",
+        "price": "1400 ₽"
+      },
+      {
+        "name": "мужской стрижки:200–",
+        "price": "1000 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:55:19",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 0
+}

@@ -1,0 +1,35 @@
+{
+  "lead_id": 6,
+  "lead_name": "Центр Эстетической Медицины",
+  "city": "Москва",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/center_for_aesthetic_medicine/1371680415/",
+    "rating": 5.0,
+    "reviews_count": 4075,
+    "photos_count": 3,
+    "reviews_list": [],
+    "photos": [],
+    "services": [],
+    "address": "Москва, ул. Маросейка, 10/1с2",
+    "phones": [
+      "8 (800) 333-20-25",
+      "8 (800) 333-20-25",
+      "86458333333"
+    ],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "https://centerestetmedicina.ru/",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 00:06:27",
+    "yandexReviews": [],
+    "serviceCarousel": [],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:06:27",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 3
+}

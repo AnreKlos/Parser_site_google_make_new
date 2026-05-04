@@ -1,0 +1,69 @@
+{
+  "lead_id": 22,
+  "lead_name": "Mon Plaisir",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/mon_plisir/221154436134/",
+    "rating": 4.3,
+    "reviews_count": 91,
+    "photos_count": 5,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "Mon plaisir4,3Стрижка: от",
+        "price": "600 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "600 ₽"
+      },
+      {
+        "name": "женской стрижки:600–",
+        "price": "1200 ₽"
+      },
+      {
+        "name": "мужской стрижки:250–",
+        "price": "600 ₽"
+      }
+    ],
+    "address": "Брянск, ул. Челюскинцев, 11",
+    "phones": [
+      "86458333333",
+      "89554988639",
+      "81815069046"
+    ],
+    "working_hours": "Закрыто до 9:30 AM",
+    "website": "",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 01:22:18",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "Mon plaisir4,3Стрижка: от",
+        "price": "600 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "600 ₽"
+      },
+      {
+        "name": "женской стрижки:600–",
+        "price": "1200 ₽"
+      },
+      {
+        "name": "мужской стрижки:250–",
+        "price": "600 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 01:22:19",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 2
+}

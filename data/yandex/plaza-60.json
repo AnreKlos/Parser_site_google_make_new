@@ -1,0 +1,35 @@
+{
+  "lead_id": 60,
+  "lead_name": "Плаза",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/biznes_tsentr_plaza/1109672843/",
+    "rating": 4.5,
+    "reviews_count": 24,
+    "photos_count": 10,
+    "reviews_list": [],
+    "photos": [],
+    "services": [],
+    "address": "Воронеж, Московский просп., 7Е",
+    "phones": [
+      "894346339-58",
+      "83398521252",
+      "86458333333"
+    ],
+    "working_hours": "",
+    "website": "",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 00:41:43",
+    "yandexReviews": [],
+    "serviceCarousel": [],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:41:43",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 3
+}

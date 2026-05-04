@@ -1,0 +1,35 @@
+{
+  "lead_id": 44,
+  "lead_name": "Lady Pu",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/lady_pu/187301895333/",
+    "rating": 4.2,
+    "reviews_count": 6,
+    "photos_count": 6,
+    "reviews_list": [],
+    "photos": [],
+    "services": [],
+    "address": "Брянск, ул. Тухачевского, 8/1",
+    "phones": [
+      "83156311640",
+      "87301895333",
+      "87301895333"
+    ],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "https://dikidi.ru/1403136",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 00:32:59",
+    "yandexReviews": [],
+    "serviceCarousel": [],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:32:59",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 0
+}

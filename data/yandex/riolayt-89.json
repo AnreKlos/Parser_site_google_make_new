@@ -1,0 +1,77 @@
+{
+  "lead_id": 89,
+  "lead_name": "РиоЛайт",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/salon_krasoty_riolayt/1010697271/",
+    "rating": 4.3,
+    "reviews_count": 73,
+    "photos_count": 5,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "РИО Лайт4,3Стрижка: от Selebrity Резиденциякрасотыиздоровья",
+        "price": "450 ₽"
+      },
+      {
+        "name": "РИО Лайт4,3Стрижка: от",
+        "price": "450 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "450 ₽"
+      },
+      {
+        "name": "женской стрижки:450–",
+        "price": "800 ₽"
+      },
+      {
+        "name": "мужской стрижки:350–",
+        "price": "400 ₽"
+      }
+    ],
+    "address": "Брянск, ул. Ромашина, 27",
+    "phones": [
+      "819045566-15",
+      "+7 483 274 65 53",
+      "86458333333"
+    ],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 00:57:07",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "РИО Лайт4,3Стрижка: от Selebrity Резиденциякрасотыиздоровья",
+        "price": "450 ₽"
+      },
+      {
+        "name": "РИО Лайт4,3Стрижка: от",
+        "price": "450 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "450 ₽"
+      },
+      {
+        "name": "женской стрижки:450–",
+        "price": "800 ₽"
+      },
+      {
+        "name": "мужской стрижки:350–",
+        "price": "400 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:57:08",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 2
+}

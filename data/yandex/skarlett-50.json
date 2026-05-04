@@ -1,0 +1,77 @@
+{
+  "lead_id": 50,
+  "lead_name": "Скарлетт",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/parikmakherskaya_skarlett/1049932444/",
+    "rating": 4.1,
+    "reviews_count": 31,
+    "photos_count": 3,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "Скарлетт4,1Стрижка: от",
+        "price": "400 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "400 ₽"
+      },
+      {
+        "name": "женской стрижки:400–",
+        "price": "450 ₽"
+      },
+      {
+        "name": "мужской стрижки:190–",
+        "price": "250 ₽"
+      },
+      {
+        "name": "Классический женский маникюр с покрытием:300–",
+        "price": "300 ₽"
+      }
+    ],
+    "address": "Чебоксары, Московский просп., 20",
+    "phones": [
+      "83502265596",
+      "86458333333",
+      "83502265596"
+    ],
+    "working_hours": "Больше не работает",
+    "website": "",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 00:36:20",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "Скарлетт4,1Стрижка: от",
+        "price": "400 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "400 ₽"
+      },
+      {
+        "name": "женской стрижки:400–",
+        "price": "450 ₽"
+      },
+      {
+        "name": "мужской стрижки:190–",
+        "price": "250 ₽"
+      },
+      {
+        "name": "Классический женский маникюр с покрытием:300–",
+        "price": "300 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:36:21",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 2
+}

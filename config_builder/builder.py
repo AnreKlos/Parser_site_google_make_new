@@ -380,7 +380,7 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     extracted_path = EXTRACTED_DIR / f"{slug}-{lead_id}.json"
 
     log(f"📖 Читаю curated/{slug}-{lead_id}.json")
-    curated = read_json_if_exists(curated_path)
+    curated = read_json_with_fallback(curated_path, f"{slug}.json")
 
     log(f"📖 Читаю yandex/{slug}-{lead_id}.json")
     yandex_payload = read_json_with_fallback(yandex_path, f"{slug}.json")

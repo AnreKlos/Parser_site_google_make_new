@@ -1,0 +1,59 @@
+{
+  "lead_id": 26,
+  "lead_name": "MOOD",
+  "city": "Московский пр.",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/mood/96195832006/",
+    "rating": 5.0,
+    "reviews_count": 269,
+    "photos_count": 9,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "Mood5Стрижка: от",
+        "price": "500 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "500 ₽"
+      },
+      {
+        "name": "женской стрижки:от",
+        "price": "500 ₽"
+      }
+    ],
+    "address": "Брянск, Московский просп., 10/11",
+    "phones": [
+      "+7 999 705 00 04",
+      "+7 (999) 705-00-04",
+      "+7 (999) 705-00-04"
+    ],
+    "working_hours": "Закрыто до 10:00 AM",
+    "website": "",
+    "additional_addresses": [],
+    "scraped_at": "2026-05-05 00:25:23",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "Mood5Стрижка: от",
+        "price": "500 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "500 ₽"
+      },
+      {
+        "name": "женской стрижки:от",
+        "price": "500 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:25:24",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 3
+}

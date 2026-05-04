@@ -18,6 +18,7 @@ from sqlalchemy import select
 
 from db.database import get_async_session
 from db.models import Lead
+from utils.text import slugify_name
 
 load_dotenv()
 
@@ -178,23 +179,8 @@ def call_gemini_json(prompt: str) -> Optional[Any]:
     return None
 
 
-def slugify_name(name: str, lead_id: int) -> str:
-    translit_map = {
-        "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e", "ж": "zh", "з": "z",
-        "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r",
-        "с": "s", "т": "t", "у": "u", "ф": "f", "х": "h", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sch",
-        "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
-    }
-
-    lower = (name or "").strip().lower()
-    translit = "".join(translit_map.get(ch, ch) for ch in lower)
-    translit = re.sub(r"[^a-z0-9]+", "-", translit)
-    translit = re.sub(r"-+", "-", translit).strip("-")
-    return translit or f"lead-{lead_id}"
-
-
 async def criticize_lead(lead_id: int) -> Optional[Dict[str, Any]]:
-    """Оценивает curated контент через LLM-критика."""
+    """Оценивает готовый config.js через LLM-критика."""
     safe_print(f"🔍 Запуск Gemini Critic для lead_id={lead_id}")
 
     async with get_async_session() as session:
@@ -207,61 +193,290 @@ async def criticize_lead(lead_id: int) -> Optional[Dict[str, Any]]:
 
     business_name = compact_text(lead.name or f"Lead {lead_id}")
     slug = slugify_name(business_name, lead_id)
-    curated_path = Path(__file__).parent / "data" / "curated" / f"{slug}.json"
-
+    
+    # Пути к файлам с новым форматом {slug}-{lead_id}
+    curated_path = Path(__file__).parent.parent / "data" / "curated" / f"{slug}-{lead_id}.json"
+    config_path = Path(r"D:\2 Clode Proj\1\neuralsync\src\configs") / f"{slug}-{lead_id}.config.js"
+    
+    # Fallback для старого формата
+    if not curated_path.exists():
+        curated_path = Path(__file__).parent.parent / "data" / "curated" / f"{slug}.json"
+    
     if not curated_path.exists():
         safe_print(f"❌ Curated файл не найден: {curated_path}")
         return None
 
     with open(curated_path, encoding="utf-8") as f:
         curated = json.load(f)
+    
+    # Загружаем config.js если существует
+    config_data = None
+    if config_path.exists():
+        try:
+            # Используем Node.js для парсинга JavaScript (ES6 module syntax)
+            import subprocess
+            import tempfile
+            
+            # Создаём временный Node.js скрипт для избежания проблем с escaping
+            node_script_content = f"""
+const fs = require('fs');
+const content = fs.readFileSync('{config_path.as_posix()}', 'utf8');
+const match = content.match(/export const (\\w+)Config = (\\{{[\\s\\S]*\\}});/);
+if (match) {{
+    const obj = eval('(' + match[2] + ')');
+    console.log(JSON.stringify(obj));
+}}
+"""
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.js', delete=False, encoding='utf-8') as f:
+                f.write(node_script_content)
+                temp_script = f.name
+            
+            try:
+                result = subprocess.run(
+                    ["node", temp_script],
+                    capture_output=True,
+                    encoding='utf-8',
+                    text=True,
+                    timeout=10
+                )
+                if result.returncode == 0 and result.stdout:
+                    config_data = json.loads(result.stdout)
+                    safe_print(f"✅ Config.js загружен через Node.js")
+                else:
+                    safe_print(f"⚠️ Node.js не смог загрузить config: {result.stderr}")
+            finally:
+                os.unlink(temp_script)
+        except Exception as e:
+            safe_print(f"⚠️ Не удалось загрузить config.js через Node.js: {e}")
 
     safe_print(f"🎯 Найден лид: {business_name}")
     safe_print(f"📦 Загружен curated: {curated_path.name}")
+    if config_data:
+        safe_print(f"📦 Загружен config.js: {config_path.name}")
+    else:
+        safe_print(f"⚠️ Config.js не найден, оценка только по curated")
 
-    # Формируем prompt для критика
-    prompt = f"""Ты строгий критик контента для сайтов салонов красоты.
-Оцени качество сгенерированного контента для бизнеса "{business_name}".
+    # Формируем sources_used
+    sources_used = []
+    if curated_path.exists():
+        sources_used.append("curated")
+    if config_data:
+        sources_used.append("config")
+    
+    # Формируем prompt для критика с оценкой по Карте болей
+    prompt = f"""Ты строгий критик лендингов для салонов красоты.
+Оцени качество готового сайта для бизнеса "{business_name}".
+
+ИСТОЧНИКИ ДАННЫХ: {", ".join(sources_used)}
 
 Контент для оценки:
 - Слоган: {curated.get("meta", {}).get("tagline", "")}
 - О нас: {curated.get("about", "")}
 - Отзывы: {len(curated.get("reviews", []))} шт.
 - FAQ: {len(curated.get("faq", []))} шт.
-- Услуги: {len(curated.get("services", []))} шт.
+- Услуги в curated: {len(curated.get("services", []))} шт.
+"""
 
-Критерии оценки (1–10):
-1. Слоган: лаконичность, уместность, без штампов
-2. О нас: информативность, стиль, отсутствие воды
-3. Отзывы: разнообразие, эмоциональность, правдоподобие
-4. FAQ: полезность, релевантность бизнесу
-5. Услуги: полнота описаний, ясность цен
+    if config_data:
+        hero = config_data.get("hero", {})
+        services = config_data.get("sections", {}).get("services", {})
+        price = config_data.get("sections", {}).get("price", {})
+        gallery = config_data.get("sections", {}).get("gallery", {})
+        
+        prompt += f"""
+ГОТОВЫЙ КОНФИГ:
+- Hero: titleLine1="{hero.get("titleLine1", "")}", titleLine1Small="{hero.get("titleLine1Small", "")}"
+- Services: enabled={services.get("enabled", False)}, items={len(services.get("items", []))}
+- Price: enabled={price.get("enabled", False)}, items={len(price.get("groups", [{}])[0].get("items", [])) if isinstance(price.get("groups"), list) and price.get("groups") else 0}
+- Gallery: enabled={gallery.get("enabled", False)}, items={len(gallery.get("items", []))}
+- Block flags: {config_data.get("block_flags", {})}
+"""
 
-Верни СТРОГО JSON: {{"score": <1-10>, "verdict_summary": "<краткий вердикт на русском>"}}.
-verdict_summary — 1-2 предложения, что хорошо/плохо."""
+    prompt += """
+СТРУКТУРА CONFIG (для понимания данных):
+
+sections.price:
+- enabled: boolean
+- groups: [{items: [{title, price, description}]}]
+- Если enabled=true И groups[0].items.length > 0 → ПРАЙС ЕСТЬ
+
+sections.gallery:
+- items: [путь1, путь2, ...]
+- Если items.length > 0 → ФОТО ЕСТЬ
+
+sections.services:
+- items: [{title, description, priceFrom}]
+- Если items.length > 0 → УСЛУГИ ЕСТЬ
+
+hero:
+- titleLine1: string
+- titleLine1Small: string
+- Если titleLine1 И titleLine1Small заполнены → HERO ЕСТЬ
+
+sections.about:
+- text: string
+- Если text заполнен → ABOUT ЕСТЬ
+
+sections.bookingContacts:
+- enabled: boolean
+- Если enabled=true → КОНТАКТЫ ЕСТЬ
+
+meta:
+- brand: {name, city}
+- Если brand.name И brand.city заполнены → META ЕСТЬ
+
+ПРИМЕРЫ ПРАВИЛЬНОЙ ОЦЕНКИ:
+
+Пример 1 (готовый лендинг):
+Config:
+  sections.price.enabled = true, groups[0].items = [5 услуг]
+  sections.gallery.items = [3 фото]
+  hero.titleLine1 = "Калинка-Малинка"
+  sections.bookingContacts.enabled = true
+
+Оценка:
+  verdict: "ready"
+  score: 85
+  breakdown: {data: 80, price: 90, gallery: 80, content: 80, meta: 90}
+  issues: []
+
+Пример 2 (неполные данные):
+Config:
+  sections.price.enabled = false
+  sections.gallery.items = []
+  sections.services.items = []
+
+Оценка:
+  verdict: "rejected"
+  score: 20
+  breakdown: {data: 10, price: 0, gallery: 0, content: 30, meta: 50}
+  issues: [
+    {severity: "critical", block: "price", problem: "Нет прайса с ценами"},
+    {severity: "critical", block: "gallery", problem: "Нет фото работ"}
+  ]
+
+ИНСТРУКЦИЯ:
+Сначала проверь наличие данных в config по структуре выше, потом оценивай качество.
+
+КРИТЕРИИ ОЦЕНКИ (по КАРТЕ БОЛЕЙ владельца):
+
+1. Закрывает ли сайт ТОП-3 боли владельца:
+   - "Нет онлайн-записи" — есть ли кнопка записи/контакты?
+   - "Нет цен" — есть ли секция price с реальными ценами?
+   - "Нет фото работ" — есть ли gallery с фото?
+
+2. Критичные пустоты:
+   - Нет цен в price секции (или price отключён)
+   - Нет фото в gallery (или gallery отключён)
+   - Нет контактов/адреса
+   - Услуги без описаний
+
+3. Использование дефолтов:
+   - "Моностудия" вместо реального типа бизнеса
+   - "вашем городе" вместо реального города
+   - Плейсхолдеры вместо реальных данных
+
+4. Мусор и артефакты:
+   - Дубли текстов
+   - Битые/обрезанные тексты
+   - Имена владельцев как услуги ("Анна", "Мария")
+   - Склейки брендов/рейтингов ("Империя красоты4,4Стрижка")
+
+5. Качество контента:
+   - Слоган: лаконичность, уместность, без штампов
+   - О нас: информативность, стиль, отсутствие воды
+   - Отзывы: разнообразие, эмоциональность, правдоподобие
+   - FAQ: полезность, релевантность бизнесу
+   - Услуги: полнота описаний, ясность цен
+
+ВЕРДИКТЫ:
+- "ready" — можно показывать клиенту (нет критичных проблем)
+- "needs_review" — нужна ручная проверка (есть умеренные проблемы)
+- "rejected" — критичные проблемы, показывать нельзя
+
+Верни СТРОГО JSON:
+{
+  "verdict": "ready" | "needs_review" | "rejected",
+  "score": <0-100>,
+  "issues": [
+    {"severity": "critical" | "moderate" | "minor", "block": "hero|services|price|gallery|about|contacts", "problem": "<описание>"}
+  ],
+  "scores_breakdown": {
+    "data_completeness": <0-100>,
+    "price_quality": <0-100>,
+    "gallery_quality": <0-100>,
+    "content_quality": <0-100>,
+    "meta_quality": <0-100>
+  },
+  "summary": "<краткое резюме на русском, 2-3 предложения>"
+}
+
+score — общая оценка качества (0-100).
+issues — список найденных проблем (пустой если нет).
+scores_breakdown — детализация по категориям.
+summary — что хорошо/плохо, что нужно исправить.
+
+КРИТЕРИИ ДЛЯ scores_breakdown.price_quality:
+
+ВЫСОКАЯ ОЦЕНКА (80-100):
+- sections.price.enabled = true
+- groups[0].items.length >= 3
+- У КАЖДОГО item есть непустой price (формат "X ₽" или число)
+- Descriptions опциональны (НЕ снижают оценку если цены есть)
+- Если descriptions есть - бонус +5-10 баллов
+
+СРЕДНЯЯ ОЦЕНКА (50-70):
+- Цены есть, но меньше 3 позиций
+- ИЛИ формат цен некорректный (без валюты)
+- ИЛИ descriptions низкого качества (но цены есть)
+
+НИЗКАЯ ОЦЕНКА (0-40):
+- sections.price.enabled = false
+- ИЛИ нет items вообще
+- ИЛИ у items нет поля price (null/empty)
+
+ВАЖНО: Цены важнее описаний. Если цены есть и правильные - оценка не ниже 70, даже если descriptions пустые или низкого качества."""
 
     parsed = call_gemini_json(prompt)
     if not isinstance(parsed, dict):
         safe_print("❌ Critic не вернул валидный JSON")
         return None
 
-    score = parsed.get("score")
-    verdict_summary = compact_text(str(parsed.get("verdict_summary", "")))
+    # Парсим новую схему ответа
+    verdict = parsed.get("verdict", "needs_review")
+    score = parsed.get("score", 50)
+    issues = parsed.get("issues", [])
+    scores_breakdown = parsed.get("scores_breakdown", {})
+    summary = compact_text(str(parsed.get("summary", "")))
 
-    if not isinstance(score, (int, float)) or score < 1 or score > 10:
+    # Валидация verdict
+    if verdict not in ["ready", "needs_review", "rejected"]:
+        safe_print(f"⚠️ Некорректный verdict: {verdict}, использую fallback")
+        verdict = "needs_review"
+
+    # Валидация score
+    if not isinstance(score, (int, float)) or score < 0 or score > 100:
         safe_print(f"⚠️ Некорректный score: {score}, использую fallback")
-        score = 5
+        score = 50
 
-    safe_print(f"✅ Critic оценка: score={score}, verdict={verdict_summary}")
+    safe_print(f"✅ Critic оценка: verdict={verdict}, score={score}")
+    if issues:
+        safe_print(f"   Найдено проблем: {len(issues)}")
+        for issue in issues[:3]:  # Показываем первые 3
+            safe_print(f"   - [{issue.get('severity')}] {issue.get('block')}: {issue.get('problem')}")
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = OUTPUT_DIR / f"{slug}.json"
+    out_path = OUTPUT_DIR / f"{slug}-{lead_id}.json"
 
     output_payload = {
         "lead_id": lead_id,
         "slug": slug,
+        "verdict": verdict,
         "score": score,
-        "verdict_summary": verdict_summary,
+        "issues": issues,
+        "scores_breakdown": scores_breakdown,
+        "summary": summary,
+        "sources_used": sources_used,
         "criticized_at": time.strftime("%Y-%m-%d %H:%M:%S"),
     }
 
@@ -273,7 +488,7 @@ verdict_summary — 1-2 предложения, что хорошо/плохо."
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Critic endpoint for curated content")
+    parser = argparse.ArgumentParser(description="Critic endpoint for landing pages")
     parser.add_argument("lead_id", type=int, help="Lead ID")
     args = parser.parse_args()
 
@@ -283,9 +498,16 @@ def main() -> None:
 
     print("=" * 60)
     print("🏁 Critic completed")
-    print(f"📄 File: data/critic/{result['slug']}.json")
-    print(f"📊 Score: {result['score']}/10")
-    print(f"📝 Verdict: {result['verdict_summary']}")
+    print(f"📄 File: data/critic/{result['slug']}-{result['lead_id']}.json")
+    print(f"🎯 Verdict: {result['verdict']}")
+    print(f"📊 Score: {result['score']}/100")
+    print(f"📝 Summary: {result['summary']}")
+    if result.get('scores_breakdown'):
+        print(f"📈 Breakdown: {result['scores_breakdown']}")
+    if result.get('issues'):
+        print(f"⚠️ Issues ({len(result['issues'])}):")
+        for issue in result['issues'][:5]:
+            print(f"   - [{issue.get('severity')}] {issue.get('block')}: {issue.get('problem')}")
 
 
 if __name__ == "__main__":

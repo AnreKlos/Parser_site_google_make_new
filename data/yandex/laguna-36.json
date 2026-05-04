@@ -1,0 +1,77 @@
+{
+  "lead_id": 36,
+  "lead_name": "Лагуна",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/laguna/1783254815/",
+    "rating": 4.3,
+    "reviews_count": 181,
+    "photos_count": 3,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "Лагуна4,3Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "женской стрижки:350–",
+        "price": "600 ₽"
+      },
+      {
+        "name": "мужской стрижки:200–",
+        "price": "600 ₽"
+      },
+      {
+        "name": "Классический женский маникюр с покрытием:450–",
+        "price": "450 ₽"
+      }
+    ],
+    "address": "Брянск, ул. Менжинского, 8",
+    "phones": [
+      "+7 483 263 56 36",
+      "86458333333",
+      "89554988639"
+    ],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 00:29:40",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "Лагуна4,3Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "женской стрижки:350–",
+        "price": "600 ₽"
+      },
+      {
+        "name": "мужской стрижки:200–",
+        "price": "600 ₽"
+      },
+      {
+        "name": "Классический женский маникюр с покрытием:450–",
+        "price": "450 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:29:40",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 4
+}

@@ -1,0 +1,77 @@
+{
+  "lead_id": 63,
+  "lead_name": "Красава",
+  "city": "Брянск",
+  "yandex": {
+    "source_url": "https://yandex.ru/maps/org/krasava/48531973922/",
+    "rating": 4.1,
+    "reviews_count": 40,
+    "photos_count": 6,
+    "reviews_list": [],
+    "photos": [],
+    "services": [
+      {
+        "name": "Красава4,1Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "женской стрижки:350– мужской стрижки:150–400 ₽",
+        "price": "600 ₽"
+      },
+      {
+        "name": "женской стрижки:350–",
+        "price": "600 ₽"
+      },
+      {
+        "name": "мужской стрижки:150–",
+        "price": "400 ₽"
+      }
+    ],
+    "address": "Брянск, ул. Котовского, 2А",
+    "phones": [
+      "89384118317",
+      "+7 910 293 72 77",
+      "+7 (910) 293-72-77"
+    ],
+    "working_hours": "Закрыто до 9:00 AM",
+    "website": "",
+    "additional_addresses": [
+      "Показать входыМаршрут"
+    ],
+    "scraped_at": "2026-05-05 00:44:00",
+    "yandexReviews": [],
+    "serviceCarousel": [
+      {
+        "name": "Красава4,1Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "Стрижка: от",
+        "price": "350 ₽"
+      },
+      {
+        "name": "женской стрижки:350– мужской стрижки:150–400 ₽",
+        "price": "600 ₽"
+      },
+      {
+        "name": "женской стрижки:350–",
+        "price": "600 ₽"
+      },
+      {
+        "name": "мужской стрижки:150–",
+        "price": "400 ₽"
+      }
+    ],
+    "_meta": {
+      "mode": "light",
+      "has_full": false,
+      "scraped_at": "2026-05-05 00:44:00",
+      "parser_version": "2.0"
+    }
+  },
+  "merged_reviews_count": 1
+}

@@ -145,6 +145,19 @@ def is_junk_service_title_enhanced(title: str) -> tuple[bool, str]:
     
     title = title.strip()
     
+    # Правило 0: Длина < 5 символов → мусор (имена владельцев)
+    if len(title) < 5:
+        return True, f"слишком короткое название ({len(title)} символов)"
+    
+    # Правило 0.5: Только заглавные и короткое — вероятно имя
+    if title.isupper() and len(title) < 10:
+        return True, "только заглавные буквы, вероятно имя"
+    
+    # Правило 0.6: Список распространённых имён
+    common_names = ['анна', 'мария', 'ольга', 'елена', 'ирина', 'светлана', 'наталья', 'екатерина', 'юлия', 'татьяна']
+    if title.lower().strip() in common_names:
+        return True, f"имя владельца: {title}"
+    
     # Правило 1: Длиннее 100 символов и содержит 2+ признаков прайса
     price_indicators = 0
     if len(title) > 100:
@@ -559,10 +572,11 @@ def build_price_section(
                 print(f"  ❌ Фильтр 1 (длина): len={len(title) if title else 0}")
                 continue
             
-            # Фильтр is_junk отключён для price — yandex названия часто содержат "+", но это валидные услуги
-            # if is_junk_service_title_enhanced(title):
-            #     print(f"  ❌ Фильтр 2 (is_junk)")
-            #     continue
+            # Фильтр is_junk
+            is_junk, junk_reason = is_junk_service_title_enhanced(title)
+            if is_junk:
+                print(f"  ❌ Фильтр is_junk: {junk_reason}")
+                continue
             
             # Фильтр: обучающие программы — не услуги салона
             education_keywords = ['курс', 'обучение', 'мастер-класс', 'семинар', 'тренинг', 'школа']

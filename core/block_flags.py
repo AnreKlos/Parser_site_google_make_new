@@ -92,5 +92,9 @@ def compute_block_flags(extracted: dict, photos: dict, yandex: dict, sections: d
             faq_items = sections.get("faq", {}).get("items", [])
             if isinstance(faq_items, list) and len(faq_items) >= 1:
                 block_flags["faq"] = True
+        
+        # Если sections.price.enabled = True, то block_flags.price = True
+        if sections.get("price", {}).get("enabled"):
+            block_flags["price"] = True
 
     return block_flags

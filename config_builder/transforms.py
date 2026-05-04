@@ -1,9 +1,7 @@
-"""Pure data-transformation functions — no FS, no network, no subprocess."""
+"""Config builder transforms — pure data transformation functions."""
 
-import json
 import re
-from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from utils import (
     generate_neutral_service_description,
@@ -409,3 +407,192 @@ def hero_line1_small(lead: dict) -> str:
     if "barber" in cat:
         return "мужских стрижек"
     return "по созданию образа"
+
+
+# ======================================================================
+# Price section helpers
+# ======================================================================
+
+
+def clean_service_title(title: str) -> str:
+    """
+    Чистит мусорные паттерны из title перед фильтрацией.
+    Возвращает очищенный title или пустую строку если очистить невозможно.
+    """
+    if not title or not isinstance(title, str):
+        return ''
+    
+    # Убираем лишние пробелы и переводы строк
+    title = ' '.join(title.split())
+    
+    # Паттерны для удаления (в порядке применения)
+    patterns = [
+        r'варьируется.*',  # "варьируется от до 6000р" → удалить полностью
+        r'\s*от\s+\d+\s*до\s+\d+\s*₽?',  # "от 1000 до 5000₽"
+        r'\s*\d+\s*₽.*$',  # цена в конце строки
+        r'\d+$',  # цифра в конце ("Оформление бровей1" → "Оформление бровей")
+        r'^ВЫПОЛНЯЕТСЯ.*',  # CAPS-инструкции
+        r'^ОБЯЗАТЕЛЬНО.*',
+        r'^ВАЖНО.*',
+    ]
+    
+    for pattern in patterns:
+        title = re.sub(pattern, '', title, flags=re.IGNORECASE)
+    
+    # Убираем лишние пробелы после очистки
+    title = title.strip()
+    
+    # Capitalize первую букву (если весь title был в CAPS, он теперь нормализован)
+    if title.isupper() and len(title) > 3:
+        title = title.capitalize()
+    
+    return title
+
+
+def normalize_price(raw_price: str) -> tuple[Optional[str], bool]:
+    """
+    Нормализует цену в формат "1 500 ₽" или "от 1 500 ₽".
+    Возвращает (formatted_price, is_price_from).
+    """
+    if not raw_price or not isinstance(raw_price, str):
+        return None, False
+    
+    raw = raw_price.strip()
+    numbers = re.findall(r'\d+', raw)
+    if not numbers:
+        return None, False
+    
+    is_from = bool(re.match(r'^\s*от\s+\d+', raw, re.IGNORECASE))
+    
+    if '–' in raw or '-' in raw:
+        if len(numbers) >= 2:
+            # Первая половина чисел = min, вторая = max
+            mid = len(numbers) // 2
+            min_price = int(''.join(numbers[:mid]))
+            max_price = int(''.join(numbers[mid:]))
+            formatted = f"{min_price:,} – {max_price:,} ₽".replace(',', ' ')
+            return formatted, False
+    
+    # Объединяем все числа в одно (для "1 500 ₽" → "1500")
+    main_num = int(''.join(numbers))
+    formatted = f"{main_num:,} ₽".replace(',', ' ')
+    
+    if is_from:
+        formatted = f"от {formatted}"
+        return formatted, True
+    
+    return formatted, False
+
+
+def build_price_section(
+    curated: dict,
+    extracted: dict,
+    yandex: dict,
+    lead: dict,
+    *,
+    is_chain: bool
+) -> Optional[dict]:
+    """
+    Собирает секцию price из доступных источников.
+    Возвращает dict или None если нет валидных данных.
+    """
+    if is_chain:
+        return None
+    
+    sources = [
+        ('curated', curated.get('services', [])),
+        ('extracted', extracted.get('serviceCarousel', [])),
+        ('yandex', yandex.get('services', []))
+    ]
+    
+    print(f"\n[DEBUG] Проверка источников:")
+    for source_name, services in sources:
+        print(f"  {source_name}: {len(services) if services else 0} услуг")
+    
+    print(f"[DEBUG] yandex dict keys: {list(yandex.keys()) if yandex else []}")
+    print(f"[DEBUG] yandex.get('services'): {yandex.get('services')[:2] if yandex.get('services') else None}")
+    
+    items = []
+    seen_titles = set()
+    
+    for source_name, services in sources:
+        if not services:
+            continue
+        
+        for svc in services:
+            # Извлекаем поля
+            raw_title = svc.get('title') or svc.get('name', '')
+            title = clean_service_title(raw_title)
+            raw_price = svc.get('price') or svc.get('priceFrom', '')
+            description = svc.get('description') or svc.get('short', '')
+            
+            print(f"[DEBUG] Источник: {source_name}")
+            print(f"  raw_title: {raw_title}")
+            print(f"  title после clean: '{title}'")
+            print(f"  raw_price: {raw_price}")
+            
+            # Фильтр 1: длина title
+            if not title or len(title) < 4 or len(title) > 80:
+                print(f"  ❌ Фильтр 1 (длина): len={len(title) if title else 0}")
+                continue
+            
+            # Фильтр is_junk отключён для price — yandex названия часто содержат "+", но это валидные услуги
+            # if is_junk_service_title_enhanced(title):
+            #     print(f"  ❌ Фильтр 2 (is_junk)")
+            #     continue
+            
+            # Фильтр 3: цена должна содержать числа
+            if not raw_price or not re.search(r'\d+', str(raw_price)):
+                print(f"  ❌ Фильтр 3 (нет цены)")
+                continue
+            
+            # Фильтр 4: битые форматы
+            if re.match(r'^\d+–$|^:\d+|^\w+:\d+$', str(raw_price)):
+                print(f"  ❌ Фильтр 4 (битый формат)")
+                continue
+            
+            # Нормализуем цену
+            formatted_price, is_from = normalize_price(str(raw_price))
+            if not formatted_price:
+                print(f"  ❌ normalize_price вернула None")
+                continue
+            
+            # Дедупликация
+            normalized_title = re.sub(r'[^\w\s]', '', title.lower())
+            if normalized_title in seen_titles:
+                print(f"  ❌ Дубликат: '{normalized_title}'")
+                continue
+            seen_titles.add(normalized_title)
+            
+            print(f"  ✅ ПРОШЛА! price={formatted_price}, priceFrom={is_from}")
+            
+            # Добавляем услугу
+            items.append({
+                'title': title.strip(),
+                'price': formatted_price,
+                'priceFrom': is_from,
+                'duration_min': svc.get('duration_min'),
+                'description': description[:120] if description else None
+            })
+            
+            if len(items) >= 25:
+                break
+        
+        if len(items) >= 3:
+            break
+    
+    if not items:
+        return None
+    
+    return {
+        'enabled': True,
+        'title': 'Прайс',
+        'subtitle': None,
+        'note': 'Окончательная стоимость уточняется при записи.',
+        'groups': [
+            {
+                'title': None,
+                'items': items
+            }
+        ]
+    }

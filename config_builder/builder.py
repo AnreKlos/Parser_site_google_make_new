@@ -21,8 +21,10 @@ from config_builder.io import (
     load_lead,
     log,
     read_json_if_exists,
+    read_json_with_fallback,
 )
 from config_builder.transforms import (
+    build_price_section,
     hero_brand_name,
     hero_line1,
     hero_line1_small,
@@ -49,8 +51,8 @@ def is_chain(lead: dict, yandex_data: dict) -> bool:
     """Определяет, является ли бизнес сетью салонов.
     
     Returns True если:
-    - Уникальных адресов >= 2 ИЛИ
-    - Уникальных телефонов >= 3
+    - Уникальных адресов >= 3 ИЛИ
+    - Уникальных телефонов >= 4
     
     Args:
         lead: Lead dict from DB
@@ -100,7 +102,7 @@ def is_chain(lead: dict, yandex_data: dict) -> bool:
     unique_addresses = len([a for a in addresses if a and len(a) > 5])
     unique_phones = len(phones)
     
-    is_chain_result = unique_addresses >= 2 or unique_phones >= 3
+    is_chain_result = unique_addresses >= 3 or unique_phones >= 3
     
     log(f"🔍 is_chain анализ: адресов={unique_addresses}, телефонов={unique_phones} -> {is_chain_result}")
     if is_chain_result:
@@ -241,6 +243,9 @@ def _build_sections_config(
     merged_services: list,
     extracted_services: list,
     team_items: list,
+    curated: dict,
+    extracted: dict,
+    yandex: dict,
     is_chain: bool = False,
 ) -> dict:
     """Build all ``sections.*`` blocks at once."""
@@ -288,6 +293,20 @@ def _build_sections_config(
             "showMap": True,
         },
     }
+    
+    # Секция price только для моностудий (is_chain=False)
+    if not is_chain:
+        sections['price'] = build_price_section(
+            curated=curated,
+            extracted=extracted,
+            yandex=yandex,
+            lead=lead,
+            is_chain=is_chain
+        )
+        if sections['price'] is None:
+            sections['price'] = {'enabled': False, 'groups': []}
+    # Для сетей (is_chain=True) вообще НЕ создаём секцию price
+    
     return sections
 
 
@@ -321,11 +340,11 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     curated = read_json_if_exists(curated_path)
 
     log(f"📖 Читаю yandex/{slug}-{lead_id}.json")
-    yandex_payload = read_json_if_exists(yandex_path)
+    yandex_payload = read_json_with_fallback(yandex_path, f"{slug}.json")
     yandex = _get_dict(yandex_payload, "yandex")
 
     log(f"📖 Читаю extracted/{slug}-{lead_id}.json")
-    extracted_payload = read_json_if_exists(extracted_path)
+    extracted_payload = read_json_with_fallback(extracted_path, f"{slug}.json")
 
     # Image directories
     hero_images = list_image_urls(slug, "hero")
@@ -424,6 +443,9 @@ def build_config(lead_id: int) -> Dict[str, Any]:
         merged_services=merged_services,
         extracted_services=extracted_services,
         team_items=team_items,
+        curated=curated,
+        extracted=extracted_payload,
+        yandex=yandex,
         is_chain=chain_status,
     )
 
@@ -431,6 +453,16 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     photo_map = {"hero": hero_images, "gallery": gallery_images, "team": team_images, "about": about_images}
     block_flags = compute_block_flags(extracted=extracted_payload, photos=photo_map, yandex=yandex_payload, sections=sections)
     log(f"🚩 Block flags: {block_flags}")
+    
+    # Add price section after services (after sections are built)
+    if "services" in sections_order and 'price' in sections:
+        services_index = sections_order.index("services")
+        sections_order.insert(services_index + 1, "price")
+    
+    # Remove price if section doesn't exist or not enabled
+    if 'price' not in sections or not sections.get('price', {}).get('enabled', False):
+        if 'price' in sections_order:
+            sections_order.remove('price')
 
     config: Dict[str, Any] = {
         "meta": _build_meta_block(lead, slug, curated, city),

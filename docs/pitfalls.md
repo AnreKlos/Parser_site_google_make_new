@@ -38,7 +38,7 @@ db_path = settings.data_dir / "leads.db"
 Большинство subprocess-вызовов в дашборде заменены на прямой импорт
 (Шаги 3.5-3.6). Если видишь `subprocess.run(["python", ".py"]`
 для модулей внутри проекта — это технический долг, надо заменять.
-Исключение: `run_config_builder` — пока остаётся через subprocess.
+Исключение: `run_config_builder` — использует `python -m config_builder` (модуль).
 
 ## DEBUG-print при импорте
 

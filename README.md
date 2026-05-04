@@ -47,7 +47,7 @@
 | `db/` | Слой данных — модели SQLAlchemy, CRUD, миграции БД | Models, async-сессии, репозитории | Бизнес-логику |
 | `utils/` | Чистые утилиты без зависимостей от других слоёв | Slugify, фильтры текста, JSON-парсеры | Что-то, что зависит от БД, LLM или сети |
 | `alembic/` | Миграции БД через Alembic | Базовая ревизия (`Lead + AuditLog`), последующие миграции | — |
-| `config_builder/` | Сборка JSON-конфига сайта из всех источников | `build_config()`, transforms, defaults | LLM-логику, скрейпинг |
+| `config_builder/` | Сборка JSON-конфига сайта из всех источников | `build_config()`, transforms, defaults, is_chain detection | LLM-логику, скрейпинг |
 | `enrichment/` | Обогащение данных из не-LLM источников | Яндекс, Radar, extracted | LLM, работу с БД |
 | `docs/migrations_archive/` | Архив ручных миграций | Старые скрипты (до перехода на Alembic) | — |
 

@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import sys
+from pathlib import Path
+
+# Добавляем корень проекта в путь для импортов (ДО остальных импортов!)
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 import argparse
 import asyncio
 import json
 import random
 import re
-import sys
 import time
 from datetime import datetime
 from difflib import SequenceMatcher
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 from urllib.parse import quote_plus, urljoin
 
@@ -303,6 +307,41 @@ def parse_float(text: str) -> Optional[float]:
     return float(match.group(1).replace(",", "."))
 
 
+def parse_russian_date(text: str) -> Optional[str]:
+    """Парсит русскую дату в YYYY-MM-DD."""
+    if not text:
+        return None
+    text = text.strip()
+    
+    # Месяцы на русском
+    months = {
+        "января": "01", "февраля": "02", "марта": "03", "апреля": "04",
+        "мая": "05", "июня": "06", "июля": "07", "августа": "08",
+        "сентября": "09", "октября": "10", "ноября": "11", "декабря": "12"
+    }
+    
+    # Формат: "21 июля 2025"
+    match = re.search(r"(\d{1,2})\s+([а-яё]+)\s+(\d{4})", text, flags=re.IGNORECASE)
+    if match:
+        day, month, year = match.groups()
+        month_num = months.get(month.lower())
+        if month_num:
+            return f"{year}-{month_num}-{day.zfill(2)}"
+    
+    # Формат: "21.07.2025" или "21/07/2025"
+    match = re.search(r"(\d{1,2})[./](\d{1,2})[./](\d{4})", text)
+    if match:
+        day, month, year = match.groups()
+        return f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+    
+    # Формат: "2025-07-21" (ISO)
+    match = re.search(r"(\d{4})-(\d{1,2})-(\d{1,2})", text)
+    if match:
+        return match.group(0)
+    
+    return None
+
+
 def parse_int(text: str) -> Optional[int]:
     if not text:
         return None
@@ -393,12 +432,15 @@ def clean_service_name(value: str) -> str:
     return text
 
 
-def normalize_services(raw_services: List[Dict[str, Any]]) -> List[Dict[str, str]]:
+def normalize_services(raw_services: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     seen = set()
-    result: List[Dict[str, str]] = []
+    result: List[Dict[str, Any]] = []
     for item in raw_services[:40]:
         name = clean_service_name(str(item.get("name", "")))
         price = normalize_price_text(str(item.get("price", "")))
+        description = str(item.get("description", "")).strip()
+        duration_min = item.get("duration_min")
+        
         if not name or not price:
             continue
         if len(name) < 4 or re.fullmatch(r"[\d\s]+", name):
@@ -407,7 +449,14 @@ def normalize_services(raw_services: List[Dict[str, Any]]) -> List[Dict[str, str
         if key in seen:
             continue
         seen.add(key)
-        result.append({"name": name, "price": price})
+        
+        service_item: Dict[str, Any] = {"name": name, "price": price}
+        if description:
+            service_item["description"] = description
+        if duration_min and isinstance(duration_min, (int, float)):
+            service_item["duration_min"] = int(duration_min)
+        
+        result.append(service_item)
         if len(result) >= 20:
             break
     return result
@@ -765,6 +814,7 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[st
 
                   const services = [];
                   const priceRegex = /(\d[\d\s]{1,10}\s?(?:₽|р\.?|руб\.?))/i;
+                  const durationRegex = /(\d+)\s*(?:мин|м|минут)/i;
                   const serviceCards = Array.from(document.querySelectorAll(
                     "[class*='business-prices-list-item'], [class*='business-prices-card-view__item'], [class*='business-prices-view__item'], [class*='business-prices-list-item-view'], [class*='business-prices'] div[role='listitem']"
                   ));
@@ -784,7 +834,24 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[st
                     const namePart = (titleEl?.textContent || parts[0] || '').replace(/\s+/g, ' ').trim();
                     if (!namePart || !pricePart) continue;
 
-                    services.push({ name: namePart, price: pricePart });
+                    // Extract description (text between name and price)
+                    let description = "";
+                    const nameIndex = parts.findIndex(p => p.includes(namePart.substring(0, 10)));
+                    const priceIndex = parts.findIndex(p => priceRegex.test(p));
+                    if (nameIndex >= 0 && priceIndex > nameIndex + 1) {
+                      description = parts.slice(nameIndex + 1, priceIndex).join(' ').trim();
+                    } else if (parts.length > 2) {
+                      // Fallback: use middle parts as description
+                      const middleParts = parts.filter(p => p !== namePart && !priceRegex.test(p));
+                      description = middleParts.slice(0, 2).join(' ').trim();
+                    }
+
+                    // Extract duration
+                    const fullText = card.textContent || '';
+                    const durationMatch = fullText.match(durationRegex);
+                    const durationMin = durationMatch ? parseInt(durationMatch[1]) : null;
+
+                    services.push({ name: namePart, price: pricePart, description: description, duration_min: durationMin });
                     if (services.length >= 40) break;
                   }
 
@@ -856,21 +923,36 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[st
             for item in raw.get("reviews_list", [])[:30]:
                 author = clean_author(str(item.get("author") or "Клиент"))
                 text = clean_review_text(re.sub(r"\s+", " ", str(item.get("text", "")).strip()))
-                if len(text) < 8 or is_noise_review_text(text):
+                raw_date = str(item.get("date") or "").strip()
+                
+                # T08 requirements: min 30 chars, require date
+                if len(text) < 30 or is_noise_review_text(text):
                     continue
                 if text.lower() == author.lower():
                     continue
+                if not raw_date:
+                    continue
+                
+                # Parse date to YYYY-MM-DD
+                parsed_date = parse_russian_date(raw_date)
+                if not parsed_date:
+                    continue
+                
                 reviews.append(
                     {
                         "author": author,
                         "text": text,
                         "rating": parse_float(str(item.get("rating", ""))),
-                        "date": str(item.get("date") or "").strip(),
+                        "date": parsed_date,
                         "source": "yandex",
                     }
                 )
 
             reviews = dedupe_reviews(reviews)
+            
+            # T08: enriched extracted structure
+            yandex_reviews = reviews[:15]  # Max 10-15 reviews
+            service_carousel = normalize_services(list(raw.get("services", [])))
 
             result = {
                 "source_url": url,
@@ -885,6 +967,9 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None) -> Dict[st
                 "website": str(raw.get("website") or "").strip(),
                 "additional_addresses": list(raw.get("additional_addresses", []))[:20],
                 "scraped_at": timestamp(),
+                # Enriched extracted fields for T08
+                "yandexReviews": yandex_reviews,
+                "serviceCarousel": service_carousel,
             }
 
             write_log(
@@ -912,7 +997,7 @@ async def enrich_lead(lead_id: int, force: bool = False) -> Optional[Dict[str, A
         city = detect_city(lead.address)
 
         slug = slugify_name(lead_name, lead_id)
-        out_path = YANDEX_DATA_DIR / f"{slug}.json"
+        out_path = YANDEX_DATA_DIR / f"{slug}-{lead_id}.json"
 
         cache_age = get_cache_age_seconds(out_path)
         if cache_age is not None and cache_age <= 24 * 60 * 60 and not force:

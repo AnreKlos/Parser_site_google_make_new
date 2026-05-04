@@ -29,7 +29,7 @@
 - `scraper.py` — главный пайплайн парсинга
 - `auto_detector.py` — детектит структуру донора
 - `config_manager.py` — per-domain JSON-конфиги
-- `block_flags.py` — флаги наличия блоков
+- `block_flags.py` — флаги наличия блоков (согласованность с sections.enabled)
 
 ### services/
 - `google_radar.py` — поиск через Google Places API
@@ -41,7 +41,7 @@
 ### llm/
 - `llm_engine.py` — клиент OpenRouter
 - `curator.py` — Vertex AI / Gemini кастомный куратор (бывш. gemma_curator)
-- `content_curator.py` — курация контента (слоган, About, отзывы, FAQ)
+- `content_curator.py` — курация контента (слоган, About, отзывы, FAQ, is_chain detection)
 
 ### enrichment/
 - `yandex.py` — обогащение через Яндекс.Карты API (name+city → phone, hours, photos_urls)
@@ -52,8 +52,15 @@
 - `database.py` — async-сессии, CRUD, пагинация, логирование
 - `__init__.py` — реэкспорт публичного API
 
+### config_builder/
+- `builder.py` — сборка конфига (is_chain detection, hero для сетей, about cleanup)
+- `transforms.py` — трансформации данных (enhanced services cleanup)
+- `cli.py` — CLI entrypoint
+- `js_export.py` — экспорт в JS
+- `io.py` — I/O операции
+- `defaults.py` — дефолтные значения
+
 ### Корневой уровень (точки входа)
 - `config.py` — централизованные настройки (Pydantic Settings)
-- `config_builder.py` — сборка финального JSON для neuralsync
 - `auto_builder.py` — конвейер end-to-end
 - `reset_pitches.py` — утилита

@@ -3,10 +3,10 @@
 ## Пути и БД#
 
 - **БД:** `data/leads.db` (SQLite, async через aiosqlite)
-- **Курированный контент:** `data/curated/{slug}.json`
-- **Извлечённые блоки:** `data/extracted/{slug}.json`
-- **Данные Яндекса:** `data/yandex/{slug}.json`
-- **Конфиги сайтов:** `D:\2 Clode Proj\1\neuralsync\src\configs\{slug}.config.js`
+- **Курированный контент:** `data/curated/{slug}-{lead_id}.json`
+- **Извлечённые блоки:** `data/extracted/{slug}-{lead_id}.json`
+- **Данные Яндекса:** `data/yandex/{slug}-{lead_id}.json`
+- **Конфиги сайтов:** `D:\2 Clode Proj\1\neuralsync\src\configs\{slug}-{lead_id}.config.js`
 - **Фото лидов:** `public/{slug}/gallery|services|team|hero/`
 
 ## Slug#

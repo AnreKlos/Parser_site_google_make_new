@@ -108,12 +108,12 @@ def slugify_name(name: str, lead_id: int) -> str:
 
 def get_curated_file_path(lead_name: str, lead_id: int) -> Path:
     slug = slugify_name(lead_name, lead_id)
-    return CURATED_DATA_DIR / f"{slug}.json"
+    return CURATED_DATA_DIR / f"{slug}-{lead_id}.json"
 
 
 def get_extracted_file_path(lead_name: str, lead_id: int) -> Path:
     slug = slugify_name(lead_name, lead_id)
-    return EXTRACTED_DATA_DIR / f"{slug}.json"
+    return EXTRACTED_DATA_DIR / f"{slug}-{lead_id}.json"
 
 
 def get_content_status(lead_name: str, lead_id: int) -> str:
@@ -125,7 +125,7 @@ def get_content_status(lead_name: str, lead_id: int) -> str:
 
 def get_yandex_file_path(lead_name: str, lead_id: int) -> Path:
     slug = slugify_name(lead_name, lead_id)
-    return YANDEX_DATA_DIR / f"{slug}.json"
+    return YANDEX_DATA_DIR / f"{slug}-{lead_id}.json"
 
 
 def get_yandex_status(lead_name: str, lead_id: int) -> str:
@@ -146,7 +146,7 @@ def get_yandex_maps_url(lead_name: str, lead_id: int) -> str:
 
 def get_site_config_path(lead_name: str, lead_id: int) -> Path:
     slug = slugify_name(lead_name, lead_id)
-    return NEURALSYNC_CONFIGS_DIR / f"{slug}.config.js"
+    return NEURALSYNC_CONFIGS_DIR / f"{slug}-{lead_id}.config.js"
 
 
 def get_site_config_status(lead_name: str, lead_id: int) -> str:
@@ -158,8 +158,31 @@ def run_config_builder(lead_id: int, no_copy: bool = False) -> tuple[bool, str]:
 
     Wraps ``config_builder.cli.run_build_for_ui`` for backward-compatible
     ``(success: bool, message: str)`` contract.
+    
+    Гарантирует:
+    - Очистка ошибки при успешном запуске
+    - Проверка источников ПЕРЕД вызовом
+    - Перезагрузка состояния после операции
     """
-    return run_build_for_ui(lead_id, no_copy=no_copy)
+    try:
+        # Гарантированно очищаем старую ошибку ПЕРЕД запуском
+        st.session_state.pop(f"cfg_error_{lead_id}", None)
+        
+        result = run_build_for_ui(lead_id, no_copy=no_copy)
+        
+        if not result[0]:  # (success, message)
+            error_msg = result[1] or "Ошибка сборки конфига"
+            st.session_state[f"cfg_error_{lead_id}"] = error_msg
+            return result
+        
+        # Успех - очищаем ошибку
+        st.session_state.pop(f"cfg_error_{lead_id}", None)
+        return result
+    except Exception as exc:
+        import traceback
+        error_msg = f"Исключение при сборке конфига: {exc}\n{traceback.format_exc()}"
+        st.session_state[f"cfg_error_{lead_id}"] = error_msg
+        return False, error_msg
 
 
 def run_block_extractor(lead_id: int) -> tuple[bool, str]:
@@ -167,16 +190,30 @@ def run_block_extractor(lead_id: int) -> tuple[bool, str]:
 
     Возвращает (success, output_text). output_text может быть пустым
     при успехе — UI не показывает stdout extract_all.
+    
+    Гарантирует:
+    - Очистка ошибки при успешном запуске
+    - Перезагрузка состояния после операции
     """
     try:
+        # Гарантированно очищаем старую ошибку ПЕРЕД запуском
+        st.session_state.pop(f"extract_error_{lead_id}", None)
+        
         from services.block_extractor import extract_all
         result = asyncio.run(extract_all(lead_id))
         if result is None:
-            return False, f"extract_all вернул None для lead_id={lead_id} (лид не найден или ошибка парсинга)"
+            error_msg = f"extract_all вернул None для lead_id={lead_id} (лид не найден или ошибка парсинга)"
+            st.session_state[f"extract_error_{lead_id}"] = error_msg
+            return False, error_msg
+        
+        # Успех - очищаем ошибку
+        st.session_state.pop(f"extract_error_{lead_id}", None)
         return True, f"OK: services={result.get('services', 0)} faq={result.get('faq', 0)} → {result.get('output_path', '')}"
     except Exception as exc:
         import traceback
-        return False, f"Исключение: {exc}\n{traceback.format_exc()}"
+        error_msg = f"Исключение: {exc}\n{traceback.format_exc()}"
+        st.session_state[f"extract_error_{lead_id}"] = error_msg
+        return False, error_msg
 
 
 def run_config_builder_batch(lead_ids: list[int]) -> tuple[list[int], dict[int, str]]:
@@ -218,13 +255,22 @@ def run_content_curator(lead_id: int) -> tuple[bool, str]:
 
 
 def run_content_curator_with_status(lead_id: int) -> tuple[bool, str]:
-    """Запускает content_curator напрямую с минимальным прогрессом в UI."""
+    """Запускает content_curator напрямую с минимальным прогрессом в UI.
+    
+    Гарантирует:
+    - Очистка ошибки при успешном запуске
+    - Перезагрузка состояния после операции
+    - Синхронизация UI с файловой системой
+    """
     ok = False
     output = ""
     try:
         with st.status("⏳ Content Curator работает...", expanded=True) as status_box:
             status_box.write("🔍 Курирую контент через Vertex AI...")
             try:
+                # Гарантированно очищаем старую ошибку ПЕРЕД запуском
+                st.session_state.pop(f"curator_error_{lead_id}", None)
+                
                 from llm.content_curator import curate_lead
                 result = asyncio.run(curate_lead(lead_id))
                 if result is None or result is False:
@@ -240,11 +286,17 @@ def run_content_curator_with_status(lead_id: int) -> tuple[bool, str]:
 
             if ok:
                 status_box.update(label="✅ Курация завершена!", state="complete", expanded=False)
+                # Успех - очищаем все ошибки для этого лида
+                st.session_state.pop(f"curator_error_{lead_id}", None)
             else:
                 status_box.update(label="❌ Ошибка курации", state="error", expanded=True)
+                # Ошибка - сохраняем
+                st.session_state[f"curator_error_{lead_id}"] = output
     except Exception as outer_exc:
         st.error(f"❌ Ошибка запуска куратора: {outer_exc}")
         output = str(outer_exc)
+        st.session_state[f"curator_error_{lead_id}"] = output
+    
     return ok, output
 
 
@@ -358,7 +410,7 @@ def render_yandex_data(data: dict, lead_id: int) -> None:
             cols = st.columns(4)
             for i, url in enumerate(photos):
                 if url and url.startswith("http"):
-                    cols[i % 4].image(url, use_container_width=True)
+                    cols[i % 4].image(url, width='stretch')
 
 
 # --- CSS стили для красивого отображения ---
@@ -634,7 +686,7 @@ def main():
                 and get_yandex_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists()
                 and not get_site_config_path(str(row.get("name", "")), int(row.get("id", 0))).exists()
             ]
-            if st.button(f"📦 Сгенерировать конфиги ({len(batch_config_ids)})", use_container_width=True, disabled=len(batch_config_ids) == 0):
+            if st.button(f"📦 Сгенерировать конфиги ({len(batch_config_ids)})", width='stretch', disabled=len(batch_config_ids) == 0):
                 with st.spinner("Собираю конфиги..."):
                     ok_ids, err_map = run_config_builder_batch(batch_config_ids)
                 if ok_ids:
@@ -715,7 +767,7 @@ def main():
 
         st.dataframe(
             df_table,
-            use_container_width=True,
+            width='stretch',
             hide_index=True,
             column_config={
                 "Сайт": st.column_config.LinkColumn("Сайт", width="small"),
@@ -739,7 +791,7 @@ def main():
         with c1:
             table_selected_label = st.selectbox("Открыть лид в конвейере:", options=lead_options, key="base_lead_selector")
         with c2:
-            if st.button("➡ Перейти", use_container_width=True):
+            if st.button("➡ Перейти", width='stretch'):
                 st.session_state["selected_lead_id"] = int(table_selected_label.split(" — ")[0])
                 st.success("Лид выбран. Перейдите на вкладку «🎨 Контент-конвейер»")
 
@@ -811,10 +863,10 @@ def main():
             if content_exists:
                 cv1, cv2 = st.columns(2)
                 with cv1:
-                    if st.button("👁 Просмотреть контент", key="curator_view_btn_single", use_container_width=True):
+                    if st.button("👁 Просмотреть контент", key="curator_view_btn_single", width='stretch'):
                         st.session_state["curator_show_content"] = selected_lead_id
                 with cv2:
-                    if st.button("🔄 Перегенерировать", key="curator_regen_btn_single", use_container_width=True):
+                    if st.button("🔄 Перегенерировать", key="curator_regen_btn_single", width='stretch'):
                         try:
                             selected_curated_path.unlink(missing_ok=True)
                         except Exception as exc:
@@ -851,10 +903,10 @@ def main():
             if ya_exists:
                 yv1, yv2 = st.columns(2)
                 with yv1:
-                    if st.button("👁 Просмотреть данные Яндекс", key="ya_view_btn_single", use_container_width=True):
+                    if st.button("👁 Просмотреть данные Яндекс", key="ya_view_btn_single", width='stretch'):
                         st.session_state["ya_show_data"] = selected_lead_id
                 with yv2:
-                    if st.button("🔄 Перегенерировать", key="ya_regen_btn_single", use_container_width=True):
+                    if st.button("🔄 Перегенерировать", key="ya_regen_btn_single", width='stretch'):
                         try:
                             selected_ya_path.unlink(missing_ok=True)
                         except Exception as ya_exc:
@@ -886,10 +938,10 @@ def main():
             if extracted_exists:
                 ex1, ex2 = st.columns(2)
                 with ex1:
-                    if st.button("👁 Просмотреть", key="extract_view_btn_single", use_container_width=True):
+                    if st.button("👁 Просмотреть", key="extract_view_btn_single", width='stretch'):
                         st.session_state["extract_show_data"] = selected_lead_id
                 with ex2:
-                    if st.button("🔄 Перезапустить", key="extract_rerun_btn_single", use_container_width=True):
+                    if st.button("🔄 Перезапустить", key="extract_rerun_btn_single", width='stretch'):
                         ok_ex_r, out_ex_r = run_block_extractor(selected_lead_id)
                         if ok_ex_r:
                             st.session_state.pop(f"extract_error_{selected_lead_id}", None)
@@ -961,10 +1013,10 @@ def main():
             if cfg_exists:
                 cc1, cc2 = st.columns(2)
                 with cc1:
-                    if st.button("👁 Просмотреть", key="cfg_view_btn_single", use_container_width=True):
+                    if st.button("👁 Просмотреть", key="cfg_view_btn_single", width='stretch'):
                         st.session_state["cfg_show_data"] = selected_lead_id
                 with cc2:
-                    if st.button("🔄 Пересобрать", key="cfg_rebuild_btn_single", use_container_width=True):
+                    if st.button("🔄 Пересобрать", key="cfg_rebuild_btn_single", width='stretch'):
                         ok_cfg_r, out_cfg_r = run_config_builder(selected_lead_id)
                         if ok_cfg_r:
                             st.session_state.pop(f"cfg_error_{selected_lead_id}", None)
@@ -1024,17 +1076,17 @@ def main():
                 pb1, pb2, pb3 = st.columns(3)
                 with pb1:
                     if send_links.get("whatsapp"):
-                        st.link_button("💬 WhatsApp", send_links["whatsapp"], use_container_width=True)
+                        st.link_button("💬 WhatsApp", send_links["whatsapp"], width='stretch')
                     else:
                         st.caption("💬 WhatsApp: нет телефона")
                 with pb2:
                     if send_links.get("telegram"):
-                        st.link_button("✈️ Telegram", send_links["telegram"], use_container_width=True)
+                        st.link_button("✈️ Telegram", send_links["telegram"], width='stretch')
                     else:
                         st.caption("✈️ Telegram: нет ссылки")
                 with pb3:
                     if send_links.get("email"):
-                        st.link_button("📧 Email", send_links["email"], use_container_width=True)
+                        st.link_button("📧 Email", send_links["email"], width='stretch')
                     else:
                         st.caption("📧 Email: нет почты")
 

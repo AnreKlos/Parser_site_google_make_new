@@ -20,7 +20,7 @@ def _render_and_write(lead_id: int, slug: str) -> Path:
     """Build config, serialise to JS, validate, write to neuralsync."""
     config = build_config(lead_id)
     NEURALSYNC_CONFIGS_DIR.mkdir(parents=True, exist_ok=True)
-    config_path = NEURALSYNC_CONFIGS_DIR / f"{slug}.config.js"
+    config_path = NEURALSYNC_CONFIGS_DIR / f"{slug}-{lead_id}.config.js"
 
     js_module = to_js_module(config, slug)
     with open(config_path, "w", encoding="utf-8") as f:

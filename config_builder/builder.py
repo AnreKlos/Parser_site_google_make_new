@@ -1,5 +1,6 @@
 """Config assembly — build_config orchestrates all data sources into a single JSON config."""
 
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
@@ -37,6 +38,76 @@ from config_builder.transforms import (
 CURATED_DIR = settings.data_dir / "curated"
 YANDEX_DIR = settings.data_dir / "yandex"
 EXTRACTED_DIR = settings.data_dir / "extracted"
+
+
+# ======================================================================
+# Chain detection
+# ======================================================================
+
+
+def is_chain(lead: dict, yandex_data: dict) -> bool:
+    """Определяет, является ли бизнес сетью салонов.
+    
+    Returns True если:
+    - Уникальных адресов >= 2 ИЛИ
+    - Уникальных телефонов >= 3
+    
+    Args:
+        lead: Lead dict from DB
+        yandex_data: Yandex enrichment data dict
+    """
+    addresses = set()
+    phones = set()
+    
+    # Собираем адреса и телефоны из БД
+    if lead.get("address"):
+        addresses.add(str(lead["address"]).strip())
+    if lead.get("phone"):
+        phone_str = str(lead["phone"])
+        for p in re.split(r'[,\s;]+', phone_str):
+            p_clean = re.sub(r'[^\d]', '', p)
+            if len(p_clean) >= 10:
+                phones.add(p_clean)
+    
+    # Собираем адреса и телефоны из yandex
+    yandex_info = yandex_data.get("yandex", {}) if isinstance(yandex_data.get("yandex"), dict) else yandex_data
+    
+    # Основной адрес из yandex
+    if yandex_info.get("address"):
+        addresses.add(str(yandex_info["address"]).strip())
+    
+    # Телефоны из yandex (могут быть списком)
+    yandex_phones = yandex_info.get("phones", [])
+    if isinstance(yandex_phones, list):
+        for phone in yandex_phones:
+            p_clean = re.sub(r'[^\d]', '', str(phone))
+            if len(p_clean) >= 10:
+                phones.add(p_clean)
+    elif isinstance(yandex_phones, str):
+        for p in re.split(r'[,\s;]+', yandex_phones):
+            p_clean = re.sub(r'[^\d]', '', p)
+            if len(p_clean) >= 10:
+                phones.add(p_clean)
+    
+    # Дополнительные адреса из yandex
+    additional_addresses = yandex_info.get("additional_addresses", [])
+    if isinstance(additional_addresses, list):
+        for addr in additional_addresses:
+            if addr:
+                addresses.add(str(addr).strip())
+    
+    # Определяем сеть
+    unique_addresses = len([a for a in addresses if a and len(a) > 5])
+    unique_phones = len(phones)
+    
+    is_chain_result = unique_addresses >= 2 or unique_phones >= 3
+    
+    log(f"🔍 is_chain анализ: адресов={unique_addresses}, телефонов={unique_phones} -> {is_chain_result}")
+    if is_chain_result:
+        log(f"   Адреса: {list(addresses)}")
+        log(f"   Телефоны: {list(phones)}")
+    
+    return is_chain_result
 
 
 # ======================================================================
@@ -123,23 +194,42 @@ def _build_hero_section(
     lead: dict,
     hero_image: str,
     curated_about: str,
+    city: str,
+    is_chain: bool = False,
 ) -> dict:
     """Build the ``hero`` section."""
-    return {
-        "enabled": True,
-        "image": hero_image,
-        "titleLine1": hero_line1(lead),
-        "titleLine1Small": hero_line1_small(lead),
-        "titleLine1SmallSize": "default",
-        "titleLine2": hero_brand_name(str(lead.get("name") or "")),
-        "topLabel": "Премиум студия красоты",
-        "lead": short_about_text(curated_about, "Подчеркнем вашу индивидуальность и соберем образ под событие и настроение."),
-    }
+    lead_name = str(lead.get("name") or "")
+    
+    if is_chain:
+        # Для сети салонов красоты
+        return {
+            "enabled": True,
+            "image": hero_image,
+            "titleLine1": "Сеть салонов",
+            "titleLine1Small": f"красоты в {city}" if city else "красоты",
+            "titleLine1SmallSize": "default",
+            "titleLine2": hero_brand_name(lead_name),
+            "topLabel": f"{city} · онлайн-запись" if city else "онлайн-запись",
+            "lead": short_about_text(curated_about, "Профессиональные услуги в нескольких локациях города."),
+        }
+    else:
+        # Для одиночной студии
+        return {
+            "enabled": True,
+            "image": hero_image,
+            "titleLine1": hero_line1(lead),
+            "titleLine1Small": hero_line1_small(lead),
+            "titleLine1SmallSize": "default",
+            "titleLine2": hero_brand_name(lead_name),
+            "topLabel": "Премиум студия красоты",
+            "lead": short_about_text(curated_about, "Подчеркнем вашу индивидуальность и соберем образ под событие и настроение."),
+        }
 
 
 def _build_sections_config(
     lead: dict,
     slug: str,
+    city: str,
     *,
     hero_image: str,
     gallery_images: list,
@@ -151,10 +241,11 @@ def _build_sections_config(
     merged_services: list,
     extracted_services: list,
     team_items: list,
+    is_chain: bool = False,
 ) -> dict:
     """Build all ``sections.*`` blocks at once."""
     sections = {
-        "hero": _build_hero_section(lead, hero_image, curated_about),
+        "hero": _build_hero_section(lead, hero_image, curated_about, city, is_chain),
         "promotion": {"enabled": True},
         "serviceCarousel": {
             "enabled": bool(extracted_services),
@@ -222,18 +313,18 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     lead_name = str(lead.get("name") or f"Lead {lead_id}")
     slug = slugify_name(lead_name, lead_id)
 
-    curated_path = CURATED_DIR / f"{slug}.json"
-    yandex_path = YANDEX_DIR / f"{slug}.json"
-    extracted_path = EXTRACTED_DIR / f"{slug}.json"
+    curated_path = CURATED_DIR / f"{slug}-{lead_id}.json"
+    yandex_path = YANDEX_DIR / f"{slug}-{lead_id}.json"
+    extracted_path = EXTRACTED_DIR / f"{slug}-{lead_id}.json"
 
-    log(f"📖 Читаю curated/{slug}.json")
+    log(f"📖 Читаю curated/{slug}-{lead_id}.json")
     curated = read_json_if_exists(curated_path)
 
-    log(f"📖 Читаю yandex/{slug}.json")
+    log(f"📖 Читаю yandex/{slug}-{lead_id}.json")
     yandex_payload = read_json_if_exists(yandex_path)
     yandex = _get_dict(yandex_payload, "yandex")
 
-    log(f"📖 Читаю extracted/{slug}.json")
+    log(f"📖 Читаю extracted/{slug}-{lead_id}.json")
     extracted_payload = read_json_if_exists(extracted_path)
 
     # Image directories
@@ -246,15 +337,13 @@ def build_config(lead_id: int) -> Dict[str, Any]:
         f"{len(gallery_images)} в gallery, {len(team_images)} в team)"
     )
 
-    # Block flags
-    photo_map = {"hero": hero_images, "gallery": gallery_images, "team": team_images, "about": about_images}
-    block_flags = compute_block_flags(extracted=extracted_payload, photos=photo_map, yandex=yandex_payload)
-    log(f"🚩 Block flags: {block_flags}")
-
     # Curated fields
     curated_meta = _get_dict(curated, "meta")
     curated_tagline = str(curated_meta.get("tagline") or "").strip()
-    curated_about = str(curated.get("about") or "").strip()
+    curated_about_raw = str(curated.get("about") or "").strip()
+    # Очистка about от мусора парсера
+    curated_about = re.sub(r'\s+', ' ', curated_about_raw)
+    curated_about = curated_about.strip()
     curated_services = _get_list(curated, "services")
     curated_reviews = _get_list(curated, "reviews")
     curated_faq = _get_list(curated, "faq")
@@ -317,6 +406,32 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     # Config assembly
     log("🛠 Собираю секции")
 
+    # Определяем тип бизнеса (сеть или одиночная студия)
+    chain_status = is_chain(lead, yandex_payload)
+
+    # Сначала собираем секции для согласованности с block_flags
+    sections = _build_sections_config(
+        lead,
+        slug,
+        city,
+        hero_image=hero_image,
+        gallery_images=gallery_images,
+        about_images=about_images,
+        team_images=team_images,
+        curated_about=curated_about,
+        curated_reviews=curated_reviews,
+        effective_faq=effective_faq,
+        merged_services=merged_services,
+        extracted_services=extracted_services,
+        team_items=team_items,
+        is_chain=chain_status,
+    )
+
+    # Пересчитываем block_flags с учётом секций для согласованности
+    photo_map = {"hero": hero_images, "gallery": gallery_images, "team": team_images, "about": about_images}
+    block_flags = compute_block_flags(extracted=extracted_payload, photos=photo_map, yandex=yandex_payload, sections=sections)
+    log(f"🚩 Block flags: {block_flags}")
+
     config: Dict[str, Any] = {
         "meta": _build_meta_block(lead, slug, curated, city),
         "contacts": _build_contacts_block(
@@ -338,20 +453,7 @@ def build_config(lead_id: int) -> Dict[str, Any]:
         "content": DEFAULT_CONTENT,
         "sectionsOrder": sections_order,
         "copyrightYear": datetime.now().year,
-        "sections": _build_sections_config(
-            lead,
-            slug,
-            hero_image=hero_image,
-            gallery_images=gallery_images,
-            about_images=about_images,
-            team_images=team_images,
-            curated_about=curated_about,
-            curated_reviews=curated_reviews,
-            effective_faq=effective_faq,
-            merged_services=merged_services,
-            extracted_services=extracted_services,
-            team_items=team_items,
-        ),
+        "sections": sections,
         "features": {
             "chatWidget": DEFAULT_CHAT_WIDGET,
         },

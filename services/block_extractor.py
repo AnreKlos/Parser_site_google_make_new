@@ -805,7 +805,7 @@ async def extract_all(lead_id: int) -> Optional[Dict[str, Any]]:
     log(f"✅ team: {len(team)} мастеров")
 
     EXTRACTED_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = EXTRACTED_DIR / f"{slug}.json"
+    out_path = EXTRACTED_DIR / f"{slug}-{lead_id}.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 

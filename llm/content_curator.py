@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import sys
+from pathlib import Path
+
+# Добавляем корень проекта в путь для импортов (ДО остальных импортов!)
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 import argparse
 import asyncio
 import json
 import os
 import re
-import sys
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import requests
@@ -22,11 +26,14 @@ from utils import slugify_name, compact_text, detect_city, fallback_author_name,
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-OUTPUT_DIR = Path(__file__).parent / "data" / "curated"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+OUTPUT_DIR = PROJECT_ROOT / "data" / "curated"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 DATA_BLOCK_TEMPLATE = """## ДАННЫЕ О САЛОНЕ (используй ТОЛЬКО их, не выдумывай):
 Название: {name}
 Город: {city} | Адрес: {address}
+Тип бизнеса: {business_type}
 Часы работы: {hours}
 Категория: {category}
 Реальные услуги этого салона (используй только их, не придумывай новых): {real_services}
@@ -36,6 +43,8 @@ DATA_BLOCK_TEMPLATE = """## ДАННЫЕ О САЛОНЕ (используй Т�
 ---
 ПРАВИЛА (нарушение = провал задачи):
 - Запрещённые слова: оазис, элегантность, безупречный, уникальный, премиум, доверьтесь, индивидуальный подход, команда профессионалов, уютная атмосфера, высокое качество, профессиональный, мировые стандарты
+- Если Тип бизнеса = "сеть салонов красоты": ЗАПРЕЩЁНО использовать слова "моностудия", "одна студия", "одиночная студия". Используй формулировки "сеть салонов красоты", "сеть студий красоты", "салон сети «{name}» в городе {city}".
+- Если Тип бизнеса = "студия красоты": можно использовать "студия красоты", "студия по созданию образа". Слово "моностудия" не должно быть жёстко зашито как шаблон.
 - Запрещённые темы: штрафы, предоплата, условия отмены, внутренние правила салона
 - Не придумывай адреса, услуги, мастеров которых нет в данных выше
 - Говори языком подруги, не менеджера и не юриста
@@ -64,6 +73,213 @@ DATA_BLOCK_TEMPLATE = """## ДАННЫЕ О САЛОНЕ (используй Т�
 
 def init_env() -> None:
     load_dotenv()
+
+
+def is_chain(lead: Any, yandex_data: Dict[str, Any]) -> bool:
+    """Определяет, является ли бизнес сетью салонов.
+    
+    Returns True если:
+    - Уникальных адресов >= 2 ИЛИ
+    - Уникальных телефонов >= 3
+    
+    Args:
+        lead: Lead object from DB
+        yandex_data: Yandex enrichment data
+    """
+    addresses = set()
+    phones = set()
+    
+    # Собираем адреса и телефоны из БД
+    if lead.address:
+        addresses.add(compact_text(lead.address))
+    if lead.phone:
+        # Разбиваем телефоны по разделителям
+        phone_str = str(lead.phone)
+        for p in re.split(r'[,\s;]+', phone_str):
+            p_clean = re.sub(r'[^\d]', '', p)
+            if len(p_clean) >= 10:
+                phones.add(p_clean)
+    
+    # Собираем адреса и телефоны из yandex (может быть несколько карточек)
+    yandex_info = yandex_data.get("yandex", {})
+    
+    # Основной адрес из yandex
+    if yandex_info.get("address"):
+        addresses.add(compact_text(yandex_info["address"]))
+    
+    # Телефоны из yandex (могут быть списком)
+    yandex_phones = yandex_info.get("phones", [])
+    if isinstance(yandex_phones, list):
+        for phone in yandex_phones:
+            p_clean = re.sub(r'[^\d]', '', str(phone))
+            if len(p_clean) >= 10:
+                phones.add(p_clean)
+    elif isinstance(yandex_phones, str):
+        for p in re.split(r'[,\s;]+', yandex_phones):
+            p_clean = re.sub(r'[^\d]', '', p)
+            if len(p_clean) >= 10:
+                phones.add(p_clean)
+    
+    # Дополнительные адреса из yandex
+    additional_addresses = yandex_info.get("additional_addresses", [])
+    if isinstance(additional_addresses, list):
+        for addr in additional_addresses:
+            if addr:
+                addresses.add(compact_text(addr))
+    
+    # Дополнительные филиалы из yandex (если есть)
+    branches = yandex_data.get("yandex", {}).get("branches", [])
+    if isinstance(branches, list):
+        for branch in branches:
+            if isinstance(branch, dict):
+                if branch.get("address"):
+                    addresses.add(compact_text(branch["address"]))
+                if branch.get("phone"):
+                    for p in re.split(r'[,\s;]+', str(branch["phone"])):
+                        p_clean = re.sub(r'[^\d]', '', p)
+                        if len(p_clean) >= 10:
+                            phones.add(p_clean)
+    
+    # Определяем сеть
+    unique_addresses = len([a for a in addresses if a and len(a) > 5])
+    unique_phones = len(phones)
+    
+    is_chain_result = unique_addresses >= 2 or unique_phones >= 3
+    
+    print(f"🔍 is_chain анализ: адресов={unique_addresses}, телефонов={unique_phones} -> {is_chain_result}")
+    if is_chain_result:
+        print(f"   Адреса: {list(addresses)}")
+        print(f"   Телефоны: {list(phones)}")
+    
+    return is_chain_result
+
+
+def is_junk_service_title_enhanced(title: str) -> tuple[bool, str]:
+    """Расширенная проверка на мусорное название услуги.
+    
+    Returns (is_junk, reason)
+    """
+    if not title or len(title.strip()) < 2:
+        return True, "пустое название"
+    
+    title = title.strip()
+    
+    # Правило 1: Длиннее 100 символов и содержит 2+ признаков прайса
+    price_indicators = 0
+    if len(title) > 100:
+        if '₽' in title or 'р.' in title or 'руб' in title:
+            price_indicators += 1
+        if '%' in title:
+            price_indicators += 1
+        if '–' in title or '-' in title:
+            price_indicators += 1
+        if re.search(r'\d+\s*[-–]\s*\d+', title):  # диапазон цен
+            price_indicators += 1
+        
+        if price_indicators >= 2:
+            return True, f"длинное название с {price_indicators} признаками прайса"
+    
+    # Правило 2: Начинается с фрагментов прайса
+    price_start_patterns = [
+        r'^\s*(женской|мужской)\s+стрижки\s*:',
+        r'^\s*стрижка\s*:\s*от',
+        r'^\s*стрижка\s*:\s*\d+',
+        r'^\s*женской\s+стрижки:\d+',
+        r'^\s*мужской\s+стрижки:\d+',
+        r'^\s*окрашивание:\d+',
+        r'^\s*маникюр:\d+',
+        r'^\s*педикюр:\d+',
+    ]
+    
+    for pattern in price_start_patterns:
+        if re.match(pattern, title, re.IGNORECASE):
+            return True, f"начинается с фрагмента прайса: {pattern}"
+    
+    # Правило 3: Содержит склейку бренда/рейтинга/прайса
+    # Пример: "Империя красоты4,4Стрижка: от"
+    brand_rating_price_patterns = [
+        r'[А-Яа-яёЁ\s]+[\d,]+\.\d+[А-Яа-яёЁ]',  # "Империя красоты4,4Стрижка"
+        r'[А-Яа-яёЁ\s]+\d+,\d+\s*:',  # "Империя красоты4,4:"
+        r'[А-Яа-яёЁ\s]+:\d+[-–]',  # "Стрижка:300-"
+        r'\d+\.\d+\s*[А-Яа-яёЁ]',  # "4.4Стрижка"
+    ]
+    
+    for pattern in brand_rating_price_patterns:
+        if re.search(pattern, title):
+            return True, f"склейка бренда/рейтинга/прайса: {pattern}"
+    
+    # Правило 4: Содержит только цифры и символы без букв
+    if re.match(r'^[\d\s\-–₽%,.]+$', title):
+        return True, "только цифры и символы"
+    
+    # Правило 5: Содержит мусорные фразы
+    junk_phrases = [
+        'женской стрижки:',
+        'мужской стрижки:',
+        'стрижки: от',
+        'варьируется',
+        'ВЫПОЛНЯЕТСЯ НА',
+    ]
+    
+    for phrase in junk_phrases:
+        if phrase.lower() in title.lower():
+            return True, f"содержит мусорную фразу: {phrase}"
+    
+    return False, ""
+
+
+def filter_junk_services(services: List[Dict[str, str]], max_count: int = 7) -> List[Dict[str, str]]:
+    """Фильтрует мусорные услуги и ограничивает количество.
+    
+    Args:
+        services: список услуг из LLM
+        max_count: максимальное количество услуг в выводе
+    
+    Returns:
+        Отфильтрованный список услуг
+    """
+    filtered = []
+    junk_count = 0
+    
+    for service in services:
+        if not isinstance(service, dict):
+            continue
+        
+        title = service.get("title", "")
+        is_junk, reason = is_junk_service_title_enhanced(title)
+        
+        if is_junk:
+            print(f"⚠️ Пропущена мусорная услуга: '{title[:50]}...' ({reason})")
+            junk_count += 1
+            continue
+        
+        # Очищаем priceFrom от мусора
+        price_from = service.get("priceFrom", "")
+        if price_from:
+            # Если priceFrom содержит мусор прайса - заменяем на уточнить при записи
+            price_junk_patterns = [
+                r'женской\s+стрижки:\d+[-–]',
+                r'мужской\s+стрижки:\d+[-–]',
+                r'стрижки:\d+[-–]\s*мужской',
+                r'\d+[-–]\s*₽.*\d+[-–]',  # диапазон цен с другим диапазоном
+            ]
+            
+            for pattern in price_junk_patterns:
+                if re.search(pattern, price_from, re.IGNORECASE):
+                    print(f"⚠️ Заменен мусорный priceFrom: '{price_from}' -> 'уточнить при записи'")
+                    service["priceFrom"] = "уточнить при записи"
+                    break
+        
+        filtered.append(service)
+    
+    print(f"🔍 Фильтр услуг: удалено {junk_count} мусорных, осталось {len(filtered)}")
+    
+    # Ограничиваем количество
+    if len(filtered) > max_count:
+        print(f"🔍 Ограничение услуг: {len(filtered)} -> {max_count}")
+        filtered = filtered[:max_count]
+    
+    return filtered
 
 
 
@@ -384,9 +600,15 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
             title = sanitize_service_title(str(item.get("title") or ""))
             title = normalize_service_title(title)
             
-            # Фильтруем мусорные названия
+            # Фильтруем мусорные названия (базовая проверка)
             if is_junk_service_title(title):
-                print(f"⚠️ Пропущена мусорная услуга: {title}")
+                print(f"⚠️ Пропущена мусорная услуга (базовая): {title}")
+                continue
+            
+            # Фильтруем мусорные названия (расширенная проверка)
+            is_junk_enhanced, junk_reason = is_junk_service_title_enhanced(title)
+            if is_junk_enhanced:
+                print(f"⚠️ Пропущена мусорная услуга (расширенная): {title[:50]}... ({junk_reason})")
                 continue
             
             short = compact_text(str(item.get("short") or ""))
@@ -423,9 +645,12 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
                 seen_titles.add(title_lower)
                 unique_out.append(item)
         
-        if unique_out:
-            print(f"✅ Услуги готовы: {len(unique_out[:count])}")
-            return unique_out[:count]
+        # Применяем расширенный фильтр мусорных услуг
+        filtered_services = filter_junk_services(unique_out, max_count=count)
+        
+        if filtered_services:
+            print(f"✅ Услуги готовы: {len(filtered_services)}")
+            return filtered_services
 
     fallback = [
         {"title": "Маникюр", "short": "Аккуратный маникюр", "description": "Форма, покрытие и чистый результат с учетом пожеланий.", "priceFrom": "от 1500 ₽"},
@@ -570,14 +795,14 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
     
     # Читаем extracted JSON (услуги, FAQ, team с сайта)
     extracted_data = {}
-    extracted_path = Path(__file__).parent / "data" / "extracted" / f"{slug}.json"
+    extracted_path = PROJECT_ROOT / "data" / "extracted" / f"{slug}-{lead_id}.json"
     if extracted_path.exists():
         with open(extracted_path, encoding="utf-8") as f:
             extracted_data = json.load(f)
     
     # Читаем yandex JSON (позиционирование, услуги, рейтинг, адрес)
     yandex_data = {}
-    yandex_path = Path(__file__).parent / "data" / "yandex" / f"{slug}.json"
+    yandex_path = PROJECT_ROOT / "data" / "yandex" / f"{slug}-{lead_id}.json"
     if yandex_path.exists():
         with open(yandex_path, encoding="utf-8") as f:
             yandex_data = json.load(f)
@@ -655,10 +880,15 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
     real_city = detect_city(real_address)
     real_hours = yandex_info.get("hours") or ""
 
+    # Определяем тип бизнеса (сеть или одиночная студия)
+    chain_status = is_chain(lead, yandex_data)
+    business_type = "сеть салонов красоты" if chain_status else "студия красоты"
+    
     salon_context = {
         "name": business_name,
         "city": real_city,
         "address": real_address,
+        "business_type": business_type,
         "tagline": real_tagline,
         "services": real_services_str,
         "rating": real_rating,
@@ -717,7 +947,7 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
     }
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = OUTPUT_DIR / f"{slug}.json"
+    out_path = OUTPUT_DIR / f"{slug}-{lead_id}.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(output_payload, f, ensure_ascii=False, indent=2)
 

@@ -134,6 +134,134 @@ def normalize_extracted_faq(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]
     return out[:20]
 
 
+def is_junk_service_title_enhanced(title: str) -> tuple[bool, str]:
+    """Расширенная проверка на мусорное название услуги.
+    
+    Returns (is_junk, reason)
+    """
+    if not title or len(title.strip()) < 2:
+        return True, "пустое название"
+    
+    title = title.strip()
+    
+    # Правило 1: Длиннее 100 символов и содержит 2+ признаков прайса
+    price_indicators = 0
+    if len(title) > 100:
+        if '₽' in title or 'р.' in title or 'руб' in title:
+            price_indicators += 1
+        if '%' in title:
+            price_indicators += 1
+        if '–' in title or '-' in title:
+            price_indicators += 1
+        if re.search(r'\d+\s*[-–]\s*\d+', title):  # диапазон цен
+            price_indicators += 1
+        
+        if price_indicators >= 2:
+            return True, f"длинное название с {price_indicators} признаками прайса"
+    
+    # Правило 2: Начинается с фрагментов прайса
+    price_start_patterns = [
+        r'^\s*(женской|мужской)\s+стрижки\s*:',
+        r'^\s*стрижка\s*:\s*от',
+        r'^\s*стрижка\s*:\s*\d+',
+        r'^\s*женской\s+стрижки:\d+',
+        r'^\s*мужской\s+стрижки:\d+',
+        r'^\s*окрашивание:\d+',
+        r'^\s*маникюр:\d+',
+        r'^\s*педикюр:\d+',
+    ]
+    
+    for pattern in price_start_patterns:
+        if re.match(pattern, title, re.IGNORECASE):
+            return True, f"начинается с фрагмента прайса: {pattern}"
+    
+    # Правило 3: Содержит склейку бренда/рейтинга/прайса
+    # Пример: "Империя красоты4,4Стрижка: от"
+    brand_rating_price_patterns = [
+        r'[А-Яа-яёЁ\s]+[\d,]+[.,]\d+[А-Яа-яёЁ]',  # "Империя красоты4,4Стрижка" или "Империя красоты4.4Стрижка"
+        r'[А-Яа-яёЁ\s]+\d+[.,]\d+\s*:',  # "Империя красоты4,4:" или "Империя красоты4.4:"
+        r'[А-Яа-яёЁ\s]+:\d+[-–]',  # "Стрижка:300-"
+        r'\d+[.,]\d+\s*[А-Яа-яёЁ]',  # "4.4Стрижка" или "4,4Стрижка"
+    ]
+    
+    for pattern in brand_rating_price_patterns:
+        if re.search(pattern, title):
+            return True, f"склейка бренда/рейтинга/прайса: {pattern}"
+    
+    # Правило 4: Содержит только цифры и символы без букв
+    if re.match(r'^[\d\s\-–₽%,.]+$', title):
+        return True, "только цифры и символы"
+    
+    # Правило 5: Содержит мусорные фразы
+    junk_phrases = [
+        'женской стрижки:',
+        'мужской стрижки:',
+        'стрижки: от',
+        'варьируется',
+        'ВЫПОЛНЯЕТСЯ НА',
+    ]
+    
+    for phrase in junk_phrases:
+        if phrase.lower() in title.lower():
+            return True, f"содержит мусорную фразу: {phrase}"
+    
+    return False, ""
+
+
+def filter_enhanced_services(services: List[Dict[str, Any]], max_count: int = 6) -> List[Dict[str, Any]]:
+    """Фильтрует мусорные услуги и ограничивает количество.
+    
+    Args:
+        services: список услуг
+        max_count: максимальное количество услуг в выводе
+    
+    Returns:
+        Отфильтрованный список услуг
+    """
+    filtered = []
+    junk_count = 0
+    
+    for service in services:
+        if not isinstance(service, dict):
+            continue
+        
+        title = service.get("title", "")
+        is_junk, reason = is_junk_service_title_enhanced(title)
+        
+        if is_junk:
+            print(f"⚠️ Пропущена мусорная услуга (config): '{title[:50]}...' ({reason})")
+            junk_count += 1
+            continue
+        
+        # Очищаем priceFrom от мусора
+        price_from = service.get("priceFrom", "")
+        if price_from:
+            # Если priceFrom содержит мусор прайса - заменяем на уточнить при записи
+            price_junk_patterns = [
+                r'женской\s+стрижки:\d+[-–]',
+                r'мужской\s+стрижки:\d+[-–]',
+                r'стрижки:\d+[-–]\s*мужской',
+                r'\d+[-–]\s*₽.*\d+[-–]',  # диапазон цен с другим диапазоном
+            ]
+            
+            for pattern in price_junk_patterns:
+                if re.search(pattern, price_from, re.IGNORECASE):
+                    print(f"⚠️ Заменен мусорный priceFrom (config): '{price_from}' -> 'уточнить при записи'")
+                    service["priceFrom"] = "уточнить при записи"
+                    break
+        
+        filtered.append(service)
+    
+    print(f"🔍 Фильтр услуг (config): удалено {junk_count} мусорных, осталось {len(filtered)}")
+    
+    # Ограничиваем количество
+    if len(filtered) > max_count:
+        print(f"🔍 Ограничение услуг (config): {len(filtered)} -> {max_count}")
+        filtered = filtered[:max_count]
+    
+    return filtered
+
+
 def merge_services(
     curated_services: List[Dict[str, Any]],
     yandex_services: List[Dict[str, Any]],
@@ -149,6 +277,10 @@ def merge_services(
         if not name:
             continue
         if is_junk_service_title(name):
+            continue
+        # Дополнительная проверка enhanced
+        is_junk_enhanced, _ = is_junk_service_title_enhanced(name)
+        if is_junk_enhanced:
             continue
         yandex_pool.append({"name": name, "price": price, "norm": normalize_service_title(name)})
 
@@ -210,6 +342,10 @@ def merge_services(
         name = y_item["name"]
         if is_junk_service_title(name):
             continue
+        # Дополнительная проверка enhanced
+        is_junk_enhanced, _ = is_junk_service_title_enhanced(name)
+        if is_junk_enhanced:
+            continue
         merged.append(
             {
                 "title": name,
@@ -219,7 +355,10 @@ def merge_services(
             }
         )
 
-    return merged[:20]
+    # Применяем расширенный фильтр и ограничиваем количество
+    filtered_merged = filter_enhanced_services(merged, max_count=6)
+    
+    return filtered_merged
 
 
 # ======================================================================

@@ -2,7 +2,7 @@
   "lead_id": 58,
   "lead_name": "Калинка-Малинка студия красоты",
   "source_url": "https://kalinkamalinkabr.orgs.biz/",
-  "extracted_at": "2026-04-29 09:05:16",
+  "extracted_at": "2026-05-03 15:44:01",
   "serviceCarousel": [
     {
       "name": "Вечерний макияж",
@@ -63,24 +63,5 @@
       "a": "Последние новости и акции можно найти на сайте студии или в социальных сетях"
     }
   ],
-  "team": [],
-  "photos_by_block": {
-    "hero": [
-      "/kalinka-malinka-studiya-krasoty/hero/hero_1.jpg"
-    ],
-    "gallery": [
-      "/kalinka-malinka-studiya-krasoty/gallery/gallery_1.jpg",
-      "/kalinka-malinka-studiya-krasoty/gallery/gallery_2.jpg",
-      "/kalinka-malinka-studiya-krasoty/gallery/gallery_3.jpg",
-      "/kalinka-malinka-studiya-krasoty/gallery/gallery_4.jpg",
-      "/kalinka-malinka-studiya-krasoty/gallery/gallery_5.jpg"
-    ],
-    "team": [],
-    "about": [],
-    "services": [
-      "/kalinka-malinka-studiya-krasoty/services/services_1.jpg"
-    ]
-  },
-  "team_photos": [],
-  "photos_fetched_at": "2026-04-29 10:42:54"
+  "team": []
 }

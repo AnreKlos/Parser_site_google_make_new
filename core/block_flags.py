@@ -2,11 +2,12 @@ from config import settings
 from typing import Any, Dict
 
 
-def compute_block_flags(extracted: dict, photos: dict, yandex: dict) -> dict:
+def compute_block_flags(extracted: dict, photos: dict, yandex: dict, sections: dict = None) -> dict:
     """
     extracted — данные из data/extracted/{slug}.json
     photos    — photos_by_block или photo_map (hero/gallery/team/...)
     yandex    — данные из data/yandex/{slug}.json (рейтинг, отзывы и т.п.)
+    sections  — конфигурация секций (sections.*.enabled) для согласованности
 
     Возвращает флаги, какие секции вообще должны рисоваться на сайте.
     """
@@ -40,7 +41,7 @@ def compute_block_flags(extracted: dict, photos: dict, yandex: dict) -> dict:
     has_team_block = len(real_team_items) >= settings.min_team_items  # можно сделать >=2, если хотим "команду", а не одиночку
 
     block_flags = {
-        # Hero нужен, если есть хотя бы одно hero-фото
+        # Hero нужен, если есть хотя бы одно hero-фото ИЛИ если включено в sections
         "hero": len(hero_photos) >= settings.min_hero_photos,
 
         # Галерея — если есть >= N нормальных фото
@@ -65,8 +66,31 @@ def compute_block_flags(extracted: dict, photos: dict, yandex: dict) -> dict:
         # Контакты — если есть телефон или адрес
         "contacts": bool(phone or address),
 
-        # Акции — только если реально есть промо
-        "promotions": len(promotions_raw) >= 1,
+        # Акции — включаем по умолчанию, даже если нет промо (для будущего использования)
+        "promotions": True,
     }
+
+    # Согласованность с sections.enabled
+    if sections and isinstance(sections, dict):
+        # Если sections.hero.enabled = True, то block_flags.hero тоже должен быть True
+        if sections.get("hero", {}).get("enabled"):
+            block_flags["hero"] = True
+        
+        # Если sections.services.enabled = True и есть >= 1 услуга, то block_flags.services = True
+        if sections.get("services", {}).get("enabled"):
+            services_items = sections.get("services", {}).get("items", [])
+            if isinstance(services_items, list) and len(services_items) >= 1:
+                block_flags["services"] = True
+        
+        # Если sections.about.enabled = True и about.text не пустой, то block_flags.about = True
+        if sections.get("about", {}).get("enabled"):
+            if sections.get("about", {}).get("text"):
+                block_flags["about"] = True
+        
+        # Если sections.faq.enabled = True и faq.items не пустой, то block_flags.faq = True
+        if sections.get("faq", {}).get("enabled"):
+            faq_items = sections.get("faq", {}).get("items", [])
+            if isinstance(faq_items, list) and len(faq_items) >= 1:
+                block_flags["faq"] = True
 
     return block_flags

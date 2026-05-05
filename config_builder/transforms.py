@@ -30,6 +30,38 @@ def to_phone_raw(phone: str) -> str:
     return re.sub(r"[^\d+]", "", phone or "")
 
 
+def format_phone(phone: str) -> str:
+    """Format phone number to standard Russian format: +7 (XXX) XXX-XX-XX."""
+    if not phone:
+        return ""
+    
+    # Extract digits only
+    digits = re.sub(r"[^\d]", "", phone)
+    
+    # If starts with 8, convert to +7
+    if digits.startswith("8"):
+        digits = "7" + digits[1:]
+    # If starts with 7 but no +, add +
+    elif digits.startswith("7") and not phone.startswith("+"):
+        digits = "+" + digits
+    # If no country code, assume Russia +7
+    elif len(digits) == 10:
+        digits = "+7" + digits
+    # If starts with + already, keep it
+    elif phone.startswith("+"):
+        digits = "+" + re.sub(r"[^\d]", "", phone[1:])
+    else:
+        digits = "+7" + digits
+    
+    # Format as +7 (XXX) XXX-XX-XX
+    clean = digits.replace("+", "")
+    if len(clean) == 11:  # 7 + 10 digits
+        return f"+{clean[0]} ({clean[1:4]}) {clean[4:7]}-{clean[7:9]}-{clean[9:11]}"
+    
+    # Fallback: return original if can't format
+    return phone
+
+
 def prettify_name_from_filename(filename: str) -> str:
     """Convert a filename stem to a human-readable name (max 2 words)."""
     stem = Path(filename).stem
@@ -38,6 +70,58 @@ def prettify_name_from_filename(filename: str) -> str:
         return "Мастер"
     words = [p.capitalize() for p in parts[:2]]
     return " ".join(words)
+
+
+def normalize_service_name(title: str) -> str:
+    """Normalize service title to human-readable nominative case.
+    
+    Steps:
+    1. Remove price format endings: ": от", ":от", ":", " от"
+    2. Apply dictionary mapping for typical patterns
+    3. Capitalize first letter
+    
+    Examples:
+    - "женской стрижки:от" -> "Женская стрижка"
+    - "мужской стрижки:от" -> "Мужская стрижка"
+    - "Стрижка: от" -> "Стрижка"
+    """
+    if not title:
+        return ""
+    
+    title = title.strip()
+    
+    # Step 1: Remove price format endings (order matters)
+    title = title.replace(': от', '')  # Remove ": от" first
+    title = title.replace(':от', '')   # Remove ":от" second
+    title = title.replace(':', '')      # Remove remaining ":"
+    # Remove " от" only at the end
+    if title.endswith(' от'):
+        title = title[:-3]
+    title = title.strip()
+    title = re.sub(r'\s+', ' ', title)  # Collapse multiple spaces
+    
+    # Step 2: Dictionary mapping for typical patterns (case-insensitive)
+    pattern_mapping = {
+        'женской стрижки и укладки': 'Женская стрижка и укладка',
+        'мужской стрижки и укладки': 'Мужская стрижка и укладка',
+        'женской стрижки': 'Женская стрижка',
+        'мужской стрижки': 'Мужская стрижка',
+        'детской стрижки': 'Детская стрижка',
+    }
+    
+    title_lower = title.lower()
+    # Sort by pattern length (longer first) to match more specific patterns first
+    sorted_patterns = sorted(pattern_mapping.items(), key=lambda x: len(x[0]), reverse=True)
+    for pattern, replacement in sorted_patterns:
+        if pattern == title_lower or title_lower.startswith(pattern + ' ') or title_lower.endswith(' ' + pattern):
+            title = replacement
+            break
+    
+    # Step 3: Capitalize first letter (if not already capitalized)
+    if title:
+        title = title[0].upper() + title[1:]
+    
+    return title
 
 
 # ======================================================================
@@ -173,21 +257,35 @@ def is_junk_service_title_enhanced(title: str) -> tuple[bool, str]:
         if price_indicators >= 2:
             return True, f"длинное название с {price_indicators} признаками прайса"
     
-    # Правило 2: Начинается с фрагментов прайса
+    # Правило 2: Начинается с фрагментов прайса (смягчённые паттерны - требуют минимум 3 цифры в цене)
     price_start_patterns = [
-        r'^\s*(женской|мужской)\s+стрижки\s*:',
-        r'^\s*стрижка\s*:\s*от',
-        r'^\s*стрижка\s*:\s*\d+',
-        r'^\s*женской\s+стрижки:\d+',
-        r'^\s*мужской\s+стрижки:\d+',
-        r'^\s*окрашивание:\d+',
-        r'^\s*маникюр:\d+',
-        r'^\s*педикюр:\d+',
+        r'^\s*(женской|мужской)\s+стрижки\s*:\s*\d{3,}',
+        r'^\s*стрижка\s*:\s*\d{3,}',
+        r'^\s*женской\s+стрижки:\d{3,}',
+        r'^\s*мужской\s+стрижки:\d{3,}',
+        r'^\s*окрашивание:\d{3,}',
+        r'^\s*маникюр:\d{3,}',
+        r'^\s*педикюр:\d{3,}',
     ]
     
     for pattern in price_start_patterns:
         if re.match(pattern, title, re.IGNORECASE):
             return True, f"начинается с фрагмента прайса: {pattern}"
+    
+    # Правило 2.5: Склейка бренда + цифра + услуга (Mood5Стрижка, Империя4Маникюр)
+    # Паттерн: Буквы(бренд) + Цифра(рейтинг) + Буквы(услуга)
+    if re.search(r'[А-Яа-яёЁA-Za-z]+\d+[А-Яа-яёЁA-Za-z]', title):
+        return True, "склейка бренда+цифры+услуги"
+    
+    # Правило 2.6: Окончания прайс-формата без цены
+    price_end_patterns = [
+        r':\s*от\s*$',  # ": от" в конце
+        r':\s*$',  # ":" в конце
+        r':от\s*$',  # ":от" в конце
+    ]
+    for pattern in price_end_patterns:
+        if re.search(pattern, title, re.IGNORECASE):
+            return True, f"окончание прайс-формата: {pattern}"
     
     # Правило 3: Содержит склейку бренда/рейтинга/прайса
     # Пример: "Империя красоты4,4Стрижка: от"
@@ -290,13 +388,15 @@ def merge_services(
         price = str(item.get("price") or "").strip()
         if not name:
             continue
-        if is_junk_service_title(name):
+        # Normalize service name BEFORE junk filter
+        name_norm = normalize_service_name(name)
+        if is_junk_service_title(name_norm):
             continue
         # Дополнительная проверка enhanced
-        is_junk_enhanced, _ = is_junk_service_title_enhanced(name)
+        is_junk_enhanced, _ = is_junk_service_title_enhanced(name_norm)
         if is_junk_enhanced:
             continue
-        yandex_pool.append({"name": name, "price": price, "norm": normalize_service_title(name)})
+        yandex_pool.append({"name": name_norm, "price": price, "norm": name_norm})
 
     used_yandex = set()
 
@@ -306,6 +406,8 @@ def merge_services(
         title = str(item.get("title") or "").strip()
         if not title:
             continue
+        # Normalize curated service title
+        title = normalize_service_name(title)
         short = str(item.get("short") or "").strip()
         description = str(item.get("description") or "").strip()
         price_from = str(item.get("priceFrom") or "").strip()
@@ -316,7 +418,7 @@ def merge_services(
         if not description or description.lower() == title.lower():
             description = generate_neutral_service_description(title)
 
-        norm_title = normalize_service_title(title)
+        norm_title = title
         best_idx = None
         best_score = 0.0
         for idx, y_item in enumerate(yandex_pool):
@@ -377,7 +479,7 @@ def merge_services(
     brows_items = []
     brows_indices = []
     for idx, item in enumerate(filtered_merged):
-        norm_title = normalize_service_title(item.get('title', ''))
+        norm_title = normalize_service_name(item.get('title', ''))
         if 'бров' in norm_title:
             brows_items.append((idx, item, norm_title))
             brows_indices.append(idx)
@@ -559,6 +661,8 @@ def build_price_section(
             # Извлекаем поля
             raw_title = svc.get('title') or svc.get('name', '')
             title = clean_service_title(raw_title)
+            # Normalize service name BEFORE junk filter
+            title = normalize_service_name(title)
             raw_price = svc.get('price') or svc.get('priceFrom', '')
             description = svc.get('description') or svc.get('short', '')
             

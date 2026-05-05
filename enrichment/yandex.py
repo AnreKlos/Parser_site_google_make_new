@@ -10,12 +10,16 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import argparse
 import asyncio
 import json
+import os
 import random
 import re
+import sys
 import time
 from datetime import datetime
 from difflib import SequenceMatcher
-from typing import Any, Dict, List, Optional, Literal
+from pathlib import Path
+from typing import Any, Dict, List, Literal, Optional
+import httpx
 from urllib.parse import quote_plus, urljoin
 import aiohttp
 
@@ -34,6 +38,50 @@ CAPTCHA_LOG_PATH = YANDEX_DATA_DIR / "captcha_log.txt"
 SESSION_STATE_PATH = YANDEX_DATA_DIR / ".session.json"
 LAST_RUNS_PATH = YANDEX_DATA_DIR / ".last_live_runs.json"
 MAX_LEADS_PER_RUN = 30
+
+
+async def geocode_address(address: str, url: str = "") -> Optional[Dict[str, float]]:
+    """Geocode address by extracting from Yandex Maps URL as fallback.
+    
+    Args:
+        address: Address string (e.g., "Брянск, Московский просп., 10/11")
+        url: Yandex Maps URL (e.g., "https://yandex.ru/maps/org/mood/96195832006/")
+    
+    Returns:
+        Dict with lat/lng or None if geocoding fails
+    """
+    try:
+        # Try to extract coordinates from the Yandex Maps URL
+        # Yandex Maps URLs have coordinates in format: ll=lat,lng
+        if url:
+            # Parse URL for ll=lat,lng parameter
+            from urllib.parse import urlparse, parse_qs
+            parsed = urlparse(url)
+            query_params = parse_qs(parsed.query)
+            
+            # Check for ll parameter
+            if 'll' in query_params:
+                ll_str = query_params['ll'][0]
+                parts = ll_str.split(',')
+                if len(parts) == 2:
+                    lat = float(parts[1])
+                    lng = float(parts[0])
+                    return {"lat": lat, "lng": lng}
+            
+            # Check for z and ll in path (alternative format)
+            # e.g., /maps/?ll=lat,lng&z=15
+            if 'll' in parsed.fragment:
+                ll_str = parsed.fragment.split('ll=')[1].split('&')[0]
+                parts = ll_str.split(',')
+                if len(parts) == 2:
+                    lat = float(parts[1])
+                    lng = float(parts[0])
+                    return {"lat": lat, "lng": lng}
+        
+        return None
+    except Exception as e:
+        write_log(f"⚠️ Geocoding failed for '{address}': {e}")
+        return None
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
@@ -930,6 +978,52 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None, mode: Lite
                     return "";
                   })();
 
+                  // Extract coordinates from URL or page
+                  const coordinates = (() => {
+                    // Try to extract from URL (ll=lat,lng format in Yandex Maps)
+                    const urlParams = window.location.href.split(/[?&]/);
+                    for (const param of urlParams) {
+                      if (param.startsWith('ll=')) {
+                        const parts = param.substring(3).split(',');
+                        if (parts.length === 2) {
+                          const lat = parseFloat(parts[1]);
+                          const lng = parseFloat(parts[0]);
+                          if (!isNaN(lat) && !isNaN(lng)) {
+                            return { lat, lng };
+                          }
+                        }
+                      }
+                    }
+                    
+                    // Try to extract from meta tags or JSON-LD
+                    const metaGeo = document.querySelector('meta[name="geo.position"]')?.content;
+                    if (metaGeo) {
+                      const parts = metaGeo.split(';');
+                      if (parts.length === 2) {
+                        const lat = parseFloat(parts[0]);
+                        const lng = parseFloat(parts[1]);
+                        if (!isNaN(lat) && !isNaN(lng)) {
+                          return { lat, lng };
+                        }
+                      }
+                    }
+                    
+                    // Try JSON-LD
+                    try {
+                      const scripts = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
+                      for (const script of scripts) {
+                        const data = JSON.parse(script.textContent);
+                        if (data.geo && data.geo.latitude && data.geo.longitude) {
+                          return { lat: data.geo.latitude, lng: data.geo.longitude };
+                        }
+                      }
+                    } catch (e) {
+                      // Ignore JSON parsing errors
+                    }
+                    
+                    return null;
+                  })();
+
                   const reviewsRaw = [];
                   const reviewBlocks = document.querySelectorAll(
                     "[class*='business-review-view'], [class*='review-snippet-view'], [itemprop='review'], [class*='review-view']"
@@ -1055,6 +1149,7 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None, mode: Lite
                     working_hours: workingHours,
                     website,
                     additional_addresses: additionalAddresses,
+                    coordinates: coordinates,
                   };
                 }
                 """
@@ -1117,11 +1212,29 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None, mode: Lite
                 "working_hours": str(raw.get("working_hours") or "").strip(),
                 "website": str(raw.get("website") or "").strip(),
                 "additional_addresses": list(raw.get("additional_addresses", []))[:20],
+                "coordinates": raw.get("coordinates"),
                 "scraped_at": timestamp(),
                 # Enriched extracted fields for T08
                 "yandexReviews": yandex_reviews,
                 "serviceCarousel": service_carousel,
             }
+            
+            # Fallback geocoding if coordinates are missing
+            if not result.get("coordinates") and result.get("address"):
+                # Try to extract coordinates from the page URL after navigation
+                # The browser URL might have ll=lat,lng after the page loads
+                try:
+                    page_url = page.url
+                    coords = await geocode_address(result["address"], page_url)
+                    if coords:
+                        result["coordinates"] = coords
+                        write_log(f"📍 Fallback geocoding: {result['address']} → {coords}")
+                except Exception as e:
+                    # Fallback to original URL
+                    coords = await geocode_address(result["address"], url)
+                    if coords:
+                        result["coordinates"] = coords
+                        write_log(f"📍 Fallback geocoding: {result['address']} → {coords}")
 
             write_log(
                 f"✅ Карточка собрана mode={mode}: rating={result['rating']} reviews_count={result['reviews_count']} photos_count={result['photos_count']}"

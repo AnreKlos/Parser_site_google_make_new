@@ -25,6 +25,7 @@ from config_builder.io import (
 )
 from config_builder.transforms import (
     build_price_section,
+    format_phone,
     hero_brand_name,
     hero_line1,
     hero_line1_small,
@@ -261,7 +262,7 @@ def _build_sections_config(
             "items": merged_services,
         },
         "gallery": {
-            "enabled": len(gallery_images) >= 3,
+            "enabled": len(gallery_images) >= 6,
             "title": "Наши работы",
             "subtitle": "Каждая деталь имеет значение",
             "items": gallery_images,
@@ -306,50 +307,6 @@ def _build_sections_config(
         if sections['price'] is None:
             sections['price'] = {'enabled': False, 'groups': []}
     # Для сетей (is_chain=True) вообще НЕ создаём секцию price
-    
-    # Fallback для about если дублирует hero.lead
-    hero_lead = sections.get('hero', {}).get('lead', '')
-    about_text = sections.get('about', {}).get('text', '')
-    
-    # Упрощённое правило: если about.text начинается с первых 20 символов hero.lead или содержит hero.lead
-    if about_text and hero_lead and (about_text.startswith(hero_lead[:20]) or hero_lead in about_text):
-        print(f"[DEBUG] about source: original (duplicates hero.lead)")
-        # Собираем fallback about жёстко без hero.lead
-        brand_name = lead.get('name', 'Студия красоты')
-        city_name = city or ''
-        rating = yandex.get('rating', '0') if isinstance(yandex, dict) else '0'
-        reviews_count = yandex.get('reviews_count', yandex.get('review_count', 0)) if isinstance(yandex, dict) else 0
-        
-        # Берём 2-3 основные услуги из services
-        services_list = []
-        for item in merged_services[:3]:
-            if isinstance(item, dict):
-                title = item.get('title', '')
-                if title:
-                    services_list.append(title)
-        
-        # Формируем fallback about
-        if services_list:
-            services_str = ', '.join(services_list)
-        else:
-            services_str = 'макияж, брови и маникюр'
-        
-        fallback_about = f"{brand_name} — студия красоты"
-        if city_name:
-            fallback_about += f" в {city_name}"
-        fallback_about += f", где можно записаться на {services_str}. Здесь делают ставку на аккуратный результат, понятный сервис и комфортную запись без лишней суеты."
-        if rating and rating != '0':
-            fallback_about += f" По данным Яндекс.Карт, у студии рейтинг {rating}"
-            if reviews_count:
-                fallback_about += f" и {reviews_count} отзывов."
-            else:
-                fallback_about += "."
-        
-        sections['about']['text'] = fallback_about
-        print(f"[DEBUG] about source: fallback (replaced duplicate)")
-    else:
-        print(f"[DEBUG] about source: original (no duplicate)")
-    
     return sections
 
 
@@ -408,6 +365,22 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     curated_about = curated_about.strip()
     curated_services = _get_list(curated, "services")
     curated_reviews = _get_list(curated, "reviews")
+    # Fallback: если curated.reviews пустой, заполнить из yandex.reviews_list
+    if not curated_reviews or len(curated_reviews) == 0:
+        yandex_reviews_list = _get_list(yandex, "reviews_list")
+        if yandex_reviews_list:
+            # Выбираем топ-4 отзыва по длине текста (предполагаем, что длиннее = качественнее)
+            sorted_reviews = sorted(yandex_reviews_list, key=lambda r: len(str(r.get("text", ""))), reverse=True)
+            curated_reviews = [
+                {
+                    "author": r.get("author", ""),
+                    "text": str(r.get("text", "")).strip(),
+                    "rating": r.get("rating"),
+                    "date": r.get("date")
+                }
+                for r in sorted_reviews[:4]
+                if r.get("text") and len(str(r.get("text", "")).strip()) > 10
+            ]
     curated_faq = _get_list(curated, "faq")
 
     # Extracted fields
@@ -431,6 +404,7 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     if not phones and fallback_phone:
         phones = [fallback_phone]
     phone_main = phones[0] if phones else ""
+    phone_main = format_phone(phone_main)  # Normalize phone format
     phone_raw = to_phone_raw(phone_main)
 
     # Contacts extras
@@ -471,6 +445,15 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     # Определяем тип бизнеса (сеть или одиночная студия)
     chain_status = is_chain(lead, yandex_payload)
 
+    # Для моностудий убираем "services" из sectionsOrder, оставляем только "price"
+    if not chain_status:
+        if 'services' in sections_order:
+            sections_order.remove('services')
+        # Добавляем "price" после promotion (вместо services)
+        if 'price' not in sections_order and 'promotion' in sections_order:
+            promotion_index = sections_order.index('promotion')
+            sections_order.insert(promotion_index + 1, 'price')
+
     # Сначала собираем секции для согласованности с block_flags
     sections = _build_sections_config(
         lead,
@@ -506,6 +489,11 @@ def build_config(lead_id: int) -> Dict[str, Any]:
     if 'price' not in sections or not sections.get('price', {}).get('enabled', False):
         if 'price' in sections_order:
             sections_order.remove('price')
+    
+    # Remove gallery if section doesn't exist or not enabled
+    if 'gallery' not in sections or not sections.get('gallery', {}).get('enabled', False):
+        if 'gallery' in sections_order:
+            sections_order.remove('gallery')
 
     config: Dict[str, Any] = {
         "meta": _build_meta_block(lead, slug, curated, city),

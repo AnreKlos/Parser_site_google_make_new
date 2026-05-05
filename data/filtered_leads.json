@@ -1,0 +1,682 @@
+[
+  {
+    "lead_id": 14,
+    "name": "wow nails studio",
+    "address": "Московский пр., 1, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 32,
+    "website": "https://vk.link/wownailstudio32",
+    "status": "audited"
+  },
+  {
+    "lead_id": 15,
+    "name": "Пастила",
+    "address": "Киевская ул., 34, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.9,
+    "reviews_count": 116,
+    "website": "https://m.vk.com/pastila32",
+    "status": "audited"
+  },
+  {
+    "lead_id": 16,
+    "name": "Студия красоты Алёны Роговцевой",
+    "address": "Московский пр., 49а, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 263,
+    "website": "https://vk.com/alyona_rogovtseva_32",
+    "status": "audited"
+  },
+  {
+    "lead_id": 17,
+    "name": "Имидж",
+    "address": "Московский пр., 18Б, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.4,
+    "reviews_count": 108,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 18,
+    "name": "Салон маникюра \"Ноктюрн\"",
+    "address": "ул. Транспортная, 2, Брянск, Брянская обл., Россия, 241004",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 1,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 19,
+    "name": "Пальчики",
+    "address": "Московский пр., 5, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.0,
+    "reviews_count": 33,
+    "website": "http://www.palchiki.com/",
+    "status": "no_website"
+  },
+  {
+    "lead_id": 20,
+    "name": "Модная Цирюльня",
+    "address": "ул. Чапаева, 6, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 4.4,
+    "reviews_count": 451,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 21,
+    "name": "Дуэт",
+    "address": "Московский пр., 18, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.6,
+    "reviews_count": 23,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 22,
+    "name": "Mon Plaisir",
+    "address": "ул. Челюскинцев, 11, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 4.5,
+    "reviews_count": 91,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 24,
+    "name": "Мастерская \"Трава\"",
+    "address": "ул. Челюскинцев, д.11, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 4.3,
+    "reviews_count": 12,
+    "website": "http://www.instagram.com/trava_32",
+    "status": "audited"
+  },
+  {
+    "lead_id": 25,
+    "name": "Кристина, Салон Красоты",
+    "address": "Московский пр., 20А, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.3,
+    "reviews_count": 94,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 26,
+    "name": "MOOD",
+    "address": "Московский пр., 10/11, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 269,
+    "website": "https://instagram.com/studio_mood32?igshid=9umgtojkofed",
+    "status": "audited"
+  },
+  {
+    "lead_id": 27,
+    "name": "Клеопатра-Люкс",
+    "address": "строение 1, Московский пр., 86, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 4.5,
+    "reviews_count": 167,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 28,
+    "name": "Ногтевой Сервис",
+    "address": "Новозыбковский пер., 3, Брянск, Брянская обл., Россия, 241004",
+    "category": "beauty",
+    "rating": null,
+    "reviews_count": 0,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 29,
+    "name": "Салон красоты Имидж лаборатория Be happy | коррекция бровей, парикмахерская в Брянске",
+    "address": "Московский пр., 10/11, 1 этаж, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.2,
+    "reviews_count": 5,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 30,
+    "name": "Студия ногтевого сервиса Аванесян Марии",
+    "address": "ул. Тухачевского, 8, Брянск, Брянская обл., Россия, 241020",
+    "category": "other",
+    "rating": null,
+    "reviews_count": 0,
+    "website": "https://vk.com/mariiinogti",
+    "status": "audited"
+  },
+  {
+    "lead_id": 31,
+    "name": "Студия красоты PICASSO",
+    "address": "Московский пр., 106, Брянск, Брянская обл., Россия, 241000",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 51,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 32,
+    "name": "Мастер маникюра и педикюра",
+    "address": "ул. Южная, 50а, Брянск, Брянская обл., Россия, 241039",
+    "category": "other",
+    "rating": null,
+    "reviews_count": 0,
+    "website": "https://vk.com/kris_32_nail",
+    "status": "audited"
+  },
+  {
+    "lead_id": 33,
+    "name": "In Style",
+    "address": "Новозыбковская ул., 14Б, Брянск, Брянская обл., Россия, 241004",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 64,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 34,
+    "name": "Dинара",
+    "address": "Московский пр., 1, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.5,
+    "reviews_count": 6,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 35,
+    "name": "Салон маникюра и педикюра Забота о пальчиках",
+    "address": "пр. Ленина, 39, 2 этаж, 211 студия, гостиница Десна, Брянск, Брянская обл., Россия, 241050",
+    "category": "other",
+    "rating": 4.3,
+    "reviews_count": 58,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 36,
+    "name": "Лагуна",
+    "address": "ул. Менжинского, 8, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 4.5,
+    "reviews_count": 181,
+    "website": "https://2gis.ru/bryansk/firm/8726252559010934",
+    "status": "audited"
+  },
+  {
+    "lead_id": 38,
+    "name": "Салон-парикмахерская \"Гримерка\"",
+    "address": "ул. Белорусская, 30, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.0,
+    "reviews_count": 21,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 40,
+    "name": "Анна-Mi",
+    "address": "ул. Красных Партизан, 9/1, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 4.7,
+    "reviews_count": 28,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 41,
+    "name": "Студия красоты CHIC",
+    "address": "ул. Фокина, 49, Брянск, Брянская обл., Россия, 241050",
+    "category": "beauty",
+    "rating": 4.6,
+    "reviews_count": 438,
+    "website": "https://dikidi.app/1781343",
+    "status": "audited"
+  },
+  {
+    "lead_id": 42,
+    "name": "Империя красоты",
+    "address": "ул. Рылеева, 9, Брянск, Брянская обл., Россия, 241047",
+    "category": "beauty",
+    "rating": 4.4,
+    "reviews_count": 295,
+    "website": "http://beauty-empire32.ru/",
+    "status": "audited"
+  },
+  {
+    "lead_id": 43,
+    "name": "Студия красоты \"Маки\"",
+    "address": "ул. Рылеева, 1, Брянск, Брянская обл., Россия, 241047",
+    "category": "other",
+    "rating": 4.5,
+    "reviews_count": 48,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 46,
+    "name": "Korona Beauty",
+    "address": "Московский пр., 66, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 2,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 47,
+    "name": "Маникюр & педикюр в Брянске | Ногтевая студия Ari Nails",
+    "address": "ул. Красноармейская, 31, оф. 233, Брянск, Брянская обл., Россия, 241050",
+    "category": "other",
+    "rating": 5.0,
+    "reviews_count": 2,
+    "website": "http://arinails.ru/",
+    "status": "audited"
+  },
+  {
+    "lead_id": 48,
+    "name": "студия маникюра \" Berry nail\"",
+    "address": "пр. Ленина, 8 а, Брянск, Брянская обл., Россия, 241000",
+    "category": "other",
+    "rating": 4.8,
+    "reviews_count": 11,
+    "website": "https://instagram.com/berry_nail_32?igshid=uvfnj2sg8weq",
+    "status": "audited"
+  },
+  {
+    "lead_id": 49,
+    "name": "Инесса",
+    "address": "Московский пр., 138А, Брянск, Брянская обл., Россия, 241004",
+    "category": "beauty",
+    "rating": 4.4,
+    "reviews_count": 56,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 50,
+    "name": "Скарлетт",
+    "address": "Московский пр., 15, Брянск, Брянская обл., Россия, 241047",
+    "category": "beauty",
+    "rating": 4.7,
+    "reviews_count": 31,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 55,
+    "name": "Салон Маникюрный",
+    "address": "ул. Грибоедова, 3, 1 этаж, Брянск, Брянская обл., Россия, 241050",
+    "category": "other",
+    "rating": 5.0,
+    "reviews_count": 1,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 57,
+    "name": "Салон красоты Красотория | парикмахерская, маникюр, пилинги Брянск",
+    "address": "б-р Гагарина, 22, 1 этаж, Брянск, Брянская обл., Россия, 241050",
+    "category": "other",
+    "rating": 4.0,
+    "reviews_count": 4,
+    "website": "http://krasotoriya.ru/",
+    "status": "audited"
+  },
+  {
+    "lead_id": 58,
+    "name": "Калинка-Малинка студия красоты",
+    "address": "ул. Горького, 25, Брянск, Брянская обл., Россия, 241050",
+    "category": "other",
+    "rating": 5.0,
+    "reviews_count": 128,
+    "website": "https://www.instagram.com/kalinkamalinka.br/",
+    "status": "agents_rejected"
+  },
+  {
+    "lead_id": 59,
+    "name": "IF Студия",
+    "address": "ул. Костычева, 68, Брянск, Брянская обл., Россия, 241037",
+    "category": "beauty",
+    "rating": 4.9,
+    "reviews_count": 89,
+    "website": "https://new.vk.com/ifstudiobryansk",
+    "status": "audited"
+  },
+  {
+    "lead_id": 60,
+    "name": "Плаза",
+    "address": "Московский пр., 92, Брянск, Брянская обл., Россия, 241004",
+    "category": "beauty",
+    "rating": 4.6,
+    "reviews_count": 310,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 61,
+    "name": "Эстетика маникюра",
+    "address": "ул. Ульянова, 4, Брянск, Брянская обл., Россия, 241035",
+    "category": "other",
+    "rating": 5.0,
+    "reviews_count": 23,
+    "website": "https://esteticamanicura.plp8.ru/",
+    "status": "audited"
+  },
+  {
+    "lead_id": 62,
+    "name": "Красотка, салон красоты",
+    "address": "ул. Тельмана, 7/7, Брянск, Брянская обл., Россия, 241047",
+    "category": "beauty",
+    "rating": 4.3,
+    "reviews_count": 174,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 64,
+    "name": "Косметология",
+    "address": "Московский пр., 81в, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 9,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 65,
+    "name": "Чио Чио, Японская парикмахерская",
+    "address": "Московский пр., 5, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.8,
+    "reviews_count": 582,
+    "website": "http://chio-chio.ru/",
+    "status": "audited"
+  },
+  {
+    "lead_id": 66,
+    "name": "KROCUS",
+    "address": "ул. Полесская, 8А, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.9,
+    "reviews_count": 33,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 67,
+    "name": "ALLURE, салон красоты",
+    "address": "Московский пр., 20-а, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.7,
+    "reviews_count": 3,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 68,
+    "name": "Косметологическая лечебница",
+    "address": "Московский пр., 81, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 4.3,
+    "reviews_count": 8,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 69,
+    "name": "Астория, студия красоты",
+    "address": "Московский пр., 10/11, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 2,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 70,
+    "name": "Студия дизайна взгляда",
+    "address": "Московский пр., 106/4, офис 503, Брянск, Брянская обл., Россия, 241004",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 10,
+    "website": "https://vk.com/darisergeeva_lash",
+    "status": "audited"
+  },
+  {
+    "lead_id": 71,
+    "name": "Парикмахерская BEAUTY",
+    "address": "ул. Менжинского, 4, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 3,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 72,
+    "name": "Инфанта",
+    "address": "ул. Менжинского, 1, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 4.7,
+    "reviews_count": 54,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 73,
+    "name": "Салон \"Зодиак\"",
+    "address": "ул. Челюскинцев, 3, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 2,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 74,
+    "name": "Фортуна",
+    "address": "Московский пр., 24, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.4,
+    "reviews_count": 35,
+    "website": "https://avfortuna32.ru/",
+    "status": "audited"
+  },
+  {
+    "lead_id": 75,
+    "name": "Любава",
+    "address": "Московский пр., 132А, Брянск, Брянская обл., Россия, 241004",
+    "category": "beauty",
+    "rating": 3.8,
+    "reviews_count": 22,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 76,
+    "name": "Апрель",
+    "address": "Московский пр., 34, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.6,
+    "reviews_count": 39,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 77,
+    "name": "студия Красоты Марии Леоновой",
+    "address": "ул. Белорусская, д.32, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 1,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 78,
+    "name": "Купэ",
+    "address": "ул. Луначарского, 45/9, Брянск, Брянская обл., Россия, 241050",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 47,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 79,
+    "name": "ЛОКОН, парикмахерская",
+    "address": "ул. Дзержинского, 7-а, Вход С Торца, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 3.9,
+    "reviews_count": 47,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 80,
+    "name": "Алина",
+    "address": "ул. Октябрьская, 36, Брянск, Брянская обл., Россия, 241050",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 37,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 81,
+    "name": "ЛЮКС, салон-парикмахерская",
+    "address": "Московский пр., 23, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 4.5,
+    "reviews_count": 19,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 82,
+    "name": "Салон красоты Enjoy в Брянске | парикмахерская, массаж, косметология",
+    "address": "ул. Красноармейская, 39, 2 этаж, Брянск, Брянская обл., Россия, 241050",
+    "category": "beauty",
+    "rating": 4.6,
+    "reviews_count": 46,
+    "website": "http://enjoy32.ru",
+    "status": "audited"
+  },
+  {
+    "lead_id": 83,
+    "name": "Салон красоты Модная Цирюльня | парикмахерская, косметология, лазерная эпиляция в Брянске",
+    "address": "ул. Красноармейская, 170 б, 1 этаж, Брянск, Брянская обл., Россия, 241037",
+    "category": "beauty",
+    "rating": 4.3,
+    "reviews_count": 74,
+    "website": "https://modnaya-tsiryulnya.ru/?utm_source=gmb",
+    "status": "audited"
+  },
+  {
+    "lead_id": 84,
+    "name": "Салон красоты Прано | парикмахерская, солярий Брянск",
+    "address": "ул. Фокина, 65, 1 этаж, Брянск, Брянская обл., Россия, 241050",
+    "category": "beauty",
+    "rating": 4.6,
+    "reviews_count": 34,
+    "website": "http://prano32.ru/",
+    "status": "audited"
+  },
+  {
+    "lead_id": 85,
+    "name": "Академия красоты Chantal",
+    "address": "ул. Войстроченко, 6, Брянск, Брянская обл., Россия, 241001",
+    "category": "beauty",
+    "rating": 4.6,
+    "reviews_count": 136,
+    "website": "https://clck.ru/sctxz",
+    "status": "audited"
+  },
+  {
+    "lead_id": 86,
+    "name": "Салон красоты Hair Boutique Arina Bogatyreva",
+    "address": "пр. Станке Димитрова, 20, Брянск, Брянская обл., Россия, 241037",
+    "category": "beauty",
+    "rating": 4.8,
+    "reviews_count": 30,
+    "website": "https://vk.com/krasotabryansk",
+    "status": "audited"
+  },
+  {
+    "lead_id": 87,
+    "name": "Перламутр | Салон красоты Брянск | Маникюр, массаж, лазерная эпиляция",
+    "address": "ул. Дуки, 59/11, 1 этаж, Брянск, Брянская обл., Россия, 241007",
+    "category": "beauty",
+    "rating": 5.0,
+    "reviews_count": 6,
+    "website": "https://perlamutr-centr.ru/?utm_source=gmb",
+    "status": "audited"
+  },
+  {
+    "lead_id": 88,
+    "name": "CHILL beauty studio | Салон красоты Брянск | Коворкинг-центр для бьюти-мастеров",
+    "address": "ул. Войстроченко, 6, 3 помещение, Брянск, Брянская обл., Россия, 241036",
+    "category": "beauty",
+    "rating": 1.7,
+    "reviews_count": 6,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 89,
+    "name": "РиоЛайт",
+    "address": "ул. Ромашина, 27, Брянск, Брянская обл., Россия, 241050",
+    "category": "beauty",
+    "rating": 4.3,
+    "reviews_count": 73,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 90,
+    "name": "Шарм",
+    "address": "ул. Полесская, 8А, Брянск, Брянская обл., Россия, 241029",
+    "category": "beauty",
+    "rating": 1.0,
+    "reviews_count": 94,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 91,
+    "name": "Солярий",
+    "address": "Московский пр., 81/2, Брянск, Брянская обл., Россия, 241020",
+    "category": "beauty",
+    "rating": 3.0,
+    "reviews_count": 1,
+    "website": null,
+    "status": "no_website"
+  },
+  {
+    "lead_id": 92,
+    "name": "Шик",
+    "address": "пр. Станке Димитрова, 67, Брянск, Брянская обл., Россия, 241028",
+    "category": "beauty",
+    "rating": 4.5,
+    "reviews_count": 177,
+    "website": null,
+    "status": "no_website"
+  }
+]

@@ -6,9 +6,25 @@
     "source_url": "https://yandex.ru/maps/org/mood/96195832006/",
     "rating": 5.0,
     "reviews_count": 269,
-    "photos_count": 9,
-    "reviews_list": [],
-    "photos": [],
+    "photos_count": 1,
+    "reviews_list": [
+      {
+        "author": "Ольга Александровна",
+        "text": "Сегодня была записана к начинающему мастеру на маникюр к Анисовой Екатерине. Все отлично было сделано и я осталась довольна. Иногда подходила мастер и контролировала работу, советовала как лучше сделать, так как один ноготь был у меня немного сломан . Так же от…",
+        "rating": null,
+        "date": "2025-09-16",
+        "source": "yandex"
+      }
+    ],
+    "photos": [
+      {
+        "filename": "photo_2.webp",
+        "size_bytes": 87818,
+        "width": 1024,
+        "height": 1024,
+        "original_url": "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018ba575a0cf9df698ac0edd383dd8/XXL_height"
+      }
+    ],
     "services": [
       {
         "name": "Mood5Стрижка: от",
@@ -25,15 +41,23 @@
     ],
     "address": "Брянск, Московский просп., 10/11",
     "phones": [
-      "+7 999 705 00 04",
-      "+7 (999) 705-00-04",
-      "+7 (999) 705-00-04"
+      "8317037-1377",
+      "86184945407",
+      "+7 999 705 00 04"
     ],
     "working_hours": "Закрыто до 10:00 AM",
     "website": "",
     "additional_addresses": [],
-    "scraped_at": "2026-05-05 00:25:23",
-    "yandexReviews": [],
+    "scraped_at": "2026-05-05 02:50:54",
+    "yandexReviews": [
+      {
+        "author": "Ольга Александровна",
+        "text": "Сегодня была записана к начинающему мастеру на маникюр к Анисовой Екатерине. Все отлично было сделано и я осталась довольна. Иногда подходила мастер и контролировала работу, советовала как лучше сделать, так как один ноготь был у меня немного сломан . Так же от…",
+        "rating": null,
+        "date": "2025-09-16",
+        "source": "yandex"
+      }
+    ],
     "serviceCarousel": [
       {
         "name": "Mood5Стрижка: от",
@@ -49,10 +73,11 @@
       }
     ],
     "_meta": {
-      "mode": "light",
-      "has_full": false,
-      "scraped_at": "2026-05-05 00:25:24",
-      "parser_version": "2.0"
+      "mode": "full",
+      "has_full": true,
+      "scraped_at": "2026-05-05 02:50:58",
+      "parser_version": "2.0",
+      "full_scraped_at": "2026-05-05 02:50:58"
     }
   },
   "merged_reviews_count": 3

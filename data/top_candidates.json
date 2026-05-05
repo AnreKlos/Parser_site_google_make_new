@@ -1,0 +1,42 @@
+[
+  {
+    "lead_id": 26,
+    "name": "MOOD",
+    "rating": 5.0,
+    "reviews_count": 266,
+    "photos_count": 13,
+    "website": "https://instagram.com/studio_mood32?igshid=9umgtojkofed"
+  },
+  {
+    "lead_id": 16,
+    "name": "Студия красоты Алёны Роговцевой",
+    "rating": 5.0,
+    "reviews_count": 263,
+    "photos_count": 14,
+    "website": "https://vk.com/alyona_rogovtseva_32"
+  },
+  {
+    "lead_id": 59,
+    "name": "IF Студия",
+    "rating": 4.7,
+    "reviews_count": 89,
+    "photos_count": 11,
+    "website": "https://new.vk.com/ifstudiobryansk"
+  },
+  {
+    "lead_id": 33,
+    "name": "In Style",
+    "rating": 4.6,
+    "reviews_count": 64,
+    "photos_count": 11,
+    "website": ""
+  },
+  {
+    "lead_id": 20,
+    "name": "Модная Цирюльня",
+    "rating": 4.5,
+    "reviews_count": 451,
+    "photos_count": 10,
+    "website": ""
+  }
+]

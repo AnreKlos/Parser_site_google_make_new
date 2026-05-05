@@ -25,10 +25,11 @@ LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 class BatchYandexLight:
-    def __init__(self, limit: int = None, force: bool = False, specific_leads: List[int] = None):
+    def __init__(self, limit: int = None, force: bool = False, specific_leads: List[int] = None, from_file: str = None):
         self.limit = limit
         self.force = force
         self.specific_leads = set(specific_leads) if specific_leads else None
+        self.from_file = from_file
         
         self.total_leads = 0
         self.already_had_data = 0
@@ -50,7 +51,10 @@ class BatchYandexLight:
         
         # Create log file
         timestamp_str = datetime.now().strftime("%Y%m%d_%H%M")
-        self.log_file = LOGS_DIR / f"batch_yandex_light_{timestamp_str}.log"
+        if self.from_file:
+            self.log_file = LOGS_DIR / f"batch_filtered_{timestamp_str}.log"
+        else:
+            self.log_file = LOGS_DIR / f"batch_yandex_light_{timestamp_str}.log"
 
     def log_error(self, lead_id: int, slug: str, error: str):
         """Log an error to the log file."""
@@ -75,6 +79,52 @@ class BatchYandexLight:
 
     async def find_leads_to_process(self):
         """Find all leads that need Yandex light enrichment."""
+        if self.from_file:
+            # Read lead IDs from JSON file
+            await self.find_leads_from_file()
+        else:
+            # Query database for leads
+            await self.find_leads_from_db()
+
+    async def find_leads_from_file(self):
+        """Read lead IDs from JSON file and fetch from DB."""
+        try:
+            with open(self.from_file, "r", encoding="utf-8") as f:
+                filtered_leads = json.load(f)
+        except (json.JSONDecodeError, IOError) as e:
+            print(f"❌ Ошибка чтения файла {self.from_file}: {e}")
+            return
+        
+        lead_ids = [item["lead_id"] for item in filtered_leads if "lead_id" in item]
+        self.total_leads = len(lead_ids)
+        
+        async with get_async_session() as session:
+            for lead_id in lead_ids:
+                result = await session.execute(select(Lead).where(Lead.id == lead_id))
+                lead = result.scalar_one_or_none()
+                
+                if not lead:
+                    print(f"⚠️ Лид ID={lead_id} не найден в БД")
+                    continue
+                
+                slug = slugify_name(lead.name, lead.id)
+                
+                if self.has_yandex_data(slug, lead.id) and not self.force:
+                    self.already_had_data += 1
+                    continue
+                
+                self.to_process.append({
+                    "id": lead.id,
+                    "name": lead.name,
+                    "slug": slug,
+                })
+                
+                # Apply limit if specified
+                if self.limit and len(self.to_process) >= self.limit:
+                    break
+
+    async def find_leads_from_db(self):
+        """Find leads from database."""
         async with get_async_session() as session:
             query = select(Lead)
             
@@ -171,13 +221,15 @@ class BatchYandexLight:
         """Run the batch enrichment."""
         print("=" * 60)
         print("BATCH YANDEX LIGHT")
+        if self.from_file:
+            print(f"Источник: {self.from_file}")
         print("=" * 60)
         
         # Find leads to process
         print("🔍 Поиск лидов для обработки...")
         await self.find_leads_to_process()
         
-        print(f"Всего лидов в БД: {self.total_leads}")
+        print(f"Всего лидов: {self.total_leads}")
         print(f"Уже есть данные: {self.already_had_data} (пропущено)")
         print(f"К обработке: {len(self.to_process)}")
         print()
@@ -236,6 +288,7 @@ class BatchYandexLight:
 def main():
     parser = argparse.ArgumentParser(description="Batch Yandex Light enrichment")
     parser.add_argument("--leads", type=str, help="Specific lead IDs (comma-separated)")
+    parser.add_argument("--from-file", type=str, help="Read lead IDs from JSON file (e.g., data/filtered_leads.json)")
     parser.add_argument("--only-missing", action="store_true", help="Only process leads without Yandex data (default)")
     parser.add_argument("--force", action="store_true", help="Reprocess all leads, overwrite existing data")
     parser.add_argument("--limit", type=int, help="Limit number of leads to process")
@@ -251,11 +304,17 @@ def main():
             print("❌ Неверный формат --leads. Используйте: --leads 20,42,58")
             sys.exit(1)
     
+    # Check for conflicting arguments
+    if args.from_file and args.leads:
+        print("❌ Нельзя использовать --from-file и --leads одновременно")
+        sys.exit(1)
+    
     # Create and run batch
     batch = BatchYandexLight(
         limit=args.limit,
         force=args.force,
-        specific_leads=specific_leads
+        specific_leads=specific_leads,
+        from_file=args.from_file
     )
     
     try:

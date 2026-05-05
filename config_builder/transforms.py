@@ -197,7 +197,7 @@ def normalize_extracted_services(items: List[Dict[str, Any]]) -> List[Dict[str, 
         out.append(
             {
                 "title": title,
-                "short": title,
+                "short": None,
                 "description": description or title,
                 "priceFrom": price or "по запросу",
                 "image": image,
@@ -443,11 +443,18 @@ def merge_services(
             if y_item.get("price"):
                 price_from = y_item["price"]
 
+        # Validate short field to prevent duplicates with title
+        short_clean = short.strip() if short else None
+        if short_clean and len(short_clean) >= 10 and short_clean.lower() != title.lower():
+            result_short = short_clean
+        else:
+            result_short = None
+
         merged.append(
             {
                 "title": title,
-                "short": short or title,
-                "description": description or short or title,
+                "short": result_short,
+                "description": description or result_short,
                 "priceFrom": price_from or "по запросу",
             }
         )
@@ -465,7 +472,7 @@ def merge_services(
         merged.append(
             {
                 "title": name,
-                "short": name,
+                "short": None,
                 "description": generate_neutral_service_description(name),
                 "priceFrom": y_item.get("price") or "по запросу",
             }

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "lead_id": 26,
+  "slug": "mood",
+  "generated_at": "2026-05-06T00:46:45.096180",
+  "qualification": "qualified",
+  "stats": {
+    "total_candidates": 69,
+    "after_dedup": 53,
+    "after_quality_gate": 32,
+    "vision_calls": 53,
+    "vision_failures": 0,
+    "rejected": {
+      "vision_api_failed": 20,
+      "medical_mask": 1
+    }
+  },
+  "blocks": {
+    "hero": {
+      "enabled": true,
+      "photos": [
+        {
+          "path": "/mood-26/hero/photo_1.jpg",
+          "alt": "Результат окрашивания и стрижки волос",
+          "score": 9
+        }
+      ]
+    },
+    "gallery": {
+      "enabled": true,
+      "photos": [
+        {
+          "path": "/mood-26/gallery/photo_1.jpg",
+          "alt": "Окрашивание волос: блонд с плавным переходом оттенков",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/gallery/photo_2.jpg",
+          "alt": "Результат окрашивания и стрижки волос",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/gallery/photo_3.jpg",
+          "alt": "Наращенные ресницы и брови крупным планом",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/gallery/photo_4.jpg",
+          "alt": "Французский маникюр на ухоженных руках в черных перчатках",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/gallery/photo_5.jpg",
+          "alt": "Черный глянцевый маникюр на женских руках",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/gallery/photo_6.jpg",
+          "alt": "Яркий розовый маникюр, выполненный мастером в черной перчатке",
+          "score": 9
+        }
+      ]
+    },
+    "about": {
+      "enabled": true,
+      "photos": [
+        {
+          "path": "/mood-26/about/photo_1.jpg",
+          "alt": "Мастер маникюра работает над ногтями клиента",
+          "score": 7
+        },
+        {
+          "path": "/mood-26/about/photo_2.jpg",
+          "alt": "Рабочее место мастера маникюра в салоне",
+          "score": 7
+        }
+      ]
+    },
+    "services": {
+      "enabled": true,
+      "photos": [
+        {
+          "path": "/mood-26/services/photo_1.jpg",
+          "alt": "Окрашивание волос: блонд с плавным переходом оттенков",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/services/photo_2.jpg",
+          "alt": "Результат окрашивания и стрижки волос",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/services/photo_3.jpg",
+          "alt": "Наращенные ресницы и брови крупным планом",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/services/photo_4.jpg",
+          "alt": "Французский маникюр на ухоженных руках в черных перчатках",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/services/photo_5.jpg",
+          "alt": "Черный глянцевый маникюр на женских руках",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/services/photo_6.jpg",
+          "alt": "Яркий розовый маникюр, выполненный мастером в черной перчатке",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/services/smart-pedikyur-s-pokrytiem-gel-lakom.jpg",
+          "alt": "Педикюр с розовым покрытием и пеной",
+          "score": 9
+        },
+        {
+          "path": "/mood-26/services/naraschivanie-nogtey.jpg",
+          "alt": "Маникюр с градиентом и белым френчем",
+          "score": 9
+        }
+      ]
+    },
+    "team": {
+      "enabled": true,
+      "photos": [
+        {
+          "path": "/mood-26/team/photo_1.jpg",
+          "alt": "Девушка с красивыми светлыми волосами у входа в салон",
+          "score": 8
+        }
+      ]
+    }
+  }
+}

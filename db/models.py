@@ -55,6 +55,7 @@ class Lead(Base):
     raw_reviews = Column(Text, nullable=True)
     site_config_path = Column(Text, nullable=True)  # Путь к JSON конфигу сайта
     category = Column(String(100), nullable=True, default="other")  # Категория/ниша лида
+    qualification_status = Column(String(50), nullable=True, default="pending")  # Статус квалификации для фото-обогащения
     created_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 

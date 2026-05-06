@@ -431,6 +431,19 @@ def parse_russian_date(text: str) -> Optional[str]:
     if match:
         return match.group(0)
     
+    # Формат: "10 февраля" (без года) — fallback на текущий или прошлый год
+    match = re.search(r"^\s*(\d{1,2})\s+([а-яё]+)\s*$", text.strip(), flags=re.IGNORECASE)
+    if match:
+        day, month = match.groups()
+        month_num = months.get(month.lower())
+        if month_num:
+            from datetime import date as _date
+            today = _date.today()
+            year = today.year
+            if int(month_num) > today.month:
+                year -= 1
+            return f"{year}-{month_num}-{day.zfill(2)}"
+    
     return None
 
 
@@ -890,13 +903,35 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None, mode: Lite
 
             # Only scroll and load more reviews in full mode
             if mode == "full":
-                for _ in range(12):
+                prev_count = 0
+                stable_iterations = 0
+                for i in range(25):
                     try:
-                        await page.get_by_text("Показать ещё", exact=False).first.click(timeout=700)
+                        await page.get_by_text("Показать ещё", exact=False).first.click(timeout=500)
                     except Exception:
                         pass
-                    await page.mouse.wheel(0, random.randint(1300, 2200))
-                    await page.wait_for_timeout(random.randint(900, 1700))
+                    
+                    new_count = await page.evaluate(
+                        """() => {
+                            const scroller = document.querySelector(
+                                "[class*='scroll__container'], [class*='business-reviews-card-view']"
+                            );
+                            if (scroller) scroller.scrollBy(0, 1500);
+                            window.scrollBy(0, 800);
+                            return document.querySelectorAll("[itemprop='review'], div[class*='business-review-view_']").length;
+                        }"""
+                    )
+                    
+                    await page.wait_for_timeout(random.randint(800, 1400))
+                    
+                    if new_count == prev_count:
+                        stable_iterations += 1
+                        if stable_iterations >= 3:
+                            write_log(f"📜 Скролл стабилизировался на {new_count} отзывах после {i+1} итераций")
+                            break
+                    else:
+                        stable_iterations = 0
+                    prev_count = new_count
 
             raw = await page.evaluate(
                 r"""
@@ -1025,25 +1060,41 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None, mode: Lite
                   })();
 
                   const reviewsRaw = [];
-                  const reviewBlocks = document.querySelectorAll(
-                    "[class*='business-review-view'], [class*='review-snippet-view'], [itemprop='review'], [class*='review-view']"
+                  const seenTexts = new Set();
+                  const allBlocks = document.querySelectorAll(
+                    "[itemprop='review'], div[class*='business-review-view_'], article[class*='business-review']"
                   );
 
-                  for (const block of reviewBlocks) {
-                    const authorEl = block.querySelector("[class*='author'], [class*='name']");
-                    const textEl = block.querySelector("[itemprop='reviewBody'], [class*='review-text'], [class*='business-review-view__body'], [class*='business-review-view__body-text'], [class*='comment-text']");
-                    const dateEl = block.querySelector("[class*='date']");
+                  for (const block of allBlocks) {
+                    const authorEl = block.querySelector(
+                      "[itemprop='name'], [class*='business-review-view__author']"
+                    );
+                    const textEl = block.querySelector(
+                      "[itemprop='reviewBody'], [class*='business-review-view__body-text'], [class*='business-review-view__body']"
+                    );
+                    const dateEl = block.querySelector(
+                      "[class*='business-review-view__date'], meta[itemprop='datePublished']"
+                    );
                     const ratingEl = block.querySelector("[aria-label*='из 5'], [class*='rating']");
 
-                    const author = (authorEl?.textContent || '').trim();
-                    const text = (textEl?.textContent || block.textContent || '').trim();
-                    const date = (dateEl?.textContent || '').trim();
+                    if (!authorEl || !textEl) continue;
+
+                    const author = (authorEl.textContent || '').trim();
+                    const text = (textEl.textContent || '').trim();
+                    const date = dateEl 
+                      ? (dateEl.getAttribute('content') || dateEl.textContent || '').trim() 
+                      : '';
                     const rating = (ratingEl?.getAttribute('aria-label') || ratingEl?.textContent || '').trim();
 
-                    if (text && text.length > 6 && text.toLowerCase() !== author.toLowerCase()) {
-                      reviewsRaw.push({ author, text, date, rating });
-                    }
-                    if (reviewsRaw.length >= 30) break;
+                    if (text.length < 30) continue;
+                    if (text.toLowerCase() === author.toLowerCase()) continue;
+
+                    const key = text.substring(0, 80).toLowerCase();
+                    if (seenTexts.has(key)) continue;
+                    seenTexts.add(key);
+
+                    reviewsRaw.push({ author, text, date, rating });
+                    if (reviewsRaw.length >= 60) break;
                   }
 
                   const images = uniq(
@@ -1155,6 +1206,20 @@ async def scrape_yandex_card(url: str, lead_id: Optional[int] = None, mode: Lite
                 """
             )
 
+            # Принудительно запрашиваем XXL_height для всех фото
+            if isinstance(raw.get("photos"), list):
+                normalized_photos = []
+                for url in raw["photos"]:
+                    if not isinstance(url, str) or not url.startswith("http"):
+                        continue
+                    stripped = re.sub(
+                        r"/(S|M|L|XL|XXL|M_height|L_height|XL_height|XXL_height|orig)$",
+                        "",
+                        url
+                    )
+                    normalized_photos.append(stripped.rstrip("/") + "/XXL_height")
+                raw["photos"] = normalized_photos
+
             if await has_captcha_signals(page):
                 await save_session_state(context)
                 write_captcha_log(lead_id, page.url)
@@ -1261,7 +1326,9 @@ async def enrich_lead(lead_id: int, force: bool = False, mode: Literal["light", 
         city = detect_city(lead.address)
 
         slug = slugify_name(lead_name, lead_id)
-        out_path = YANDEX_DATA_DIR / f"{slug}-{lead_id}.json"
+        lead_dir = YANDEX_DATA_DIR / f"{slug}-{lead_id}"
+        lead_dir.mkdir(parents=True, exist_ok=True)
+        out_path = lead_dir / "card_v1.json"
 
         # Check if file exists and its _meta
         existing_payload = read_cached_payload(out_path)
@@ -1394,7 +1461,7 @@ async def enrich_lead(lead_id: int, force: bool = False, mode: Literal["light", 
     return summarize_result_from_payload(payload, out_path, cached=False)
 
 
-def run_batch(lead_ids: List[int], force: bool = False) -> int:
+def run_batch(lead_ids: List[int], force: bool = False, mode: str = "light") -> int:
     if len(lead_ids) > MAX_LEADS_PER_RUN:
         safe_print(f"❌ Превышен лимит: максимум {MAX_LEADS_PER_RUN} лидов за запуск")
         return 1
@@ -1404,12 +1471,12 @@ def run_batch(lead_ids: List[int], force: bool = False) -> int:
 
     for idx, lead_id in enumerate(lead_ids, start=1):
         safe_print("=" * 60)
-        safe_print(f"🗺 Yandex Enricher | лид {idx}/{len(lead_ids)} | ID={lead_id}")
+        safe_print(f"🗺 Yandex Enricher | лид {idx}/{len(lead_ids)} | ID={lead_id} | mode={mode}")
         safe_print("=" * 60)
 
         lead_start = time.perf_counter()
         try:
-            result = asyncio.run(enrich_lead(lead_id, force=force))
+            result = asyncio.run(enrich_lead(lead_id, force=force, mode=mode))
             if result:
                 lead_secs = time.perf_counter() - lead_start
                 cache_label = " (cache)" if result.get("cached") else ""
@@ -1444,9 +1511,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Yandex Maps Enricher (scraping, no API)")
     parser.add_argument("lead_ids", nargs="+", type=int, help="Lead ID(s) из БД")
     parser.add_argument("--force", action="store_true", help="Игнорировать кеш 24ч и выполнить свежий прогон")
+    parser.add_argument("--mode", choices=["light", "full"], default="light", help="Режим скрапинга: light (быстро, без фото) или full (полный, с фото)")
     args = parser.parse_args()
 
-    exit_code = run_batch(args.lead_ids, force=args.force)
+    exit_code = run_batch(args.lead_ids, force=args.force, mode=args.mode)
     sys.exit(exit_code)
 
 

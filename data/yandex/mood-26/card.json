@@ -1,0 +1,776 @@
+{
+  "schema_version": 2,
+  "lead_id": 26,
+  "slug": "mood",
+  "scraped_at": "2026-05-06T00:40:16",
+  "source_url": "https://yandex.ru/maps/org/mood/96195832006/?lang=ru",
+  "org_id": "96195832006",
+  "title": "Mood",
+  "short_title": "Mood",
+  "rating": 5.0,
+  "rating_count": 269,
+  "review_count": 169,
+  "verified_owner": true,
+  "good_place_year": "2026",
+  "address": {
+    "full": "Брянск, Московский проспект, 10/11",
+    "country": "Россия",
+    "locality": "Брянск",
+    "street": "Московский проспект",
+    "house": "10/11",
+    "additional": "этаж 1",
+    "postal_code": "241029"
+  },
+  "coordinates": {
+    "lng": 34.38851,
+    "lat": 53.218046
+  },
+  "phones": [
+    "+7 (999) 705-00-04"
+  ],
+  "working_hours": {
+    "text": "ежедневно, 10:00 AM–8:00 PM",
+    "by_day": [
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ]
+    ],
+    "is_open_now": false,
+    "unusual_hours": [
+      "2026-05-01",
+      "2026-05-09",
+      "2026-05-11"
+    ]
+  },
+  "urls": {
+    "website": "https://mood-moskovskij-prospekt.clients.site/",
+    "taplink": "https://taplink.cc/nikitina_lyuda",
+    "vk": "https://vk.com/mood32",
+    "whatsapp": "https://wa.me/79997050004",
+    "booking": "https://dikidi.ru/1188146",
+    "all": [
+      "https://taplink.cc/nikitina_lyuda",
+      "https://mood-moskovskij-prospekt.clients.site/"
+    ]
+  },
+  "logo_url": "https://avatars.mds.yandex.net/get-altay/17863912/2a0000019a294d42eb44418493d8a83ac70e/orig",
+  "services": [
+    {
+      "title": "SMART педикюр без покрытия гель-лаком",
+      "description": "У нас в салоне есть грейдирование мастеров . Мастера  , топ-мастера  . \nВсе специалисты проходят регулярные обучения и повышения квалификации.\nПо стоимости вы можете проконсультироваться у администратора.",
+      "price": 1500,
+      "price_text": "1500 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/2791887/2a0000019706497a569589f4319a429a6a12/orig"
+    },
+    {
+      "title": "SMART педикюр с покрытием гель-лаком",
+      "description": "У нас в салоне есть грейдирование мастеров . Мастера  , топ-мастера  . \nВсе специалисты проходят регулярные обучения и повышения квалификации.\nПо стоимости вы можете проконсультироваться у администратора.",
+      "price": 2000,
+      "price_text": "2000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7/orig"
+    },
+    {
+      "title": "Обработка пальчиков с покрытием",
+      "description": "У нас в салоне есть грейдирование мастеров . Мастера  , топ-мастера  . \nВсе специалисты проходят регулярные обучения и повышения квалификации.\nПо стоимости вы можете проконсультироваться у администратора.",
+      "price": 1600,
+      "price_text": "1600 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8/orig"
+    },
+    {
+      "title": "Маникюр классический",
+      "description": "У нас в салоне есть грейдирование мастеров . Мастера  , топ-мастера  . \nВсе специалисты проходят регулярные обучения и повышения квалификации.\nПо стоимости вы можете проконсультироваться у администратора.",
+      "price": 1000,
+      "price_text": "1000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/1530321/2a0000019a2f042cdae83e8a23834102f222/orig"
+    },
+    {
+      "title": "Наращивание ногтей",
+      "description": "У нас в салоне есть грейдирование мастеров . Мастера  , топ-мастера  . \nВсе специалисты проходят регулярные обучения и повышения квалификации.\nПо стоимости вы можете проконсультироваться у администратора.",
+      "price": 2200,
+      "price_text": "2200 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/13672565/2a0000019a2f067dbd0690d6563265f3aa84/orig"
+    },
+    {
+      "title": "снятие нашего покрытия + маникюр + покрытие однотонное",
+      "description": "У нас в салоне есть грейдирование мастеров . Мастера  , топ-мастера  . \nВсе специалисты проходят регулярные обучения и повышения квалификации.\nПо стоимости вы можете проконсультироваться у администратора.",
+      "price": 1800,
+      "price_text": "1800 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/3912342/2a0000019a2f08a071d9033a9e955e6d48b2/orig"
+    },
+    {
+      "title": "Однотонное глянцевое окрашивание",
+      "description": "Цена зависит от длины , густоты и исходного цвета волос. \nТак же у нас в салоне есть грейдирование мастеров . Мастера  , топ-мастера , мастера-эксперты . \nВсе специалисты проходят регулярные обучения и повышения квалификации.\nПо стоимости вы может...",
+      "price": 5000,
+      "price_text": "5000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/13059590/2a0000018fabfbcac32c346804f695182c89/orig"
+    },
+    {
+      "title": "Airtouch",
+      "description": "Цена зависит от длины , густоты и исходного цвета волос. \nТак же у нас в салоне есть грейдирование мастеров . Мастера  , топ-мастера , мастера-эксперты . \nВсе специалисты проходят регулярные обучения и повышения квалификации.\nПо стоимости вы может...",
+      "price": 8000,
+      "price_text": "8000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/13852611/2a0000019a2bce483165637898e5decc37e4/orig"
+    },
+    {
+      "title": "Выход из темного",
+      "description": "Цена зависит от длины , густоты и исходного цвета волос. \nТак же у нас в салоне есть грейдирование мастеров . Мастера  , топ-мастера , мастера-эксперты . \nВсе специалисты проходят регулярные обучения и повышения квалификации.\nПо стоимости вы может...",
+      "price": 9000,
+      "price_text": "9000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/2994796/2a0000019a2ef7ae9e6935df524d9b334336/orig"
+    },
+    {
+      "title": "Мелирование",
+      "description": "Цена зависит от длины , густоты и исходного цвета волос. \nТак же у нас в салоне есть грейдированмастеров . Мастера  , топ-мастера , мастера-эксперты . \nВсе специалисты проходят регулярные обучения и повышения квалификации.",
+      "price": 4000,
+      "price_text": "4000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/3912342/2a0000019a2f002e8135ea5f1804d8de7351/orig"
+    }
+  ],
+  "services_total_count": 16,
+  "features_categorized": {
+    "services": [
+      "косметологические услуги: наращивание ресниц, окрашивание бровей/ресниц, коррекция бровей",
+      "маникюр",
+      "педикюр",
+      "парикмахерские услуги: окрашивание, тонирование, колорирование, лечение волос, мелирование, диагностика состояния волос, осветление , сложное окрашивание, кератиновое выпрямление, контуринг волос",
+      "для ногтей: женский педикюр, женский маникюр, мужской маникюр, мужской педикюр, дизайн ногтей, детский маникюр, аппаратный педикюр, аппаратный маникюр, комби маникюр, комби педикюр, smart-педикюр",
+      "услуги салона: маникюр, лечение волос и кожи головы, наращивание ресниц, наращивание ногтей, педикюр, ботокс волос, мытье волос, спа для лица"
+    ],
+    "prices": [
+      "классический женский маникюр с покрытием: 1600–2000 ₽",
+      "цена женской стрижки: от 500 ₽"
+    ],
+    "general": [
+      "способ оплаты: наличными, оплата картой, безналичная, онлайн, QR-код",
+      "подарочный сертификат",
+      "акции: акции, скидки, спецпредложения",
+      "Оплата картой",
+      "Wi-Fi",
+      "парковка"
+    ],
+    "accessibility": [
+      "wheelchair_accessability",
+      "доступность входа на инвалидной коляске: доступно",
+      "доступность помещения на инвалидной коляске: частично доступно"
+    ],
+    "achievements": [
+      "good_place"
+    ]
+  },
+  "aspects": [
+    {
+      "id": "3502044050",
+      "text": "Персонал",
+      "count": 163,
+      "positive": 158,
+      "neutral": 1,
+      "negative": 4,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/16413591/2a0000019a2950b3d8c40b463447688a53eb/orig",
+        "https://avatars.mds.yandex.net/get-altay/17843434/2a0000019a2950aa359e13d32d55de42326e/orig",
+        "https://avatars.mds.yandex.net/get-altay/16920891/2a0000019a2950a7e6e85a3284b9c0c26637/orig",
+        "https://avatars.mds.yandex.net/get-altay/16470051/2a0000019a2950a80db8794bb1398d597065/orig",
+        "https://avatars.mds.yandex.net/get-altay/16379675/2a0000019a2950b39ef4747a0017ab239b2e/orig",
+        "https://avatars.mds.yandex.net/get-altay/16378552/2a0000019a2950a88f29ef4a9fce713416fd/orig",
+        "https://avatars.mds.yandex.net/get-altay/11093519/2a0000018ba58478ded80bbcf080e55b294f/orig"
+      ]
+    },
+    {
+      "id": "3502204799",
+      "text": "Компетентность",
+      "count": 73,
+      "positive": 71,
+      "neutral": 0,
+      "negative": 2,
+      "photos": []
+    },
+    {
+      "id": "3502086898",
+      "text": "Окрашивание волос",
+      "count": 61,
+      "positive": 60,
+      "neutral": 0,
+      "negative": 1,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/16823151/2a000001994ce7aab9cfcc5ed8b42408477e/orig",
+        "https://avatars.mds.yandex.net/get-altay/18143431/2a0000019bc1a325fa594a67bb2dfc66bbf1/orig",
+        "https://avatars.mds.yandex.net/get-altay/6774966/2a0000018e7b92b5d64cc00f140e1c139a21/orig",
+        "https://avatars.mds.yandex.net/get-altay/10494556/2a0000018e6f987b8df79e822376fc61404b/orig",
+        "https://avatars.mds.yandex.net/get-altay/12851611/2a0000018e5c741779244bdb7eca970f42e4/orig",
+        "https://avatars.mds.yandex.net/get-altay/9831711/2a0000018e6f975f4c2de4148206ccb04b2c/orig",
+        "https://avatars.mds.yandex.net/get-altay/15389657/2a00000197c0f040ff9375dfd3a26789988d/orig",
+        "https://avatars.mds.yandex.net/get-altay/16634215/2a000001994ce7a0122295872c22b8a03755/orig",
+        "https://avatars.mds.yandex.net/get-altay/16480550/2a000001994ce7bc69f5567f76f0418473e0/orig",
+        "https://avatars.mds.yandex.net/get-altay/18708590/2a0000019bc1a313cb5f2baa5134a534f238/orig"
+      ]
+    },
+    {
+      "id": "3502044230",
+      "text": "Атмосфера",
+      "count": 56,
+      "positive": 56,
+      "neutral": 0,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/16771051/2a0000019a294e972bf63a5a425737af953c/orig",
+        "https://avatars.mds.yandex.net/get-altay/18703564/2a0000019bc1a5e79ebbbf44a067c6fedd08/orig",
+        "https://avatars.mds.yandex.net/get-altay/16451941/2a0000019a294e8eb4010509ccb2cc1d3799/orig",
+        "https://avatars.mds.yandex.net/get-altay/14336229/2a0000019a294e96f519eb3b72d749da59e2/orig",
+        "https://avatars.mds.yandex.net/get-altay/16123546/2a0000019a294e98c552a8c7687b08a96574/orig",
+        "https://avatars.mds.yandex.net/get-altay/16378552/2a0000019a2950a88f29ef4a9fce713416fd/orig",
+        "https://avatars.mds.yandex.net/get-altay/17679358/2a0000019a294e8e8a3d06d081ed2cb0a7f1/orig",
+        "https://avatars.mds.yandex.net/get-altay/16437561/2a0000019a294e8bd1c24ba10388ba1592f7/orig",
+        "https://avatars.mds.yandex.net/get-altay/16319048/2a0000019a294e8cc15ebf1e8725bc096023/orig",
+        "https://avatars.mds.yandex.net/get-altay/16914582/2a0000019a294f6ca044782d818352c483b0/orig"
+      ]
+    },
+    {
+      "id": "3502086903",
+      "text": "Уход за ресницами",
+      "count": 30,
+      "positive": 26,
+      "neutral": 1,
+      "negative": 3,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/16413591/2a0000019a2950b8014eba12c8fdf710f2bf/orig",
+        "https://avatars.mds.yandex.net/get-altay/9663145/2a0000018ba575b88e83df2b5ac592c21a6f/orig",
+        "https://avatars.mds.yandex.net/get-altay/14782168/2a0000019a2950a7d96301f411993cccaf76/orig",
+        "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018ba575a0cf9df698ac0edd383dd8/orig",
+        "https://avatars.mds.yandex.net/get-altay/11072941/2a0000018ba57585ad0901df3e1cb1773382/orig",
+        "https://avatars.mds.yandex.net/get-altay/16379675/2a0000019a2950b39ef4747a0017ab239b2e/orig",
+        "https://avatars.mds.yandex.net/get-altay/14336229/2a0000019a2950b75a8faab4ad946d68e169/orig"
+      ]
+    },
+    {
+      "id": "3502086906",
+      "text": "Наращивание ресниц",
+      "count": 30,
+      "positive": 27,
+      "neutral": 0,
+      "negative": 3,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/9663145/2a0000018ba575b88e83df2b5ac592c21a6f/orig",
+        "https://avatars.mds.yandex.net/get-altay/16413591/2a0000019a2950b8014eba12c8fdf710f2bf/orig",
+        "https://avatars.mds.yandex.net/get-altay/14782168/2a0000019a2950a7d96301f411993cccaf76/orig",
+        "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018ba575a0cf9df698ac0edd383dd8/orig",
+        "https://avatars.mds.yandex.net/get-altay/11072941/2a0000018ba57585ad0901df3e1cb1773382/orig"
+      ]
+    },
+    {
+      "id": "3502066474",
+      "text": "Маникюр",
+      "count": 29,
+      "positive": 23,
+      "neutral": 4,
+      "negative": 2,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/16333276/2a000001994ce8804c1345f63d2114177868/orig",
+        "https://avatars.mds.yandex.net/get-altay/18005133/2a000001994ce881cfe15abbd37f4bacd44b/orig",
+        "https://avatars.mds.yandex.net/get-altay/11368589/2a0000018ba575d4b01ca86a9bbd3cc83ce4/orig",
+        "https://avatars.mds.yandex.net/get-altay/16137047/2a000001994ce88075be0c7eb74aa7a693a2/orig",
+        "https://avatars.mds.yandex.net/get-altay/17679358/2a00000198f5cdb0024da32fb5e543752917/orig",
+        "https://avatars.mds.yandex.net/get-altay/16480821/2a00000198e6f9b873d399ab5c533998b314/orig",
+        "https://avatars.mds.yandex.net/get-altay/10703420/2a0000018ba575ee8daa27ea20161ef0cdb1/orig",
+        "https://avatars.mds.yandex.net/get-altay/10445027/2a0000018bafdbf4da765c8f73f4c0c90a9c/orig",
+        "https://avatars.mds.yandex.net/get-altay/14907397/2a000001994ce883e16fbbf40512c657f7df/orig",
+        "https://avatars.mds.yandex.net/get-altay/16478002/2a000001994ce8803b343769f53a4db9c631/orig"
+      ]
+    },
+    {
+      "id": "3502044686",
+      "text": "Время ожидания",
+      "count": 23,
+      "positive": 22,
+      "neutral": 1,
+      "negative": 0,
+      "photos": []
+    },
+    {
+      "id": "3502044082",
+      "text": "Кофе",
+      "count": 22,
+      "positive": 17,
+      "neutral": 5,
+      "negative": 0,
+      "photos": []
+    },
+    {
+      "id": "3502043730",
+      "text": "Интерьер",
+      "count": 12,
+      "positive": 12,
+      "neutral": 0,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/16771051/2a0000019a294e972bf63a5a425737af953c/orig",
+        "https://avatars.mds.yandex.net/get-altay/16123546/2a0000019a294e98c552a8c7687b08a96574/orig",
+        "https://avatars.mds.yandex.net/get-altay/14336229/2a0000019a294e96f519eb3b72d749da59e2/orig",
+        "https://avatars.mds.yandex.net/get-altay/18703564/2a0000019bc1a5e79ebbbf44a067c6fedd08/orig",
+        "https://avatars.mds.yandex.net/get-altay/15388054/2a0000019a294e977a6861c85ac216f3293f/orig",
+        "https://avatars.mds.yandex.net/get-altay/17679358/2a0000019a294e8e8a3d06d081ed2cb0a7f1/orig",
+        "https://avatars.mds.yandex.net/get-altay/16451941/2a0000019a294e8eb4010509ccb2cc1d3799/orig",
+        "https://avatars.mds.yandex.net/get-altay/16378552/2a0000019a2950a88f29ef4a9fce713416fd/orig",
+        "https://avatars.mds.yandex.net/get-altay/16437561/2a0000019a294e8bd1c24ba10388ba1592f7/orig",
+        "https://avatars.mds.yandex.net/get-altay/16319048/2a0000019a294e8cc15ebf1e8725bc096023/orig"
+      ]
+    }
+  ],
+  "videos": [
+    {
+      "id": "vplvfgmdtqv3hxrk7ybe",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/16499410/2a0000019a2952de4201016a7f6d3579a56c/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvfgmdtqv3hxrk7ybe",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "id": "vplv7mdxhwtpyl67nqtz",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/13740974/2a0000019bc1a37989ecae8b5371c7a4ea53/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplv7mdxhwtpyl67nqtz",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplv5wdohxfmlltrx2f7",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/16401881/2a0000019bc1a0b3e0f73137bc1a1d8a21de/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplv5wdohxfmlltrx2f7",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "id": "vplvygldykd2fctcdpbk",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/6549758/2a0000018e5c73ee9837a34555b51b98a46e/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvygldykd2fctcdpbk",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvujdq5igwco56uvsq",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/13965829/2a0000019be709a8939eb8f8389b64965d57/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvujdq5igwco56uvsq",
+      "width": 1438,
+      "height": 2558
+    },
+    {
+      "id": "vplvsytyzl23muzs6a6d",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/14711823/2a000001994ce620ab92a862aaa6a882acca/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvsytyzl23muzs6a6d",
+      "width": 2160,
+      "height": 3840
+    },
+    {
+      "id": "vplvvlixbuckphhvh3ae",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/14711823/2a0000019ae931645ac4e11acec3dd32ee40/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvvlixbuckphhvh3ae",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvyonjqo4o4oq5rlfj",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/16277283/2a000001994cec82cec4cb94936a195a63d4/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvyonjqo4o4oq5rlfj",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvgxsrl7vtqc4fzywz",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/10268831/2a0000019ae933a8b2a765b5e6e3d06a9865/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvgxsrl7vtqc4fzywz",
+      "width": 1080,
+      "height": 1920
+    }
+  ],
+  "reviews_preview": [
+    {
+      "review_id": "uxNHV-S1JiCJ4HkbvV_2Bxpo2cvucqaN",
+      "author": "Альбина Можаева",
+      "text": "Обслуживание очень хорошее,Настя- мастер своего дела, хожу к Насте 5год,мне очень нравится,делает ресницы качественно и быстро. Хожу с ресницами 1,5-2 месяца. Я очень довольна работой своего мастера, рекомендую. В салоне прекрасная атмосфера, лёгкая музыка, просто лежишь и наслаждаешься, а встаёшь уже красивая с ресницами. Девочки все вежливые и приятные. Предлагают горячие напитки: кофе, чай. Очень мне понравился кофе с корицей, огонь. Спасибо Александре, очень мне было вкусно. Всем знакомым буду рекомендовать салон красоты Mood.",
+      "rating": 5,
+      "date": "2026-02-10",
+      "photos": [],
+      "business_reply": "Спасибо большое за ваш тёплый отзыв 🌸\nБудем рады видеть вас снова 🙏🏽♥️"
+    },
+    {
+      "review_id": "ruGBrsrgr7SbisBJ5oylqKRBuE3y-Qj",
+      "author": "Александра",
+      "text": "Сегодня была на окрашивании волос после долгого перерыва в технике Airtouch, и хочется поблагодарить топ специалиста Марию! \nПодобранный цвет для тонирования, техника окрашивания и состояние волос после процедуры просто идеальное👍🏼. Мне кажется я нашла своего мастера 🫶🏼\nОднозначно рекомендую тем,кто хочет сделать сложное окрашивание. \nМария - очень грамотный высококвалифицированный профессионал своего дела!❤️",
+      "rating": 5,
+      "date": "2026-02-15",
+      "photos": [],
+      "business_reply": "Спасибо большое за ваш тёплый отзыв 🌸\nБудем рады видеть вас снова 🙏🏽♥️"
+    },
+    {
+      "review_id": "Tm4TUPX61tdrXgq9-5lwZLMchupU2vf5",
+      "author": "Ольга Александровна",
+      "text": "Сегодня была записана  к начинающему мастеру на маникюр к Анисовой Екатерине. Все отлично было сделано и я осталась довольна. Иногда подходила мастер и контролировала работу, советовала как лучше сделать, так как один ноготь был у меня немного сломан . Так же от большого количества цветов не могла подобрать каким покрасить (глаза разбегаются, и хочется всеми накрасить), но помогли подобрать. В салоне очень чисто, играла легкая музыка. Весь персонал очень приветливый. Расположение салона в удобном месте. Мягкая мебель, удобные кресла. Еще мне понравились то что пришла девушка на стрижку и окрашивание волос, так мастер как только подстригла, то сразу убрала и только потом начала делать окрашивание волос. И это большой плюс. Большое вам спасибо за оказанную услугу.\nДелала 26 августа  сегодня 16 сентября маникюр все еще держится только ногти отросли)). После такого срока 22 дня , могу сказать, что маникюр сделан качественно. И если бы еще раз пригласили бы на 💅 с удовольствием согласилась бы.",
+      "rating": 5,
+      "date": "2025-09-16",
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/16480821/2a00000198e6f9b873d399ab5c533998b314/orig"
+      ],
+      "business_reply": "Спасибо большое за ваш тёплый отзыв 🌸\nБудем рады видеть вас снова 🙏🏽♥️"
+    }
+  ],
+  "reviews_total_count": 169,
+  "discoveries": [
+    {
+      "alias": "podborka_krasota_manikyur_bryansk-191",
+      "title": "Салоны красоты и ногтевые студии Брянска: услуги маникюра",
+      "place_number": 50,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_manikyur_r-n-fokinskij-bryansk-191",
+      "title": "Салоны и студии маникюра в районе Фокинский (Брянск)",
+      "place_number": 15,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_narashhivanie-resnic_r-n-fokinskij-bryansk-191",
+      "title": "Салоны красоты с наращиванием ресниц в Фокинском районе Брянска",
+      "place_number": 3,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_okrashivanie-volos_bryansk-191",
+      "title": "Салоны красоты Брянска: профессиональное окрашивание волос",
+      "place_number": 5,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_okrashivanie_bryansk-191",
+      "title": "Салоны красоты Брянска с услугами окрашивания волос",
+      "place_number": 23,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_pedikyur_bryansk-191",
+      "title": "Салоны и студии педикюра в Брянске",
+      "place_number": 45,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_resnicy_bryansk-191",
+      "title": "Салоны красоты в Брянске: услуги по работе с ресницами",
+      "place_number": 29,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_resnicy_r-n-fokinskij-bryansk-191",
+      "title": "Салоны красоты в Брянске (Фокинский район): услуги по наращиванию и уходу за ресницами",
+      "place_number": 6,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_volosy_bryansk-191",
+      "title": "Салоны красоты Брянска: уход и преображение волос",
+      "place_number": 17,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "khoroshee-mesto_salon-krasoty_bryansk-191",
+      "title": "Салоны красоты с наградой «Хорошее место 2026» в Брянске",
+      "place_number": 20,
+      "partner": "Хорошее место"
+    }
+  ],
+  "histogram": {
+    "wednesday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.009405819545195208,
+      0.013301817589045563,
+      0.014695574211427174,
+      0.01539652783437933,
+      0.014948243540630858,
+      0.013888662482679923,
+      0.014010921835520416,
+      0.015331322846197735,
+      0.015143858505175646,
+      0.010734371179395224,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sunday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.009389518298149808,
+      0.013383323824272556,
+      0.014418453011655391,
+      0.014027223082565817,
+      0.013424076941886054,
+      0.013815306870975631,
+      0.013578938788817344,
+      0.01282093080120629,
+      0.012731273942456597,
+      0.009593283886217295,
+      0,
+      0,
+      0,
+      0
+    ],
+    "friday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.010489852473714239,
+      0.014345097399951096,
+      0.01540467845790203,
+      0.015779607139946205,
+      0.01648871138642106,
+      0.01525796723449344,
+      0.014067976200179313,
+      0.014801532317222268,
+      0.013701198141657836,
+      0.01031053875621485,
+      0,
+      0,
+      0,
+      0
+    ],
+    "tuesday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.008598907816447957,
+      0.012405249001548619,
+      0.013554486918249245,
+      0.014125030564838211,
+      0.014043524329611215,
+      0.013521884424158448,
+      0.014157633058929007,
+      0.014899339799494662,
+      0.012796478930638193,
+      0.008802673404515446,
+      0,
+      0,
+      0,
+      0
+    ],
+    "monday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.010171978156328958,
+      0.014548862988018583,
+      0.01712446002119162,
+      0.016888091939033338,
+      0.016154535821990383,
+      0.016154535821990383,
+      0.017051104409487323,
+      0.016814736327329043,
+      0.015649197163583015,
+      0.011394571684733882,
+      0,
+      0,
+      0,
+      0
+    ],
+    "thursday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.01060396120303203,
+      0.014092428070747412,
+      0.014850436058358464,
+      0.014434754258700791,
+      0.01476892982313147,
+      0.015583992175401417,
+      0.016089330833808785,
+      0.016284945798353573,
+      0.015160159752221045,
+      0.009658488874398892,
+      0,
+      0,
+      0,
+      0
+    ],
+    "saturday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.012470453989730214,
+      0.016708778221533948,
+      0.01729562311516831,
+      0.016782133833238243,
+      0.015282419105061536,
+      0.014336946776428397,
+      0.01397016871790692,
+      0.013472980683022252,
+      0.012038470943027142,
+      0.008933083380878637,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "panorama": {
+    "preview_url": "https://static-pano.maps.yandex.ru/v1/?panoid=1278875000_699215662_23_1594110240&size=500%2C240&azimuth=85.719057&tilt=14.37751&api_key=maps&signature=dR7dfF7MZVCs9oIHkiNE_41RY8YKjCDx0vNap7KjOtU=",
+    "lat": 53.217993,
+    "lng": 34.388129
+  },
+  "_meta": {
+    "parser_version": "2.0",
+    "method": "state_view",
+    "fallback_used": false,
+    "fields_extracted": [
+      "schema_version",
+      "lead_id",
+      "slug",
+      "scraped_at",
+      "source_url",
+      "org_id",
+      "title",
+      "short_title",
+      "rating",
+      "rating_count",
+      "review_count",
+      "verified_owner",
+      "good_place_year",
+      "address",
+      "coordinates",
+      "phones",
+      "working_hours",
+      "urls",
+      "logo_url",
+      "services",
+      "services_total_count",
+      "features_categorized",
+      "aspects",
+      "videos",
+      "reviews_preview",
+      "reviews_total_count",
+      "discoveries",
+      "histogram",
+      "panorama"
+    ]
+  },
+  "qualification": {
+    "qualified": true,
+    "reason": "OK",
+    "score": 100,
+    "checks": {
+      "rating": true,
+      "reviews": true,
+      "photos": true,
+      "services": true,
+      "contact": true
+    },
+    "details": {
+      "rating": 5.0,
+      "review_count": 169,
+      "unique_aspect_photos": 43,
+      "services_with_photos": 10,
+      "contact_channels": [
+        "taplink",
+        "vk",
+        "website",
+        "whatsapp",
+        "booking"
+      ]
+    }
+  }
+}

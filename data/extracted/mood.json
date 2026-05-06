@@ -1,0 +1,22 @@
+{
+  "photos_by_block": {
+    "hero": [
+      "/mood/hero/hero_1.jpg"
+    ],
+    "gallery": [
+      "/mood/gallery/gallery_1.jpg",
+      "/mood/gallery/gallery_2.jpg",
+      "/mood/gallery/gallery_3.jpg",
+      "/mood/gallery/gallery_4.jpg",
+      "/mood/gallery/gallery_5.jpg",
+      "/mood/gallery/gallery_6.jpg"
+    ],
+    "team": [],
+    "about": [],
+    "services": [
+      "/mood/services/services_1.jpg"
+    ]
+  },
+  "team_photos": [],
+  "photos_fetched_at": "2026-05-05 18:58:11"
+}

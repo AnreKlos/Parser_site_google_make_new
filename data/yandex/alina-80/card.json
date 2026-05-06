@@ -1,0 +1,193 @@
+{
+  "schema_version": 2,
+  "lead_id": 80,
+  "slug": "alina",
+  "scraped_at": "2026-05-06T00:48:15",
+  "source_url": "https://yandex.ru/maps/org/alina/1093270506/?lang=ru",
+  "org_id": "1093270506",
+  "title": "Алина",
+  "short_title": "Алина",
+  "rating": 4.400000095367432,
+  "rating_count": 37,
+  "review_count": 12,
+  "verified_owner": false,
+  "good_place_year": null,
+  "address": {
+    "full": "Брянск, Октябрьская улица, 36",
+    "country": "Россия",
+    "locality": "Брянск",
+    "street": "Октябрьская улица",
+    "house": "36",
+    "additional": null,
+    "postal_code": null
+  },
+  "coordinates": {
+    "lng": 34.36146,
+    "lat": 53.243514
+  },
+  "phones": [
+    "+7 (4832) 33-54-94"
+  ],
+  "working_hours": {
+    "text": "пн-сб 9:00 AM–8:00 PM; вс 9:00 AM–5:00 PM",
+    "by_day": [
+      [
+        {
+          "from": "09:00",
+          "to": "17:00"
+        }
+      ],
+      [
+        {
+          "from": "09:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "09:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "09:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "09:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "09:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "09:00",
+          "to": "20:00"
+        }
+      ]
+    ],
+    "is_open_now": false,
+    "unusual_hours": [
+      "2026-05-01",
+      "2026-05-09",
+      "2026-05-11"
+    ]
+  },
+  "urls": {
+    "website": null,
+    "taplink": null,
+    "vk": null,
+    "whatsapp": null,
+    "booking": null,
+    "all": []
+  },
+  "logo_url": null,
+  "services": [],
+  "services_total_count": 0,
+  "features_categorized": {
+    "services": [
+      "косметологические услуги: эпиляция",
+      "услуги салона: макияж, мужские стрижки, массаж, косметология, женские стрижки, маникюр, пилинг, уход за телом, эпиляция, лечение волос и кожи головы, детские стрижки, тату, уход за лицом, наращивание ресниц, педикюр"
+    ],
+    "prices": [
+      "цена мужской стрижки: 350–450 ₽",
+      "классический женский маникюр с покрытием: 350–350 ₽",
+      "цена женской стрижки: 450–550 ₽"
+    ]
+  },
+  "aspects": [],
+  "videos": [],
+  "reviews_preview": [
+    {
+      "review_id": "ElXjRmtcSUv-m7pit4HhvuLu_C6GCti",
+      "author": "Elena Zigel",
+      "text": "Мне нравится туда ходить стричься и делать педикюр,цены демократичные и хорошие мастера своего дела",
+      "rating": 5,
+      "date": "2025-05-07",
+      "photos": [],
+      "business_reply": null
+    },
+    {
+      "review_id": "DqGWWxwFmzwuQuCPMLiCTZU82cpUUo",
+      "author": "Татьяна",
+      "text": "Маленький зал, кресла стоят близко. Благодаря расположению, народ приходит. Мне было бы некомфортно сидеть на проходе, где все мимо снуют. Мастера обычные. Я заглянула и больше не приду. Напоминает парикмахерскую на вокзале. Но это моё мнение, другие посещают.",
+      "rating": 3,
+      "date": "2025-10-24",
+      "photos": [],
+      "business_reply": null
+    },
+    {
+      "review_id": "4q0s1YHX_Exm0NFVvNcyk-PVoVVlEh",
+      "author": "Виталий Горбачев",
+      "text": "Огромное спасибо Оксане, за профессионализм, скорость и качество!!!\nРекомендую 👍",
+      "rating": 5,
+      "date": "2024-10-25",
+      "photos": [],
+      "business_reply": null
+    }
+  ],
+  "reviews_total_count": 12,
+  "discoveries": [],
+  "histogram": {},
+  "panorama": {
+    "preview_url": "https://static-pano.maps.yandex.ru/v1/?panoid=1278714349_698960660_23_1594456316&size=500%2C240&azimuth=129.4&tilt=10&api_key=maps&signature=UyoijdLgSxE56twu_y9szfUigedNrV8yzIgF8QqfjSw=",
+    "lat": 53.2436432837,
+    "lng": 34.3611972865
+  },
+  "_meta": {
+    "parser_version": "2.0",
+    "method": "state_view",
+    "fallback_used": false,
+    "fields_extracted": [
+      "schema_version",
+      "lead_id",
+      "slug",
+      "scraped_at",
+      "source_url",
+      "org_id",
+      "title",
+      "short_title",
+      "rating",
+      "rating_count",
+      "review_count",
+      "verified_owner",
+      "address",
+      "coordinates",
+      "phones",
+      "working_hours",
+      "urls",
+      "services_total_count",
+      "features_categorized",
+      "reviews_preview",
+      "reviews_total_count",
+      "panorama"
+    ]
+  },
+  "qualification": {
+    "qualified": false,
+    "reason": "reviews 12 < 20; unique_photos 0 < 8; services_with_photos 0 < 3; no contact channel",
+    "score": 20,
+    "checks": {
+      "rating": true,
+      "reviews": false,
+      "photos": false,
+      "services": false,
+      "contact": false
+    },
+    "details": {
+      "rating": 4.400000095367432,
+      "review_count": 12,
+      "unique_aspect_photos": 0,
+      "services_with_photos": 0,
+      "contact_channels": []
+    }
+  }
+}

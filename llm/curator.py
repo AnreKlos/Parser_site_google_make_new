@@ -266,6 +266,125 @@ def analyze_image_url(image_url: str, prompt: str) -> Optional[Any]:
     return None
 
 
+def _validate_rich_profile(parsed: Any) -> Dict[str, Any]:
+    """Defensive validation of rich profile from Vision."""
+    if not isinstance(parsed, dict):
+        return {"rejected": True, "reject_reason": "parse_error"}
+    
+    defaults = {
+        "rejected": False,
+        "reject_reason": None,
+        "category": "other",
+        "quality": {"score": 5, "sharpness": 5, "lighting": 5, "composition": 5},
+        "content": {"description": "", "alt_text": "", "objects": [], "colors": [], "mood": "other"},
+        "people": {"present": False, "count": 0, "faces_visible": False, "type": None},
+        "service_ref": None,
+        "marketing": {
+            "usable_in_hero": False,
+            "usable_in_about": False,
+            "usable_in_gallery": False,
+            "usable_in_team": False,
+            "usable_in_services": False,
+            "social_proof_value": "low"
+        },
+        "flags": {
+            "has_logo": False,
+            "has_text_overlay": False,
+            "has_watermark": False,
+            "is_screenshot": False,
+            "medical_mask": False,
+            "low_resolution": False
+        }
+    }
+    
+    for key, default in defaults.items():
+        if key not in parsed:
+            parsed[key] = default
+        elif isinstance(default, dict) and isinstance(parsed[key], dict):
+            for subkey, subdefault in default.items():
+                if subkey not in parsed[key]:
+                    parsed[key][subkey] = subdefault
+    
+    return parsed
+
+
+def analyze_photo_rich(image_url: str, hint: str = None) -> Dict[str, Any]:
+    """
+    Returns rich per-photo profile. Single API call. Hint is the Yandex aspect tag
+    (e.g. "Интерьер", "Маникюр") if available — used to bias classification.
+    """
+    hint_text = f"\nYandex tagged this photo as: '{hint}'. Verify and override if wrong." if hint else ""
+
+    prompt = f"""Analyze a photo for a beauty salon landing page.{hint_text}
+Return STRICT JSON:
+{{
+  "rejected": true|false,
+  "reject_reason": null | "medical_mask" | "low_quality" | "watermark" | "screenshot" | "text_overlay" | "person_face_only" | "irrelevant",
+  
+  "category": "interior" | "work_result" | "master_at_work" | "team_portrait" | "exterior" | "service_card" | "logo" | "other",
+  
+  "quality": {{
+    "score": 1-10,
+    "sharpness": 1-10,
+    "lighting": 1-10,
+    "composition": 1-10
+  }},
+  
+  "content": {{
+    "description": "1-2 sentence description in Russian",
+    "alt_text": "short alt text for HTML in Russian, max 80 chars",
+    "objects": ["object1", "object2"],
+    "colors": ["color1", "color2"],
+    "mood": "calm | energetic | luxurious | cozy | clinical | other"
+  }},
+  
+  "people": {{
+    "present": true|false,
+    "count": 0,
+    "faces_visible": true|false,
+    "type": null | "client" | "master" | "team_group" | "model"
+  }},
+  
+  "service_ref": null | "manicure" | "pedicure" | "haircut" | "coloring" | "lashes" | "brows" | "makeup" | "facial" | "hair_treatment" | "other",
+  
+  "marketing": {{
+    "usable_in_hero": true|false,
+    "usable_in_about": true|false,
+    "usable_in_gallery": true|false,
+    "usable_in_team": true|false,
+    "usable_in_services": true|false,
+    "social_proof_value": "low" | "medium" | "high"
+  }},
+  
+  "flags": {{
+    "has_logo": true|false,
+    "has_text_overlay": true|false,
+    "has_watermark": true|false,
+    "is_screenshot": true|false,
+    "medical_mask": true|false,
+    "low_resolution": true|false
+  }}
+}}
+
+Reject rules (set rejected=true):
+- medical mask visible on face
+- watermark or stock-photo signature
+- screenshot of UI / phone interface
+- heavy text overlay covering image
+- blurry / dark / underexposed
+- only a person's face with no context (selfie without setting)
+
+Hero criteria: vertical OR landscape, sharp, well-lit, has visual hook, no text overlay.
+About criteria: interior, atmosphere, salon space, no people OR distant people.
+Gallery criteria: clear work result (manicure close-up, hair, brows etc).
+Team criteria: portrait of a single person, professional, face visible.
+"""
+    parsed = analyze_image_url(image_url, prompt)
+    if parsed is None:
+        return {"rejected": True, "reject_reason": "vision_api_failed"}
+    return _validate_rich_profile(parsed)
+
+
 def slugify_name(name: str, lead_id: int) -> str:
     translit_map = {
         "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e", "ж": "zh", "з": "z",

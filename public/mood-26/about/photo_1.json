@@ -1,0 +1,52 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "master_at_work",
+  "quality": {
+    "score": 7,
+    "sharpness": 7,
+    "lighting": 6,
+    "composition": 7
+  },
+  "content": {
+    "description": "Мастер маникюра работает над ногтями клиента в салоне.",
+    "alt_text": "Мастер маникюра работает над ногтями клиента",
+    "objects": [
+      "стол",
+      "стул",
+      "лампа",
+      "маникюрный аппарат",
+      "бутылка с жидкостью",
+      "зеркало"
+    ],
+    "colors": [
+      "черный",
+      "белый",
+      "серый"
+    ],
+    "mood": "other"
+  },
+  "people": {
+    "present": true,
+    "count": 2,
+    "faces_visible": false,
+    "type": "master"
+  },
+  "service_ref": "manicure",
+  "marketing": {
+    "usable_in_hero": false,
+    "usable_in_about": true,
+    "usable_in_gallery": true,
+    "usable_in_team": false,
+    "usable_in_services": true,
+    "social_proof_value": "medium"
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "medical_mask": true,
+    "low_resolution": false
+  }
+}

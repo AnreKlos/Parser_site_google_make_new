@@ -1777,3 +1777,315 @@ Please use the Async API instead.
 [2026-05-05 02:50:55] 📸 Фото скачано: photo_2.webp (87818 bytes, 1024x1024)
 [2026-05-05 02:50:58] 📸 Скачано 1 фото в D:\2 Clode Proj\1\neuralsync\src\public\mood-26\yandex
 [2026-05-05 02:50:58] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=full
+[2026-05-05 16:26:29] 🚀 Старт enrich для lead_id=26 mode=light
+[2026-05-05 16:26:29] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 16:26:43] 🕵️ UA (поиск): 131.0.0.0
+[2026-05-05 16:26:53] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 16:26:56] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 16:26:59] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 16:27:02] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 16:27:05] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 16:27:09] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 16:27:09] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 16:27:09] ⏳ Пауза 10.0 сек (между поиском и скрейпингом)
+[2026-05-05 16:27:19] 🧭 Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/ mode=light
+[2026-05-05 16:27:20] 🕵️ UA (карточка): 135.0.0.0
+[2026-05-05 16:27:31] ✅ Карточка собрана mode=light: rating=5.0 reviews_count=269 photos_count=10
+[2026-05-05 16:27:31] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=light
+[2026-05-05 16:34:25] 🚀 Старт enrich для lead_id=26 mode=light
+[2026-05-05 16:34:25] ⚠️ --force: игнорирую cooldown для лида 26 (7 минут с прошлого live-прогона)
+[2026-05-05 16:34:25] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 16:34:27] 🕵️ UA (поиск): 131.0.0.0
+[2026-05-05 16:34:37] ❌ Ошибка enrich ID=26: name 'SequenceMatcher' is not defined
+[2026-05-05 16:34:55] 🚀 Старт enrich для lead_id=26 mode=light
+[2026-05-05 16:34:55] ⚠️ --force: игнорирую cooldown для лида 26 (0 минут с прошлого live-прогона)
+[2026-05-05 16:34:55] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 16:34:56] 🕵️ UA (поиск): 136.0.0.0
+[2026-05-05 16:35:07] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 16:35:10] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 16:35:14] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 16:35:18] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 16:35:21] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 16:35:24] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 16:35:24] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 16:35:24] ⏳ Пауза 13.1 сек (между поиском и скрейпингом)
+[2026-05-05 16:35:37] 🧭 Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/ mode=light
+[2026-05-05 16:35:38] 🕵️ UA (карточка): 136.0.0.0
+[2026-05-05 16:35:52] ⚠️ Geocoding failed for 'Брянск, Московский просп., 10/11': Client error '403 Forbidden' for url 'https://nominatim.openstreetmap.org/search?format=json&q=%D0%91%D1%80%D1%8F%D0%BD%D1%81%D0%BA%2C+%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%BE%D1%81%D0%BF.%2C+10%2F11&limit=1'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+[2026-05-05 16:35:52] ✅ Карточка собрана mode=light: rating=5.0 reviews_count=269 photos_count=10
+[2026-05-05 16:35:53] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=light
+[2026-05-05 16:36:22] 🚀 Старт enrich для lead_id=26 mode=light
+[2026-05-05 16:36:22] ⚠️ --force: игнорирую cooldown для лида 26 (1 минут с прошлого live-прогона)
+[2026-05-05 16:36:22] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 16:36:24] 🕵️ UA (поиск): 133.0.0.0
+[2026-05-05 16:36:33] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 16:36:36] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 16:36:39] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 16:36:43] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 16:36:46] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 16:36:49] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 16:36:49] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 16:36:49] ⏳ Пауза 12.5 сек (между поиском и скрейпингом)
+[2026-05-05 16:37:02] 🧭 Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/ mode=light
+[2026-05-05 16:37:03] 🕵️ UA (карточка): 135.0.0.0
+[2026-05-05 16:37:16] ⚠️ Geocoding failed for 'Брянск, Московский просп., 10/11': Client error '403 Forbidden' for url 'https://nominatim.openstreetmap.org/search?format=json&q=%D0%91%D1%80%D1%8F%D0%BD%D1%81%D0%BA%2C+%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9+%D0%BF%D1%80%D0%BE%D1%81%D0%BF.%2C+10%2F11&limit=1'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+[2026-05-05 16:37:16] ✅ Карточка собрана mode=light: rating=5.0 reviews_count=269 photos_count=10
+[2026-05-05 16:37:17] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=light
+[2026-05-05 16:37:48] 🚀 Старт enrich для lead_id=26 mode=light
+[2026-05-05 16:37:48] ⚠️ --force: игнорирую cooldown для лида 26 (1 минут с прошлого live-прогона)
+[2026-05-05 16:37:48] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 16:37:50] 🕵️ UA (поиск): 137.0.0.0
+[2026-05-05 16:37:59] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 16:38:02] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 16:38:05] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 16:38:10] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 16:38:14] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 16:38:17] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 16:38:17] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 16:38:17] ⏳ Пауза 14.6 сек (между поиском и скрейпингом)
+[2026-05-05 16:38:32] 🧭 Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/ mode=light
+[2026-05-05 16:38:33] 🕵️ UA (карточка): 136.0.0.0
+[2026-05-05 16:38:45] ✅ Карточка собрана mode=light: rating=5.0 reviews_count=269 photos_count=10
+[2026-05-05 16:38:46] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=light
+[2026-05-05 16:39:12] 🚀 Старт enrich для lead_id=26 mode=light
+[2026-05-05 16:39:12] ⚠️ --force: игнорирую cooldown для лида 26 (1 минут с прошлого live-прогона)
+[2026-05-05 16:39:12] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 16:39:13] 🕵️ UA (поиск): 134.0.0.0
+[2026-05-05 16:39:22] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 16:39:26] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 16:39:29] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 16:39:32] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 16:39:36] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 16:39:39] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 16:39:39] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 16:39:39] ⏳ Пауза 13.4 сек (между поиском и скрейпингом)
+[2026-05-05 16:39:53] 🧭 Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/ mode=light
+[2026-05-05 16:39:54] 🕵️ UA (карточка): 135.0.0.0
+[2026-05-05 16:40:05] DEBUG: coordinates=None, address=Брянск, Московский просп., 10/11
+[2026-05-05 16:40:06] ✅ Карточка собрана mode=light: rating=5.0 reviews_count=269 photos_count=10
+[2026-05-05 16:40:06] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=light
+[2026-05-05 16:40:39] 🚀 Старт enrich для lead_id=26 mode=light
+[2026-05-05 16:40:39] ⚠️ --force: игнорирую cooldown для лида 26 (1 минут с прошлого live-прогона)
+[2026-05-05 16:40:39] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 16:40:40] 🕵️ UA (поиск): 136.0.0.0
+[2026-05-05 16:40:49] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 16:40:52] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 16:40:55] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 16:40:59] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 16:41:02] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 16:41:06] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 16:41:06] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 16:41:06] ⏳ Пауза 8.9 сек (между поиском и скрейпингом)
+[2026-05-05 16:41:15] 🧭 Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/ mode=light
+[2026-05-05 16:41:16] 🕵️ UA (карточка): 134.0.0.0
+[2026-05-05 16:41:27] DEBUG: coordinates=None, address=Брянск, Московский просп., 10/11
+[2026-05-05 16:41:27] DEBUG geocode_address: attempting to geocode 'Брянск, Московский просп., 10/11'
+[2026-05-05 16:41:29] DEBUG geocode_address: response data keys=['generationtime_ms']
+[2026-05-05 16:41:29] DEBUG geocode_address: no results found
+[2026-05-05 16:41:29] ✅ Карточка собрана mode=light: rating=5.0 reviews_count=269 photos_count=10
+[2026-05-05 16:41:29] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=light
+[2026-05-05 16:42:37] 🚀 Старт enrich для lead_id=26 mode=light
+[2026-05-05 16:42:37] ⚠️ --force: игнорирую cooldown для лида 26 (1 минут с прошлого live-прогона)
+[2026-05-05 16:42:37] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 16:42:38] 🕵️ UA (поиск): 134.0.0.0
+[2026-05-05 16:42:48] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 16:42:51] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 16:42:54] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 16:42:57] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 16:43:00] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 16:43:03] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 16:43:03] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 16:43:04] ⏳ Пауза 9.9 сек (между поиском и скрейпингом)
+[2026-05-05 16:43:13] 🧭 Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/ mode=light
+[2026-05-05 16:43:14] 🕵️ UA (карточка): 136.0.0.0
+[2026-05-05 16:43:26] DEBUG: coordinates=None, address=Брянск, Московский просп., 10/11, url=https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 16:43:26] DEBUG geocode_address: attempting to extract coordinates from URL
+[2026-05-05 16:43:26] DEBUG geocode_address: no coordinates in URL
+[2026-05-05 16:43:26] ✅ Карточка собрана mode=light: rating=5.0 reviews_count=269 photos_count=10
+[2026-05-05 16:43:26] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=light
+[2026-05-05 16:43:58] 🚀 Старт enrich для lead_id=26 mode=light
+[2026-05-05 16:43:58] ⚠️ --force: игнорирую cooldown для лида 26 (1 минут с прошлого live-прогона)
+[2026-05-05 16:43:58] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 16:43:59] 🕵️ UA (поиск): 131.0.0.0
+[2026-05-05 16:44:08] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 16:44:12] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 16:44:15] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 16:44:18] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 16:44:21] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 16:44:24] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 16:44:24] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 16:44:24] ⏳ Пауза 10.9 сек (между поиском и скрейпингом)
+[2026-05-05 16:44:35] 🧭 Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/ mode=light
+[2026-05-05 16:44:36] 🕵️ UA (карточка): 137.0.0.0
+[2026-05-05 16:44:48] DEBUG: coordinates=None, address=Брянск, Московский просп., 10/11, url=https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 16:44:48] DEBUG: page.url after navigation: https://yandex.com/maps/org/mood/96195832006/?ll=34.388632%2C53.218168&z=17
+[2026-05-05 16:44:48] DEBUG geocode_address: attempting to extract coordinates from URL
+[2026-05-05 16:44:48] DEBUG geocode_address: extracted from URL ll=34.388632,53.218168
+[2026-05-05 16:44:48] 📍 Fallback geocoding: Брянск, Московский просп., 10/11 → {'lat': 53.218168, 'lng': 34.388632}
+[2026-05-05 16:44:48] ✅ Карточка собрана mode=light: rating=5.0 reviews_count=269 photos_count=10
+[2026-05-05 16:44:48] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=light
+[2026-05-05 18:13:13] 🚀 Старт enrich для lead_id=26 mode=full
+[2026-05-05 18:13:13] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 18:13:14] 🕵️ UA (поиск): 133.0.0.0
+[2026-05-05 18:13:23] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 18:13:26] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 18:13:29] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 18:13:32] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 18:13:35] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 18:13:38] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 18:13:38] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 18:13:38] ⏳ Пауза 8.5 сек (между поиском и скрейпингом)
+[2026-05-05 18:13:47] 🧭 Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/ mode=full
+[2026-05-05 18:13:48] 🕵️ UA (карточка): 134.0.0.0
+[2026-05-05 18:14:24] 📍 Fallback geocoding: Брянск, Московский просп., 10/11 → {'lat': 53.218168, 'lng': 34.388632}
+[2026-05-05 18:14:24] ✅ Карточка собрана mode=full: rating=5.0 reviews_count=269 photos_count=15
+[2026-05-05 18:14:24] 📸 Скачиваю 15 фото...
+[2026-05-05 18:14:26] 📸 Фото скачано: photo_2.webp (87818 bytes, 1024x1024)
+[2026-05-05 18:14:29] 📸 Скачано 1 фото в D:\2 Clode Proj\1\neuralsync\src\public\mood-26\yandex
+[2026-05-05 18:14:29] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=full
+[2026-05-05 18:23:44] 🚀 Старт enrich для lead_id=65 mode=full
+[2026-05-05 18:23:44] 🔄 FULL mode требует light mode, запускаю light сначала
+[2026-05-05 18:23:44] 🚀 Старт enrich для lead_id=65 mode=light
+[2026-05-05 18:23:44] 🔎 Поиск в Яндекс.Картах: Чио Чио, Японская парикмахерская Московский пр.
+[2026-05-05 18:23:45] 🕵️ UA (поиск): 132.0.0.0
+[2026-05-05 18:23:54] ↪ Пропуск: название не совпадает (name_score=0.36): https://yandex.ru/maps/org/chio_chio/61513359894/
+[2026-05-05 18:23:57] ↪ Пропуск: неверный город (city_score=0.49): https://yandex.ru/maps/org/chio_chio/214766582897/
+[2026-05-05 18:24:00] ↪ Пропуск: неверный город (city_score=0.19): https://yandex.ru/maps/org/chio_chio/2223155058/
+[2026-05-05 18:24:03] ↪ Пропуск: неверный город (city_score=0.20): https://yandex.ru/maps/org/chio_chio/90416931871/
+[2026-05-05 18:24:06] ↪ Пропуск: неверный город (city_score=0.34): https://yandex.ru/maps/org/chio_chio/8405150949/
+[2026-05-05 18:24:06] ❌ Совпадение не найдено для lead_id=65
+[2026-05-05 18:24:06] ⚠️ Не нашли карточку Яндекс для 'Чио Чио, Японская парикмахерская'
+[2026-05-05 18:24:06] ❌ Light mode failed, cannot proceed to full
+[2026-05-05 18:24:15] 🚀 Старт enrich для lead_id=20 mode=full
+[2026-05-05 18:24:15] 🔎 Поиск в Яндекс.Картах: Модная Цирюльня Брянск чапаева
+[2026-05-05 18:24:16] 🕵️ UA (поиск): 131.0.0.0
+[2026-05-05 18:24:25] 🧪 Кандидат: name=1.00 city=1.00 addr=0.37 cat=0.50 total=0.83 | https://yandex.ru/maps/org/modnaya_tsiryulnya/1090625887/
+[2026-05-05 18:24:28] ↪ Пропуск: название не совпадает (name_score=0.24): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 18:24:31] ↪ Пропуск: название не совпадает (name_score=0.36): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 18:24:34] ↪ Пропуск: название не совпадает (name_score=0.25): https://yandex.ru/maps/org/meri_gold/1016196487/
+[2026-05-05 18:24:37] ↪ Пропуск: название не совпадает (name_score=0.35): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 18:24:40] ↪ Пропуск: название не совпадает (name_score=0.06): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 18:24:40] ✅ Найдена карточка: https://yandex.ru/maps/org/modnaya_tsiryulnya/1090625887/ (score=0.83)
+[2026-05-05 18:24:40] ⏳ Пауза 14.6 сек (между поиском и скрейпингом)
+[2026-05-05 18:24:55] 🧭 Открываю карточку: https://yandex.ru/maps/org/modnaya_tsiryulnya/1090625887/ mode=full
+[2026-05-05 18:24:56] 🕵️ UA (карточка): 136.0.0.0
+[2026-05-05 18:25:33] 📍 Fallback geocoding: Брянск, ул. Чапаева, 6 → {'lat': 53.212146, 'lng': 34.417414}
+[2026-05-05 18:25:33] ✅ Карточка собрана mode=full: rating=4.4 reviews_count=324 photos_count=10
+[2026-05-05 18:25:33] 📸 Скачиваю 10 фото...
+[2026-05-05 18:25:35] 📸 Фото скачано: photo_2.webp (104200 bytes, 1024x768)
+[2026-05-05 18:25:36] 📸 Фото скачано: photo_3.webp (128876 bytes, 1024x682)
+[2026-05-05 18:25:36] 📸 Фото скачано: photo_4.webp (103228 bytes, 1024x682)
+[2026-05-05 18:25:37] 📸 Скачано 3 фото в D:\2 Clode Proj\1\neuralsync\src\public\modnaya-tsiryulnya-20\yandex
+[2026-05-05 18:25:37] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\modnaya-tsiryulnya-20.json mode=full
+[2026-05-05 18:39:15] 🚀 Старт enrich для lead_id=26 mode=full
+[2026-05-05 18:39:15] ⚠️ --force: игнорирую cooldown для лида 26 (26 минут с прошлого live-прогона)
+[2026-05-05 18:39:15] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 18:39:16] 🕵️ UA (поиск): 131.0.0.0
+[2026-05-05 18:39:26] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 18:39:29] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 18:39:33] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 18:39:36] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 18:39:39] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 18:39:42] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 18:39:42] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 18:39:42] ⏳ Пауза 12.7 сек (между поиском и скрейпингом)
+[2026-05-05 18:39:54] 🧭 Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/ mode=full
+[2026-05-05 18:39:56] 🕵️ UA (карточка): 132.0.0.0
+[2026-05-05 18:40:15] 📜 Скролл стабилизировался на 43 отзывах после 4 итераций
+[2026-05-05 18:40:15] 📍 Fallback geocoding: Брянск, Московский просп., 10/11 → {'lat': 53.218168, 'lng': 34.388632}
+[2026-05-05 18:40:15] ✅ Карточка собрана mode=full: rating=5.0 reviews_count=269 photos_count=12
+[2026-05-05 18:40:15] 📸 Скачиваю 12 фото...
+[2026-05-05 18:40:17] 📸 Фото скачано: photo_2.webp (87818 bytes, 1024x1024)
+[2026-05-05 18:40:20] 📸 Фото скачано: photo_8.webp (33808 bytes, 1024x683)
+[2026-05-05 18:40:20] 📸 Фото скачано: photo_10.webp (90224 bytes, 1024x768)
+[2026-05-05 18:40:20] 📸 Скачано 3 фото в D:\2 Clode Proj\1\neuralsync\src\public\mood-26\yandex
+[2026-05-05 18:40:20] ✅ Сохранён JSON: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26.json mode=full
+[2026-05-05 23:53:43] 🚀 [v2] Старт enrich_lead_v2 для lead_id=26
+[2026-05-05 23:53:43] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-05 23:53:55] 🕵️ UA (поиск): 133.0.0.0
+[2026-05-05 23:54:05] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-05 23:54:08] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-05 23:54:11] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-05 23:54:15] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-05 23:54:18] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-05 23:54:21] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-05 23:54:21] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-05 23:54:22] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/?lang=ru
+[2026-05-05 23:54:29] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\raw_state.json
+[2026-05-05 23:54:29] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\card.json
+[2026-05-05 23:54:29]    services=10, aspects=10, videos=9, reviews_preview=3
+[2026-05-06 00:38:49] 🚀 [v2] Старт enrich_lead_v2 для lead_id=26
+[2026-05-06 00:38:49] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-06 00:38:50] 🕵️ UA (поиск): 133.0.0.0
+[2026-05-06 00:38:59] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-06 00:39:02] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-06 00:39:05] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-06 00:39:09] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-06 00:39:12] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-06 00:39:15] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-06 00:39:15] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-06 00:39:15] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/?lang=ru
+[2026-05-06 00:39:22] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\raw_state.json
+[2026-05-06 00:39:22] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\card.json
+[2026-05-06 00:39:22]    services=10, aspects=10, videos=9, reviews_preview=3
+[2026-05-06 00:39:22]    🎯 Qualification: QUALIFIED (score=100/100) — OK
+[2026-05-06 00:39:22] ⚠️ [v2] Не удалось записать qualification_status в БД: Unconsumed column names: qualification_status
+[2026-05-06 00:39:43] 🚀 [v2] Старт enrich_lead_v2 для lead_id=26
+[2026-05-06 00:39:43] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-06 00:39:44] 🕵️ UA (поиск): 137.0.0.0
+[2026-05-06 00:39:53] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-06 00:39:56] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-06 00:39:59] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-06 00:40:02] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-06 00:40:05] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-06 00:40:09] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-06 00:40:09] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-06 00:40:09] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/?lang=ru
+[2026-05-06 00:40:16] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\raw_state.json
+[2026-05-06 00:40:16] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\card.json
+[2026-05-06 00:40:16]    services=10, aspects=10, videos=9, reviews_preview=3
+[2026-05-06 00:40:16]    🎯 Qualification: QUALIFIED (score=100/100) — OK
+[2026-05-06 00:40:24] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 00:40:24]    Кандидатов из card.json: 69
+[2026-05-06 00:40:24]    После дедупликации: 53
+[2026-05-06 00:40:24]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 00:40:43]    Успешно проанализировано: 53
+[2026-05-06 00:40:43]    После quality gate: 0
+[2026-05-06 00:40:43]    Раскладка по папкам: {'hero': 0, 'gallery': 0, 'about': 0, 'services': 0, 'team': 0}
+[2026-05-06 00:40:43] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json
+[2026-05-06 00:41:03] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 00:41:03]    Кандидатов из card.json: 69
+[2026-05-06 00:41:03]    После дедупликации: 53
+[2026-05-06 00:41:03]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 00:43:51]    Успешно проанализировано: 53
+[2026-05-06 00:43:51]    После quality gate: 30
+[2026-05-06 00:43:51]    Раскладка по папкам: {'hero': 1, 'gallery': 6, 'about': 2, 'services': 8, 'team': 0}
+[2026-05-06 00:44:09] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 00:44:09]    Кандидатов из card.json: 69
+[2026-05-06 00:44:09]    После дедупликации: 53
+[2026-05-06 00:44:09]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 00:46:45]    Успешно проанализировано: 53
+[2026-05-06 00:46:45]    После quality gate: 32
+[2026-05-06 00:46:45]    Раскладка по папкам: {'hero': 1, 'gallery': 6, 'about': 2, 'services': 8, 'team': 1}
+[2026-05-06 00:47:27] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json
+[2026-05-06 00:47:41] 🚀 [v2] Старт enrich_lead_v2 для lead_id=80
+[2026-05-06 00:47:41] 🔎 Поиск в Яндекс.Картах: Алина Брянск октябрьская
+[2026-05-06 00:47:42] 🕵️ UA (поиск): 133.0.0.0
+[2026-05-06 00:47:51] 🧪 Кандидат: name=1.00 city=1.00 addr=0.38 cat=0.50 total=0.83 | https://yandex.ru/maps/org/alina/1093270506/
+[2026-05-06 00:47:54] ↪ Пропуск: название не совпадает (name_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-06 00:47:57] ↪ Пропуск: название не совпадает (name_score=0.17): https://yandex.ru/maps/org/big_bro/14559428227/
+[2026-05-06 00:48:01] ↪ Пропуск: название не совпадает (name_score=0.13): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-06 00:48:04] ↪ Пропуск: название не совпадает (name_score=0.19): https://yandex.ru/maps/org/totem/2559407437/
+[2026-05-06 00:48:07] ↪ Пропуск: название не совпадает (name_score=0.17): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-06 00:48:07] ✅ Найдена карточка: https://yandex.ru/maps/org/alina/1093270506/ (score=0.83)
+[2026-05-06 00:48:07] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/alina/1093270506/?lang=ru
+[2026-05-06 00:48:15] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\alina-80\raw_state.json
+[2026-05-06 00:48:15] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\alina-80\card.json
+[2026-05-06 00:48:15]    services=0, aspects=0, videos=0, reviews_preview=3
+[2026-05-06 00:48:15]    🚫 Qualification: NOT QUALIFIED (score=20/100) — reviews 12 < 20; unique_photos 0 < 8; services_with_photos 0 < 3; no contact channel
+[2026-05-06 00:48:21] 🚀 [v2] Старт photos_v2 для lead_id=80
+[2026-05-06 00:48:21] 🚫 Lead not qualified, skipping: reviews 12 < 20; unique_photos 0 < 8; services_with_photos 0 < 3; no contact channel
+[2026-05-06 00:48:30] 🚀 [v2] Старт photos_v2 для lead_id=80
+[2026-05-06 00:48:30] 🚫 Lead not qualified, skipping: reviews 12 < 20; unique_photos 0 < 8; services_with_photos 0 < 3; no contact channel

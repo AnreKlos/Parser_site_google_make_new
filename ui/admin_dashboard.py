@@ -15,10 +15,10 @@ import re
 import urllib.parse
 from typing import Optional
 
-from config_builder.cli import run_build_for_ui
-
 # Добавляем корень проекта в путь для импортов
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from config_builder.cli import run_build_for_ui
 
 # --- Конфигурация страницы ---
 st.set_page_config(

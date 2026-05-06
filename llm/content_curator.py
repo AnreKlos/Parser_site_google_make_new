@@ -36,9 +36,11 @@ DATA_BLOCK_TEMPLATE = """## ДАННЫЕ О САЛОНЕ (используй Т�
 Тип бизнеса: {business_type}
 Часы работы: {hours}
 Категория: {category}
+Рейтинг: {rating} из 5 ({reviews_count} отзывов на Яндекс.Картах)
+Награды: {awards}
+Аспекты (что ценят клиенты): {aspects}
 Реальные услуги этого салона (используй только их, не придумывай новых): {real_services}
 Реальные цены с Яндекс.Карт: {real_prices}
-Рейтинг: {rating} из 5 ({reviews_count} отзывов на Яндекс.Картах)
 Позиционирование с сайта: {tagline}
 ---
 ПРАВИЛА (нарушение = провал задачи):
@@ -73,6 +75,15 @@ DATA_BLOCK_TEMPLATE = """## ДАННЫЕ О САЛОНЕ (используй Т�
 
 def init_env() -> None:
     load_dotenv()
+
+
+def load_card_json(slug: str, lead_id: int) -> Optional[Dict[str, Any]]:
+    """Load card.json from data/yandex/{slug}-{lead_id}/card.json (v2 format)."""
+    card_path = PROJECT_ROOT / "data" / "yandex" / f"{slug}-{lead_id}" / "card.json"
+    if card_path.exists():
+        with open(card_path, encoding="utf-8") as f:
+            return json.load(f)
+    return None
 
 
 def is_chain(lead: Any, yandex_data: Dict[str, Any]) -> bool:
@@ -429,39 +440,27 @@ def generate_tagline(context: Dict[str, Any], source_tagline: str = "") -> str:
     
     data_block = DATA_BLOCK_TEMPLATE.format(**context)
     
-    if context.get("tagline"):
-        user = data_block + """
+    # Extract top-3 aspects from context
+    aspects = context.get("aspects", "")
+    
+    user = data_block + f"""
 
 ## ЗАДАЧА: напиши tagline для H1 первого экрана.
 
 ФОРМУЛА (выбери одну):
-1. [Конкретная услуга] + [конкретный результат] + [город/без очередей]
+1. [2-3 главных направления из Аспектов] + [город] + [рейтинг и отзывы]
 2. [Главный страх] → [как мы его снимаем]
 3. [Для кого] + [что делаем] + [ключное отличие]
 
 ЭТАЛОННЫЕ ПРИМЕРЫ:
+- "Окрашивание, маникюр и уход за ресницами в Брянске. Рейтинг 5.0 — 269 отзывов"
 - "Маникюр с гарантией 7 дней — переделаем бесплатно. Брянск."
 - "Свадебный образ за одно посещение. Результат обсуждаем до, не после."
-- "Стойкий макияж для невесты — держится 16 часов или возвращаем деньги."
 
-ДЛИНА: 8–12 слов. Без восклицательных знаков.
-Верни JSON: {{\"tagline\":\"...\"}}"""
-    else:
-        user = data_block + """
+ВАЖНО: Используй топ-2-3 направления из поля Аспекты (что ценят клиенты). Не фокусируйся только на одной услуге.
+Если Аспекты содержат «Окрашивание волос», «Маникюр», «Уход за ресницами» — включи их все в tagline.
 
-## ЗАДАЧА: напиши tagline для H1 первого экрана.
-
-ФОРМУЛА (выбери одну):
-1. [Конкретная услуга] + [конкретный результат] + [город/без очередей]
-2. [Главный страх] → [как мы его снимаем]
-3. [Для кого] + [что делаем] + [ключное отличие]
-
-ЭТАЛОННЫЕ ПРИМЕРЫ:
-- "Маникюр с гарантией 7 дней — переделаем бесплатно. Брянск."
-- "Свадебный образ за одно посещение. Результат обсуждаем до, не после."
-- "Стойкий макияж для невесты — держится 16 часов или возвращаем деньги."
-
-ДЛИНА: 8–12 слов. Без восклицательных знаков.
+ДЛИНА: 8–14 слов. Без восклицательных знаков.
 Верни JSON: {{\"tagline\":\"...\"}}"""
 
     parsed = call_openrouter_json(system, user)
@@ -573,6 +572,12 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
 
 Реальные цены с Яндекс.Карт: {context.get("yandex_prices", "")}
 
+ВАЖНЫЕ ПРАВИЛА:
+- КАЖДАЯ услуга должна закрывать РАЗНЫЙ страх (не повторяй один и тот же страх в разных услугах).
+  Разные страхи: стерильность, стойкость покрытия, безопасность для волос, индивидуальный подход, безболезненность, время ожидания.
+- НЕ ПОВТОРЯЙ одинаковые формулировки в разных услугах. Каждое описание должно быть уникальным по концовке.
+- Не используй одну и ту же фразу (например про автоклав) во всех услугах — максимум в одной, если это уместно.
+
 СТАРТ description — только этими конструкциями (каждая услуга своя, не повторять):
 Маникюр:      «Покрытие держится...»
 Окрашивание:  «Берёмся только за...»
@@ -583,7 +588,7 @@ def generate_services(context: Dict[str, Any], count: int = 5) -> List[Dict[str,
 Ресницы:      «Изгиб и длина...»
 Прочее:       начни с факта о результате, не с «Вы»
 
-Маникюр: «Инструменты стерилизуются в автоклаве, одноразовые вскрываем при вас»
+ПРИМЕРЫ (для понимания структуры, не копируй дословно):
 Окрашивание: «Берёмся только за работы в результате которых уверены — скажем честно если случай сложный»
 Свадебный макияж: «Пробный визит до свадьбы — смотришь как держится, корректируем»
 Брови: «Форма под твоё лицо, не по трафарету. Учитываем асимметрию»
@@ -793,146 +798,237 @@ async def curate_lead(lead_id: int) -> Optional[Dict[str, Any]]:
 
     slug = slugify_name(business_name, lead_id)
     
-    # Читаем extracted JSON (услуги, FAQ, team с сайта)
-    extracted_data = {}
-    extracted_path = PROJECT_ROOT / "data" / "extracted" / f"{slug}-{lead_id}.json"
-    if extracted_path.exists():
-        with open(extracted_path, encoding="utf-8") as f:
-            extracted_data = json.load(f)
+    # Try to load card.json (v2 format)
+    card_data = load_card_json(slug, lead_id)
     
-    # Читаем yandex JSON (позиционирование, услуги, рейтинг, адрес)
-    yandex_data = {}
-    yandex_path = PROJECT_ROOT / "data" / "yandex" / f"{slug}-{lead_id}.json"
-    if yandex_path.exists():
-        with open(yandex_path, encoding="utf-8") as f:
-            yandex_data = json.load(f)
-
-    # Берём отзывы из yandex_data с фильтрацией мусора
-    yandex_reviews_list = yandex_data.get("yandex", {}).get("reviews_list", [])
-    raw_reviews = [
-        r for r in yandex_reviews_list
-        if r.get("text") and r.get("author")
-        and r.get("author") != "Клиент"
-        and len(r.get("text", "")) > 30
-        and r.get("text") != r.get("author")
-    ]
+    if card_data:
+        print(f"✅ Используем card.json (v2) для {slug}")
+        
+        # Extract data from card.json
+        real_address = card_data.get("address", {}).get("full", "")
+        real_city = card_data.get("address", {}).get("locality", "")
+        real_hours = card_data.get("working_hours", {}).get("text", "")
+        real_rating = card_data.get("rating", "")
+        real_reviews_count = card_data.get("review_count") or card_data.get("rating_count", "")
+        real_tagline = ""  # card.json doesn't have tagline, will generate from LLM
+        
+        # Services from card.json
+        card_services = card_data.get("services", [])
+        real_services_str = ", ".join([
+            s.get("title", "") for s in card_services[:10] if s.get("title")
+        ]) or ""
+        
+        # Prices from card.json
+        card_prices = {}
+        for s in card_services:
+            name = s.get("title", "")
+            price = s.get("price_text", "")
+            if name and price:
+                card_prices[name.lower()] = price
+        
+        # Aspects from card.json (what clients value) - sorted by count DESC
+        aspects_data = card_data.get("aspects", [])
+        aspects_sorted = sorted(aspects_data, key=lambda x: x.get("count", 0), reverse=True)[:5]
+        aspects_str = ", ".join([
+            f"{a.get('text', '')} ({a.get('count', 0)})" 
+            for a in aspects_sorted if a.get("text")
+        ]) or ""
+        
+        # Awards from card.json
+        achievements = card_data.get("features_categorized", {}).get("achievements", [])
+        good_place_year = card_data.get("good_place_year", "")
+        awards_list = []
+        if "good_place" in achievements and good_place_year:
+            awards_list.append(f"«Хорошее место {good_place_year}»")
+        awards_str = ", ".join(awards_list) or "нет"
+        
+        # Reviews from card.json - use directly without filter_reviews
+        # card.reviews_preview already filtered by Yandex (only live reviews)
+        reviews_preview = card_data.get("reviews_preview", [])
+        # Take top 4-5 longest reviews (most useful)
+        raw_reviews = [
+            {
+                "author": r.get("author", ""),
+                "text": r.get("text", ""),
+                "rating": r.get("rating", 5),
+                "date": r.get("date", ""),
+                "businessReply": r.get("business_reply", "")
+            }
+            for r in reviews_preview
+            if r.get("text") and r.get("author")
+            and r.get("author") != "Клиент"
+            and len(r.get("text", "")) > 30
+            and r.get("text") != r.get("author")
+        ]
+        # Sort by length (longest first) and take top 5
+        raw_reviews = sorted(raw_reviews, key=lambda x: len(x.get("text", "")), reverse=True)[:5]
+        
+        # Determine business type (chain or single studio)
+        # card.json doesn't have branches/phones for chain detection, use simple heuristics
+        phones = card_data.get("phones", [])
+        business_type = "сеть салонов красоты" if len(phones) >= 3 else "студия красоты"
+        
+        salon_context = {
+            "name": business_name,
+            "city": real_city,
+            "address": real_address,
+            "business_type": business_type,
+            "tagline": real_tagline,
+            "services": real_services_str,
+            "rating": real_rating,
+            "reviews_count": real_reviews_count,
+            "hours": real_hours,
+            "category": category,
+            "awards": awards_str,
+            "aspects": aspects_str,
+            "yandex_prices": json.dumps(card_prices, ensure_ascii=False),
+            "real_services": real_services_str,
+            "real_prices": json.dumps(card_prices, ensure_ascii=False),
+        }
+    else:
+        print(f"⚠️ card.json не найден, пробуем старый формат (yandex JSON)")
+        
+        # Fallback to old format (yandex JSON)
+        extracted_data = {}
+        extracted_path = PROJECT_ROOT / "data" / "extracted" / f"{slug}-{lead_id}.json"
+        if extracted_path.exists():
+            with open(extracted_path, encoding="utf-8") as f:
+                extracted_data = json.load(f)
+        
+        yandex_data = {}
+        yandex_path = PROJECT_ROOT / "data" / "yandex" / f"{slug}-{lead_id}.json"
+        if yandex_path.exists():
+            with open(yandex_path, encoding="utf-8") as f:
+                yandex_data = json.load(f)
+        
+        yandex_reviews_list = yandex_data.get("yandex", {}).get("reviews_list", [])
+        raw_reviews = [
+            r for r in yandex_reviews_list
+            if r.get("text") and r.get("author")
+            and r.get("author") != "Клиент"
+            and len(r.get("text", "")) > 30
+            and r.get("text") != r.get("author")
+        ]
+        
+        extracted_services = extracted_data.get("services", [])
+        yandex_services = yandex_data.get("yandex", {}).get("services", [])
+        real_services = extracted_services[:10] if extracted_services else yandex_services[:10]
+        real_services_str = ", ".join([
+            s.get("name") or s.get("title") or str(s)
+            for s in real_services if isinstance(s, dict)
+        ][:10]) or ""
+        
+        yandex_prices = {}
+        for s in yandex_services:
+            name = s.get("name", "")
+            price = s.get("price", "")
+            if name and price and len(name) > 3 and "варьируется" not in name:
+                try:
+                    price_digits = re.sub(r'[^\d]', '', price)
+                    if not price_digits or int(price_digits) < 500:
+                        continue
+                except (ValueError, TypeError):
+                    continue
+                clean_name = name.split("варьируется")[0].strip()
+                clean_name = clean_name.replace("ВЫПОЛНЯЕТСЯ НА ЧИСТЫЕ ВЫМЫТЫЕ ВАМИ ВОЛОСЫ", "").strip()
+                clean_name = re.sub(r'\d+$', '', clean_name).strip()
+                if clean_name:
+                    yandex_prices[clean_name.lower()] = price
+        
+        real_services = [
+            s.get("name", "")
+            for s in extracted_data.get("serviceCarousel", [])
+            if s.get("name")
+            and len(s.get("name", "")) < 60
+            and not any(x in s.get("name", "") for x in
+                        ["📞", "варьируется", "ВЫПОЛНЯЕТСЯ", "344"])
+        ]
+        
+        carousel_prices = {}
+        for s in extracted_data.get("serviceCarousel", []):
+            name = s.get("name", "").strip()
+            price = s.get("price", "")
+            if name and price:
+                price_digits = re.sub(r'[^\d]', '', price)
+                try:
+                    if price_digits and int(price_digits) >= 100:
+                        carousel_prices[name.lower()] = price
+                except (ValueError, TypeError):
+                    pass
+        
+        merged_prices = {**carousel_prices, **yandex_prices}
+        
+        yandex_info = yandex_data.get("yandex", {})
+        real_tagline = yandex_info.get("tagline") or yandex_info.get("description") or ""
+        real_rating = yandex_info.get("rating") or ""
+        real_reviews_count = yandex_info.get("reviews_count") or ""
+        real_address = lead.address or yandex_info.get("address") or ""
+        real_city = detect_city(real_address)
+        real_hours = yandex_info.get("hours") or ""
+        
+        chain_status = is_chain(lead, yandex_data)
+        business_type = "сеть салонов красоты" if chain_status else "студия красоты"
+        
+        salon_context = {
+            "name": business_name,
+            "city": real_city,
+            "address": real_address,
+            "business_type": business_type,
+            "tagline": real_tagline,
+            "services": real_services_str,
+            "rating": real_rating,
+            "reviews_count": real_reviews_count,
+            "hours": real_hours,
+            "category": category,
+            "awards": "нет",
+            "aspects": "",
+            "yandex_prices": json.dumps(yandex_prices, ensure_ascii=False),
+            "real_services": ", ".join(real_services) if real_services else "",
+            "real_prices": json.dumps(merged_prices, ensure_ascii=False),
+        }
 
     print(f"🎯 Найден лид: {business_name} | category={category} | reviews={len(raw_reviews)}")
-
-    # Реальные услуги из двух источников
-    extracted_services = extracted_data.get("services", [])
-    yandex_services = yandex_data.get("yandex", {}).get("services", [])
-    real_services = extracted_services[:10] if extracted_services else yandex_services[:10]
-    real_services_str = ", ".join([
-        s.get("name") or s.get("title") or str(s)
-        for s in real_services if isinstance(s, dict)
-    ][:10]) or ""
-    
-    yandex_prices = {}
-    for s in yandex_services:
-        name = s.get("name", "")
-        price = s.get("price", "")
-        # чистим мусорные названия
-        if name and price and len(name) > 3 and "варьируется" not in name:
-            try:
-                price_digits = re.sub(r'[^\d]', '', price)
-                if not price_digits or int(price_digits) < 500:
-                    continue
-            except (ValueError, TypeError):
-                continue
-            clean_name = name.split("варьируется")[0].strip()
-            clean_name = clean_name.replace("ВЫПОЛНЯЕТСЯ НА ЧИСТЫЕ ВЫМЫТЫЕ ВАМИ ВОЛОСЫ", "").strip()
-            clean_name = re.sub(r'\d+$', '', clean_name).strip()
-            if clean_name:
-                yandex_prices[clean_name.lower()] = price
-
-    real_services = [
-        s.get("name", "")
-        for s in extracted_data.get("serviceCarousel", [])
-        if s.get("name")
-        and len(s.get("name", "")) < 60
-        and not any(x in s.get("name", "") for x in
-                    ["📞", "варьируется", "ВЫПОЛНЯЕТСЯ", "344"])
-    ]
-    
-    # Собираем цены из serviceCarousel
-    carousel_prices = {}
-    for s in extracted_data.get("serviceCarousel", []):
-        name = s.get("name", "").strip()
-        price = s.get("price", "")
-        if name and price:
-            price_digits = re.sub(r'[^\d]', '', price)
-            try:
-                if price_digits and int(price_digits) >= 100:
-                    carousel_prices[name.lower()] = price
-            except (ValueError, TypeError):
-                pass
-    
-    # Объединяем: carousel_prices + yandex_prices (яндекс приоритетнее)
-    merged_prices = {**carousel_prices, **yandex_prices}
-    
-    # Позиционирование с сайта
-    yandex_info = yandex_data.get("yandex", {})
-    real_tagline = yandex_info.get("tagline") or yandex_info.get("description") or ""
-    real_rating = yandex_info.get("rating") or ""
-    real_reviews_count = yandex_info.get("reviews_count") or ""
-    real_address = lead.address or yandex_info.get("address") or ""
-    real_city = detect_city(real_address)
-    real_hours = yandex_info.get("hours") or ""
-
-    # Определяем тип бизнеса (сеть или одиночная студия)
-    chain_status = is_chain(lead, yandex_data)
-    business_type = "сеть салонов красоты" if chain_status else "студия красоты"
-    
-    salon_context = {
-        "name": business_name,
-        "city": real_city,
-        "address": real_address,
-        "business_type": business_type,
-        "tagline": real_tagline,
-        "services": real_services_str,
-        "rating": real_rating,
-        "reviews_count": real_reviews_count,
-        "hours": real_hours,
-        "category": category,
-        "yandex_prices": json.dumps(yandex_prices, ensure_ascii=False),
-        "real_services": ", ".join(real_services) if real_services else "",
-        "real_prices": json.dumps(merged_prices, ensure_ascii=False),
-    }
 
     about_source = extract_about_source(lead.audit_notes)
     tagline_source = extract_tagline_source(lead.audit_notes)
 
     tagline = generate_tagline(salon_context, source_tagline=tagline_source)
     about_text = write_about_text(salon_context, source_text=about_source)
-    curated_reviews = filter_reviews(raw_reviews[:6])
-    # Постобработка: убираем обрезанные и негативные отзывы
-    BAD_MARKERS = ["к сожалению", "но спустя", "услышала как он",
-                   "подвела", "не понравилось", "разочарована",
-                   "но ", "однако "]
-    TRUNCATION_MARKERS = ["...", "как он", "но спустя", "услышала как"]
+    
+    # If using card.json, reviews are already pre-filtered by Yandex
+    # Otherwise, use old filter_reviews logic
+    if card_data:
+        curated_reviews = raw_reviews[:5]  # Already sorted by length and filtered
+    else:
+        curated_reviews = filter_reviews(raw_reviews[:6])
+        BAD_MARKERS = ["к сожалению", "но спустя", "услышала как он",
+                       "подвела", "не понравилось", "разочарована",
+                       "но ", "однако "]
+        TRUNCATION_MARKERS = ["...", "как он", "но спустя", "услышала как"]
 
-    clean_reviews = []
-    for r in curated_reviews:
-        text = r.get("text", "")
-        has_bad = any(m in text.lower() for m in BAD_MARKERS)
-        is_truncated = any(text.strip().endswith(m) or m in text[-30:]
-                           for m in TRUNCATION_MARKERS)
-        if not has_bad and not is_truncated:
-            clean_reviews.append(r)
+        clean_reviews = []
+        for r in curated_reviews:
+            text = r.get("text", "")
+            has_bad = any(m in text.lower() for m in BAD_MARKERS)
+            is_truncated = any(text.strip().endswith(m) or m in text[-30:]
+                               for m in TRUNCATION_MARKERS)
+            if not has_bad and not is_truncated:
+                clean_reviews.append(r)
 
-    # Если после чистки ничего не осталось — не показываем отзывы вообще
-    # (лучше пусто чем плохо)
-    curated_reviews = clean_reviews
+        curated_reviews = clean_reviews
+    
     service_cards = generate_services(salon_context, count=5)
     
-    # Используем реальные FAQ из extracted_data если есть
-    real_faq = extracted_data.get("faq_accordion", [])
-    if real_faq:
-        faq_items = [{"q": item.get("q", ""), "a": item.get("a", "")} for item in real_faq[:5]]
-        print(f"✅ FAQ из источника: {len(faq_items)}")
-    else:
+    if card_data:
+        # Use FAQ from card.json aspects if available, otherwise generate
         faq_items = generate_faq(salon_context, service_cards, count=5)
+    else:
+        real_faq = extracted_data.get("faq_accordion", [])
+        if real_faq:
+            faq_items = [{"q": item.get("q", ""), "a": item.get("a", "")} for item in real_faq[:5]]
+            print(f"✅ FAQ из источника: {len(faq_items)}")
+        else:
+            faq_items = generate_faq(salon_context, service_cards, count=5)
 
     output_payload: Dict[str, Any] = {
         "slug": slug,

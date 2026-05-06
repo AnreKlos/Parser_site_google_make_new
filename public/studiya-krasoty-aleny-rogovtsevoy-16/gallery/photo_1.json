@@ -1,0 +1,79 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 9,
+    "sharpness": 9,
+    "lighting": 9,
+    "composition": 9
+  },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background"
+    ]
+  },
+  "content": {
+    "description": "Аккуратный маникюр с белым покрытием и серебряными блестками на ногтях.",
+    "alt_text": "Маникюр с белым покрытием и серебряными блестками",
+    "objects": [
+      "client_nails",
+      "nail_polish",
+      "foil_flakes"
+    ],
+    "dominant_colors": [
+      "white",
+      "black",
+      "silver"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "nails_general",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking result close-up with excellent composition and lighting that draws the eye."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This is a work result, not an interior shot, so it's not suitable for the 'about' section."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Sharp close-up of finished work, showcasing the detail and quality of the manicure."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No master is visible, and the focus is solely on the nails, making it unsuitable for a team photo."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clearly showcases a specific service (manicure) and its result, making it good for a service card."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

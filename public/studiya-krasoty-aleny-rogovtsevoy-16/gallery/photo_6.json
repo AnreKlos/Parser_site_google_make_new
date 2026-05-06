@@ -1,0 +1,80 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 8,
+    "sharpness": 9,
+    "lighting": 8,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "excellent_close_up",
+      "shows_service_result"
+    ]
+  },
+  "content": {
+    "description": "Крупный план глаза с нарощенными ресницами. Видна детальная проработка ресниц и естественный цвет радужки.",
+    "alt_text": "Нарощенные ресницы крупным планом",
+    "objects": [
+      "eye",
+      "eyelashes",
+      "eyelid",
+      "iris"
+    ],
+    "dominant_colors": [
+      "brown",
+      "skin_tone",
+      "black"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "lashes",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking close-up of a beauty service result that can immediately hook a visitor."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This photo is a close-up of a service result, not an interior shot of the salon."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent showcase of a specific beauty service result with high detail and clarity."
+    },
+    "team": {
+      "score": 0,
+      "reason": "This is a close-up of a client's eye, not a portrait of a salon master."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Perfectly represents the result of a lash extension service."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

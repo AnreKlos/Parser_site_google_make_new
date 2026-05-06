@@ -1,0 +1,555 @@
+{
+  "schema_version": 2,
+  "lead_id": 16,
+  "slug": "studiya-krasoty-aleny-rogovtsevoy",
+  "scraped_at": "2026-05-06T17:43:06",
+  "source_url": "https://yandex.ru/maps/org/beauty_studio_alyona_rogovtseva/81490194348/?lang=ru",
+  "org_id": "81490194348",
+  "title": "Студия красоты Алёны Роговцевой",
+  "short_title": "Студия красоты Алёны Роговцевой",
+  "rating": 5.0,
+  "rating_count": 263,
+  "review_count": 220,
+  "verified_owner": true,
+  "good_place_year": "2026",
+  "address": {
+    "full": "Брянск, Московский проспект, 49А",
+    "country": "Россия",
+    "locality": "Брянск",
+    "street": "Московский проспект",
+    "house": "49А",
+    "additional": "справа от Европы, пройти между двумя офисными зданиями. вход слева",
+    "postal_code": null
+  },
+  "coordinates": {
+    "lng": 34.421777,
+    "lat": 53.214998
+  },
+  "phones": [
+    "+7 (961) 104-31-19"
+  ],
+  "working_hours": {
+    "text": "пн,вт,ср,чт,пт,вс 8:30 AM–9:00 PM",
+    "by_day": [
+      [
+        {
+          "from": "08:30",
+          "to": "21:00"
+        }
+      ],
+      [
+        {
+          "from": "08:30",
+          "to": "21:00"
+        }
+      ],
+      [
+        {
+          "from": "08:30",
+          "to": "21:00"
+        }
+      ],
+      [
+        {
+          "from": "08:30",
+          "to": "21:00"
+        }
+      ],
+      [
+        {
+          "from": "08:30",
+          "to": "21:00"
+        }
+      ],
+      [
+        {
+          "from": "08:30",
+          "to": "21:00"
+        }
+      ]
+    ],
+    "is_open_now": true,
+    "unusual_hours": [
+      "2026-05-01",
+      "2026-05-09",
+      "2026-05-11"
+    ]
+  },
+  "urls": {
+    "website": "https://studija-krasoty-aleny-moskovskij-prospekt.clients.site/",
+    "taplink": null,
+    "vk": "https://vk.com/club235243982",
+    "whatsapp": null,
+    "booking": "https://n1187995.yclients.com/",
+    "all": [
+      "https://studija-krasoty-aleny-moskovskij-prospekt.clients.site/"
+    ]
+  },
+  "logo_url": "https://avatars.mds.yandex.net/get-altay/4042551/2a0000017f89e9bb53de7c484d6b0de13dfa/orig",
+  "services": [
+    {
+      "title": "Наращивание ресниц мокрый эффект",
+      "description": "Объемы 2D и 3D дают потрясающий результат преображения взгляда – глаза становятся ярче, взгляд выразительнее, появляется возможность скорректировать мелкие недостатки внешности. Но с увеличением объема растет и нагрузка. Поэтому наращивание в таки...",
+      "price": 2700,
+      "price_text": "2700 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/12412149/2a0000018c1ce5478026033ac628a0bfbae1/orig"
+    },
+    {
+      "title": "Ламинирование ресниц",
+      "description": "Процедура насыщает волосяной покров микроэлементами, заполняет пигментом. В результате даже тонкие и светлые ресницы выглядят роскошно черными и длинными, взгляд становится открытым",
+      "price": 2400,
+      "price_text": "2400 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/5392818/2a0000018a81463dd6bfb50dd59235503bb2/orig"
+    },
+    {
+      "title": "2д наращивание ресниц",
+      "description": "",
+      "price": 2500,
+      "price_text": "2500 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/12411943/2a0000018c55968d081fa0977507ce875fc4/orig"
+    },
+    {
+      "title": "классика (1д)",
+      "description": "Классическое наращивание ресниц подразумевает под собой процедуру, при которой мастер с помощью специального клея для наращивания ресниц крепит одну искусственную ресничку к одной натуральной.\nКлассическое наращивание выглядит естественно, придава...",
+      "price": 2000,
+      "price_text": "2000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/1356083/2a00000193126fc4aadc1180d782c86ea6f3/orig"
+    },
+    {
+      "title": "LED наращивание ресниц",
+      "description": "Подходит аллергикам,  устойчив к внешним факторам, что обеспечивает более длительную носку",
+      "price": 3000,
+      "price_text": "3000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/3912342/2a0000019373fb050656f2e4c20e0694c78c/orig"
+    },
+    {
+      "title": "Маникюр с покрытием гель лак",
+      "description": "Включено в стоимость: снятие нашей работы, придание формы, укрепление, достраивание/ ремонт 2х ногтей, покрытие гель лаком, легкий массаж рук",
+      "price": 2200,
+      "price_text": "2200 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/11939409/2a0000018dc897f947d78077a7763e3b2362/orig"
+    },
+    {
+      "title": "Педикюр с покрытием гель лак",
+      "description": "В стоимость включено: снятие гель лака, придание формы, комбинированный педикюр, smart обработка стопы, достраивание углов/ дизайн 2х ногтей, покрытие гель лак, легкий массаж стопы",
+      "price": 2500,
+      "price_text": "2500 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/13009487/2a0000018dcb03498f14b346d853b06159aa/orig"
+    },
+    {
+      "title": "Маникюр гигиенический",
+      "description": "Включено в стоимость: придание формы, маникюр комбинированный, покрытие лаком, легкий массаж рук",
+      "price": 1200,
+      "price_text": "1200 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/13009487/2a0000018dcb063cc98c14ad324d6bedb538/orig"
+    },
+    {
+      "title": "Педикюр гигиенический без покрытия гель лаком",
+      "description": "В стоимость включено: снятие гель лака, придание формы, комбинированный педикюр , smart обработка стопы, покрытие лаком",
+      "price": 2000,
+      "price_text": "2000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/9896919/2a0000018bb8cc1492666199955fa05c35b4/orig"
+    },
+    {
+      "title": "3д",
+      "description": "Наращивание ресниц 3D — современная востребованная техника наращивания, в которой на каждую натуральную ресницу клиента мастер наклеивает пучок из 3 искусственных, который формируется в процессе работы. Процедура длится около 2 х часов",
+      "price": 2700,
+      "price_text": "2700 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/12412149/2a0000018c1ce79df0ffbfb99f25def3decb/orig"
+    }
+  ],
+  "services_total_count": 17,
+  "features_categorized": {
+    "general": [
+      "способ оплаты: предоплата, наличными, оплата картой, банковским переводом, безналичная, онлайн, QR-код, СБП, оплата кредитной картой",
+      "подарочный сертификат",
+      "акции: скидки, акции, спецпредложения, подарки",
+      "Оплата картой",
+      "Wi-Fi",
+      "парковка"
+    ],
+    "achievements": [
+      "good_place"
+    ],
+    "services": [
+      "для ногтей: женский педикюр, женский маникюр, мужской маникюр, дизайн ногтей, комби маникюр, комби педикюр, smart-педикюр, наращивание ногтей, снятие маникюра"
+    ],
+    "prices": [
+      "классический женский маникюр с покрытием: от 1200 ₽"
+    ],
+    "accessibility": [
+      "доступность входа на инвалидной коляске: недоступно",
+      "доступность помещения на инвалидной коляске: недоступно"
+    ]
+  },
+  "aspects": [
+    {
+      "id": "3502086903",
+      "text": "Уход за ресницами",
+      "count": 130,
+      "positive": 127,
+      "neutral": 1,
+      "negative": 2,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/11393517/2a0000018dc8715cddd4a738e587bd599dab/orig",
+        "https://avatars.mds.yandex.net/get-altay/10488540/2a0000018c559a02896fa1a78ca0d37bf279/orig",
+        "https://avatars.mds.yandex.net/get-altay/11395962/2a0000018dc8754cf54bc44bc66ae7772b7c/orig",
+        "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018c559a087af09b8b2d29d68d1eb3/orig",
+        "https://avatars.mds.yandex.net/get-altay/4374841/2a00000178ec695c924e489ea74ab7787a01/orig",
+        "https://avatars.mds.yandex.net/get-altay/10639454/2a0000018c55893dc2e59110c6615119c847/orig",
+        "https://avatars.mds.yandex.net/get-altay/11393517/2a0000018dc86f155a8ab4a111c78aecf64c/orig",
+        "https://avatars.mds.yandex.net/get-altay/9833544/2a0000019171cdf8e17c75ad7ea522d60e8e/orig",
+        "https://avatars.mds.yandex.net/get-altay/5235198/2a0000017b72c0cad7329aebb17ec8f32e93/orig",
+        "https://avatars.mds.yandex.net/get-altay/10238647/2a0000018f791e00a8e8374500bc5058d900/orig"
+      ]
+    },
+    {
+      "id": "3502086906",
+      "text": "Наращивание ресниц",
+      "count": 123,
+      "positive": 119,
+      "neutral": 2,
+      "negative": 2,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/4374841/2a00000178ec695c924e489ea74ab7787a01/orig",
+        "https://avatars.mds.yandex.net/get-altay/5235198/2a0000017b72c0cad7329aebb17ec8f32e93/orig",
+        "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018c559a087af09b8b2d29d68d1eb3/orig",
+        "https://avatars.mds.yandex.net/get-altay/11395962/2a0000018dc8754cf54bc44bc66ae7772b7c/orig",
+        "https://avatars.mds.yandex.net/get-altay/10639454/2a0000018c55893dc2e59110c6615119c847/orig",
+        "https://avatars.mds.yandex.net/get-altay/10488540/2a0000018c559a02896fa1a78ca0d37bf279/orig",
+        "https://avatars.mds.yandex.net/get-altay/11393517/2a0000018dc8715cddd4a738e587bd599dab/orig",
+        "https://avatars.mds.yandex.net/get-altay/9833544/2a0000019171cdf8e17c75ad7ea522d60e8e/orig",
+        "https://avatars.mds.yandex.net/get-altay/4012790/2a00000178ec6a7d91b8c7dadc579b0d4cb5/orig",
+        "https://avatars.mds.yandex.net/get-altay/10445027/2a0000018c939ae4183302a8816c4267901d/orig"
+      ]
+    },
+    {
+      "id": "3502044230",
+      "text": "Атмосфера",
+      "count": 93,
+      "positive": 93,
+      "neutral": 0,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/10578166/2a0000018dc895c2a71e47f9abdbca11d156/orig",
+        "https://avatars.mds.yandex.net/get-altay/10926933/2a0000018c5580735a6f1f7c9387369279bf/orig",
+        "https://avatars.mds.yandex.net/get-altay/10830675/2a0000018c1d37bbcb2449f5b09470158b25/orig",
+        "https://avatars.mds.yandex.net/get-altay/11395677/2a0000018dcb01d5b6a2061dcd3a7d936824/orig",
+        "https://avatars.mds.yandex.net/get-altay/10111752/2a0000018dc8715d84cbd98c2d20d426e06d/orig",
+        "https://avatars.mds.yandex.net/get-altay/10637974/2a0000018c558180bce6455f780976ccc5c7/orig",
+        "https://avatars.mds.yandex.net/get-altay/11047345/2a0000018dcafd83aa4749bc416155a1bd8d/orig",
+        "https://avatars.mds.yandex.net/get-altay/18148618/2a0000019cc99d157220db910eaf233ac8f1/orig"
+      ]
+    },
+    {
+      "id": "3502204799",
+      "text": "Компетентность",
+      "count": 61,
+      "positive": 61,
+      "neutral": 0,
+      "negative": 0,
+      "photos": []
+    },
+    {
+      "id": "3502066474",
+      "text": "Маникюр",
+      "count": 53,
+      "positive": 48,
+      "neutral": 5,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/9752112/2a00000189b31f132bdd8871451af2683934/orig",
+        "https://avatars.mds.yandex.net/get-altay/10447847/2a00000189b320ca17a22ae9f226ca2ae70d/orig",
+        "https://avatars.mds.yandex.net/get-altay/13453452/2a0000018ebaac2b0a7be88500f4d5e7381e/orig",
+        "https://avatars.mds.yandex.net/get-altay/9770129/2a0000018b5d705027c264fbcb268209a073/orig",
+        "https://avatars.mds.yandex.net/get-altay/9916116/2a00000189b31ec232aead81749c6e5c0375/orig",
+        "https://avatars.mds.yandex.net/get-altay/15232272/2a000001963840e89d749484f0ad0dc3f0ba/orig",
+        "https://avatars.mds.yandex.net/get-altay/6213366/2a0000018dc86f1247bbee4b9200c5eeab65/orig",
+        "https://avatars.mds.yandex.net/get-altay/10700095/2a0000018b5d70506876c5676850731cf1c6/orig",
+        "https://avatars.mds.yandex.net/get-altay/15437010/2a000001997af451856533ecba689787229b/orig",
+        "https://avatars.mds.yandex.net/get-altay/18101536/2a0000019b48171b3cb047b8861c68267cc7/orig"
+      ]
+    },
+    {
+      "id": "3502044686",
+      "text": "Время ожидания",
+      "count": 43,
+      "positive": 42,
+      "neutral": 0,
+      "negative": 1,
+      "photos": []
+    },
+    {
+      "id": "3502043730",
+      "text": "Интерьер",
+      "count": 18,
+      "positive": 18,
+      "neutral": 0,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/10578166/2a0000018dc895c2a71e47f9abdbca11d156/orig",
+        "https://avatars.mds.yandex.net/get-altay/10637974/2a0000018c558180bce6455f780976ccc5c7/orig",
+        "https://avatars.mds.yandex.net/get-altay/10830675/2a0000018c1d37bbcb2449f5b09470158b25/orig",
+        "https://avatars.mds.yandex.net/get-altay/11187599/2a0000018c213d133b094366c3858035933b/orig",
+        "https://avatars.mds.yandex.net/get-altay/10926933/2a0000018c5580735a6f1f7c9387369279bf/orig",
+        "https://avatars.mds.yandex.net/get-altay/11395677/2a0000018dcb01d5b6a2061dcd3a7d936824/orig",
+        "https://avatars.mds.yandex.net/get-altay/5097807/2a0000018dcb01d4f75ae942f9f8c77e81ef/orig",
+        "https://avatars.mds.yandex.net/get-altay/11047345/2a0000018dcafd83aa4749bc416155a1bd8d/orig",
+        "https://avatars.mds.yandex.net/get-altay/10111752/2a0000018dc8715d84cbd98c2d20d426e06d/orig",
+        "https://avatars.mds.yandex.net/get-altay/11047345/2a0000018dcafd873d6679f4429779c11419/orig"
+      ]
+    },
+    {
+      "id": "3502086895",
+      "text": "Педикюр",
+      "count": 18,
+      "positive": 17,
+      "neutral": 1,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/9749133/2a0000018a0ee634d1741b1c0b5ee329503e/orig",
+        "https://avatars.mds.yandex.net/get-altay/9749133/2a00000189e146e97c78072d73a072a8c576/orig",
+        "https://avatars.mds.yandex.net/get-altay/12813969/2a0000018e15ae8207c67d78513064e5f09d/orig",
+        "https://avatars.mds.yandex.net/get-altay/9749133/2a00000189e146f484ea182760b5b9785d93/orig",
+        "https://avatars.mds.yandex.net/get-altay/7883089/2a0000018ee8e55ceafe7c9a3e6daaec5cee/orig",
+        "https://avatars.mds.yandex.net/get-altay/11937297/2a0000018e15ae8953ee2b148063f192a601/orig",
+        "https://avatars.mds.yandex.net/get-altay/12813969/2a0000018e15ae897f44ccba5c35d7ccaa1f/orig",
+        "https://avatars.mds.yandex.net/get-altay/10239151/2a0000018f791dfc481e7dcdad485c9f290b/orig",
+        "https://avatars.mds.yandex.net/get-altay/13793720/2a0000019171ce16048db7efba2e1891edde/orig",
+        "https://avatars.mds.yandex.net/get-altay/9714262/2a00000189b31f13a508c421e3c5402698fe/orig"
+      ]
+    },
+    {
+      "id": "3502044629",
+      "text": "Расположение",
+      "count": 15,
+      "positive": 13,
+      "neutral": 2,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/13063086/2a000001946a7fb08c6ef37cfae59722749f/orig"
+      ]
+    },
+    {
+      "id": "3502086910",
+      "text": "Уход за бровями",
+      "count": 15,
+      "positive": 14,
+      "neutral": 1,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/5308697/2a0000017bacbbb84c85fdaba5b99c342011/orig",
+        "https://avatars.mds.yandex.net/get-altay/4454943/2a0000017bacbb1f36095e6a5f7709a97466/orig",
+        "https://avatars.mds.yandex.net/get-altay/5308697/2a0000017bacbdf5e565e5cb4660e1aa4dad/orig",
+        "https://avatars.mds.yandex.net/get-altay/5235198/2a0000017bacbb3a8cb65efa73142f215000/orig",
+        "https://avatars.mds.yandex.net/get-altay/2363990/2a0000017bacc376b872c03eeaab3a494223/orig",
+        "https://avatars.mds.yandex.net/get-altay/4562719/2a0000017bacbac8992a66663b4d763d84d7/orig",
+        "https://avatars.mds.yandex.net/get-altay/5254653/2a0000017bacbaab03bdc53658b1645ea0bd/orig",
+        "https://avatars.mds.yandex.net/get-altay/5236021/2a0000017bacc3a338b50771be1a7b8de190/orig",
+        "https://avatars.mds.yandex.net/get-altay/10878699/2a0000019432a63953cfcfbae82df339f9bb/orig",
+        "https://avatars.mds.yandex.net/get-altay/5236021/2a0000017bacc345c76588e8c2b042a6d66c/orig"
+      ]
+    },
+    {
+      "id": "3502044082",
+      "text": "Кофе",
+      "count": 13,
+      "positive": 11,
+      "neutral": 2,
+      "negative": 0,
+      "photos": []
+    }
+  ],
+  "videos": [
+    {
+      "id": "vplvobqurtpb7hug7qnj",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/6374015/2a0000018f791e045fa4b345e7b0629fedf6/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvobqurtpb7hug7qnj",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvlfqe544css5enug6",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/6919792/2a0000018c213b19a142de670eb8dd134d35/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvlfqe544css5enug6",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "id": "vplvqwj55ks2d5agd5m6",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/13754825/2a0000019688628607ba10d50a0f4ab5bba3/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvqwj55ks2d5agd5m6",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "id": "vplva4qvvtivht3hfm3l",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/14904103/2a0000019c73358ae7d6d3c5332bc1df6525/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplva4qvvtivht3hfm3l",
+      "width": 1080,
+      "height": 1920
+    }
+  ],
+  "reviews_preview": [
+    {
+      "review_id": "9_NmOi_cI08MMQkoyGXF15ExAFFtzORR",
+      "author": "Альбина Панкратова",
+      "text": "Каждый раз, выходя от Алёны, чувствую себя обновленной и полноценной.\nРесницы\nвыглядят естественно, но при этом выразительно. Никакого дискомфорта, никаких склеенных ресниц или ощущения тяжести. Только идеальный изгиб, нужный объем и длина, которые держатся до следующей коррекции без нареканий. Алёна использует качественные материалы. Она всегда предупреждает о возможных нюансах ухода, даёт рекомендации по выбору косметики, чтобы продлить срок носки. Это не просто услуга, это целый ритуал красоты, после которого всегда остаёшься довольной результатом. Я с уверенностью могу рекомендовать Алёну всем, кто ищет настоящего профессионала своего дела и хочет получить идеальные ресницы.💋",
+      "rating": 5,
+      "date": "2026-03-02",
+      "photos": [],
+      "business_reply": null
+    },
+    {
+      "review_id": "iBT4esy3GzT5dHa57BBBBq95ZczqUDat",
+      "author": "Елена Антонова",
+      "text": "Данную студию посещаю уже более 3-х лет, и только сейчас дошли руки написать отзыв. Мастер Алена работает быстро и качественно, уделяя внимание каждой ресничке. Результат получается естественным и красивым. Ресницы держатся идеально, не осыпаются и сохраняют первоначальный вид долгое время. Студия оборудована удобными креслами, приятной музыкой и ароматерапией, что создаёт расслабляющую обстановку. Спасибо вам огромное за красоту и комфорт!",
+      "rating": 5,
+      "date": "2025-11-18",
+      "photos": [],
+      "business_reply": "Елена, благодарим Вас за приятный отзыв и высокую оценку работы мастера. Ждем Вас снова в нашей студии!"
+    },
+    {
+      "review_id": "zE_AY3dg-NKK_-ZXPlfUASeBZLU6kq",
+      "author": "Натали",
+      "text": "Хочу поблагодарить Алёну за восхитительные реснички! Делала ламинирование, так же за коррекцию бровей, все очень понравилось! Красивые брови! Алена все делает с чувством, подходит творчески к своей работе, отточенное мастерство видно в каждом действии! Красивый, стильный, уютный салон, и сама Алена общительная,  добрадушная! Спасибо!Наталья.",
+      "rating": 5,
+      "date": "2026-03-07",
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/18148618/2a0000019cc99d157220db910eaf233ac8f1/orig"
+      ],
+      "business_reply": null
+    }
+  ],
+  "reviews_total_count": 220,
+  "discoveries": [
+    {
+      "alias": "podborka_krasota_brovi_r-n-fokinskij-bryansk-191",
+      "title": "Салоны красоты в Фокинском районе Брянска: услуги по оформлению бровей",
+      "place_number": 3,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_laminirovanie-resnic_bryansk-191",
+      "title": "Салоны красоты в Брянске с услугой ламинирования ресниц",
+      "place_number": 6,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_manikyur_bryansk-191",
+      "title": "Салоны красоты и ногтевые студии Брянска: услуги маникюра",
+      "place_number": 50,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_manikyur_r-n-fokinskij-bryansk-191",
+      "title": "Салоны и студии маникюра в районе Фокинский (Брянск)",
+      "place_number": 15,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_narashhivanie-resnic_r-n-fokinskij-bryansk-191",
+      "title": "Салоны красоты с наращиванием ресниц в Фокинском районе Брянска",
+      "place_number": 3,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_pedikyur_bryansk-191",
+      "title": "Салоны и студии педикюра в Брянске",
+      "place_number": 45,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_resnicy_bryansk-191",
+      "title": "Салоны красоты в Брянске: услуги по работе с ресницами",
+      "place_number": 29,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_resnicy_r-n-fokinskij-bryansk-191",
+      "title": "Салоны красоты в Брянске (Фокинский район): услуги по наращиванию и уходу за ресницами",
+      "place_number": 6,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "khoroshee-mesto_nogtevaya-studiya_bryansk-191",
+      "title": "Ногтевые студии с наградой «Хорошее место 2026» в Брянске",
+      "place_number": 20,
+      "partner": "Хорошее место"
+    }
+  ],
+  "histogram": {},
+  "panorama": {
+    "preview_url": "https://static-pano.maps.yandex.ru/v1/?panoid=1279072930_699243587_23_1594127814&size=500%2C240&azimuth=123.4&tilt=10&api_key=maps&signature=O0S_9mamMnCcU5YJTB1j5HXHkB3K7WZ4lMpLPW6qPVQ=",
+    "lat": 53.2151829468,
+    "lng": 34.4213090794
+  },
+  "_meta": {
+    "parser_version": "2.0",
+    "method": "state_view",
+    "fallback_used": false,
+    "fields_extracted": [
+      "schema_version",
+      "lead_id",
+      "slug",
+      "scraped_at",
+      "source_url",
+      "org_id",
+      "title",
+      "short_title",
+      "rating",
+      "rating_count",
+      "review_count",
+      "verified_owner",
+      "good_place_year",
+      "address",
+      "coordinates",
+      "phones",
+      "working_hours",
+      "urls",
+      "logo_url",
+      "services",
+      "services_total_count",
+      "features_categorized",
+      "aspects",
+      "videos",
+      "reviews_preview",
+      "reviews_total_count",
+      "discoveries",
+      "panorama"
+    ]
+  },
+  "qualification": {
+    "qualified": true,
+    "reason": "OK",
+    "score": 100,
+    "checks": {
+      "rating": true,
+      "reviews": true,
+      "photos": true,
+      "services": true,
+      "contact": true
+    },
+    "details": {
+      "rating": 5.0,
+      "review_count": 220,
+      "unique_aspect_photos": 54,
+      "services_with_photos": 10,
+      "contact_channels": [
+        "vk",
+        "website",
+        "booking"
+      ]
+    }
+  }
+}

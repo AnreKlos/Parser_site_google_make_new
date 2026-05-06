@@ -3,47 +3,80 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 9,
+    "score": 8,
     "sharpness": 9,
     "lighting": 8,
-    "composition": 8
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "good_lighting",
+      "clean_background",
+      "professional_result_visible"
+    ]
   },
   "content": {
-    "description": "Аккуратный маникюр с глянцевым черным покрытием на коротких ногтях. Фон нейтральный, имитирующий бетон.",
-    "alt_text": "Черный глянцевый маникюр на женских руках",
+    "description": "Женская стрижка и окрашивание в светлый блонд с ровным срезом.",
+    "alt_text": "Женская стрижка и окрашивание в светлый блонд",
     "objects": [
-      "рука",
-      "ногти",
-      "маникюр"
+      "woman_hair",
+      "haircut",
+      "hair_coloring",
+      "blond_hair",
+      "straight_cut"
     ],
-    "colors": [
-      "черный",
-      "серый",
-      "телесный"
+    "dominant_colors": [
+      "beige",
+      "white",
+      "black"
     ],
-    "mood": "luxurious"
+    "mood": "neutral"
   },
   "people": {
     "present": true,
     "count": 1,
     "faces_visible": false,
-    "type": "client"
+    "primary_subject": "client",
+    "back_or_side_only": true,
+    "covered_face": false
   },
-  "service_ref": "manicure",
-  "marketing": {
-    "usable_in_hero": false,
-    "usable_in_about": false,
-    "usable_in_gallery": true,
-    "usable_in_team": false,
-    "usable_in_services": true,
-    "social_proof_value": "high"
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "haircut",
+  "fit_scores": {
+    "hero": {
+      "score": 6,
+      "reason": "Shows a good result but the face is not visible, which is less engaging for a hero image."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This photo focuses on a hair result, not the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "This is an excellent showcase of a finished hair service, highlighting the quality of the work."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No master is visible, and the client's face is not shown, making it unsuitable for a team section."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clearly depicts the result of a haircut and coloring service, suitable for a service card."
+    }
   },
   "flags": {
     "has_logo": false,
     "has_text_overlay": false,
     "has_watermark": false,
     "is_screenshot": false,
-    "medical_mask": false,
-    "low_resolution": false
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
   }
 }

@@ -5,22 +5,29 @@
   "quality": {
     "score": 9,
     "sharpness": 9,
-    "lighting": 8,
+    "lighting": 9,
     "composition": 9
   },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "professional_result"
+    ]
+  },
   "content": {
-    "description": "Аккуратный французский маникюр на ухоженных руках, демонстрирующий идеальную форму и покрытие.",
-    "alt_text": "Французский маникюр на ухоженных руках в черных перчатках",
+    "description": "Аккуратный французский маникюр с идеальной линией улыбки на ухоженных руках.",
+    "alt_text": "Французский маникюр на ухоженных руках",
     "objects": [
-      "руки",
-      "ногти",
-      "маникюр",
-      "перчатки"
+      "client_hands",
+      "manicure",
+      "black_gloves"
     ],
-    "colors": [
-      "белый",
-      "розовый",
-      "черный"
+    "dominant_colors": [
+      "skin_tone",
+      "white",
+      "black"
     ],
     "mood": "luxurious"
   },
@@ -28,23 +35,45 @@
     "present": true,
     "count": 1,
     "faces_visible": false,
-    "type": "client"
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
   },
-  "service_ref": "manicure",
-  "marketing": {
-    "usable_in_hero": false,
-    "usable_in_about": false,
-    "usable_in_gallery": true,
-    "usable_in_team": false,
-    "usable_in_services": true,
-    "social_proof_value": "high"
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "nails_general",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Excellent close-up of a perfect manicure, visually appealing and hooks the viewer."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This photo focuses on the result, not the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "This is a prime example of a work result, showcasing a high-quality manicure."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No master is visible, and the focus is entirely on the client's hands and nails."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clearly represents the result of a manicure service, suitable for a service card."
+    }
   },
   "flags": {
     "has_logo": false,
     "has_text_overlay": false,
     "has_watermark": false,
     "is_screenshot": false,
-    "medical_mask": false,
-    "low_resolution": false
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
   }
 }

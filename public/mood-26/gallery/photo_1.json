@@ -3,47 +3,78 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 9,
+    "score": 8,
     "sharpness": 9,
     "lighting": 8,
-    "composition": 8
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clear_result_showcase",
+      "good_lighting"
+    ]
   },
   "content": {
-    "description": "Результат окрашивания волос: гладкие, блестящие светлые локоны с плавным переходом оттенков.",
-    "alt_text": "Окрашивание волос: блонд с плавным переходом оттенков",
+    "description": "Сравнение до и после процедуры перманентного макияжа бровей и межресничной стрелки.",
+    "alt_text": "Результат перманентного макияжа бровей и межресничной стрелки",
     "objects": [
-      "волосы",
-      "окрашивание",
-      "салон красоты"
+      "eyebrows",
+      "eyeliner",
+      "eyelashes",
+      "eye"
     ],
-    "colors": [
-      "бежевый",
-      "золотистый",
-      "белый"
+    "dominant_colors": [
+      "skin_tone",
+      "black",
+      "green"
     ],
-    "mood": "luxurious"
+    "mood": "neutral"
   },
   "people": {
     "present": true,
     "count": 1,
     "faces_visible": false,
-    "type": "client"
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
   },
-  "service_ref": "coloring",
-  "marketing": {
-    "usable_in_hero": false,
-    "usable_in_about": false,
-    "usable_in_gallery": true,
-    "usable_in_team": false,
-    "usable_in_services": true,
-    "social_proof_value": "high"
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "other",
+  "fit_scores": {
+    "hero": {
+      "score": 6,
+      "reason": "Shows a clear result, but not a master at work or a striking interior."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This image focuses on a specific service result, not the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent showcase of a specific beauty service result, ideal for a gallery."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No master is visible, and the focus is on the client's result, not the team."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clearly depicts the result of a specific beauty service, suitable for a service card."
+    }
   },
   "flags": {
     "has_logo": false,
     "has_text_overlay": false,
     "has_watermark": false,
     "is_screenshot": false,
-    "medical_mask": false,
-    "low_resolution": false
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
   }
 }

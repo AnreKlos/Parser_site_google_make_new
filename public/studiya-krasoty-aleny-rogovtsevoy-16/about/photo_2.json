@@ -1,0 +1,83 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "interior",
+  "quality": {
+    "score": 7,
+    "sharpness": 8,
+    "lighting": 7,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 7,
+    "tier": "casual_acceptable",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background"
+    ]
+  },
+  "content": {
+    "description": "Современный санузел в салоне красоты с раковиной, зеркалом с подсветкой и цветами.",
+    "alt_text": "Санузел в салоне красоты с зеркалом с подсветкой",
+    "objects": [
+      "sink",
+      "mirror",
+      "cabinet",
+      "trash_can",
+      "flowers",
+      "soap_dispenser",
+      "paper_towel_dispenser"
+    ],
+    "dominant_colors": [
+      "gray",
+      "white",
+      "black"
+    ],
+    "mood": "neutral"
+  },
+  "people": {
+    "present": false,
+    "count": 0,
+    "faces_visible": false,
+    "primary_subject": null,
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": null,
+  "fit_scores": {
+    "hero": {
+      "score": 4,
+      "reason": "This photo shows the interior, which can be a good hero image if the salon has a strong aesthetic, but it lacks a clear hook or service representation."
+    },
+    "about": {
+      "score": 10,
+      "reason": "This is an excellent shot of the salon's interior, showcasing its modern design and atmosphere, fitting perfectly for an 'about' section."
+    },
+    "gallery": {
+      "score": 0,
+      "reason": "This image does not showcase any work results or services provided by the salon."
+    },
+    "team": {
+      "score": 0,
+      "reason": "There are no people in the image, so it cannot be used for a team section."
+    },
+    "services": {
+      "score": 2,
+      "reason": "While it shows a part of the salon, it doesn't directly represent any specific service offered."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

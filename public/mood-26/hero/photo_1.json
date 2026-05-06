@@ -5,20 +5,30 @@
   "quality": {
     "score": 9,
     "sharpness": 9,
-    "lighting": 9,
-    "composition": 8
+    "lighting": 8,
+    "composition": 9
+  },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "professional_result",
+      "neutral_background"
+    ]
   },
   "content": {
-    "description": "Результат окрашивания и стрижки волос. Идеально ровные, блестящие светлые волосы.",
-    "alt_text": "Результат окрашивания и стрижки волос",
+    "description": "Аккуратный маникюр с покрытием нюдовым гель-лаком на квадратной форме ногтей.",
+    "alt_text": "Маникюр нюдовый гель-лак квадратная форма",
     "objects": [
-      "волосы",
-      "свитер"
+      "client_hands",
+      "nails",
+      "nail_polish"
     ],
-    "colors": [
-      "бежевый",
-      "белый",
-      "черный"
+    "dominant_colors": [
+      "skin_tone",
+      "white",
+      "dark_gray"
     ],
     "mood": "luxurious"
   },
@@ -26,23 +36,45 @@
     "present": true,
     "count": 1,
     "faces_visible": false,
-    "type": "model"
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
   },
-  "service_ref": "coloring",
-  "marketing": {
-    "usable_in_hero": true,
-    "usable_in_about": false,
-    "usable_in_gallery": true,
-    "usable_in_team": false,
-    "usable_in_services": true,
-    "social_proof_value": "high"
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "nails_general",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking close-up of a beautiful manicure result that immediately showcases the salon's skill."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This photo focuses on a specific service result, not the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent close-up of a finished manicure, perfect for showcasing work results."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No people are clearly identifiable as staff, and no team context is present."
+    },
+    "services": {
+      "score": 9,
+      "reason": "Clearly depicts the result of a nail service, ideal for a service card."
+    }
   },
   "flags": {
     "has_logo": false,
     "has_text_overlay": false,
     "has_watermark": false,
     "is_screenshot": false,
-    "medical_mask": false,
-    "low_resolution": false
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
   }
 }

@@ -3,48 +3,79 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 9,
+    "score": 8,
     "sharpness": 9,
-    "lighting": 9,
-    "composition": 8
+    "lighting": 8,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background",
+      "hair_result_prominent"
+    ]
   },
   "content": {
-    "description": "Крупный план глаза с идеально наращенными ресницами и ухоженными бровями.",
-    "alt_text": "Наращенные ресницы и брови крупным планом",
+    "description": "Женщина с длинными, прямыми, окрашенными волосами в черном пеньюаре.",
+    "alt_text": "Результат окрашивания волос: длинные, прямые, блестящие волосы.",
     "objects": [
-      "глаз",
-      "ресницы",
-      "брови"
+      "long_hair",
+      "black_cape",
+      "white_wall",
+      "window"
     ],
-    "colors": [
-      "бежевый",
-      "коричневый",
-      "голубой",
-      "фиолетовый"
+    "dominant_colors": [
+      "grey",
+      "white",
+      "black"
     ],
-    "mood": "luxurious"
+    "mood": "neutral"
   },
   "people": {
     "present": true,
     "count": 1,
     "faces_visible": false,
-    "type": "client"
+    "primary_subject": "client",
+    "back_or_side_only": true,
+    "covered_face": false
   },
-  "service_ref": "lashes",
-  "marketing": {
-    "usable_in_hero": false,
-    "usable_in_about": false,
-    "usable_in_gallery": true,
-    "usable_in_team": false,
-    "usable_in_services": true,
-    "social_proof_value": "high"
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "coloring",
+  "fit_scores": {
+    "hero": {
+      "score": 6,
+      "reason": "Shows a good result but lacks a clear story or master's involvement for a strong hero image."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This is a work result, not an interior shot, so it doesn't fit the 'about' section well."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent showcase of a finished hair coloring result, sharp and well-lit."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No face is visible, and it's not a portrait of a team member."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clearly shows the result of a hair coloring service, making it suitable for a service card."
+    }
   },
   "flags": {
     "has_logo": false,
     "has_text_overlay": false,
     "has_watermark": false,
     "is_screenshot": false,
-    "medical_mask": false,
-    "low_resolution": false
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
   }
 }

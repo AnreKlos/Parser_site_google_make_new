@@ -10,6 +10,13 @@ import sqlite3
 from pathlib import Path
 import sys
 import asyncio
+
+# === FIX: Playwright requires ProactorEventLoop on Windows ===
+# Streamlit defaults to SelectorEventLoop, which has no subprocess_exec.
+# Must be set BEFORE any async code runs.
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+
 import json
 import re
 import urllib.parse
@@ -240,13 +247,22 @@ def run_config_builder_batch(lead_ids: list[int]) -> tuple[list[int], dict[int, 
 
 
 def run_yandex_enricher(lead_id: int, mode: str = "light") -> tuple[bool, str]:
-    """Обогащение через enrichment.yandex напрямую."""
+    """Обогащение через enrichment.yandex_state."""
     try:
-        from enrichment.yandex import enrich_lead
-        result = asyncio.run(enrich_lead(lead_id, mode=mode))
-        if result is None or result is False:
-            return False, f"Обогащение не выполнено для lead_id={lead_id} mode={mode}"
-        return True, f"OK: lead_id={lead_id} mode={mode} | rating={result.get('rating', '?')} reviews={result.get('reviews_count', 0)}"
+        import subprocess
+        result = subprocess.run(
+            ["python", "-m", "enrichment.yandex_state", str(lead_id), "--force"],
+            cwd=str(Path(__file__).parent.parent),
+            capture_output=True,
+            text=True,
+            timeout=300
+        )
+        if result.returncode == 0:
+            return True, f"OK: lead_id={lead_id} mode={mode}"
+        else:
+            return False, f"Ошибка (код {result.returncode}): {result.stderr}"
+    except subprocess.TimeoutExpired:
+        return False, "Таймаут: обогащение заняло более 5 минут"
     except Exception as exc:
         import traceback
         return False, f"Исключение: {exc}\n{traceback.format_exc()}"

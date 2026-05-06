@@ -1,0 +1,82 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "master_at_work",
+  "quality": {
+    "score": 7,
+    "sharpness": 7,
+    "lighting": 6,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 7,
+    "tier": "casual_acceptable",
+    "reasons": [
+      "salon_environment",
+      "professional_activity_visible"
+    ]
+  },
+  "content": {
+    "description": "Мастер маникюра в перчатках работает над ногтями клиента.",
+    "alt_text": "Мастер маникюра работает над ногтями клиента в салоне.",
+    "objects": [
+      "manicure_desk",
+      "uv_lamp",
+      "client_hands",
+      "master_hands",
+      "nail_file",
+      "cabinet"
+    ],
+    "dominant_colors": [
+      "black",
+      "white",
+      "beige"
+    ],
+    "mood": "neutral"
+  },
+  "people": {
+    "present": true,
+    "count": 2,
+    "faces_visible": true,
+    "primary_subject": "master",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "manicure",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Shows a master actively performing a service, which is engaging for a hero section."
+    },
+    "about": {
+      "score": 6,
+      "reason": "Provides a glimpse into the salon's work environment, showing a service in progress."
+    },
+    "gallery": {
+      "score": 7,
+      "reason": "Demonstrates a specific service (manicure) being performed, hinting at the results."
+    },
+    "team": {
+      "score": 2,
+      "reason": "While it shows a master, it's not a dedicated portrait and lacks any identifying text for the team section."
+    },
+    "services": {
+      "score": 9,
+      "reason": "Clearly depicts the manicure service in action, making it ideal for a service card."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

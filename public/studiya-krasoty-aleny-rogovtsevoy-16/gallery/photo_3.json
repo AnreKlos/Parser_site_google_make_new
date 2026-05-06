@@ -1,0 +1,80 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 9,
+    "sharpness": 9,
+    "lighting": 9,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background",
+      "focus_on_result"
+    ]
+  },
+  "content": {
+    "description": "Аккуратный маникюр с нежным сиреневым покрытием на коротких ногтях.",
+    "alt_text": "Маникюр с сиреневым покрытием",
+    "objects": [
+      "client_hands",
+      "nails",
+      "nail_polish"
+    ],
+    "dominant_colors": [
+      "light_purple",
+      "white",
+      "black"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "nails_general",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Excellent close-up of a beautiful manicure result, which is visually appealing and hooks the viewer."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This photo focuses on the result of a service, not the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "This is a perfect example of a work result, showcasing a clean and well-executed manicure."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No master is visible, and the focus is solely on the client's hands and nails."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clearly showcases the result of a manicure service, making it suitable for a service card."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

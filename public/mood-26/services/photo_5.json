@@ -1,49 +1,81 @@
 {
   "rejected": false,
   "reject_reason": null,
-  "category": "work_result",
+  "category": "master_at_work",
   "quality": {
-    "score": 9,
-    "sharpness": 9,
-    "lighting": 8,
-    "composition": 8
+    "score": 7,
+    "sharpness": 8,
+    "lighting": 7,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "professional_environment",
+      "good_lighting"
+    ]
   },
   "content": {
-    "description": "Аккуратный маникюр с глянцевым черным покрытием на коротких ногтях. Фон нейтральный, имитирующий бетон.",
-    "alt_text": "Черный глянцевый маникюр на женских руках",
+    "description": "Мастер делает укладку феном и расческой, создавая объемную прическу клиентке.",
+    "alt_text": "Мастер делает укладку волос феном и брашингом",
     "objects": [
-      "рука",
-      "ногти",
-      "маникюр"
+      "hairdryer",
+      "round_brush",
+      "client_hair",
+      "hairdresser_uniform",
+      "wooden_wall"
     ],
-    "colors": [
-      "черный",
-      "серый",
-      "телесный"
+    "dominant_colors": [
+      "dark_gray",
+      "black",
+      "brown"
     ],
-    "mood": "luxurious"
+    "mood": "neutral"
   },
   "people": {
     "present": true,
-    "count": 1,
-    "faces_visible": false,
-    "type": "client"
+    "count": 2,
+    "faces_visible": true,
+    "primary_subject": "master",
+    "back_or_side_only": false,
+    "covered_face": false
   },
-  "service_ref": "manicure",
-  "marketing": {
-    "usable_in_hero": false,
-    "usable_in_about": false,
-    "usable_in_gallery": true,
-    "usable_in_team": false,
-    "usable_in_services": true,
-    "social_proof_value": "high"
+  "text_in_image": {
+    "present": true,
+    "looks_like_caption_for_person": false,
+    "extracted_text": "ESTEL"
+  },
+  "service_ref": "haircut",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Shows a master actively performing a service, which is engaging for a hero section."
+    },
+    "about": {
+      "score": 4,
+      "reason": "While it shows a salon environment, it's too focused on the procedure to represent the overall atmosphere."
+    },
+    "gallery": {
+      "score": 6,
+      "reason": "It shows a service in progress, hinting at the results, but isn't a finished work showcase."
+    },
+    "team": {
+      "score": 6,
+      "reason": "Shows a master at work, but lacks the direct portrait style and potential captioning for a dedicated team section."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Clearly depicts a specific hair styling service in action, ideal for a service card."
+    }
   },
   "flags": {
     "has_logo": false,
-    "has_text_overlay": false,
+    "has_text_overlay": true,
     "has_watermark": false,
     "is_screenshot": false,
-    "medical_mask": false,
-    "low_resolution": false
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
   }
 }

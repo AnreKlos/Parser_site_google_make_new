@@ -266,123 +266,351 @@ def analyze_image_url(image_url: str, prompt: str) -> Optional[Any]:
     return None
 
 
-def _validate_rich_profile(parsed: Any) -> Dict[str, Any]:
-    """Defensive validation of rich profile from Vision."""
-    if not isinstance(parsed, dict):
-        return {"rejected": True, "reject_reason": "parse_error"}
-    
-    defaults = {
-        "rejected": False,
-        "reject_reason": None,
-        "category": "other",
-        "quality": {"score": 5, "sharpness": 5, "lighting": 5, "composition": 5},
-        "content": {"description": "", "alt_text": "", "objects": [], "colors": [], "mood": "other"},
-        "people": {"present": False, "count": 0, "faces_visible": False, "type": None},
-        "service_ref": None,
-        "marketing": {
-            "usable_in_hero": False,
-            "usable_in_about": False,
-            "usable_in_gallery": False,
-            "usable_in_team": False,
-            "usable_in_services": False,
-            "social_proof_value": "low"
-        },
-        "flags": {
-            "has_logo": False,
-            "has_text_overlay": False,
-            "has_watermark": False,
-            "is_screenshot": False,
-            "medical_mask": False,
-            "low_resolution": False
-        }
-    }
-    
-    for key, default in defaults.items():
-        if key not in parsed:
-            parsed[key] = default
-        elif isinstance(default, dict) and isinstance(parsed[key], dict):
-            for subkey, subdefault in default.items():
-                if subkey not in parsed[key]:
-                    parsed[key][subkey] = subdefault
-    
-    return parsed
+def _validate_rich_profile(data: Any) -> Dict[str, Any]:
+    """Defensive validation of rich profile from Vision with new fields."""
+    if not isinstance(data, dict):
+        return {"rejected": True, "reject_reason": "parse_error", "fit_scores": {
+            "hero": {"score": 0, "reason": "parse_error"},
+            "about": {"score": 0, "reason": "parse_error"},
+            "gallery": {"score": 0, "reason": "parse_error"},
+            "team": {"score": 0, "reason": "parse_error"},
+            "services": {"score": 0, "reason": "parse_error"},
+        }}
+
+    # Ensure fit_scores exists with all 5 roles
+    fit_scores = data.get("fit_scores") or {}
+    for role in ("hero", "about", "gallery", "team", "services"):
+        if role not in fit_scores or not isinstance(fit_scores[role], dict):
+            fit_scores[role] = {"score": 0, "reason": "missing"}
+        else:
+            fit_scores[role].setdefault("score", 0)
+            fit_scores[role].setdefault("reason", "")
+    data["fit_scores"] = fit_scores
+
+    # Ensure text_in_image exists
+    text_in_image = data.get("text_in_image") or {}
+    text_in_image.setdefault("present", False)
+    text_in_image.setdefault("looks_like_caption_for_person", False)
+    text_in_image.setdefault("extracted_text", None)
+    data["text_in_image"] = text_in_image
+
+    # Ensure people block has new fields
+    people = data.get("people") or {}
+    people.setdefault("present", False)
+    people.setdefault("count", 0)
+    people.setdefault("faces_visible", False)
+    people.setdefault("primary_subject", None)
+    people.setdefault("back_or_side_only", False)
+    people.setdefault("covered_face", False)
+    data["people"] = people
+
+    # Ensure flags block
+    flags = data.get("flags") or {}
+    for f in ("has_logo", "has_text_overlay", "has_watermark", "is_screenshot",
+              "face_covered", "low_resolution", "stock_photo_signals"):
+        flags.setdefault(f, False)
+
+    # Backward compatibility: if old "medical_mask" exists, fold into face_covered
+    if (data.get("flags") or {}).get("medical_mask") and not flags.get("face_covered"):
+        flags["face_covered"] = True
+    data["flags"] = flags
+
+    # Ensure marketing_grade exists with defaults (Patch B)
+    mg = data.get("marketing_grade") or {}
+    mg.setdefault("score", 5)         # neutral fallback
+    mg.setdefault("tier", "casual_acceptable")
+    mg.setdefault("reasons", [])
+    data["marketing_grade"] = mg
+
+    # Ensure content
+    content = data.get("content") or {}
+    content.setdefault("description", "")
+    content.setdefault("alt_text", "")
+    content.setdefault("objects", [])
+    content.setdefault("dominant_colors", [])
+    content.setdefault("mood", "neutral")
+    data["content"] = content
+
+    # Defaults
+    data.setdefault("rejected", False)
+    data.setdefault("reject_reason", None)
+    data.setdefault("category", "other")
+    data.setdefault("service_ref", None)
+
+    # Quality block
+    quality = data.get("quality") or {}
+    quality.setdefault("score", 5)
+    quality.setdefault("sharpness", 5)
+    quality.setdefault("lighting", 5)
+    quality.setdefault("composition", 5)
+    data["quality"] = quality
+
+    return data
 
 
 def analyze_photo_rich(image_url: str, hint: str = None) -> Dict[str, Any]:
     """
-    Returns rich per-photo profile. Single API call. Hint is the Yandex aspect tag
-    (e.g. "Интерьер", "Маникюр") if available — used to bias classification.
+    Returns rich photo profile WITH role-specific fit scores.
+    Hint = Yandex aspect tag (e.g. "Интерьер", "Маникюр") — bias only, not authority.
     """
-    hint_text = f"\nYandex tagged this photo as: '{hint}'. Verify and override if wrong." if hint else ""
+    hint_text = (
+        f"\nYandex auto-tagged this photo as: '{hint}'. Use as a hint, "
+        f"but YOU decide the final category based on what you see."
+        if hint else ""
+    )
 
-    prompt = f"""Analyze a photo for a beauty salon landing page.{hint_text}
-Return STRICT JSON:
+    prompt = f"""You are a beauty-salon landing page editor. Analyze this photo and decide HOW WELL it fits each landing-page role.{hint_text}
+
+Return STRICT JSON (no markdown, no comments):
+
 {{
   "rejected": true|false,
-  "reject_reason": null | "medical_mask" | "low_quality" | "watermark" | "screenshot" | "text_overlay" | "person_face_only" | "irrelevant",
-  
-  "category": "interior" | "work_result" | "master_at_work" | "team_portrait" | "exterior" | "service_card" | "logo" | "other",
-  
+  "reject_reason": null | "stock_photo" | "face_covered" | "low_quality" | "watermark" | "screenshot" | "text_overlay_heavy" | "ui_interface" | "irrelevant" | "blurry" | "duplicate_pattern",
+
+  "category": "interior" | "work_result" | "master_at_work" | "team_portrait" | "exterior" | "service_card" | "logo" | "tools_products" | "selfie" | "other",
+
   "quality": {{
     "score": 1-10,
     "sharpness": 1-10,
     "lighting": 1-10,
     "composition": 1-10
   }},
-  
-  "content": {{
-    "description": "1-2 sentence description in Russian",
-    "alt_text": "short alt text for HTML in Russian, max 80 chars",
-    "objects": ["object1", "object2"],
-    "colors": ["color1", "color2"],
-    "mood": "calm | energetic | luxurious | cozy | clinical | other"
+
+  "marketing_grade": {{
+    "score": 1-10,
+    "tier": "pro_studio" | "pro_salon" | "casual_acceptable" | "amateur_outdoor" | "amateur_home" | "unusable",
+    "reasons": ["short_reason_1", "short_reason_2"]
   }},
-  
+
+  "content": {{
+    "description": "1-2 sentence Russian description of what's in the photo",
+    "alt_text": "short Russian alt for HTML (max 80 chars), describes service+result",
+    "objects": ["object1", "object2", "object3"],
+    "dominant_colors": ["color1", "color2"],
+    "mood": "calm" | "energetic" | "luxurious" | "cozy" | "clinical" | "neutral"
+  }},
+
   "people": {{
     "present": true|false,
     "count": 0,
     "faces_visible": true|false,
-    "type": null | "client" | "master" | "team_group" | "model"
+    "primary_subject": null | "client" | "master" | "team_group" | "model" | "unclear",
+    "back_or_side_only": true|false,
+    "covered_face": true|false
   }},
-  
-  "service_ref": null | "manicure" | "pedicure" | "haircut" | "coloring" | "lashes" | "brows" | "makeup" | "facial" | "hair_treatment" | "other",
-  
-  "marketing": {{
-    "usable_in_hero": true|false,
-    "usable_in_about": true|false,
-    "usable_in_gallery": true|false,
-    "usable_in_team": true|false,
-    "usable_in_services": true|false,
-    "social_proof_value": "low" | "medium" | "high"
+
+  "text_in_image": {{
+    "present": true|false,
+    "looks_like_caption_for_person": true|false,
+    "extracted_text": null | "string with text from photo (name/role if any)"
   }},
-  
+
+  "service_ref": null | "manicure" | "pedicure" | "haircut" | "coloring" | "lashes" | "brows" | "makeup" | "facial" | "hair_treatment" | "nails_general" | "other",
+
+  "fit_scores": {{
+    "hero":     {{"score": 0-10, "reason": "1 sentence why"}},
+    "about":    {{"score": 0-10, "reason": "1 sentence why"}},
+    "gallery":  {{"score": 0-10, "reason": "1 sentence why"}},
+    "team":     {{"score": 0-10, "reason": "1 sentence why"}},
+    "services": {{"score": 0-10, "reason": "1 sentence why"}}
+  }},
+
   "flags": {{
     "has_logo": true|false,
     "has_text_overlay": true|false,
     "has_watermark": true|false,
     "is_screenshot": true|false,
-    "medical_mask": true|false,
-    "low_resolution": true|false
+    "face_covered": true|false,
+    "low_resolution": true|false,
+    "stock_photo_signals": true|false
   }}
 }}
 
-Reject rules (set rejected=true):
-- medical mask visible on face
-- watermark or stock-photo signature
-- screenshot of UI / phone interface
-- heavy text overlay covering image
-- blurry / dark / underexposed
-- only a person's face with no context (selfie without setting)
+============================================================
+HARD REJECT (set rejected=true) if ANY of these is true:
+- ANY face-covering object on a person:
+    medical/surgical mask, cloth mask, fabric mask of any color,
+    respirator, balaclava, scarf covering nose/mouth, neck gaiter
+    pulled up over face. If a person's nose AND mouth are both
+    obscured by an object, set rejected=true with
+    reject_reason="face_covered".
+- Watermark, signature, or stock-photo provider mark visible
+- Screenshot of phone/computer UI: any of these visible — "HDR" badge, battery indicator, clock/time in corner, signal bars, app icons, status bar, "1x"/"2x" zoom indicator, camera mode labels, recording dot, photo gallery thumbnails. If you see any device interface element overlaid on the photo, set rejected=true with reject_reason="screenshot".
+- Heavy text overlay covering >30% of image
+- Blurry, dark, severely underexposed
+- Pure selfie of a face with no salon context
+- Stock-photo signals: airbrushed model, white teeth, generic studio backdrop, towel-on-head cliche, cucumber-on-eyes cliche
+- marketing_grade <= 1 (unusable):
+    ANY of: новая мебель в полиэтиленовой плёнке, монтаж/стройка/ремонт в кадре,
+    мусор/грязь, посторонние личные предметы (телефон, кошелёк, бутылки),
+    постельное бельё в кадре, поздравительные надписи во весь кадр.
+    Set rejected=true with reject_reason="not_marketable".
 
-Hero criteria: vertical OR landscape, sharp, well-lit, has visual hook, no text overlay.
-About criteria: interior, atmosphere, salon space, no people OR distant people.
-Gallery criteria: clear work result (manicure close-up, hair, brows etc).
-Team criteria: portrait of a single person, professional, face visible.
+============================================================
+ROLE-SPECIFIC FIT SCORING — score 0-10 PER ROLE based on these criteria:
+
+HERO (the very first photo a visitor sees, must hook in 3 seconds):
+  10 = master in action with visible face/hands + clear visual story (e.g. coloring hair, drawing brow, nail art close-up with hands of master)
+   8 = beautiful interior with a person in frame OR striking result close-up (manicure macro, hair after coloring) with composition that draws eye
+   6 = clean stylish interior, no people, but good light and depth
+   4 = generic interior shot, slightly cluttered or flat
+   2 = back of person, back of head, person walking away, no face/no action
+   0 = anything that "doesn't tell a story in 3 seconds"
+
+  HARD ZERO if: person shown only from back or side, face not visible AT ALL, only logo or signage, screenshot, dark/blurry
+
+ABOUT (interior / atmosphere, "what kind of place is this"):
+  10 = clean, well-lit interior shot of the salon space (chairs, mirrors, work area visible), no close-up procedures
+   8 = same, with optional distant master/client visible (sets atmosphere)
+   6 = corner/detail of interior (welcome desk, single chair) — usable but secondary
+   4 = close-up of work surface (table with tools) — only if no broader shots available
+   2 = procedure happening in frame (master + client closeup) — wrong role
+   0 = no salon space visible at all
+
+  HARD ZERO if: it's actually a portrait, work result close-up, or master-at-work shot
+
+GALLERY (showcase of WORK RESULTS, before/after style, what client will get):
+  10 = sharp close-up of finished work — manicure with detail visible, hair after coloring, brows after correction, lashes after extension
+   8 = result shot with hands/face area but the WORK is the subject
+   6 = before/after pair OR work-in-progress where the work itself dominates frame
+   4 = master-at-work shot where you can see the result forming
+   2 = full salon interior, no specific work showcased
+   0 = no beauty service result visible
+
+  HARD ZERO if: it's just an interior shot, just a portrait, or a logo
+
+TEAM (master portraits — strict gates):
+  10 = single person portrait, face fully visible, professional pose, AND text_in_image.looks_like_caption_for_person == true (caption with name/role on the photo itself)
+   8 = single person portrait, face fully visible, professional pose, in clearly recognizable salon setting
+   6 = single person portrait, face visible but unclear if it's a master or client
+   4 = group photo of 2-3 people, all faces visible, looks like staff
+   2 = person shown but face not clearly visible OR back/side only OR multiple people in disorganized scene
+   0 = no person, or face hidden by hair/object/angle
+
+  HARD ZERO if: any of these — face not fully visible, person from back, face covered by hair, multiple people without clear "team" framing, person looks like a client (mid-procedure), child in frame
+
+SERVICES (one photo per service card):
+  10 = clean shot of the procedure or result of a SPECIFIC service (manicure macro, hair coloring tool in hand, brow shape close-up)
+   8 = product/tool arrangement clearly representing a service category
+   6 = atmospheric interior shot of the service zone (manicure desk, hair-wash chair)
+   4 = generic salon photo
+   0 = irrelevant to any service
+
+  HARD ZERO if: it's a portrait of a person without a service context
+
+============================================================
+MARKETING GRADE — оценка пригодности для лендинга, отдельно от технического quality.
+
+Это НЕ о резкости/свете. Это о том, можно ли это фото показать клиенту на сайте салона
+без потери доверия.
+
+Шкала 1-10 + tier:
+
+10 — pro_studio:
+  Студийное освещение. Чистый/нейтральный фон. Композиция выстроена. Услуга — главный субъект.
+  Никаких бытовых деталей. Подходит для любого блока лендинга включая hero.
+
+8-9 — pro_salon:
+  Снято в салоне на хорошую камеру/телефон с хорошим светом. Видна профессиональная среда
+  (рабочее место, оборудование, продукты). Композиция продуманная. Никаких бытовых конфликтов.
+
+6-7 — casual_acceptable:
+  Снято в салоне или на природе. Освещение норм, фон нейтральный. Не идеально, но клиента
+  не оттолкнёт. Нет бытовых деталей которые «убивают» доверие.
+
+4-5 — amateur_outdoor:
+  Снято в неподходящем месте (улица, парковка, дома) но без явных косяков. Может работать
+  как backup, не основной выбор.
+
+2-3 — amateur_home:
+  Бытовая обстановка: диван, постель, полотенце вместо профессионального белья, личные вещи
+  в кадре, домашний свет. Видны непрофессиональные детали (мозоли, неровная кутикула,
+  непрорабоанные ногти, морщины крупным планом без ретуши). Фото с ощущением «снято на
+  телефон после процедуры для отчётности», а не для маркетинга.
+
+1 — unusable:
+  Полиэтиленовая плёнка на новой мебели (товар не распакован). Стройка, монтаж, мусор в кадре.
+  Личные предметы случайно попали в кадр (кошельки, телефоны, бутылки). Постельное бельё.
+  Грязный пол. Любые «не маркетинговые» детали которые портят образ салона.
+
+ОБЯЗАТЕЛЬНО проставь tier из списка выше. Не выдумывай свои тиры.
+В reasons укажи 1-2 короткие причины (через подчёркивание, без пробелов):
+  primer: ["plastic_wrap_on_chair", "unfinished_setup"]
+  primer: ["bare_feet_on_towel", "home_setting"]
+  primer: ["clean_lighting", "neutral_background"]
+  primer: ["studio_quality", "perfect_composition"]
+
+============================================================
+DEDUPLICATION HINT (output only, used downstream):
+
+Fill content.objects with 3-7 most prominent objects in the photo. Be specific:
+  GOOD: ["manicure_desk", "uv_lamp", "client_hands", "nail_polish_bottles"]
+  BAD:  ["table", "items", "stuff"]
+
+Fill content.dominant_colors with 2-3 main colors:
+  GOOD: ["beige", "white", "rose_gold"]
+
+This lets the downstream code detect near-duplicate photos (same desk, same angle).
+
+============================================================
+TEXT-IN-IMAGE DETECTION (critical for team gate):
+
+If you see ANY text/caption on the photo (name, job title, watermark, logo with text):
+- text_in_image.present = true
+- text_in_image.extracted_text = the text you see (max 100 chars)
+- If the text appears to be a person's name AND/OR a job role (мастер, стилист, бровист, etc.) attached to a person in the photo → text_in_image.looks_like_caption_for_person = true
+
+If no text → all three text_in_image fields are false/null.
+
+This is the GATE for team-photo acceptance.
+
+============================================================
+Return ONLY the JSON. No prose, no markdown, no explanation outside the JSON.
 """
     parsed = analyze_image_url(image_url, prompt)
-    if parsed is None:
-        return {"rejected": True, "reject_reason": "vision_api_failed"}
     return _validate_rich_profile(parsed)
+
+
+def detect_ui_overlay(image_url: str) -> Dict[str, Any]:
+    """
+    Tight Vision call: does the image have ANY device UI element overlaid?
+    Returns:
+        {
+            "has_ui_overlay": bool,
+            "evidence": str,   # what was seen, e.g. "HDR badge top-left"
+        }
+    Use ONLY for finalists (after main fit_score sort) to avoid waste.
+    """
+    prompt = """Look ONLY at the four corners and the top/bottom edges of this image. Ignore the main subject.
+
+Is there ANY device-interface element overlaid on the photo?
+Examples that MUST trigger has_ui_overlay=true:
+- "HDR" badge or label
+- "Live" badge
+- Battery percentage indicator
+- Clock / time display
+- Signal bars / wifi / cellular icons
+- "1x", "0.5x", "2x" zoom indicators
+- Camera mode labels ("PHOTO", "VIDEO", "PORTRAIT")
+- Recording dot (red circle)
+- Screenshot framing
+- App UI chrome (status bar, navigation buttons)
+
+Return STRICT JSON, no markdown:
+{
+  "has_ui_overlay": true|false,
+  "evidence": "1 short sentence describing what you see, or null"
+}
+
+If you see only photo content with no overlays — has_ui_overlay=false.
+"""
+    parsed = analyze_image_url(image_url, prompt)
+    if not isinstance(parsed, dict):
+        return {"has_ui_overlay": False, "evidence": "parse_error"}
+    return {
+        "has_ui_overlay": bool(parsed.get("has_ui_overlay", False)),
+        "evidence": parsed.get("evidence") or "",
+    }
 
 
 def slugify_name(name: str, lead_id: int) -> str:

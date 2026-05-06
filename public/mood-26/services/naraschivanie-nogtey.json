@@ -3,24 +3,32 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 9,
+    "score": 8,
     "sharpness": 9,
     "lighting": 8,
-    "composition": 9
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background",
+      "focus_on_service_result"
+    ]
   },
   "content": {
-    "description": "Аккуратный маникюр с градиентным покрытием и белым френчем на длинных ногтях.",
-    "alt_text": "Маникюр с градиентом и белым френчем",
+    "description": "Женская рука с аккуратным маникюром в нежных нюдовых тонах с белым френчем.",
+    "alt_text": "Маникюр с нюдовым покрытием и белым френчем",
     "objects": [
-      "рука",
-      "ногти",
-      "маникюр",
-      "браслет"
+      "client_hands",
+      "manicure",
+      "nail_polish"
     ],
-    "colors": [
-      "бежевый",
-      "белый",
-      "серый"
+    "dominant_colors": [
+      "beige",
+      "white",
+      "grey"
     ],
     "mood": "luxurious"
   },
@@ -28,23 +36,45 @@
     "present": true,
     "count": 1,
     "faces_visible": false,
-    "type": "client"
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
   },
-  "service_ref": "manicure",
-  "marketing": {
-    "usable_in_hero": false,
-    "usable_in_about": false,
-    "usable_in_gallery": true,
-    "usable_in_team": false,
-    "usable_in_services": true,
-    "social_proof_value": "high"
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "nails_general",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking close-up of a beautiful manicure result that immediately showcases the salon's skill."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This photo focuses on the result of a service, not the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent showcase of a finished manicure, highlighting the quality of the work."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No master is visible, and the focus is on the client's hands, not the team."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Perfectly represents a nail service, showing the client's desired outcome."
+    }
   },
   "flags": {
     "has_logo": false,
     "has_text_overlay": false,
     "has_watermark": false,
     "is_screenshot": false,
-    "medical_mask": false,
-    "low_resolution": false
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
   }
 }

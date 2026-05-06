@@ -1,49 +1,81 @@
 {
   "rejected": false,
   "reject_reason": null,
-  "category": "work_result",
+  "category": "master_at_work",
   "quality": {
-    "score": 9,
-    "sharpness": 9,
-    "lighting": 8,
-    "composition": 9
+    "score": 7,
+    "sharpness": 8,
+    "lighting": 7,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "professional_environment"
+    ]
   },
   "content": {
-    "description": "Аккуратный маникюр с покрытием ярко-розовым гель-лаком. Рука в черной перчатке мастера демонстрирует результат работы.",
-    "alt_text": "Яркий розовый маникюр, выполненный мастером в черной перчатке",
+    "description": "Мастер моет голову клиентке в салоне красоты, нанося шампунь на волосы.",
+    "alt_text": "Мытье головы в салоне красоты",
     "objects": [
-      "рука",
-      "ногти",
-      "маникюр",
-      "перчатка"
+      "client_hair",
+      "master_hands",
+      "shampoo",
+      "wash_basin",
+      "wooden_wall"
     ],
-    "colors": [
-      "розовый",
-      "черный"
+    "dominant_colors": [
+      "brown",
+      "white",
+      "black"
     ],
-    "mood": "energetic"
+    "mood": "calm"
   },
   "people": {
     "present": true,
-    "count": 1,
-    "faces_visible": false,
-    "type": "master"
+    "count": 2,
+    "faces_visible": true,
+    "primary_subject": "master",
+    "back_or_side_only": false,
+    "covered_face": false
   },
-  "service_ref": "manicure",
-  "marketing": {
-    "usable_in_hero": false,
-    "usable_in_about": false,
-    "usable_in_gallery": true,
-    "usable_in_team": false,
-    "usable_in_services": true,
-    "social_proof_value": "high"
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "haircut",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Shows a master performing a service, which is engaging for a hero section."
+    },
+    "about": {
+      "score": 4,
+      "reason": "While it shows a salon activity, it's not a broad view of the interior."
+    },
+    "gallery": {
+      "score": 6,
+      "reason": "Shows a service in progress, hinting at the results."
+    },
+    "team": {
+      "score": 0,
+      "reason": "This is a master at work, not a portrait of the team."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Clearly depicts a specific service (hair washing) in progress."
+    }
   },
   "flags": {
     "has_logo": false,
     "has_text_overlay": false,
     "has_watermark": false,
     "is_screenshot": false,
-    "medical_mask": false,
-    "low_resolution": false
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
   }
 }

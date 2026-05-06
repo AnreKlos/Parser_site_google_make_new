@@ -1,133 +1,345 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "lead_id": 26,
   "slug": "mood",
-  "generated_at": "2026-05-06T00:46:45.096180",
+  "generated_at": "2026-05-06T18:54:06.575555",
   "qualification": "qualified",
   "stats": {
     "total_candidates": 69,
     "after_dedup": 53,
-    "after_quality_gate": 32,
+    "after_quality_gate": 34,
     "vision_calls": 53,
     "vision_failures": 0,
-    "rejected": {
-      "vision_api_failed": 20,
-      "medical_mask": 1
+    "rejected_breakdown": {
+      "ui_overlay_detected": 1,
+      "parse_error": 15,
+      "face_covered": 1,
+      "screenshot_exif": 2
+    },
+    "fit_distribution": {
+      "hero": {
+        "available": 16,
+        "after_gate": 1
+      },
+      "about": {
+        "available": 7,
+        "after_gate": 2
+      },
+      "gallery": {
+        "available": 28,
+        "after_gate": 6
+      },
+      "team": {
+        "available": 0,
+        "after_gate": 0,
+        "captioned": 0
+      },
+      "services": {
+        "available": 29,
+        "after_gate": 8
+      }
+    },
+    "gallery_by_service": {
+      "nails_general": 1,
+      "haircut": 1,
+      "other": 1,
+      "lashes": 1,
+      "coloring": 1,
+      "hair_treatment": 1
+    },
+    "screenshots_filtered": 2,
+    "ui_overlays_rejected": 1,
+    "face_covered_rejected": 1,
+    "cross_block_duplicates_removed": 3,
+    "hero_text_rejected": 1,
+    "marketing_grade_distribution": {
+      "pro_studio": 0,
+      "pro_salon": 21,
+      "casual_acceptable": 13,
+      "amateur_outdoor": 0,
+      "amateur_home": 0,
+      "unusable": 0
     }
   },
   "blocks": {
     "hero": {
       "enabled": true,
+      "reason": "1 photos meet criteria",
       "photos": [
         {
-          "path": "/mood-26/hero/photo_1.jpg",
-          "alt": "Результат окрашивания и стрижки волос",
-          "score": 9
-        }
-      ]
-    },
-    "gallery": {
-      "enabled": true,
-      "photos": [
-        {
-          "path": "/mood-26/gallery/photo_1.jpg",
-          "alt": "Окрашивание волос: блонд с плавным переходом оттенков",
-          "score": 9
-        },
-        {
-          "path": "/mood-26/gallery/photo_2.jpg",
-          "alt": "Результат окрашивания и стрижки волос",
-          "score": 9
-        },
-        {
-          "path": "/mood-26/gallery/photo_3.jpg",
-          "alt": "Наращенные ресницы и брови крупным планом",
-          "score": 9
-        },
-        {
-          "path": "/mood-26/gallery/photo_4.jpg",
-          "alt": "Французский маникюр на ухоженных руках в черных перчатках",
-          "score": 9
-        },
-        {
-          "path": "/mood-26/gallery/photo_5.jpg",
-          "alt": "Черный глянцевый маникюр на женских руках",
-          "score": 9
-        },
-        {
-          "path": "/mood-26/gallery/photo_6.jpg",
-          "alt": "Яркий розовый маникюр, выполненный мастером в черной перчатке",
-          "score": 9
+          "url": "https://avatars.mds.yandex.net/get-altay/16333276/2a000001994ce8804c1345f63d2114177868/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/16333276/2a000001994ce8804c1345f63d2114177868",
+          "alt": "Маникюр нюдовый гель-лак квадратная форма",
+          "description": "Аккуратный маникюр с покрытием нюдовым гель-лаком на квадратной форме ногтей.",
+          "fit_score": 8,
+          "fit_reason": "Striking close-up of a beautiful manicure result that immediately showcases the salon's skill.",
+          "category": "work_result",
+          "service_ref": "nails_general",
+          "sources": [
+            "Маникюр"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
         }
       ]
     },
     "about": {
       "enabled": true,
+      "reason": "2 photos meet criteria",
       "photos": [
         {
-          "path": "/mood-26/about/photo_1.jpg",
-          "alt": "Мастер маникюра работает над ногтями клиента",
-          "score": 7
+          "url": "https://avatars.mds.yandex.net/get-altay/16771051/2a0000019a294e972bf63a5a425737af953c/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/16771051/2a0000019a294e972bf63a5a425737af953c",
+          "alt": "Интерьер салона красоты: рабочие места для маникюра и парикмахерских услуг",
+          "description": "Светлый и современный интерьер салона красоты с рабочими местами для маникюра и парикмахерских услуг, оборудованными зеркалами и удобными креслами.",
+          "fit_score": 10,
+          "fit_reason": "This is an excellent shot of the salon's interior, showcasing its clean, modern design and the available workstations, perfectly fitting the 'about' section's purpose.",
+          "category": "interior",
+          "service_ref": null,
+          "sources": [
+            "Атмосфера",
+            "Интерьер"
+          ],
+          "marketing_grade": 7,
+          "marketing_tier": "casual_acceptable"
         },
         {
-          "path": "/mood-26/about/photo_2.jpg",
-          "alt": "Рабочее место мастера маникюра в салоне",
-          "score": 7
+          "url": "https://avatars.mds.yandex.net/get-altay/16437561/2a0000019a294e8bd1c24ba10388ba1592f7/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/16437561/2a0000019a294e8bd1c24ba10388ba1592f7",
+          "alt": "Кресла в салоне красоты",
+          "description": "Уютные кресла с велюровой обивкой и стразами в салоне красоты.",
+          "fit_score": 10,
+          "fit_reason": "This is an excellent shot of the salon's interior, showcasing its ambiance and decor.",
+          "category": "interior",
+          "service_ref": null,
+          "sources": [
+            "Атмосфера",
+            "Интерьер"
+          ],
+          "marketing_grade": 7,
+          "marketing_tier": "casual_acceptable"
         }
       ]
     },
-    "services": {
+    "gallery": {
       "enabled": true,
+      "reason": "6 photos meet criteria",
       "photos": [
         {
-          "path": "/mood-26/services/photo_1.jpg",
-          "alt": "Окрашивание волос: блонд с плавным переходом оттенков",
-          "score": 9
+          "url": "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018ba575a0cf9df698ac0edd383dd8/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018ba575a0cf9df698ac0edd383dd8",
+          "alt": "Результат перманентного макияжа бровей и межресничной стрелки",
+          "description": "Сравнение до и после процедуры перманентного макияжа бровей и межресничной стрелки.",
+          "fit_score": 10,
+          "fit_reason": "Excellent showcase of a specific beauty service result, ideal for a gallery.",
+          "category": "work_result",
+          "service_ref": "other",
+          "sources": [
+            "Уход за ресницами",
+            "Наращивание ресниц"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
         },
         {
-          "path": "/mood-26/services/photo_2.jpg",
-          "alt": "Результат окрашивания и стрижки волос",
-          "score": 9
+          "url": "https://avatars.mds.yandex.net/get-altay/14336229/2a0000019a2950b75a8faab4ad946d68e169/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/14336229/2a0000019a2950b75a8faab4ad946d68e169",
+          "alt": "Наращивание ресниц: мастер выбирает ресницы пинцетом",
+          "description": "Мастер держит пинцет и выбирает ресницы для наращивания с палетки.",
+          "fit_score": 10,
+          "fit_reason": "Excellent showcase of the work result in progress, highlighting the tools and materials used for lash extensions.",
+          "category": "master_at_work",
+          "service_ref": "lashes",
+          "sources": [
+            "Уход за ресницами"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
         },
         {
-          "path": "/mood-26/services/photo_3.jpg",
-          "alt": "Наращенные ресницы и брови крупным планом",
-          "score": 9
+          "url": "https://avatars.mds.yandex.net/get-sprav-products/13059590/2a0000018fabfbcac32c346804f695182c89/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-sprav-products/13059590/2a0000018fabfbcac32c346804f695182c89",
+          "alt": "Результат окрашивания волос: длинные, прямые, блестящие волосы.",
+          "description": "Женщина с длинными, прямыми, окрашенными волосами в черном пеньюаре.",
+          "fit_score": 10,
+          "fit_reason": "Excellent showcase of a finished hair coloring result, sharp and well-lit.",
+          "category": "work_result",
+          "service_ref": "coloring",
+          "sources": [
+            "service:Однотонное глянцевое окрашивание"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
         },
         {
-          "path": "/mood-26/services/photo_4.jpg",
-          "alt": "Французский маникюр на ухоженных руках в черных перчатках",
-          "score": 9
+          "url": "https://avatars.mds.yandex.net/get-sprav-products/3912342/2a0000019a2f002e8135ea5f1804d8de7351/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-sprav-products/3912342/2a0000019a2f002e8135ea5f1804d8de7351",
+          "alt": "Женщина со светлыми волосами после процедуры в салоне",
+          "description": "Молодая женщина с красивыми светлыми волосами, демонстрирующая результат окрашивания или укладки.",
+          "fit_score": 10,
+          "fit_reason": "This photo is an excellent example of a work result, showcasing the quality of hair services offered by the salon.",
+          "category": "work_result",
+          "service_ref": "hair_treatment",
+          "sources": [
+            "service:Мелирование"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
         },
         {
-          "path": "/mood-26/services/photo_5.jpg",
-          "alt": "Черный глянцевый маникюр на женских руках",
-          "score": 9
+          "url": "https://avatars.mds.yandex.net/get-altay/10494556/2a0000018e6f987b8df79e822376fc61404b/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/10494556/2a0000018e6f987b8df79e822376fc61404b",
+          "alt": "Женская стрижка и окрашивание в светлый блонд",
+          "description": "Женская стрижка и окрашивание в светлый блонд с ровным срезом.",
+          "fit_score": 10,
+          "fit_reason": "This is an excellent showcase of a finished hair service, highlighting the quality of the work.",
+          "category": "work_result",
+          "service_ref": "haircut",
+          "sources": [
+            "Окрашивание волос"
+          ]
         },
         {
-          "path": "/mood-26/services/photo_6.jpg",
-          "alt": "Яркий розовый маникюр, выполненный мастером в черной перчатке",
-          "score": 9
-        },
-        {
-          "path": "/mood-26/services/smart-pedikyur-s-pokrytiem-gel-lakom.jpg",
-          "alt": "Педикюр с розовым покрытием и пеной",
-          "score": 9
-        },
-        {
-          "path": "/mood-26/services/naraschivanie-nogtey.jpg",
-          "alt": "Маникюр с градиентом и белым френчем",
-          "score": 9
+          "url": "https://avatars.mds.yandex.net/get-altay/16480550/2a000001994ce7bc69f5567f76f0418473e0/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/16480550/2a000001994ce7bc69f5567f76f0418473e0",
+          "alt": "Стрижка и окрашивание блонд",
+          "description": "Женская стрижка и окрашивание блонд с плавным переходом от темных корней к светлым кончикам. Волосы уложены и выглядят ухоженными.",
+          "fit_score": 10,
+          "fit_reason": "Excellent showcase of a finished hair service, highlighting the color and cut with good detail.",
+          "category": "work_result",
+          "service_ref": "haircut",
+          "sources": [
+            "Окрашивание волос"
+          ]
         }
       ]
     },
     "team": {
+      "enabled": false,
+      "reason": "after dedup+backfill: only 0 photos (need 1)",
+      "photos": []
+    },
+    "services": {
       "enabled": true,
+      "reason": "8 photos meet criteria",
       "photos": [
         {
-          "path": "/mood-26/team/photo_1.jpg",
-          "alt": "Девушка с красивыми светлыми волосами у входа в салон",
-          "score": 8
+          "url": "https://avatars.mds.yandex.net/get-sprav-products/3912342/2a0000019a2f08a071d9033a9e955e6d48b2/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-sprav-products/3912342/2a0000019a2f08a071d9033a9e955e6d48b2",
+          "alt": "Идеальный маникюр темно-красного цвета",
+          "description": "Крупный план ногтя с идеальным глянцевым покрытием темно-красного цвета.",
+          "fit_score": 10,
+          "fit_reason": "Perfectly showcases the result of a manicure service.",
+          "category": "work_result",
+          "service_ref": "nails_general",
+          "sources": [
+            "service:снятие нашего покрытия + маникюр + покрытие однотонное"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-sprav-products/13672565/2a0000019a2f067dbd0690d6563265f3aa84/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-sprav-products/13672565/2a0000019a2f067dbd0690d6563265f3aa84",
+          "alt": "Маникюр с нюдовым покрытием и белым френчем",
+          "description": "Женская рука с аккуратным маникюром в нежных нюдовых тонах с белым френчем.",
+          "fit_score": 10,
+          "fit_reason": "Perfectly represents a nail service, showing the client's desired outcome.",
+          "category": "work_result",
+          "service_ref": "nails_general",
+          "sources": [
+            "service:Наращивание ногтей"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/16137047/2a000001994ce88075be0c7eb74aa7a693a2/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/16137047/2a000001994ce88075be0c7eb74aa7a693a2",
+          "alt": "Яркий розовый маникюр на коротких ногтях",
+          "description": "Яркий маникюр на коротких ногтях, выполненный мастером в черной перчатке.",
+          "fit_score": 9,
+          "fit_reason": "Clearly depicts the result of a manicure service, ideal for a service card.",
+          "category": "work_result",
+          "service_ref": "nails_general",
+          "sources": [
+            "Маникюр"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/18005133/2a000001994ce881cfe15abbd37f4bacd44b/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/18005133/2a000001994ce881cfe15abbd37f4bacd44b",
+          "alt": "Французский маникюр на ухоженных руках",
+          "description": "Аккуратный французский маникюр с идеальной линией улыбки на ухоженных руках.",
+          "fit_score": 8,
+          "fit_reason": "Clearly represents the result of a manicure service, suitable for a service card.",
+          "category": "work_result",
+          "service_ref": "nails_general",
+          "sources": [
+            "Маникюр"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/16413591/2a0000019a2950b3d8c40b463447688a53eb/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/16413591/2a0000019a2950b3d8c40b463447688a53eb",
+          "alt": "Мастер делает укладку волос феном и брашингом",
+          "description": "Мастер делает укладку феном и расческой, создавая объемную прическу клиентке.",
+          "fit_score": 10,
+          "fit_reason": "Clearly depicts a specific hair styling service in action, ideal for a service card.",
+          "category": "master_at_work",
+          "service_ref": "haircut",
+          "sources": [
+            "Персонал"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/16470051/2a0000019a2950a80db8794bb1398d597065/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/16470051/2a0000019a2950a80db8794bb1398d597065",
+          "alt": "Мытье головы в салоне красоты",
+          "description": "Мастер моет голову клиентке в салоне красоты, нанося шампунь на волосы.",
+          "fit_score": 10,
+          "fit_reason": "Clearly depicts a specific service (hair washing) in progress.",
+          "category": "master_at_work",
+          "service_ref": "haircut",
+          "sources": [
+            "Персонал"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/16823151/2a000001994ce7aab9cfcc5ed8b42408477e/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/16823151/2a000001994ce7aab9cfcc5ed8b42408477e",
+          "alt": "Результат окрашивания и стрижки волос в блонд",
+          "description": "Стильная стрижка и окрашивание волос в блонд с плавным переходом оттенков.",
+          "fit_score": 8,
+          "fit_reason": "Clearly depicts the result of a hair coloring and cutting service.",
+          "category": "work_result",
+          "service_ref": "haircut",
+          "sources": [
+            "Окрашивание волос"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/16920891/2a0000019a2950a7e6e85a3284b9c0c26637/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/16920891/2a0000019a2950a7e6e85a3284b9c0c26637",
+          "alt": "Мастер маникюра работает над ногтями клиента в салоне.",
+          "description": "Мастер маникюра в перчатках работает над ногтями клиента.",
+          "fit_score": 9,
+          "fit_reason": "Clearly depicts the manicure service in action, making it ideal for a service card.",
+          "category": "master_at_work",
+          "service_ref": "manicure",
+          "sources": [
+            "Персонал"
+          ]
         }
       ]
     }

@@ -1,0 +1,80 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 9,
+    "sharpness": 9,
+    "lighting": 9,
+    "composition": 9
+  },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "sharp_focus_on_result"
+    ]
+  },
+  "content": {
+    "description": "Крупный план бровей и стрелок на глазах после процедуры.",
+    "alt_text": "Результат процедуры: ухоженные брови и аккуратные стрелки на глазах.",
+    "objects": [
+      "eyebrows",
+      "eyeliner",
+      "eyelashes",
+      "skin"
+    ],
+    "dominant_colors": [
+      "skin_tone",
+      "black",
+      "brown"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": true,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "brows",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking close-up of a finished beauty service, immediately showcases the salon's skill."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This is a close-up of a service result, not an interior shot of the salon."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent close-up of a finished beauty service, perfect for showcasing work results."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No master is visible, and the focus is on the client's result, not the team."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Clear and detailed showcase of a specific beauty service result (brows and eyeliner)."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

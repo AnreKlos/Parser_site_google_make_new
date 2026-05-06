@@ -1,48 +1,80 @@
 {
   "rejected": false,
   "reject_reason": null,
-  "category": "work_result",
+  "category": "master_at_work",
   "quality": {
-    "score": 9,
-    "sharpness": 9,
-    "lighting": 9,
-    "composition": 8
+    "score": 7,
+    "sharpness": 8,
+    "lighting": 7,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "professional_tools"
+    ]
   },
   "content": {
-    "description": "Результат окрашивания и стрижки волос. Идеально ровные, блестящие светлые волосы.",
-    "alt_text": "Результат окрашивания и стрижки волос",
+    "description": "Мастер держит пинцет и выбирает ресницы для наращивания с палетки.",
+    "alt_text": "Наращивание ресниц: мастер выбирает ресницы пинцетом",
     "objects": [
-      "волосы",
-      "свитер"
+      "eyelash_extensions",
+      "tweezers",
+      "eyelash_palette",
+      "lash_glue_holder"
     ],
-    "colors": [
-      "бежевый",
-      "белый",
-      "черный"
+    "dominant_colors": [
+      "white",
+      "black",
+      "beige"
     ],
-    "mood": "luxurious"
+    "mood": "neutral"
   },
   "people": {
     "present": true,
     "count": 1,
     "faces_visible": false,
-    "type": "model"
+    "primary_subject": "master",
+    "back_or_side_only": false,
+    "covered_face": false
   },
-  "service_ref": "coloring",
-  "marketing": {
-    "usable_in_hero": true,
-    "usable_in_about": false,
-    "usable_in_gallery": true,
-    "usable_in_team": false,
-    "usable_in_services": true,
-    "social_proof_value": "high"
+  "text_in_image": {
+    "present": true,
+    "looks_like_caption_for_person": false,
+    "extracted_text": "LO. 10 13mm L12 010 L11 0.10 EXTREM LASH 10 0.10 0.10 L9 0.10 L9 0.10 L8 0.10 L8 0.10 L7 0.10 7 0.10 6 extren.3-lock.ru extreme_look.ru"
+  },
+  "service_ref": "lashes",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Shows a master in action with clear focus on the service being performed, creating immediate interest."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This is a close-up of a procedure, not an overview of the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent showcase of the work result in progress, highlighting the tools and materials used for lash extensions."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No face is visible, and the focus is on the hands and the service, not the individual master."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Clearly depicts the specific service of lash extensions, showing the tools and materials involved."
+    }
   },
   "flags": {
-    "has_logo": false,
+    "has_logo": true,
     "has_text_overlay": false,
     "has_watermark": false,
     "is_screenshot": false,
-    "medical_mask": false,
-    "low_resolution": false
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
   }
 }

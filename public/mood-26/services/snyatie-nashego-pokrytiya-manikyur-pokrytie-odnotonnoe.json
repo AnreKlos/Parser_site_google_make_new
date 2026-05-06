@@ -1,0 +1,80 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 9,
+    "sharpness": 9,
+    "lighting": 9,
+    "composition": 9
+  },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "perfect_composition",
+      "clean_lighting"
+    ]
+  },
+  "content": {
+    "description": "Крупный план ногтя с идеальным глянцевым покрытием темно-красного цвета.",
+    "alt_text": "Идеальный маникюр темно-красного цвета",
+    "objects": [
+      "nail",
+      "fingernail",
+      "skin",
+      "red_nail_polish"
+    ],
+    "dominant_colors": [
+      "red",
+      "skin_tone",
+      "gray"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": true,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "nails_general",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking close-up of a perfect manicure result, drawing immediate attention."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This is a close-up of a nail, not an interior shot of the salon."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent close-up showcasing a high-quality manicure result."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No people are clearly identifiable as staff, and no faces are visible."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Perfectly showcases the result of a manicure service."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

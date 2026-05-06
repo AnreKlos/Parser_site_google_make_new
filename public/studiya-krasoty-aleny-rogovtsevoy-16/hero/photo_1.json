@@ -1,0 +1,83 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "master_at_work",
+  "quality": {
+    "score": 7,
+    "sharpness": 7,
+    "lighting": 8,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "professional_environment",
+      "clear_service_demonstration"
+    ]
+  },
+  "content": {
+    "description": "Мастер наращивает ресницы клиентке под ярким светом лампы. На заднем плане видны полки с материалами для наращивания ресниц.",
+    "alt_text": "Наращивание ресниц: мастер работает над глазами клиентки",
+    "objects": [
+      "client_face",
+      "master_hands",
+      "tweezers",
+      "lash_extensions",
+      "magnifying_lamp",
+      "shelving_unit",
+      "lash_supplies"
+    ],
+    "dominant_colors": [
+      "blue",
+      "white",
+      "pink"
+    ],
+    "mood": "calm"
+  },
+  "people": {
+    "present": true,
+    "count": 3,
+    "faces_visible": true,
+    "primary_subject": "master",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "lashes",
+  "fit_scores": {
+    "hero": {
+      "score": 9,
+      "reason": "Captures a master in action performing a specific service with clear focus on the process and tools, making it engaging for a hero section."
+    },
+    "about": {
+      "score": 5,
+      "reason": "While it shows a salon environment, the focus is on the procedure rather than the overall atmosphere of the salon space."
+    },
+    "gallery": {
+      "score": 7,
+      "reason": "Shows a service being performed, which can imply a good result, but it's not a direct showcase of the finished work."
+    },
+    "team": {
+      "score": 3,
+      "reason": "While there are people, it's a candid shot of a procedure, not a professional portrait of a team member with their name/role."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clearly depicts the lash extension service in progress, making it suitable for a service card or section."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

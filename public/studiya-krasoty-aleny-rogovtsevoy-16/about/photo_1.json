@@ -1,0 +1,81 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "interior",
+  "quality": {
+    "score": 7,
+    "sharpness": 7,
+    "lighting": 8,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 7,
+    "tier": "casual_acceptable",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background"
+    ]
+  },
+  "content": {
+    "description": "Белое кресло с пластиковой защитой стоит на подиуме в салоне красоты. На заднем плане синяя стена и полка с продукцией.",
+    "alt_text": "Белое кресло в салоне красоты",
+    "objects": [
+      "armchair",
+      "shelf",
+      "lamp",
+      "plants",
+      "products"
+    ],
+    "dominant_colors": [
+      "white",
+      "blue",
+      "grey"
+    ],
+    "mood": "neutral"
+  },
+  "people": {
+    "present": false,
+    "count": 0,
+    "faces_visible": false,
+    "primary_subject": null,
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": null,
+  "fit_scores": {
+    "hero": {
+      "score": 4,
+      "reason": "The photo shows a clean interior, but lacks a strong hook or clear service indication for a hero section."
+    },
+    "about": {
+      "score": 10,
+      "reason": "This is an excellent shot of the salon's interior, showcasing the atmosphere and cleanliness, fitting the 'about' section perfectly."
+    },
+    "gallery": {
+      "score": 0,
+      "reason": "The image does not display any work results or services offered by the salon."
+    },
+    "team": {
+      "score": 0,
+      "reason": "There are no people in the image, making it unsuitable for a team section."
+    },
+    "services": {
+      "score": 2,
+      "reason": "While it shows a salon environment, it doesn't specifically highlight any particular service."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

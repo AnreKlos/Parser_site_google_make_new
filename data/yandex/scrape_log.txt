@@ -2089,3 +2089,270 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 [2026-05-06 00:48:21] 🚫 Lead not qualified, skipping: reviews 12 < 20; unique_photos 0 < 8; services_with_photos 0 < 3; no contact channel
 [2026-05-06 00:48:30] 🚀 [v2] Старт photos_v2 для lead_id=80
 [2026-05-06 00:48:30] 🚫 Lead not qualified, skipping: reviews 12 < 20; unique_photos 0 < 8; services_with_photos 0 < 3; no contact channel
+[2026-05-06 11:29:38] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 11:29:38]    Кандидатов из card.json: 69
+[2026-05-06 11:29:38]    После дедупликации: 53
+[2026-05-06 11:29:38]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 11:32:54]    Успешно проанализировано: 53
+[2026-05-06 11:32:54]    После quality gate: 35
+[2026-05-06 11:32:54]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-06 11:33:36] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json
+[2026-05-06 13:57:26] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 13:57:26]    Кандидатов из card.json: 69
+[2026-05-06 13:57:26]    После дедупликации: 53
+[2026-05-06 13:57:26]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 14:00:12]    Успешно проанализировано: 53
+[2026-05-06 14:00:12]    После quality gate: 29
+[2026-05-06 14:00:12]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-06 14:00:59] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json
+[2026-05-06 14:01:24] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 14:01:24]    Кандидатов из card.json: 69
+[2026-05-06 14:01:24]    После дедупликации: 53
+[2026-05-06 14:01:24]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 14:04:06]    Успешно проанализировано: 53
+[2026-05-06 14:04:06]    После quality gate: 28
+[2026-05-06 14:04:06]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-06 14:04:50] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json
+[2026-05-06 14:16:42] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 14:16:42]    Кандидатов из card.json: 69
+[2026-05-06 14:16:42]    После дедупликации: 53
+[2026-05-06 14:16:42]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 14:19:14]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 14:19:16]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 14:20:06]    Успешно проанализировано: 53
+[2026-05-06 14:20:06]    После quality gate: 37
+[2026-05-06 14:20:06]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-06 14:20:06]    🧹 cleaned hero/: removed 2 stale files
+[2026-05-06 14:20:06]    🧹 cleaned about/: removed 4 stale files
+[2026-05-06 14:20:06]    🧹 cleaned gallery/: removed 12 stale files
+[2026-05-06 14:20:06]    🧹 cleaned team/: removed 2 stale files
+[2026-05-06 14:20:06]    🧹 cleaned services/: removed 26 stale files
+[2026-05-06 14:20:51] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json
+[2026-05-06 14:50:53] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 14:50:53]    Кандидатов из card.json: 69
+[2026-05-06 14:50:53]    После дедупликации: 53
+[2026-05-06 14:50:53]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 14:53:23]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 14:53:25]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 14:54:23]    Успешно проанализировано: 53
+[2026-05-06 14:54:23]    После quality gate: 36
+[2026-05-06 14:54:43] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 14:54:43]    Кандидатов из card.json: 69
+[2026-05-06 14:54:43]    После дедупликации: 53
+[2026-05-06 14:54:43]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 14:57:02]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 14:57:04]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 14:57:47]    Успешно проанализировано: 53
+[2026-05-06 14:57:47]    После quality gate: 46
+[2026-05-06 14:58:45] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 14:58:45]    Кандидатов из card.json: 69
+[2026-05-06 14:58:45]    После дедупликации: 53
+[2026-05-06 14:58:45]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 15:01:18]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 15:01:20]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 15:02:37]    Успешно проанализировано: 53
+[2026-05-06 15:02:37]    После quality gate: 38
+[2026-05-06 15:04:08] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 15:04:08]    Кандидатов из card.json: 69
+[2026-05-06 15:04:08]    После дедупликации: 53
+[2026-05-06 15:04:08]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 15:06:29]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 15:06:31]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 15:07:16]    Успешно проанализировано: 53
+[2026-05-06 15:07:16]    После quality gate: 40
+[2026-05-06 15:09:02] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 15:09:02]    Кандидатов из card.json: 69
+[2026-05-06 15:09:02]    После дедупликации: 53
+[2026-05-06 15:09:02]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 15:11:25]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 15:11:27]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 15:12:10]    Успешно проанализировано: 53
+[2026-05-06 15:12:10]    После quality gate: 43
+[2026-05-06 15:15:19] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 15:15:19]    Кандидатов из card.json: 69
+[2026-05-06 15:15:19]    После дедупликации: 53
+[2026-05-06 15:15:19]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 15:17:38]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 15:17:40]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 15:18:26]    Успешно проанализировано: 53
+[2026-05-06 15:18:26]    После quality gate: 43
+[2026-05-06 15:20:36] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 15:20:36]    Кандидатов из card.json: 69
+[2026-05-06 15:20:36]    После дедупликации: 53
+[2026-05-06 15:20:36]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 15:22:58]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 15:23:00]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 15:24:19]    Успешно проанализировано: 53
+[2026-05-06 15:24:19]    После quality gate: 38
+[2026-05-06 15:26:12] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 15:26:12]    Кандидатов из card.json: 69
+[2026-05-06 15:26:12]    После дедупликации: 53
+[2026-05-06 15:26:12]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 15:28:34]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 15:28:36]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 15:29:22]    Успешно проанализировано: 53
+[2026-05-06 15:29:22]    После quality gate: 38
+[2026-05-06 15:29:22]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-06 15:30:48]    🚫 UI overlay found in gallery: A pink smartwatch is visible on the left wrist. | https://avatars.mds.yandex.net/get-altay/6774966/2a0000018e7b92b5d64cc00f140e1c139a21/orig
+[2026-05-06 15:31:09]    🚫 UI overlay found in services: The top edge displays a clock, signal bars, and battery indicator. | https://avatars.mds.yandex.net/get-sprav-products/2994796/2a0000019a2ef7ae9e6935df524d9b334336/orig
+[2026-05-06 15:31:47]    🚫 UI overlay found in services: A pink smartwatch is visible on the left wrist. | https://avatars.mds.yandex.net/get-altay/6774966/2a0000018e7b92b5d64cc00f140e1c139a21/orig
+[2026-05-06 15:31:57]    🔁 Rebuilt blocks after UI rejection (2 photos)
+[2026-05-06 15:31:57]    ♻️  services: dropped 1 duplicates already claimed by other blocks
+[2026-05-06 15:31:57]    ♻️  gallery: dropped 5 duplicates already claimed by other blocks
+[2026-05-06 15:31:57]    🔁 Removed 6 cross-block duplicates
+[2026-05-06 15:31:57]    🧹 cleaned hero/: removed 2 stale files
+[2026-05-06 15:31:57]    🧹 cleaned about/: removed 4 stale files
+[2026-05-06 15:31:57]    🧹 cleaned gallery/: removed 12 stale files
+[2026-05-06 15:31:57]    🧹 cleaned services/: removed 16 stale files
+[2026-05-06 15:32:38] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json
+[2026-05-06 16:21:17] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 16:21:17]    Кандидатов из card.json: 69
+[2026-05-06 16:21:17]    После дедупликации: 53
+[2026-05-06 16:21:17]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 16:23:50]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 16:23:52]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 16:24:48]    Успешно проанализировано: 53
+[2026-05-06 16:24:48]    После quality gate: 38
+[2026-05-06 16:24:48]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-06 16:25:35]    🚫 UI overlay found in gallery: A pink smartwatch is visible on the person's left wrist. | https://avatars.mds.yandex.net/get-altay/6774966/2a0000018e7b92b5d64cc00f140e1c139a21/orig
+[2026-05-06 16:26:24]    🚫 UI overlay found in services: The top edge displays a clock, signal bars, and a battery indicator. | https://avatars.mds.yandex.net/get-sprav-products/2994796/2a0000019a2ef7ae9e6935df524d9b334336/orig
+[2026-05-06 16:26:45]    🚫 UI overlay found in services: A pink smartwatch is visible on the left wrist. | https://avatars.mds.yandex.net/get-altay/6774966/2a0000018e7b92b5d64cc00f140e1c139a21/orig
+[2026-05-06 16:27:18]    🔁 Rebuilt blocks after UI rejection (2 photos)
+[2026-05-06 16:27:18]    ♻️  services: dropped 1 duplicates already claimed by other blocks
+[2026-05-06 16:27:18]    ♻️  gallery: dropped 4 duplicates already claimed by other blocks
+[2026-05-06 16:27:18]    🔁 Removed 5 cross-block duplicates
+[2026-05-06 16:27:18]    🧹 cleaned hero/: removed 2 stale files
+[2026-05-06 16:27:18]    🧹 cleaned about/: removed 4 stale files
+[2026-05-06 16:27:18]    🧹 cleaned gallery/: removed 12 stale files
+[2026-05-06 16:27:18]    🧹 cleaned services/: removed 16 stale files
+[2026-05-06 16:28:01] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json
+[2026-05-06 16:53:25] 🚀 Старт enrich для lead_id=89 mode=light
+[2026-05-06 16:53:25] 🔎 Поиск в Яндекс.Картах: РиоЛайт Брянск ромашина
+[2026-05-06 16:54:34] 🚀 Старт enrich для lead_id=89 mode=light
+[2026-05-06 16:54:34] ⏸ лид 89 обработан 1 минут назад, подождите 59 минут до следующего прогона
+[2026-05-06 17:01:19] 🚀 Старт enrich для lead_id=89 mode=light
+[2026-05-06 17:01:19] ⏸ лид 89 обработан 7 минут назад, подождите 53 минут до следующего прогона
+[2026-05-06 17:01:52] 🚀 Старт enrich для lead_id=89 mode=light
+[2026-05-06 17:01:52] ⏸ лид 89 обработан 8 минут назад, подождите 52 минут до следующего прогона
+[2026-05-06 17:05:05] 🚀 Старт enrich для lead_id=89 mode=light
+[2026-05-06 17:05:05] ⏸ лид 89 обработан 11 минут назад, подождите 49 минут до следующего прогона
+[2026-05-06 17:20:29] 🚀 [v2] Старт enrich_lead_v2 для lead_id=42
+[2026-05-06 17:20:29] 🔎 Поиск в Яндекс.Картах: Империя красоты Брянск рылеева
+[2026-05-06 17:20:41] 🕵️ UA (поиск): 134.0.0.0
+[2026-05-06 17:20:51] 🧪 Кандидат: name=1.00 city=1.00 addr=0.37 cat=0.50 total=0.83 | https://yandex.ru/maps/org/imperiya_krasoty/1794649017/
+[2026-05-06 17:20:54] ↪ Пропуск: score too low (name=0.55 city=1.00 addr=0.47 cat=0.50 total=0.62): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-06 17:20:57] ↪ Пропуск: название не совпадает (name_score=0.42): https://yandex.ru/maps/org/meri_gold/1016196487/
+[2026-05-06 17:21:01] ↪ Пропуск: название не совпадает (name_score=0.30): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-06 17:21:04] ↪ Пропуск: название не совпадает (name_score=0.27): https://yandex.ru/maps/org/avokado/243520407726/
+[2026-05-06 17:21:07] ↪ Пропуск: название не совпадает (name_score=0.47): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-06 17:21:07] ✅ Найдена карточка: https://yandex.ru/maps/org/imperiya_krasoty/1794649017/ (score=0.83)
+[2026-05-06 17:21:07] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/imperiya_krasoty/1794649017/?lang=ru
+[2026-05-06 17:21:14] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\imperiya-krasoty-42\raw_state.json
+[2026-05-06 17:21:14] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\imperiya-krasoty-42\card.json
+[2026-05-06 17:21:14]    services=0, aspects=4, videos=0, reviews_preview=3
+[2026-05-06 17:21:14]    🚫 Qualification: NOT QUALIFIED (score=60/100) — unique_photos 0 < 8; services_with_photos 0 < 3
+[2026-05-06 17:21:27] 🚀 [v2] Старт enrich_lead_v2 для lead_id=42
+[2026-05-06 17:21:27] 🔎 Поиск в Яндекс.Картах: Империя красоты Брянск рылеева
+[2026-05-06 17:21:28] 🕵️ UA (поиск): 134.0.0.0
+[2026-05-06 17:21:37] 🧪 Кандидат: name=1.00 city=1.00 addr=0.37 cat=0.50 total=0.83 | https://yandex.ru/maps/org/imperiya_krasoty/1794649017/
+[2026-05-06 17:21:40] ↪ Пропуск: score too low (name=0.55 city=1.00 addr=0.47 cat=0.50 total=0.62): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-06 17:21:43] ↪ Пропуск: название не совпадает (name_score=0.42): https://yandex.ru/maps/org/meri_gold/1016196487/
+[2026-05-06 17:21:46] ↪ Пропуск: название не совпадает (name_score=0.30): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-06 17:21:50] ↪ Пропуск: название не совпадает (name_score=0.27): https://yandex.ru/maps/org/avokado/243520407726/
+[2026-05-06 17:21:53] ↪ Пропуск: название не совпадает (name_score=0.47): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-06 17:21:53] ✅ Найдена карточка: https://yandex.ru/maps/org/imperiya_krasoty/1794649017/ (score=0.83)
+[2026-05-06 17:21:53] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/imperiya_krasoty/1794649017/?lang=ru
+[2026-05-06 17:22:00] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\imperiya-krasoty-42\raw_state.json
+[2026-05-06 17:22:00] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\imperiya-krasoty-42\card.json
+[2026-05-06 17:22:00]    services=0, aspects=4, videos=0, reviews_preview=3
+[2026-05-06 17:22:00]    🚫 Qualification: NOT QUALIFIED (score=60/100) — unique_photos 0 < 8; services_with_photos 0 < 3
+[2026-05-06 17:29:54] 🚀 [v2] Старт enrich_lead_v2 для lead_id=42
+[2026-05-06 17:29:54] 🔎 Поиск в Яндекс.Картах: Империя красоты Брянск рылеева
+[2026-05-06 17:29:55] 🕵️ UA (поиск): 137.0.0.0
+[2026-05-06 17:30:06] 🧪 Кандидат: name=1.00 city=1.00 addr=0.37 cat=0.50 total=0.83 | https://yandex.ru/maps/org/imperiya_krasoty/1794649017/
+[2026-05-06 17:30:09] ↪ Пропуск: score too low (name=0.55 city=1.00 addr=0.47 cat=0.50 total=0.62): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-06 17:30:13] ↪ Пропуск: название не совпадает (name_score=0.42): https://yandex.ru/maps/org/meri_gold/1016196487/
+[2026-05-06 17:30:16] ↪ Пропуск: название не совпадает (name_score=0.30): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-06 17:30:19] ↪ Пропуск: название не совпадает (name_score=0.27): https://yandex.ru/maps/org/avokado/243520407726/
+[2026-05-06 17:30:22] ↪ Пропуск: название не совпадает (name_score=0.47): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-06 17:30:22] ✅ Найдена карточка: https://yandex.ru/maps/org/imperiya_krasoty/1794649017/ (score=0.83)
+[2026-05-06 17:30:22] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/imperiya_krasoty/1794649017/?lang=ru
+[2026-05-06 17:30:29] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\imperiya-krasoty-42\raw_state.json
+[2026-05-06 17:30:29] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\imperiya-krasoty-42\card.json
+[2026-05-06 17:30:29]    services=0, aspects=4, videos=0, reviews_preview=3
+[2026-05-06 17:30:29]    🚫 Qualification: NOT QUALIFIED (score=60/100) — unique_photos 0 < 8; services_with_photos 0 < 3
+[2026-05-06 17:31:42] 🚀 [v2] Старт enrich_lead_v2 для lead_id=42
+[2026-05-06 17:31:42] 🔎 Поиск в Яндекс.Картах: Империя красоты Брянск рылеева
+[2026-05-06 17:31:43] 🕵️ UA (поиск): 134.0.0.0
+[2026-05-06 17:31:52] 🧪 Кандидат: name=1.00 city=1.00 addr=0.37 cat=0.50 total=0.83 | https://yandex.ru/maps/org/imperiya_krasoty/1794649017/
+[2026-05-06 17:31:56] ↪ Пропуск: score too low (name=0.55 city=1.00 addr=0.47 cat=0.50 total=0.62): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-06 17:31:59] ↪ Пропуск: название не совпадает (name_score=0.42): https://yandex.ru/maps/org/meri_gold/1016196487/
+[2026-05-06 17:32:02] ↪ Пропуск: название не совпадает (name_score=0.30): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-06 17:32:05] ↪ Пропуск: название не совпадает (name_score=0.27): https://yandex.ru/maps/org/avokado/243520407726/
+[2026-05-06 17:32:08] ↪ Пропуск: название не совпадает (name_score=0.47): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-06 17:32:08] ✅ Найдена карточка: https://yandex.ru/maps/org/imperiya_krasoty/1794649017/ (score=0.83)
+[2026-05-06 17:32:08] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/imperiya_krasoty/1794649017/?lang=ru
+[2026-05-06 17:32:15] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\imperiya-krasoty-42\raw_state.json
+[2026-05-06 17:32:15] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\imperiya-krasoty-42\card.json
+[2026-05-06 17:32:15]    services=0, aspects=4, videos=0, reviews_preview=3
+[2026-05-06 17:32:15]    🚫 Qualification: NOT QUALIFIED (score=60/100) — unique_photos 0 < 8; services_with_photos 0 < 3
+[2026-05-06 17:42:32] 🚀 [v2] Старт enrich_lead_v2 для lead_id=16
+[2026-05-06 17:42:32] 🔎 Поиск в Яндекс.Картах: Студия красоты Алёны Роговцевой Московский пр.
+[2026-05-06 17:42:33] 🕵️ UA (поиск): 137.0.0.0
+[2026-05-06 17:42:43] 🧪 Кандидат: name=1.00 city=1.00 addr=0.43 cat=0.80 total=0.88 | https://yandex.ru/maps/org/beauty_studio_alyona_rogovtseva/81490194348/
+[2026-05-06 17:42:46] ↪ Пропуск: неверный город (city_score=0.23): https://yandex.ru/maps/org/bi_kheppi/19493487702/
+[2026-05-06 17:42:49] ↪ Пропуск: неверный город (city_score=0.24): https://yandex.ru/maps/org/ekaterina_nails_32/183523773307/
+[2026-05-06 17:42:52] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/myasorubka/173782043513/
+[2026-05-06 17:42:55] ↪ Пропуск: неверный город (city_score=0.47): https://yandex.ru/maps/org/chio_chio/140905501392/
+[2026-05-06 17:42:58] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-06 17:42:58] ✅ Найдена карточка: https://yandex.ru/maps/org/beauty_studio_alyona_rogovtseva/81490194348/ (score=0.88)
+[2026-05-06 17:42:58] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/beauty_studio_alyona_rogovtseva/81490194348/?lang=ru
+[2026-05-06 17:43:06] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\studiya-krasoty-aleny-rogovtsevoy-16\raw_state.json
+[2026-05-06 17:43:06] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\studiya-krasoty-aleny-rogovtsevoy-16\card.json
+[2026-05-06 17:43:06]    services=10, aspects=11, videos=4, reviews_preview=3
+[2026-05-06 17:43:06]    🎯 Qualification: QUALIFIED (score=100/100) — OK
+[2026-05-06 17:43:36] 🚀 [v2] Старт photos_v2 для lead_id=16
+[2026-05-06 17:43:36]    Кандидатов из card.json: 78
+[2026-05-06 17:43:36]    После дедупликации: 63
+[2026-05-06 17:43:36]    🔍 Анализ Vision для 63 фото...
+[2026-05-06 17:47:02]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=1170x2078 | https://avatars.mds.yandex.net/get-sprav-products/12412149/2a0000018c1ce5478026033ac628a0bfbae1
+[2026-05-06 17:47:55]    Успешно проанализировано: 63
+[2026-05-06 17:47:55]    После quality gate: 54
+[2026-05-06 17:47:55]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-06 17:50:31]    ♻️  gallery: dropped 1 duplicates already claimed by other blocks
+[2026-05-06 17:50:31]    🔁 Removed 1 cross-block duplicates
+[2026-05-06 17:51:18] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\studiya-krasoty-aleny-rogovtsevoy-16\photo_map.json
+[2026-05-06 18:40:05] 🚀 [v2] Старт photos_v2 для lead_id=16
+[2026-05-06 18:40:05]    Кандидатов из card.json: 78
+[2026-05-06 18:40:05]    После дедупликации: 63
+[2026-05-06 18:40:05]    🔍 Анализ Vision для 63 фото...
+[2026-05-06 18:43:41]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=1170x2078 | https://avatars.mds.yandex.net/get-sprav-products/12412149/2a0000018c1ce5478026033ac628a0bfbae1
+[2026-05-06 18:44:48]    Успешно проанализировано: 63
+[2026-05-06 18:44:48]    После quality gate: 41
+[2026-05-06 18:44:48]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-06 18:47:08]    ♻️  gallery: dropped 3 duplicates already claimed by other blocks
+[2026-05-06 18:47:08]    🔁 Removed 3 cross-block duplicates
+[2026-05-06 18:47:08]    🧹 cleaned hero/: removed 2 stale files
+[2026-05-06 18:47:08]    🧹 cleaned about/: removed 4 stale files
+[2026-05-06 18:47:08]    🧹 cleaned gallery/: removed 12 stale files
+[2026-05-06 18:47:08]    🧹 cleaned services/: removed 16 stale files
+[2026-05-06 18:47:53] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\studiya-krasoty-aleny-rogovtsevoy-16\photo_map.json
+[2026-05-06 18:48:20] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-06 18:48:20]    Кандидатов из card.json: 69
+[2026-05-06 18:48:20]    После дедупликации: 53
+[2026-05-06 18:48:20]    🔍 Анализ Vision для 53 фото...
+[2026-05-06 18:51:01]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-06 18:51:03]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-06 18:51:50]    Успешно проанализировано: 53
+[2026-05-06 18:51:50]    После quality gate: 35
+[2026-05-06 18:51:50]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-06 18:52:35]    🚫 UI overlay found in gallery: A pink smartwatch is visible on the left wrist. | https://avatars.mds.yandex.net/get-altay/6774966/2a0000018e7b92b5d64cc00f140e1c139a21/orig
+[2026-05-06 18:54:06]    🔁 Rebuilt blocks after UI rejection (1 photos)
+[2026-05-06 18:54:06]    ♻️  services: dropped 1 duplicates already claimed by other blocks
+[2026-05-06 18:54:06]    ♻️  gallery: dropped 2 duplicates already claimed by other blocks
+[2026-05-06 18:54:06]    🔁 Removed 3 cross-block duplicates
+[2026-05-06 18:54:06]    🧹 cleaned hero/: removed 2 stale files
+[2026-05-06 18:54:06]    🧹 cleaned about/: removed 4 stale files
+[2026-05-06 18:54:06]    🧹 cleaned gallery/: removed 12 stale files
+[2026-05-06 18:54:06]    🧹 cleaned services/: removed 16 stale files
+[2026-05-06 18:54:49] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json

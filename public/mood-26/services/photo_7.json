@@ -1,0 +1,80 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 8,
+    "sharpness": 9,
+    "lighting": 8,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background"
+    ]
+  },
+  "content": {
+    "description": "Стильная стрижка и окрашивание волос в блонд с плавным переходом оттенков.",
+    "alt_text": "Результат окрашивания и стрижки волос в блонд",
+    "objects": [
+      "hair",
+      "mirror",
+      "wall",
+      "t-shirt"
+    ],
+    "dominant_colors": [
+      "blonde",
+      "grey",
+      "white"
+    ],
+    "mood": "neutral"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": true,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "haircut",
+  "fit_scores": {
+    "hero": {
+      "score": 6,
+      "reason": "Shows a good result but lacks a clear story or visible master."
+    },
+    "about": {
+      "score": 2,
+      "reason": "The image focuses on hair, not the salon interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "This is an excellent showcase of a finished hair service result."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No master is visible, and the client's face is not shown."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clearly depicts the result of a hair coloring and cutting service."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

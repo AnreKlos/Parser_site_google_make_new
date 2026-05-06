@@ -1,0 +1,81 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 9,
+    "sharpness": 10,
+    "lighting": 9,
+    "composition": 9
+  },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "excellent_result_showcase",
+      "clean_lighting",
+      "professional_focus"
+    ]
+  },
+  "content": {
+    "description": "Крупный план идеально уложенных бровей и глаза клиента после процедуры.",
+    "alt_text": "Идеальные брови и глаза после процедуры",
+    "objects": [
+      "eyebrow",
+      "eye",
+      "eyelashes",
+      "skin"
+    ],
+    "dominant_colors": [
+      "skin_tone",
+      "dark_brown",
+      "grey"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": true,
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "brows",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking close-up of a service result that immediately showcases the salon's skill."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This image focuses on a specific service result, not the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Perfectly showcases a high-quality work result, ideal for a gallery of services."
+    },
+    "team": {
+      "score": 0,
+      "reason": "This is a client's result, not a portrait of a salon master."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Clearly depicts the result of a brow service, making it perfect for a service card."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

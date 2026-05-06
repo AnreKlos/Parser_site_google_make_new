@@ -1,0 +1,81 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 8,
+    "sharpness": 9,
+    "lighting": 8,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clear_result_shot",
+      "good_lighting"
+    ]
+  },
+  "content": {
+    "description": "Женская рука с маникюром: два ногтя ярко-розового цвета, один нюдовый с тремя стразами, один с серебристым глиттером.",
+    "alt_text": "Маникюр: ярко-розовые, нюдовые с стразами и серебристые ногти",
+    "objects": [
+      "client_hands",
+      "manicure",
+      "nail_polish",
+      "rhinestones",
+      "glitter"
+    ],
+    "dominant_colors": [
+      "pink",
+      "beige",
+      "silver"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "manicure",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Excellent close-up of a desirable service result, visually appealing and hooks the viewer."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This is a close-up of a manicure, not an interior shot of the salon."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Perfectly showcases a high-quality manicure result, ideal for a gallery."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No faces are visible, and it's a close-up of hands, not a team portrait."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Clearly depicts the result of a manicure service, suitable for a service card."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

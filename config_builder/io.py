@@ -126,3 +126,34 @@ def copy_public_assets(slug: str, no_copy: bool) -> int:
         shutil.rmtree(dst)
     shutil.copytree(src, dst)
     return sum(1 for p in dst.rglob("*") if p.is_file())
+
+
+def list_image_urls_v2(slug: str, lead_id: int, folder: str) -> List[str]:
+    """Web-relative URLs для public/{slug}-{lead_id}/{folder}/. Возвращает /{slug}/{folder}/file.jpg
+    (без -lead_id, как ждёт шаблон)."""
+    root = RADAR_PUBLIC_DIR / f"{slug}-{lead_id}" / folder
+    if not root.exists() or not root.is_dir():
+        return []
+    files = []
+    for p in sorted(root.iterdir()):
+        if p.is_file() and p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}:
+            files.append(f"/{slug}/{folder}/{p.name}")
+    return files
+
+
+def copy_public_assets_v2(slug: str, lead_id: int, no_copy: bool) -> int:
+    """
+    Копирует public/{slug}-{lead_id}/* в neuralsync/public/{slug}/* (БЕЗ -{lead_id}).
+    Шаблон ждёт пути /{slug}/folder/file.jpg, поэтому переименовываем при копировании.
+    """
+    if no_copy:
+        return 0
+    src = RADAR_PUBLIC_DIR / f"{slug}-{lead_id}"
+    dst = NEURALSYNC_PUBLIC_DIR / slug
+    if not src.exists() or not src.is_dir():
+        return 0
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    if dst.exists():
+        shutil.rmtree(dst)
+    shutil.copytree(src, dst)
+    return sum(1 for p in dst.rglob("*") if p.is_file())

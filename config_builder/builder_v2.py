@@ -628,6 +628,10 @@ def _build_price_section(card: Dict[str, Any]) -> Dict[str, Any] | None:
             groups_by_category[category] = []
         groups_by_category[category].append(item)
     
+    # Семантический рендер: Price нужен только если есть что структурировать
+    if len(groups_by_category) <= 1 and len(items) <= 8:
+        return None
+    
     # Формируем groups в нужном порядке
     groups = []
     for category in category_order:

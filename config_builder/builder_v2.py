@@ -62,6 +62,16 @@ def build_config_v2(lead_id: int) -> Dict[str, Any]:
     meta = _build_meta(bundle, curated)
     contacts = _build_contacts(bundle, lead)
     sections = _build_sections(bundle, lead, curated)
+
+    # === Promotion: реальная акция или скрыть блок ===
+    promotion_content = _extract_promotion_from_services(bundle.card)
+    if promotion_content:
+        # Подменяем дефолтный шаблон реальной акцией
+        sections["promotion"]["enabled"] = True
+    else:
+        # Нет реальной акции — гасим блок
+        sections["promotion"]["enabled"] = False
+
     block_flags = _build_block_flags(sections)
 
     config: Dict[str, Any] = {
@@ -83,6 +93,17 @@ def build_config_v2(lead_id: int) -> Dict[str, Any]:
             "qualification": qualification,
         },
     }
+
+    # === Promotion: реальная акция или скрыть блок ===
+    promotion_content = _extract_promotion_from_services(bundle.card)
+    if promotion_content:
+        # Подменяем дефолтный шаблон реальной акцией
+        config["content"] = {**config["content"], "promotion": promotion_content}
+        config["sections"]["promotion"]["enabled"] = True
+    else:
+        # Нет реальной акции — гасим блок (фронт вернёт null если title и text пустые)
+        config["content"] = {**config["content"], "promotion": {"title": "", "text": ""}}
+        config["sections"]["promotion"]["enabled"] = False
 
     return config
 
@@ -590,6 +611,50 @@ def _categorize_price_item(title: str) -> str:
     return "Прочее"
 
 
+def _extract_promotion_from_services(card: Dict[str, Any]) -> Dict[str, str] | None:
+    """
+    Ищет реальную акцию в описаниях услуг (services[].description).
+    Возвращает {"title": ..., "text": ...} или None если акция не найдена.
+    Принцип "не придумываем": генерируем контент только если он есть в источнике.
+    """
+    services = card.get("services") or []
+    if not services:
+        return None
+
+    # Паттерн скидки с явным процентом — основной маркер реальной акции.
+    # Не триггеримся на "снятие 200р" или "бесплатно" в стандартных пакетах.
+    discount_pattern = re.compile(r'скидк[аиу]?\s*\d+\s*%', re.IGNORECASE)
+
+    matched_sentences = set()
+    for svc in services:
+        desc = (svc.get("description") or "").strip()
+        if not desc:
+            continue
+        # Разбиваем на предложения по точкам и переносам
+        sentences = [s.strip() for s in re.split(r'[.\n]+', desc) if s.strip()]
+        for sent in sentences:
+            # Длина 15..120 символов — отсекаем мусор и слишком длинные хвосты
+            if 15 <= len(sent) <= 120 and discount_pattern.search(sent):
+                # Чистим — убираем хвостовые многоточия и лишние пробелы
+                clean = re.sub(r'\.+$', '', sent).strip()
+                if clean:
+                    matched_sentences.add(clean)
+
+    if not matched_sentences:
+        return None
+
+    # Если одна и та же акция упомянута в нескольких услугах — берём самую короткую
+    # (обычно она чище и без лишнего контекста)
+    title = sorted(matched_sentences, key=len)[0]
+    if not title.endswith('.'):
+        title += '.'
+
+    return {
+        "title": title,
+        "text": "",  # Текст не выдумываем; title и так несёт всю конкретику
+    }
+
+
 def _build_price_section(card: Dict[str, Any]) -> Dict[str, Any] | None:
     """Price из чистых card.services. Без is_junk-фильтров — данные уже чистые."""
     services = card.get("services") or []
@@ -643,7 +708,7 @@ def _build_price_section(card: Dict[str, Any]) -> Dict[str, Any] | None:
                 "title": group_title,
                 "items": category_items,
             })
-    
+
     return {
         "enabled": True,
         "title": "Прайс",
@@ -663,7 +728,7 @@ def _build_section_order(sections: Dict[str, Any]) -> List[str]:
         else:
             order.insert(order.index("gallery") if "gallery" in order else 0, "price")
     # Удаляем выключенные
-    return [s for s in order if sections.get(s, {}).get("enabled", False) or s in ("hero", "bookingContacts", "promotion")]
+    return [s for s in order if sections.get(s, {}).get("enabled", False) or s in ("hero", "bookingContacts")]
 
 
 def _build_block_flags(sections: Dict[str, Any]) -> Dict[str, bool]:

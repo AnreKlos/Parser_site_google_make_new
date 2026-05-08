@@ -3,41 +3,40 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 8,
+    "score": 7,
     "sharpness": 8,
-    "lighting": 8,
-    "composition": 8
+    "lighting": 7,
+    "composition": 7
   },
   "marketing_grade": {
-    "score": 8,
-    "tier": "pro_salon",
+    "score": 7,
+    "tier": "casual_acceptable",
     "reasons": [
-      "good_lighting",
-      "professional_setting_implied",
-      "clean_background"
+      "good_hair_result",
+      "neutral_background"
     ]
   },
   "content": {
-    "description": "Молодая женщина с красивыми светлыми волосами, демонстрирующая результат окрашивания или укладки.",
-    "alt_text": "Женщина со светлыми волосами после процедуры в салоне",
+    "description": "Результат окрашивания волос: гладкие, блестящие волосы с красивым оттенком.",
+    "alt_text": "Окрашенные волосы, гладкие и блестящие",
     "objects": [
-      "woman",
       "hair",
-      "black_turtleneck"
+      "client_cape",
+      "wardrobe"
     ],
     "dominant_colors": [
+      "beige",
       "blonde",
-      "black",
-      "beige"
+      "black"
     ],
     "mood": "neutral"
   },
   "people": {
     "present": true,
     "count": 1,
-    "faces_visible": true,
-    "primary_subject": "model",
-    "back_or_side_only": false,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": true,
     "covered_face": false
   },
   "text_in_image": {
@@ -45,27 +44,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "hair_treatment",
+  "service_ref": "coloring",
   "fit_scores": {
     "hero": {
-      "score": 8,
-      "reason": "The image showcases a beautiful hair result, which can be visually appealing for a hero section, but lacks a clear action or master involvement."
+      "score": 6,
+      "reason": "Shows a good result, but the client's face is not visible, limiting its immediate hook."
     },
     "about": {
-      "score": 4,
-      "reason": "While it shows a person, it doesn't provide a clear view of the salon's interior or atmosphere."
+      "score": 2,
+      "reason": "This is a work result, not an interior shot, so it doesn't convey the salon's atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "This photo is an excellent example of a work result, showcasing the quality of hair services offered by the salon."
+      "reason": "Excellent showcase of a finished hair coloring service, highlighting the quality of the result."
     },
     "team": {
       "score": 0,
-      "reason": "This is not a portrait of a team member, and there is no accompanying caption information."
+      "reason": "No master is visible, and the client's face is not shown, making it unsuitable for a team section."
     },
     "services": {
       "score": 8,
-      "reason": "The photo clearly displays the result of a hair service, making it suitable for a service card, though it doesn't show the service in action."
+      "reason": "Clearly demonstrates the result of a hair coloring service, which is highly relevant for a service card."
     }
   },
   "flags": {

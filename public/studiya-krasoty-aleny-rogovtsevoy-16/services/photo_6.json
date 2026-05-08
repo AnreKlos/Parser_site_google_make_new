@@ -4,34 +4,34 @@
   "category": "work_result",
   "quality": {
     "score": 9,
-    "sharpness": 10,
-    "lighting": 9,
+    "sharpness": 9,
+    "lighting": 8,
     "composition": 9
   },
   "marketing_grade": {
     "score": 9,
     "tier": "pro_salon",
     "reasons": [
-      "excellent_result_showcase",
-      "clean_lighting",
-      "professional_focus"
+      "sharp_focus_on_result",
+      "good_lighting",
+      "clean_skin_texture"
     ]
   },
   "content": {
-    "description": "Крупный план идеально уложенных бровей и глаза клиента после процедуры.",
-    "alt_text": "Идеальные брови и глаза после процедуры",
+    "description": "Крупный план глаз и бровей клиентки после процедуры.",
+    "alt_text": "Результат коррекции бровей и ресниц",
     "objects": [
-      "eyebrow",
-      "eye",
+      "eyes",
+      "eyebrows",
       "eyelashes",
       "skin"
     ],
     "dominant_colors": [
       "skin_tone",
-      "dark_brown",
-      "grey"
+      "brown",
+      "green"
     ],
-    "mood": "luxurious"
+    "mood": "neutral"
   },
   "people": {
     "present": true,
@@ -50,23 +50,23 @@
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a service result that immediately showcases the salon's skill."
+      "reason": "Striking close-up of a beauty service result that can grab attention."
     },
     "about": {
       "score": 0,
-      "reason": "This image focuses on a specific service result, not the salon's interior or atmosphere."
+      "reason": "This photo focuses on a specific service result, not the salon's interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "Perfectly showcases a high-quality work result, ideal for a gallery of services."
+      "reason": "Excellent close-up showcasing the quality of the eyebrow service result."
     },
     "team": {
       "score": 0,
-      "reason": "This is a client's result, not a portrait of a salon master."
+      "reason": "This is a client's face, not a portrait of a salon master."
     },
     "services": {
       "score": 10,
-      "reason": "Clearly depicts the result of a brow service, making it perfect for a service card."
+      "reason": "Perfectly represents the result of a brow service."
     }
   },
   "flags": {

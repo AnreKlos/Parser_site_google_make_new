@@ -1,0 +1,82 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "master_at_work",
+  "quality": {
+    "score": 8,
+    "sharpness": 8,
+    "lighting": 7,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "professional_setting",
+      "good_lighting",
+      "clear_service_depiction"
+    ]
+  },
+  "content": {
+    "description": "Мастер по макияжу наносит макияж клиентке, фокусируясь на деталях.",
+    "alt_text": "Мастер по макияжу работает над лицом клиентки в салоне.",
+    "objects": [
+      "makeup_artist",
+      "client",
+      "makeup_brush",
+      "chair",
+      "makeup_station"
+    ],
+    "dominant_colors": [
+      "dark_gray",
+      "black",
+      "white"
+    ],
+    "mood": "neutral"
+  },
+  "people": {
+    "present": true,
+    "count": 2,
+    "faces_visible": true,
+    "primary_subject": "master",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "makeup",
+  "fit_scores": {
+    "hero": {
+      "score": 9,
+      "reason": "Captures a master in action, clearly showing the service being performed with good focus on the interaction."
+    },
+    "about": {
+      "score": 4,
+      "reason": "Shows a part of the salon environment and a service being performed, but not the overall atmosphere."
+    },
+    "gallery": {
+      "score": 7,
+      "reason": "Depicts the process of a service, which can imply the result, but it's not a direct showcase of the finished work."
+    },
+    "team": {
+      "score": 2,
+      "reason": "While it shows a master, it's not a portrait and lacks any identifying text for a team page."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Perfectly illustrates the makeup service in action, showing the skill and process involved."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

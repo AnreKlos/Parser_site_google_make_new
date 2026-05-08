@@ -3,13 +3,13 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 9,
+    "score": 8,
     "sharpness": 9,
-    "lighting": 9,
-    "composition": 9
+    "lighting": 8,
+    "composition": 8
   },
   "marketing_grade": {
-    "score": 9,
+    "score": 8,
     "tier": "pro_salon",
     "reasons": [
       "clean_lighting",
@@ -17,27 +17,27 @@
     ]
   },
   "content": {
-    "description": "Крупный план бровей и стрелок на глазах после процедуры.",
-    "alt_text": "Результат процедуры: ухоженные брови и аккуратные стрелки на глазах.",
+    "description": "Крупный план глаза с нарощенными ресницами. Длинные, пушистые ресницы подчеркивают выразительность взгляда.",
+    "alt_text": "Нарощенные ресницы крупным планом",
     "objects": [
-      "eyebrows",
-      "eyeliner",
+      "eye",
       "eyelashes",
-      "skin"
+      "eyelid",
+      "eyebrow"
     ],
     "dominant_colors": [
       "skin_tone",
       "black",
-      "brown"
+      "blue"
     ],
     "mood": "luxurious"
   },
   "people": {
     "present": true,
     "count": 1,
-    "faces_visible": false,
+    "faces_visible": true,
     "primary_subject": "client",
-    "back_or_side_only": true,
+    "back_or_side_only": false,
     "covered_face": false
   },
   "text_in_image": {
@@ -45,11 +45,11 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "brows",
+  "service_ref": "lashes",
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a finished beauty service, immediately showcases the salon's skill."
+      "reason": "Striking close-up of a beauty service result that immediately hooks the viewer."
     },
     "about": {
       "score": 0,
@@ -57,15 +57,15 @@
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent close-up of a finished beauty service, perfect for showcasing work results."
+      "reason": "Excellent showcase of a finished beauty service (eyelash extensions) with high detail and visual appeal."
     },
     "team": {
       "score": 0,
-      "reason": "No master is visible, and the focus is on the client's result, not the team."
+      "reason": "This is a close-up of a client's eye, not a portrait of a salon master."
     },
     "services": {
       "score": 10,
-      "reason": "Clear and detailed showcase of a specific beauty service result (brows and eyeliner)."
+      "reason": "Perfectly represents the eyelash extension service with a clear visual of the result."
     }
   },
   "flags": {

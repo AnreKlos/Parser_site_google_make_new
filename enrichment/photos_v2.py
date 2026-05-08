@@ -27,6 +27,7 @@ from llm.curator import analyze_photo_rich
 
 BASE_DIR = Path(__file__).parent.parent
 YANDEX_DATA_DIR = BASE_DIR / "data" / "yandex"
+TAPLINK_DATA_DIR = BASE_DIR / "data" / "taplink"
 PUBLIC_DIR = BASE_DIR / "public"
 
 ASPECT_TO_BLOCK = {
@@ -353,8 +354,40 @@ async def process_candidate(candidate: PhotoCandidate, sem: asyncio.Semaphore) -
         return candidate
 
 
+def load_taplink_photos(slug: str, lead_id: int) -> List[PhotoCandidate]:
+    """Load photos from TapLink if available."""
+    taplink_file = TAPLINK_DATA_DIR / f"{slug}-{lead_id}" / "photos.json"
+    if not taplink_file.exists():
+        return []
+    
+    try:
+        with open(taplink_file, "r", encoding="utf-8") as f:
+            taplink_data = json.load(f)
+    except Exception as e:
+        write_log(f"⚠️ Failed to load taplink photos.json: {e}")
+        return []
+    
+    photos = taplink_data.get("photos") or []
+    candidates = []
+    
+    for photo in photos:
+        url = photo.get("url")
+        if not url:
+            continue
+        normalized = strip_size_suffix(url)
+        candidates.append(PhotoCandidate(
+            url=url,
+            normalized_url=normalized,
+            sources=["taplink"],
+            block_hint="gallery",  # TapLink photos default to gallery
+        ))
+    
+    write_log(f"📸 Loaded {len(candidates)} photos from TapLink")
+    return candidates
+
+
 def build_candidate_pool(card: Dict[str, Any]) -> List[PhotoCandidate]:
-    """Build candidate pool from card.json aspects and services."""
+    """Build candidate pool from card.json aspects, services, and TapLink."""
     candidates = []
 
     # From aspects
@@ -387,6 +420,12 @@ def build_candidate_pool(card: Dict[str, Any]) -> List[PhotoCandidate]:
                 block_hint="services",
                 service_ref=svc.get("title"),
             ))
+
+    # From TapLink (if available)
+    slug = card.get("slug", f"lead-{card.get('lead_id', 0)}")
+    lead_id = card.get("lead_id")
+    taplink_candidates = load_taplink_photos(slug, lead_id)
+    candidates.extend(taplink_candidates)
 
     return candidates
 

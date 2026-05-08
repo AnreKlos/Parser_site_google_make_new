@@ -1,0 +1,10 @@
+# .clineignore
+**/.env
+**/.env.local
+**/.env.production
+**/.env.*
+**/secrets.*
+**/*secret*
+**/*credentials*
+**/*token*
+**/service-account*.json

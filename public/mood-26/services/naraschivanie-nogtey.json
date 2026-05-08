@@ -14,16 +14,17 @@
     "reasons": [
       "clean_lighting",
       "neutral_background",
-      "focus_on_service_result"
+      "focus_on_result"
     ]
   },
   "content": {
-    "description": "Женская рука с аккуратным маникюром в нежных нюдовых тонах с белым френчем.",
-    "alt_text": "Маникюр с нюдовым покрытием и белым френчем",
+    "description": "Женская рука с аккуратным маникюром в нюдовых тонах с белым френчем. Ногти длинные, квадратной формы.",
+    "alt_text": "Маникюр в нюдовых тонах с белым френчем",
     "objects": [
       "client_hands",
       "manicure",
-      "nail_polish"
+      "nails",
+      "bracelet"
     ],
     "dominant_colors": [
       "beige",
@@ -49,23 +50,23 @@
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a beautiful manicure result that immediately showcases the salon's skill."
+      "reason": "Striking close-up of a beautiful work result that immediately showcases the salon's skill."
     },
     "about": {
       "score": 2,
-      "reason": "This photo focuses on the result of a service, not the salon's interior or atmosphere."
+      "reason": "This photo is a close-up of a result, not an interior shot that would convey the salon's atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent showcase of a finished manicure, highlighting the quality of the work."
+      "reason": "Excellent showcase of a finished manicure, highlighting the quality and aesthetic of the service."
     },
     "team": {
       "score": 0,
-      "reason": "No master is visible, and the focus is on the client's hands, not the team."
+      "reason": "This is a work result, not a portrait of a team member, and no faces are visible."
     },
     "services": {
-      "score": 10,
-      "reason": "Perfectly represents a nail service, showing the client's desired outcome."
+      "score": 9,
+      "reason": "Clearly shows the result of a nail service, making it ideal for a service card or to illustrate the manicure offering."
     }
   },
   "flags": {

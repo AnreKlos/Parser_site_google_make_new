@@ -3,30 +3,31 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 7,
-    "sharpness": 8,
-    "lighting": 7,
-    "composition": 7
+    "score": 9,
+    "sharpness": 9,
+    "lighting": 9,
+    "composition": 8
   },
   "marketing_grade": {
-    "score": 8,
+    "score": 9,
     "tier": "pro_salon",
     "reasons": [
-      "clear_result",
-      "good_lighting"
+      "clean_lighting",
+      "neutral_background",
+      "focus_on_result"
     ]
   },
   "content": {
-    "description": "Крупный план глаза с нарощенными ресницами, демонстрирующий объем и длину.",
-    "alt_text": "Нарощенные ресницы крупным планом",
+    "description": "Аккуратный маникюр с нежным сиреневым покрытием на коротких ногтях.",
+    "alt_text": "Нежный сиреневый маникюр на коротких ногтях",
     "objects": [
-      "eye",
-      "eyelashes",
-      "eyebrows"
+      "client_hands",
+      "nails",
+      "nail_polish"
     ],
     "dominant_colors": [
-      "brown",
-      "beige",
+      "pink",
+      "white",
       "black"
     ],
     "mood": "luxurious"
@@ -44,27 +45,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "lashes",
+  "service_ref": "nails_general",
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a beauty service result that can immediately hook a visitor."
+      "reason": "Striking result close-up with excellent composition and lighting, perfect for hooking visitors."
     },
     "about": {
       "score": 0,
-      "reason": "This photo is a close-up of a service result, not an interior shot of the salon."
+      "reason": "This photo focuses on a work result, not the salon's interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent close-up showcasing the quality of the lash extension service."
+      "reason": "Sharp close-up of finished work, showcasing the quality of the manicure."
     },
     "team": {
       "score": 0,
-      "reason": "This is a close-up of a client's eye, not a portrait of a salon master."
+      "reason": "No master is visible, and the focus is on the client's hands, not staff."
     },
     "services": {
-      "score": 10,
-      "reason": "Perfectly showcases the result of a specific service (lash extensions)."
+      "score": 8,
+      "reason": "Clearly showcases the result of a manicure service, suitable for a service card."
     }
   },
   "flags": {

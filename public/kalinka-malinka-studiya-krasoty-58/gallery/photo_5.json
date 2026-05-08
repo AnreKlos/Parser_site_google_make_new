@@ -1,0 +1,81 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 9,
+    "sharpness": 9,
+    "lighting": 9,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "professional_makeup_and_hair",
+      "clean_background",
+      "good_lighting"
+    ]
+  },
+  "content": {
+    "description": "Портрет девушки с профессиональным макияжем и укладкой волос, демонстрирующий результат работы бьюти-мастера.",
+    "alt_text": "Профессиональный макияж и укладка волос",
+    "objects": [
+      "woman",
+      "makeup",
+      "hair",
+      "blazer"
+    ],
+    "dominant_colors": [
+      "beige",
+      "grey",
+      "blonde"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": true,
+    "primary_subject": "model",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "makeup",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking portrait with professional makeup and hair, visually appealing for a hero section."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This is a portrait of a client/model, not an interior shot of the salon."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent showcase of a finished beauty service (makeup and hair styling)."
+    },
+    "team": {
+      "score": 0,
+      "reason": "This is a portrait of a client/model, not a salon master."
+    },
+    "services": {
+      "score": 7,
+      "reason": "Clearly represents the result of makeup and hair services, suitable for a service card."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

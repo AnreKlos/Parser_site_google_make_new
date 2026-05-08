@@ -4,33 +4,34 @@
   "category": "work_result",
   "quality": {
     "score": 8,
-    "sharpness": 9,
+    "sharpness": 8,
     "lighting": 8,
-    "composition": 8
+    "composition": 7
   },
   "marketing_grade": {
     "score": 8,
     "tier": "pro_salon",
     "reasons": [
-      "clean_lighting",
-      "professional_hair_result",
-      "minimal_background"
+      "good_lighting",
+      "clean_background",
+      "professional_result"
     ]
   },
   "content": {
-    "description": "Женская стрижка и окрашивание блонд с плавным переходом от темных корней к светлым кончикам. Волосы уложены и выглядят ухоженными.",
-    "alt_text": "Стрижка и окрашивание блонд",
+    "description": "Женщина с красивыми, ровными светлыми волосами, окрашенными в модный оттенок.",
+    "alt_text": "Результат окрашивания волос: ровные светлые волосы",
     "objects": [
-      "woman_hair",
-      "hairdresser_hand",
-      "nail_polish"
+      "woman",
+      "hair",
+      "window",
+      "door"
     ],
     "dominant_colors": [
-      "blonde",
-      "grey",
-      "beige"
+      "beige",
+      "white",
+      "black"
     ],
-    "mood": "luxurious"
+    "mood": "neutral"
   },
   "people": {
     "present": true,
@@ -45,27 +46,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "haircut",
+  "service_ref": "coloring",
   "fit_scores": {
     "hero": {
-      "score": 8,
-      "reason": "Striking hair result with a hand demonstrating the quality, making it visually appealing for a hero image."
+      "score": 6,
+      "reason": "Shows a good result but the client's face is not visible, limiting its immediate hook potential."
     },
     "about": {
       "score": 2,
-      "reason": "This image focuses on the hair result, not the salon interior or atmosphere."
+      "reason": "The image focuses on hair, not the salon interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent showcase of a finished hair service, highlighting the color and cut with good detail."
+      "reason": "Excellent showcase of a finished hair coloring result, with good detail and color."
     },
     "team": {
       "score": 0,
-      "reason": "No clear view of a master's face or context to identify them as staff."
+      "reason": "No master is visible, and the client's face is not shown, making it unsuitable for a team section."
     },
     "services": {
       "score": 8,
-      "reason": "Clearly depicts the result of a hair coloring and cutting service, suitable for a service card."
+      "reason": "Clearly represents a hair coloring service result, suitable for a service card."
     }
   },
   "flags": {

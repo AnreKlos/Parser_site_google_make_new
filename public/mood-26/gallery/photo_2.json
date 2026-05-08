@@ -1,75 +1,73 @@
 {
   "rejected": false,
   "reject_reason": null,
-  "category": "master_at_work",
+  "category": "work_result",
   "quality": {
-    "score": 7,
-    "sharpness": 8,
-    "lighting": 7,
-    "composition": 7
+    "score": 8,
+    "sharpness": 9,
+    "lighting": 8,
+    "composition": 8
   },
   "marketing_grade": {
     "score": 8,
     "tier": "pro_salon",
     "reasons": [
       "clean_lighting",
-      "professional_tools"
+      "sharp_focus_on_result"
     ]
   },
   "content": {
-    "description": "Мастер держит пинцет и выбирает ресницы для наращивания с палетки.",
-    "alt_text": "Наращивание ресниц: мастер выбирает ресницы пинцетом",
+    "description": "Яркий педикюр с красным покрытием на ногтях.",
+    "alt_text": "Яркий красный педикюр",
     "objects": [
-      "eyelash_extensions",
-      "tweezers",
-      "eyelash_palette",
-      "lash_glue_holder"
+      "toe_nail",
+      "foot_skin",
+      "nail_polish"
     ],
     "dominant_colors": [
-      "white",
-      "black",
-      "beige"
+      "red",
+      "skin_tone"
     ],
-    "mood": "neutral"
+    "mood": "luxurious"
   },
   "people": {
     "present": true,
     "count": 1,
     "faces_visible": false,
-    "primary_subject": "master",
+    "primary_subject": "client",
     "back_or_side_only": false,
     "covered_face": false
   },
   "text_in_image": {
-    "present": true,
+    "present": false,
     "looks_like_caption_for_person": false,
-    "extracted_text": "LO. 10 13mm L12 010 L11 0.10 EXTREM LASH 10 0.10 0.10 L9 0.10 L9 0.10 L8 0.10 L8 0.10 L7 0.10 7 0.10 6 extren.3-lock.ru extreme_look.ru"
+    "extracted_text": null
   },
-  "service_ref": "lashes",
+  "service_ref": "pedicure",
   "fit_scores": {
     "hero": {
-      "score": 8,
-      "reason": "Shows a master in action with clear focus on the service being performed, creating immediate interest."
+      "score": 6,
+      "reason": "Close-up of a beautiful result, but lacks a human element to be a perfect hero shot."
     },
     "about": {
-      "score": 2,
-      "reason": "This is a close-up of a procedure, not an overview of the salon's interior or atmosphere."
+      "score": 0,
+      "reason": "This is a work result, not an interior shot."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent showcase of the work result in progress, highlighting the tools and materials used for lash extensions."
+      "reason": "Excellent close-up of a finished service, showcasing the quality of the work."
     },
     "team": {
       "score": 0,
-      "reason": "No face is visible, and the focus is on the hands and the service, not the individual master."
+      "reason": "No person's face is visible, and it's not a team portrait."
     },
     "services": {
-      "score": 10,
-      "reason": "Clearly depicts the specific service of lash extensions, showing the tools and materials involved."
+      "score": 8,
+      "reason": "Clearly shows the result of a pedicure service."
     }
   },
   "flags": {
-    "has_logo": true,
+    "has_logo": false,
     "has_text_overlay": false,
     "has_watermark": false,
     "is_screenshot": false,

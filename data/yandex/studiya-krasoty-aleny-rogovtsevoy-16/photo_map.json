@@ -2,38 +2,38 @@
   "schema_version": 2,
   "lead_id": 16,
   "slug": "studiya-krasoty-aleny-rogovtsevoy",
-  "generated_at": "2026-05-06T18:47:08.258968",
+  "generated_at": "2026-05-07T12:51:43.341600",
   "qualification": "qualified",
   "stats": {
     "total_candidates": 78,
     "after_dedup": 63,
-    "after_quality_gate": 41,
+    "after_quality_gate": 61,
     "vision_calls": 63,
     "vision_failures": 0,
     "rejected_breakdown": {
-      "parse_error": 21,
+      "parse_error": 1,
       "screenshot_exif": 1
     },
     "fit_distribution": {
       "hero": {
-        "available": 27,
+        "available": 37,
         "after_gate": 1
       },
       "about": {
-        "available": 6,
+        "available": 8,
         "after_gate": 2
       },
       "gallery": {
-        "available": 34,
+        "available": 51,
         "after_gate": 6
       },
       "team": {
         "available": 0,
         "after_gate": 0,
-        "captioned": 0
+        "captioned": 1
       },
       "services": {
-        "available": 34,
+        "available": 52,
         "after_gate": 8
       }
     },
@@ -50,9 +50,9 @@
     "hero_text_rejected": 0,
     "marketing_grade_distribution": {
       "pro_studio": 0,
-      "pro_salon": 31,
-      "casual_acceptable": 7,
-      "amateur_outdoor": 3,
+      "pro_salon": 47,
+      "casual_acceptable": 10,
+      "amateur_outdoor": 4,
       "amateur_home": 0,
       "unusable": 0
     }
@@ -63,19 +63,19 @@
       "reason": "1 photos meet criteria",
       "photos": [
         {
-          "url": "https://avatars.mds.yandex.net/get-altay/10111752/2a0000018dc8715d84cbd98c2d20d426e06d/orig",
-          "normalized_url": "https://avatars.mds.yandex.net/get-altay/10111752/2a0000018dc8715d84cbd98c2d20d426e06d",
-          "alt": "Наращивание ресниц: мастер работает над глазами клиентки",
-          "description": "Мастер наращивает ресницы клиентке под ярким светом лампы. На заднем плане видны полки с материалами для наращивания ресниц.",
-          "fit_score": 9,
-          "fit_reason": "Captures a master in action performing a specific service with clear focus on the process and tools, making it engaging for a hero section.",
-          "category": "master_at_work",
+          "url": "https://avatars.mds.yandex.net/get-altay/11393517/2a0000018dc8715cddd4a738e587bd599dab/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/11393517/2a0000018dc8715cddd4a738e587bd599dab",
+          "alt": "Наращивание ресниц: объемный эффект, идеальная проработка",
+          "description": "Макро-снимок глаза с объемным наращиванием ресниц, демонстрирующий идеальную проработку каждой реснички.",
+          "fit_score": 8,
+          "fit_reason": "Striking close-up of a service result that immediately hooks the viewer.",
+          "category": "work_result",
           "service_ref": "lashes",
           "sources": [
-            "Атмосфера",
-            "Интерьер"
+            "Уход за ресницами",
+            "Наращивание ресниц"
           ],
-          "marketing_grade": 8,
+          "marketing_grade": 9,
           "marketing_tier": "pro_salon"
         }
       ]
@@ -85,12 +85,12 @@
       "reason": "2 photos meet criteria",
       "photos": [
         {
-          "url": "https://avatars.mds.yandex.net/get-altay/10830675/2a0000018c1d37bbcb2449f5b09470158b25/orig",
-          "normalized_url": "https://avatars.mds.yandex.net/get-altay/10830675/2a0000018c1d37bbcb2449f5b09470158b25",
-          "alt": "Белое кресло в салоне красоты",
-          "description": "Белое кресло с пластиковой защитой стоит на подиуме в салоне красоты. На заднем плане синяя стена и полка с продукцией.",
+          "url": "https://avatars.mds.yandex.net/get-altay/10578166/2a0000018dc895c2a71e47f9abdbca11d156/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/10578166/2a0000018dc895c2a71e47f9abdbca11d156",
+          "alt": "Интерьер салона красоты с красными шарами",
+          "description": "Интерьер салона красоты, украшенный красными шарами и лентами. Видна зона ожидания и рабочие места мастеров.",
           "fit_score": 10,
-          "fit_reason": "This is an excellent shot of the salon's interior, showcasing the atmosphere and cleanliness, fitting the 'about' section perfectly.",
+          "fit_reason": "This photo perfectly captures the atmosphere and interior of the salon, making it ideal for the 'About' section.",
           "category": "interior",
           "service_ref": null,
           "sources": [
@@ -106,7 +106,7 @@
           "alt": "Санузел в салоне красоты с зеркалом с подсветкой",
           "description": "Современный санузел в салоне красоты с раковиной, зеркалом с подсветкой и цветами.",
           "fit_score": 10,
-          "fit_reason": "This is an excellent shot of the salon's interior, showcasing its modern design and atmosphere, fitting perfectly for an 'about' section.",
+          "fit_reason": "This is an excellent shot of the salon's interior, showcasing a well-designed and clean space that contributes to the overall atmosphere.",
           "category": "interior",
           "service_ref": null,
           "sources": [
@@ -128,7 +128,7 @@
           "alt": "Маникюр с белым покрытием и серебряными блестками",
           "description": "Аккуратный маникюр с белым покрытием и серебряными блестками на ногтях.",
           "fit_score": 10,
-          "fit_reason": "Sharp close-up of finished work, showcasing the detail and quality of the manicure.",
+          "fit_reason": "Sharp close-up of a finished manicure with detail visible, showcasing the work result perfectly.",
           "category": "work_result",
           "service_ref": "nails_general",
           "sources": [
@@ -138,12 +138,27 @@
           "marketing_tier": "pro_salon"
         },
         {
-          "url": "https://avatars.mds.yandex.net/get-altay/9916116/2a00000189b31ec232aead81749c6e5c0375/orig",
-          "normalized_url": "https://avatars.mds.yandex.net/get-altay/9916116/2a00000189b31ec232aead81749c6e5c0375",
-          "alt": "Маникюр: ярко-розовые, нюдовые с стразами и серебристые ногти",
-          "description": "Женская рука с маникюром: два ногтя ярко-розового цвета, один нюдовый с тремя стразами, один с серебристым глиттером.",
+          "url": "https://avatars.mds.yandex.net/get-altay/5308697/2a0000017bacbbb84c85fdaba5b99c342011/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/5308697/2a0000017bacbbb84c85fdaba5b99c342011",
+          "alt": "Ламинирование бровей: результат до и после",
+          "description": "Крупный план глаз и бровей после процедуры ламинирования. Идеально уложенные брови и выразительный взгляд.",
           "fit_score": 10,
-          "fit_reason": "Perfectly showcases a high-quality manicure result, ideal for a gallery.",
+          "fit_reason": "Excellent showcase of a finished beauty service (brows) with high detail and clarity.",
+          "category": "work_result",
+          "service_ref": "brows",
+          "sources": [
+            "Уход за бровями"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/9770129/2a0000018b5d705027c264fbcb268209a073/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/9770129/2a0000018b5d705027c264fbcb268209a073",
+          "alt": "Маникюр в сиреневом цвете с блестками",
+          "description": "Аккуратный маникюр в нежном сиреневом оттенке с мелким глиттером.",
+          "fit_score": 10,
+          "fit_reason": "This is a perfect example of a work result, showcasing a well-executed manicure with good detail.",
           "category": "work_result",
           "service_ref": "manicure",
           "sources": [
@@ -155,10 +170,10 @@
         {
           "url": "https://avatars.mds.yandex.net/get-altay/13453452/2a0000018ebaac2b0a7be88500f4d5e7381e/orig",
           "normalized_url": "https://avatars.mds.yandex.net/get-altay/13453452/2a0000018ebaac2b0a7be88500f4d5e7381e",
-          "alt": "Маникюр с сиреневым покрытием",
+          "alt": "Нежный сиреневый маникюр на коротких ногтях",
           "description": "Аккуратный маникюр с нежным сиреневым покрытием на коротких ногтях.",
           "fit_score": 10,
-          "fit_reason": "This is a perfect example of a work result, showcasing a clean and well-executed manicure.",
+          "fit_reason": "Sharp close-up of finished work, showcasing the quality of the manicure.",
           "category": "work_result",
           "service_ref": "nails_general",
           "sources": [
@@ -170,10 +185,10 @@
         {
           "url": "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018c559a087af09b8b2d29d68d1eb3/orig",
           "normalized_url": "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018c559a087af09b8b2d29d68d1eb3",
-          "alt": "Нарощенные ресницы крупным планом",
-          "description": "Крупный план глаза с нарощенными ресницами, демонстрирующий объем и длину.",
+          "alt": "Наращенные ресницы крупным планом",
+          "description": "Крупный план глаза с наращенными ресницами, демонстрирующий объем и длину.",
           "fit_score": 10,
-          "fit_reason": "Excellent close-up showcasing the quality of the lash extension service.",
+          "fit_reason": "Excellent close-up showcasing the quality of the lash extension work.",
           "category": "work_result",
           "service_ref": "lashes",
           "sources": [
@@ -184,24 +199,10 @@
         {
           "url": "https://avatars.mds.yandex.net/get-altay/4374841/2a00000178ec695c924e489ea74ab7787a01/orig",
           "normalized_url": "https://avatars.mds.yandex.net/get-altay/4374841/2a00000178ec695c924e489ea74ab7787a01",
-          "alt": "Наращивание ресниц и коррекция бровей: результат работы мастера",
-          "description": "Крупный план глаза с идеально наращенными ресницами и аккуратно оформленными бровями.",
+          "alt": "Наращивание ресниц и коррекция бровей",
+          "description": "Крупный план глаза с идеальными наращенными ресницами и ухоженными бровями.",
           "fit_score": 10,
-          "fit_reason": "Excellent close-up of a finished beauty service, perfect for showcasing results.",
-          "category": "work_result",
-          "service_ref": "lashes",
-          "sources": [
-            "Уход за ресницами",
-            "Наращивание ресниц"
-          ]
-        },
-        {
-          "url": "https://avatars.mds.yandex.net/get-altay/9833544/2a0000019171cdf8e17c75ad7ea522d60e8e/orig",
-          "normalized_url": "https://avatars.mds.yandex.net/get-altay/9833544/2a0000019171cdf8e17c75ad7ea522d60e8e",
-          "alt": "Нарощенные ресницы крупным планом",
-          "description": "Крупный план глаза с нарощенными ресницами. Видна детальная проработка ресниц и естественный цвет радужки.",
-          "fit_score": 10,
-          "fit_reason": "Excellent showcase of a specific beauty service result with high detail and clarity.",
+          "fit_reason": "Excellent showcase of a finished beauty service (lashes and brows) with high detail and visual appeal.",
           "category": "work_result",
           "service_ref": "lashes",
           "sources": [
@@ -223,8 +224,8 @@
         {
           "url": "https://avatars.mds.yandex.net/get-altay/10488540/2a0000018c559a02896fa1a78ca0d37bf279/orig",
           "normalized_url": "https://avatars.mds.yandex.net/get-altay/10488540/2a0000018c559a02896fa1a78ca0d37bf279",
-          "alt": "Наращивание ресниц: объемный результат",
-          "description": "Крупный план глаза с объемными наращенными ресницами. Ресницы выглядят густыми и пушистыми, подчеркивая естественную красоту взгляда.",
+          "alt": "Нарощенные ресницы крупным планом",
+          "description": "Крупный план глаза с нарощенными ресницами. Ресницы объемные, черные, аккуратно уложены.",
           "fit_score": 10,
           "fit_reason": "Excellent visual representation of the lash extension service.",
           "category": "work_result",
@@ -237,28 +238,12 @@
           "marketing_tier": "pro_salon"
         },
         {
-          "url": "https://avatars.mds.yandex.net/get-altay/11395962/2a0000018dc8754cf54bc44bc66ae7772b7c/orig",
-          "normalized_url": "https://avatars.mds.yandex.net/get-altay/11395962/2a0000018dc8754cf54bc44bc66ae7772b7c",
-          "alt": "Нарощенные ресницы крупным планом",
-          "description": "Крупный план глаза с нарощенными ресницами. Виден результат работы мастера по наращиванию ресниц.",
-          "fit_score": 10,
-          "fit_reason": "Perfectly represents the result of an eyelash extension service.",
-          "category": "work_result",
-          "service_ref": "lashes",
-          "sources": [
-            "Уход за ресницами",
-            "Наращивание ресниц"
-          ],
-          "marketing_grade": 9,
-          "marketing_tier": "pro_salon"
-        },
-        {
           "url": "https://avatars.mds.yandex.net/get-altay/10639454/2a0000018c55893dc2e59110c6615119c847/orig",
           "normalized_url": "https://avatars.mds.yandex.net/get-altay/10639454/2a0000018c55893dc2e59110c6615119c847",
-          "alt": "Наращивание ресниц: объемный эффект, крупный план глаза",
-          "description": "Крупный план глаза с объемными наращенными ресницами. Видна аккуратная форма брови и карий цвет радужки.",
+          "alt": "Нарощенные ресницы крупным планом",
+          "description": "Крупный план глаза с нарощенными ресницами. Видна аккуратная работа мастера и естественный взгляд.",
           "fit_score": 10,
-          "fit_reason": "Directly illustrates the result of the lash extension service.",
+          "fit_reason": "Perfectly represents the result of a lash extension service.",
           "category": "work_result",
           "service_ref": "lashes",
           "sources": [
@@ -271,10 +256,10 @@
         {
           "url": "https://avatars.mds.yandex.net/get-altay/11393517/2a0000018dc86f155a8ab4a111c78aecf64c/orig",
           "normalized_url": "https://avatars.mds.yandex.net/get-altay/11393517/2a0000018dc86f155a8ab4a111c78aecf64c",
-          "alt": "Идеальные ресницы после процедуры ламинирования",
-          "description": "Макро-фотография глаза с идеально уложенными ресницами после процедуры.",
+          "alt": "Наращивание ресниц: результат крупным планом",
+          "description": "Крупный план глаза с идеально наращенными ресницами. Видна текстура кожи и блеск в глазу.",
           "fit_score": 10,
-          "fit_reason": "Perfectly represents the result of a lash service, ideal for a service card.",
+          "fit_reason": "Clearly depicts the result of a specific service (eyelash extensions).",
           "category": "work_result",
           "service_ref": "lashes",
           "sources": [
@@ -284,42 +269,12 @@
           "marketing_tier": "pro_salon"
         },
         {
-          "url": "https://avatars.mds.yandex.net/get-altay/10238647/2a0000018f791e00a8e8374500bc5058d900/orig",
-          "normalized_url": "https://avatars.mds.yandex.net/get-altay/10238647/2a0000018f791e00a8e8374500bc5058d900",
-          "alt": "Нарощенные ресницы крупным планом",
-          "description": "Макро-снимок глаза с нарощенными ресницами, демонстрирующий объем и длину.",
+          "url": "https://avatars.mds.yandex.net/get-altay/4562719/2a0000017bacbac8992a66663b4d763d84d7/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/4562719/2a0000017bacbac8992a66663b4d763d84d7",
+          "alt": "Результат коррекции и окрашивания бровей",
+          "description": "Крупный план женских глаз и бровей после процедуры коррекции и окрашивания.",
           "fit_score": 10,
-          "fit_reason": "Perfectly represents the eyelash extension service with a clear visual of the result.",
-          "category": "work_result",
-          "service_ref": "lashes",
-          "sources": [
-            "Уход за ресницами"
-          ],
-          "marketing_grade": 9,
-          "marketing_tier": "pro_salon"
-        },
-        {
-          "url": "https://avatars.mds.yandex.net/get-altay/5308697/2a0000017bacbdf5e565e5cb4660e1aa4dad/orig",
-          "normalized_url": "https://avatars.mds.yandex.net/get-altay/5308697/2a0000017bacbdf5e565e5cb4660e1aa4dad",
-          "alt": "Идеальные брови и глаза после процедуры",
-          "description": "Крупный план идеально уложенных бровей и глаза клиента после процедуры.",
-          "fit_score": 10,
-          "fit_reason": "Clearly depicts the result of a brow service, making it perfect for a service card.",
-          "category": "work_result",
-          "service_ref": "brows",
-          "sources": [
-            "Уход за бровями"
-          ],
-          "marketing_grade": 9,
-          "marketing_tier": "pro_salon"
-        },
-        {
-          "url": "https://avatars.mds.yandex.net/get-altay/5235198/2a0000017bacbb3a8cb65efa73142f215000/orig",
-          "normalized_url": "https://avatars.mds.yandex.net/get-altay/5235198/2a0000017bacbb3a8cb65efa73142f215000",
-          "alt": "Результат процедуры оформления бровей",
-          "description": "Аккуратные, ухоженные брови после процедуры.",
-          "fit_score": 10,
-          "fit_reason": "Clearly shows the result of a specific service (brows), ideal for a service card.",
+          "fit_reason": "Perfectly represents the result of a specific service (brows).",
           "category": "work_result",
           "service_ref": "brows",
           "sources": [
@@ -331,10 +286,10 @@
         {
           "url": "https://avatars.mds.yandex.net/get-altay/5254653/2a0000017bacbaab03bdc53658b1645ea0bd/orig",
           "normalized_url": "https://avatars.mds.yandex.net/get-altay/5254653/2a0000017bacbaab03bdc53658b1645ea0bd",
-          "alt": "Результат процедуры: ухоженные брови и аккуратные стрелки на глазах.",
+          "alt": "Результат коррекции бровей и макияжа глаз",
           "description": "Крупный план бровей и стрелок на глазах после процедуры.",
           "fit_score": 10,
-          "fit_reason": "Clear and detailed showcase of a specific beauty service result (brows and eyeliner).",
+          "fit_reason": "This image clearly depicts the result of a specific beauty service (brows and eyeliner), making it ideal for a service card.",
           "category": "work_result",
           "service_ref": "brows",
           "sources": [
@@ -342,6 +297,50 @@
           ],
           "marketing_grade": 9,
           "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/5236021/2a0000017bacc3a338b50771be1a7b8de190/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/5236021/2a0000017bacc3a338b50771be1a7b8de190",
+          "alt": "Результат коррекции бровей и ресниц",
+          "description": "Крупный план глаз и бровей клиентки после процедуры.",
+          "fit_score": 10,
+          "fit_reason": "Perfectly represents the result of a brow service.",
+          "category": "work_result",
+          "service_ref": "brows",
+          "sources": [
+            "Уход за бровями"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-sprav-products/12412149/2a0000018c1ce79df0ffbfb99f25def3decb/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-sprav-products/12412149/2a0000018c1ce79df0ffbfb99f25def3decb",
+          "alt": "Наращивание ресниц: результат до и после",
+          "description": "Крупный план глаза с идеальными наращенными ресницами и аккуратной бровью. Зеленые глаза подчеркнуты густыми черными ресницами.",
+          "fit_score": 10,
+          "fit_reason": "Perfectly represents the 'lashes' service with a clear and high-quality visual of the result.",
+          "category": "work_result",
+          "service_ref": "lashes",
+          "sources": [
+            "service:3д"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/11395962/2a0000018dc8754cf54bc44bc66ae7772b7c/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/11395962/2a0000018dc8754cf54bc44bc66ae7772b7c",
+          "alt": "Нарощенные ресницы крупным планом",
+          "description": "Крупный план глаза с нарощенными ресницами. Длинные, пушистые ресницы подчеркивают выразительность взгляда.",
+          "fit_score": 10,
+          "fit_reason": "Perfectly represents the eyelash extension service with a clear visual of the result.",
+          "category": "work_result",
+          "service_ref": "lashes",
+          "sources": [
+            "Уход за ресницами",
+            "Наращивание ресниц"
+          ]
         }
       ]
     }

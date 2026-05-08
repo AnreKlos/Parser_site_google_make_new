@@ -1,0 +1,79 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 7,
+    "sharpness": 8,
+    "lighting": 7,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "focus_on_result"
+    ]
+  },
+  "content": {
+    "description": "Аккуратный педикюр с красным лаком на ухоженных женских ногах, демонстрирующий результат процедуры.",
+    "alt_text": "Результат педикюра: женские ноги с красным лаком на ногтях.",
+    "objects": [
+      "female_feet",
+      "red_nail_polish",
+      "pedicure_chair"
+    ],
+    "dominant_colors": [
+      "skin_tone",
+      "dark_gray",
+      "red"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "pedicure",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking result close-up with good composition, but lacks the master's action for a perfect hero shot."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This photo focuses on a work result, not the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent close-up of a finished beauty service result, showcasing quality and detail."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No master is visible, and the focus is on the client's feet, not staff portraits."
+    },
+    "services": {
+      "score": 9,
+      "reason": "Clearly showcases the result of a specific service (pedicure) with good detail."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

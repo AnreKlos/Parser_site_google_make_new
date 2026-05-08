@@ -1,0 +1,615 @@
+{
+  "schema_version": 2,
+  "lead_id": 15,
+  "slug": "pastila",
+  "scraped_at": "2026-05-07T03:00:24",
+  "source_url": "https://yandex.ru/maps/org/pastila/53176636373/?lang=ru",
+  "org_id": "53176636373",
+  "title": "Пастила",
+  "short_title": "Пастила",
+  "rating": 5.0,
+  "rating_count": 116,
+  "review_count": 88,
+  "verified_owner": true,
+  "good_place_year": "2026",
+  "address": {
+    "full": "Брянск, Киевская улица, 34",
+    "country": "Россия",
+    "locality": "Брянск",
+    "street": "Киевская улица",
+    "house": "34",
+    "additional": null,
+    "postal_code": "241029"
+  },
+  "coordinates": {
+    "lng": 34.39552,
+    "lat": 53.216961
+  },
+  "phones": [
+    "+7 (4832) 37-72-22"
+  ],
+  "working_hours": {
+    "text": "ежедневно, 10:00 AM–8:01 PM",
+    "by_day": [
+      [
+        {
+          "from": "10:00",
+          "to": "20:01"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:01"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:01"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:01"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:01"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:01"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:01"
+        }
+      ]
+    ],
+    "is_open_now": false,
+    "unusual_hours": [
+      "2026-05-01",
+      "2026-05-09",
+      "2026-05-11"
+    ]
+  },
+  "urls": {
+    "website": null,
+    "taplink": null,
+    "vk": null,
+    "whatsapp": "https://wa.me/79632137222",
+    "booking": "https://n914275.yclients.com/",
+    "all": []
+  },
+  "logo_url": "https://avatars.mds.yandex.net/get-altay/14093276/2a00000192fd937dc499ed0025cfe3721a86/orig",
+  "services": [
+    {
+      "title": "Маникюр \"красим\" укрепляем",
+      "description": "",
+      "price": 1900,
+      "price_text": "1900 ₽",
+      "currency": "₽",
+      "photo_url": ""
+    },
+    {
+      "title": "Маникюр \"все таки накрасим\" лак",
+      "description": "",
+      "price": 1450,
+      "price_text": "1450 ₽",
+      "currency": "₽",
+      "photo_url": ""
+    },
+    {
+      "title": "Педикюр \"красим\" только пальчики",
+      "description": "",
+      "price": 1850,
+      "price_text": "1850 ₽",
+      "currency": "₽",
+      "photo_url": ""
+    }
+  ],
+  "services_total_count": 27,
+  "features_categorized": {
+    "services": [
+      "косметологические услуги: коррекция бровей, эпиляция",
+      "маникюр",
+      "педикюр",
+      "для ногтей: женский педикюр, женский маникюр, мужской маникюр, мужской педикюр, дизайн ногтей, детский маникюр, spa-маникюр, аппаратный педикюр, аппаратный маникюр, комби маникюр, комби педикюр, наращивание ногтей",
+      "услуги салона: мужские стрижки, женские стрижки, маникюр, эпиляция, детские стрижки, наращивание волос, наращивание ногтей, педикюр, ламинирование ресниц, мытье волос",
+      "наращивание ногтей",
+      "артдизайн"
+    ],
+    "prices": [
+      "цена мужской стрижки: 450–600 ₽",
+      "классический женский маникюр с покрытием: от 1250 ₽",
+      "цена женской стрижки: 450–450 ₽"
+    ],
+    "general": [
+      "способ оплаты: наличными, банковским переводом",
+      "подарочный сертификат",
+      "акции: подарки",
+      "Wi-Fi",
+      "парковка"
+    ],
+    "other": [
+      "мужской ногтевой сервис"
+    ],
+    "accessibility": [
+      "пандус",
+      "доступность входа на инвалидной коляске: недоступно"
+    ],
+    "achievements": [
+      "good_place"
+    ]
+  },
+  "aspects": [
+    {
+      "id": "3502044050",
+      "text": "Персонал",
+      "count": 82,
+      "positive": 82,
+      "neutral": 0,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/16011054/2a00000197f3d66e77909235a9e46222616c/orig",
+        "https://avatars.mds.yandex.net/get-altay/14920824/2a0000019494775776e34f1773e2e6b5754e/orig",
+        "https://avatars.mds.yandex.net/get-altay/13229346/2a0000019494775e553cb8350ed79906b93a/orig"
+      ]
+    },
+    {
+      "id": "3502044230",
+      "text": "Атмосфера",
+      "count": 42,
+      "positive": 42,
+      "neutral": 0,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/14064514/2a0000019494775248b2d3a05f0657e9eb65/orig",
+        "https://avatars.mds.yandex.net/get-altay/14105192/2a0000019494775e2c452507819471531b82/orig",
+        "https://avatars.mds.yandex.net/get-altay/14731058/2a0000019494775865b2b2a6b5b651965fd5/orig",
+        "https://avatars.mds.yandex.net/get-altay/15018138/2a00000194947758c5a592b00d3b9af18d4e/orig",
+        "https://avatars.mds.yandex.net/get-altay/12820607/2a0000019494775775949b0de59ab0eb578b/orig",
+        "https://avatars.mds.yandex.net/get-altay/16287657/2a00000197f3d66e8c8330e88aa302dfca06/orig",
+        "https://avatars.mds.yandex.net/get-altay/14190752/2a00000192fdf2b03e41fd0237425df34f89/orig",
+        "https://avatars.mds.yandex.net/get-altay/14093322/2a00000192fdf2944ec21587c7f1c1bf9908/orig",
+        "https://avatars.mds.yandex.net/get-altay/14920824/2a0000019494775776e34f1773e2e6b5754e/orig",
+        "https://avatars.mds.yandex.net/get-altay/15017195/2a0000019494775db4cffbbfbef7c23cc706/orig"
+      ]
+    },
+    {
+      "id": "3502066474",
+      "text": "Маникюр",
+      "count": 35,
+      "positive": 33,
+      "neutral": 2,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/14221082/2a00000192fd98e62f35be3a524ccbadc9de/orig",
+        "https://avatars.mds.yandex.net/get-altay/11398069/2a00000192fd98e4ed00cea9a63b2951aa60/orig",
+        "https://avatars.mds.yandex.net/get-altay/9793917/2a0000018a6fb2fbaf82f80544a12c5ae6b2/orig",
+        "https://avatars.mds.yandex.net/get-altay/9837233/2a0000018a6fb2ff5cfe4ee3022a5a5e6a10/orig",
+        "https://avatars.mds.yandex.net/get-altay/19519244/2a0000019b7e13573aaa94fbe34a0d9eb288/orig",
+        "https://avatars.mds.yandex.net/get-altay/16454077/2a0000019a980400726279fc962d0b93b433/orig",
+        "https://avatars.mds.yandex.net/get-altay/15682944/2a0000019b7e135e979fbcf957174f8450b6/orig",
+        "https://avatars.mds.yandex.net/get-altay/15544497/2a0000019a891f9844dfb5bcef14739efd2c/orig",
+        "https://avatars.mds.yandex.net/get-altay/16166099/2a0000019b7e135719a4a305789d7ff63cfd/orig",
+        "https://avatars.mds.yandex.net/get-altay/10267222/2a00000192fd98d264dd6e433e3c7ccb7cad/orig"
+      ]
+    },
+    {
+      "id": "3502204799",
+      "text": "Компетентность",
+      "count": 29,
+      "positive": 29,
+      "neutral": 0,
+      "negative": 0,
+      "photos": []
+    },
+    {
+      "id": "3502044686",
+      "text": "Время ожидания",
+      "count": 15,
+      "positive": 15,
+      "neutral": 0,
+      "negative": 0,
+      "photos": []
+    },
+    {
+      "id": "3502086895",
+      "text": "Педикюр",
+      "count": 13,
+      "positive": 13,
+      "neutral": 0,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/19662431/2a0000019b7e1356ff4c3b3901e8d46c9a0a/orig",
+        "https://avatars.mds.yandex.net/get-altay/14221082/2a00000192fd98e7e8c8911fd6874cd75399/orig",
+        "https://avatars.mds.yandex.net/get-altay/9793917/2a0000018a6fb1b361fe089f7729d37bb10e/orig",
+        "https://avatars.mds.yandex.net/get-altay/10702222/2a0000018a6fb16fcb614810514e82df625f/orig",
+        "https://avatars.mds.yandex.net/get-altay/13308954/2a0000018fa64798b78409dc16c0471a960c/orig",
+        "https://avatars.mds.yandex.net/get-altay/10216747/2a0000018a6fb223311979f27a0b1e079e11/orig",
+        "https://avatars.mds.yandex.net/get-altay/15017195/2a0000019494775db4cffbbfbef7c23cc706/orig",
+        "https://avatars.mds.yandex.net/get-altay/14105192/2a0000019494775e2c452507819471531b82/orig",
+        "https://avatars.mds.yandex.net/get-altay/13229346/2a00000194947752443408ccbb1c64ff2fa5/orig",
+        "https://avatars.mds.yandex.net/get-altay/14064514/2a0000019494775248b2d3a05f0657e9eb65/orig"
+      ]
+    }
+  ],
+  "videos": [
+    {
+      "id": "vplv4glvz6lrsf2yyabf",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/14921819/2a0000019a34db51b8611cf8ab981cd1fc30/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplv4glvz6lrsf2yyabf",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvt6z572sixb5rxo5x",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/16146899/2a0000019c869a02df35eb00c67cbafc431e/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvt6z572sixb5rxo5x",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvfoxd4dn2tj3rekct",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/19229708/2a0000019b7e149c9d35c6255313427dcda6/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvfoxd4dn2tj3rekct",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvkayxk6lxz62tgw4d",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/16124030/2a0000019b7e14fe2f8944aa38b9d6ad1963/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvkayxk6lxz62tgw4d",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvw72nxzafmyqxhveh",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/14323753/2a0000019a34e0f86534af38fbb8277412d0/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvw72nxzafmyqxhveh",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvbmumbmby33wui4jz",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/16499410/2a0000019a34df6636cdad49d9e29c269bf2/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvbmumbmby33wui4jz",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvy4ue6kirwppreuvu",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/4948429/2a0000019494827aa20c03f19066e9026487/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvy4ue6kirwppreuvu",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplv2vuunbo27d242ybt",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/6360136/2a00000194947b8a06573eddcfc3c1315b9b/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplv2vuunbo27d242ybt",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvgq2div6kbtmjux6n",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/5353805/2a00000194947bc8cb9e83c84fb4363b545b/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvgq2div6kbtmjux6n",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "id": "vplvga2ibjtgjf5ik4r6",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/6502245/2a00000191d2f9727e2ca9cce4b720c2a4fa/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvga2ibjtgjf5ik4r6",
+      "width": 720,
+      "height": 1280
+    }
+  ],
+  "reviews_preview": [
+    {
+      "review_id": "n0W6TZMDaInY8lc808nqEz2I3orQCM0wi",
+      "author": "Беженарь Вероника",
+      "text": "Абсолютно шикарный опыт в студии красоты «Пастила»\nМастера — настоящие художники, которые великолепно воплощают желания в жизнь. Атмосфера очень уютная, чувствуешь себя комфортно и расслаблено.\n\nОсобенно впечатлила стерильность и чистота восхищают и создают полное доверие. Без раздумий ставлю пять звёзд!\n\nСпасибо «Пастила» за великолепный маникюр и уверенность, которую вы дарите! 💅✨",
+      "rating": 5,
+      "date": "2025-11-11",
+      "photos": [],
+      "business_reply": null
+    },
+    {
+      "review_id": "LqDO9zHI9h392-qImNPqi2FpE3OSLb",
+      "author": "Ольга босенко",
+      "text": "Все о маникюре и педикюре\nА я о мастере шугаринга\nСделала депиляцию у мастерв Евгении и очень довольна. Процедура выполнена быстро и почти безболезненно. Результат превосходный! Гладкость кожи идеальная, не осталось ни одного лишнего волоска. За непринужденной беседой не заметила, как пролетело время. Очень приятный человек и отличный специалист. Всем советую посетить этого замечательного мастера. Я уже записалась в ряды ее постоянных клиентов.",
+      "rating": 5,
+      "date": "2025-11-12",
+      "photos": [],
+      "business_reply": null
+    },
+    {
+      "review_id": "N5tWFnZBvtIn2bY4DH639SlbSwCppyVR",
+      "author": "наталья е.",
+      "text": "Посещаю студию много лет и всегда остаюсь довольна. Хочу отдельно отметить мастера шугаринга Евгению, у которой просто золотые руки. Она выполняет работу безукоризненно, очень аккуратна и внимательна. Кроме того, в студии всегда идеальная чистота и приятная обстановка. Чувствуется забота о каждом клиенте. Все девочки мастера своего дела. Спасибо за ваш труд!",
+      "rating": 5,
+      "date": "2025-12-03",
+      "photos": [],
+      "business_reply": null
+    }
+  ],
+  "reviews_total_count": 88,
+  "discoveries": [
+    {
+      "alias": "podborka_krasota_manikyur_bryansk-191",
+      "title": "Салоны красоты и ногтевые студии Брянска: услуги маникюра",
+      "place_number": 50,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_manikyur_r-n-fokinskij-bryansk-191",
+      "title": "Салоны и студии маникюра в районе Фокинский (Брянск)",
+      "place_number": 15,
+      "partner": "Яндекс Карты"
+    },
+    {
+      "alias": "podborka_krasota_pedikyur_bryansk-191",
+      "title": "Салоны и студии педикюра в Брянске",
+      "place_number": 45,
+      "partner": "Яндекс Карты"
+    }
+  ],
+  "histogram": {
+    "wednesday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.007881928089181976,
+      0.010739519547809703,
+      0.012906264719736223,
+      0.01344010048673261,
+      0.011524572146333803,
+      0.010582509028104883,
+      0.011681582666038626,
+      0.014821793060135029,
+      0.015606845658659132,
+      0.01281205840791333,
+      0.008352959648296436,
+      0,
+      0,
+      0
+    ],
+    "sunday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.008635578583765112,
+      0.013000471031559113,
+      0.013879729941906107,
+      0.012466635264562726,
+      0.011901397393625373,
+      0.01265504788820851,
+      0.01234102684879887,
+      0.011304757418747056,
+      0.011304757418747056,
+      0.009420631182289214,
+      0.006092008164547025,
+      0,
+      0,
+      0
+    ],
+    "friday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.00832155754435547,
+      0.013314492070968756,
+      0.013848327837965142,
+      0.014036740461610927,
+      0.013691317318260322,
+      0.013063275239441043,
+      0.012969068927618151,
+      0.01592086669806877,
+      0.01560684565865913,
+      0.01249803736850369,
+      0.0077877217773590825,
+      0,
+      0,
+      0
+    ],
+    "tuesday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.008792589103469934,
+      0.012717852096090438,
+      0.013534306798555502,
+      0.013973936253728999,
+      0.01482179306013503,
+      0.017522373999057938,
+      0.01771078662270372,
+      0.01692573402417962,
+      0.014727586748312137,
+      0.01149317004239284,
+      0.007191081802480766,
+      0,
+      0,
+      0
+    ],
+    "monday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.009734652221698854,
+      0.013094677343382006,
+      0.014036740461610927,
+      0.013534306798555502,
+      0.014005338357669966,
+      0.01249803736850369,
+      0.013220285759145863,
+      0.018747056052755534,
+      0.017490971895116975,
+      0.013659915214319359,
+      0.009828858533521747,
+      0,
+      0,
+      0
+    ],
+    "thursday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.007505102841890407,
+      0.01086512796357356,
+      0.010927932171455488,
+      0.012278222640916941,
+      0.011273355314806093,
+      0.011775788977861516,
+      0.014444967812843462,
+      0.016957136128120585,
+      0.015135814099544669,
+      0.01102213848327838,
+      0.006657246035484378,
+      0,
+      0,
+      0
+    ],
+    "saturday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.012215418433035013,
+      0.014821793060135029,
+      0.015481237242895275,
+      0.01617208352959648,
+      0.015355628827131419,
+      0.016266289841419375,
+      0.014476369916784424,
+      0.013691317318260324,
+      0.012623645784267546,
+      0.011430365834510913,
+      0.007599309153713299,
+      0,
+      0,
+      0
+    ]
+  },
+  "panorama": {
+    "preview_url": "https://static-pano.maps.yandex.ru/v1/?panoid=1278917848_699232245_23_1594110064&size=500%2C240&azimuth=11.1&tilt=10&api_key=maps&signature=vt3npcMhwxyPw0UVWxMq3ra3OCXsFEHocF5JbRGVi8k=",
+    "lat": 53.2163242484,
+    "lng": 34.3953115928
+  },
+  "_meta": {
+    "parser_version": "2.0",
+    "method": "state_view",
+    "fallback_used": false,
+    "fields_extracted": [
+      "schema_version",
+      "lead_id",
+      "slug",
+      "scraped_at",
+      "source_url",
+      "org_id",
+      "title",
+      "short_title",
+      "rating",
+      "rating_count",
+      "review_count",
+      "verified_owner",
+      "good_place_year",
+      "address",
+      "coordinates",
+      "phones",
+      "working_hours",
+      "urls",
+      "logo_url",
+      "services",
+      "services_total_count",
+      "features_categorized",
+      "aspects",
+      "videos",
+      "reviews_preview",
+      "reviews_total_count",
+      "discoveries",
+      "histogram",
+      "panorama"
+    ]
+  },
+  "qualification": {
+    "qualified": false,
+    "reason": "services_with_photos 0 < 3",
+    "score": 80,
+    "checks": {
+      "rating": true,
+      "reviews": true,
+      "photos": true,
+      "services": false,
+      "contact": true
+    },
+    "details": {
+      "rating": 5.0,
+      "review_count": 88,
+      "unique_aspect_photos": 29,
+      "services_with_photos": 0,
+      "contact_channels": [
+        "whatsapp",
+        "booking"
+      ]
+    }
+  }
+}

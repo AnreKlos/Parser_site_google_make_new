@@ -6,37 +6,36 @@
     "score": 9,
     "sharpness": 9,
     "lighting": 9,
-    "composition": 9
+    "composition": 8
   },
   "marketing_grade": {
     "score": 9,
     "tier": "pro_salon",
     "reasons": [
       "clean_lighting",
-      "detailed_result",
-      "professional_focus"
+      "sharp_focus_on_result"
     ]
   },
   "content": {
-    "description": "Макро-фотография глаза с идеально уложенными ресницами после процедуры.",
-    "alt_text": "Идеальные ресницы после процедуры ламинирования",
+    "description": "Крупный план женских глаз и бровей после процедуры коррекции и окрашивания.",
+    "alt_text": "Результат коррекции и окрашивания бровей",
     "objects": [
-      "eye",
+      "eyebrows",
+      "eyes",
       "eyelashes",
-      "eyelid",
-      "iris"
+      "skin"
     ],
     "dominant_colors": [
       "skin_tone",
-      "dark_brown",
-      "white"
+      "brown",
+      "green"
     ],
-    "mood": "luxurious"
+    "mood": "neutral"
   },
   "people": {
     "present": true,
     "count": 1,
-    "faces_visible": false,
+    "faces_visible": true,
     "primary_subject": "client",
     "back_or_side_only": false,
     "covered_face": false
@@ -46,27 +45,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "lashes",
+  "service_ref": "brows",
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a service result that immediately showcases the quality of work."
+      "reason": "Striking close-up of a beauty service result that immediately shows quality."
     },
     "about": {
       "score": 0,
-      "reason": "This image is a close-up of a service result, not an interior shot of the salon."
+      "reason": "This is a close-up of a service result, not an interior shot of the salon."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent close-up showcasing a specific, high-quality beauty service result."
+      "reason": "Excellent close-up showcasing the detailed result of a beauty service."
     },
     "team": {
       "score": 0,
-      "reason": "This is a close-up of a client's eye, not a portrait of a salon master."
+      "reason": "This is a client's result, not a portrait of a master or team member."
     },
     "services": {
       "score": 10,
-      "reason": "Perfectly represents the result of a lash service, ideal for a service card."
+      "reason": "Perfectly represents the result of a specific service (brows)."
     }
   },
   "flags": {

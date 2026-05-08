@@ -3,33 +3,33 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 9,
+    "score": 8,
     "sharpness": 9,
     "lighting": 8,
-    "composition": 9
+    "composition": 8
   },
   "marketing_grade": {
-    "score": 9,
+    "score": 8,
     "tier": "pro_salon",
     "reasons": [
       "clean_lighting",
-      "professional_result",
       "neutral_background"
     ]
   },
   "content": {
-    "description": "Яркий маникюр на коротких ногтях, выполненный мастером в черной перчатке.",
-    "alt_text": "Яркий розовый маникюр на коротких ногтях",
+    "description": "Женская рука с идеальным маникюром в темно-бордовом цвете, украшенная элегантным кольцом с бриллиантом.",
+    "alt_text": "Идеальный маникюр в темно-бордовом цвете с кольцом",
     "objects": [
-      "client_hands",
-      "manicure",
-      "black_gloves",
-      "nail_polish"
+      "hand",
+      "fingernails",
+      "nail_polish",
+      "ring",
+      "fabric"
     ],
     "dominant_colors": [
-      "pink",
-      "black",
-      "white"
+      "dark_red",
+      "gray",
+      "skin_tone"
     ],
     "mood": "luxurious"
   },
@@ -50,23 +50,23 @@
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a finished manicure that immediately showcases the salon's skill."
+      "reason": "Striking close-up of a finished service result that immediately showcases quality and style."
     },
     "about": {
       "score": 2,
-      "reason": "This image focuses on the result, not the salon's interior or atmosphere."
+      "reason": "This photo focuses on a specific result, not the salon's interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent close-up showcasing a high-quality manicure result, perfect for a gallery."
+      "reason": "Excellent close-up of a finished manicure, perfect for showcasing the quality of work."
     },
     "team": {
       "score": 0,
-      "reason": "No clear view of a master's face or context to identify them as staff."
+      "reason": "No faces are visible, and the focus is on the hands and nails, not the staff."
     },
     "services": {
-      "score": 9,
-      "reason": "Clearly depicts the result of a manicure service, ideal for a service card."
+      "score": 10,
+      "reason": "Clearly depicts the result of a nail service, ideal for a service card."
     }
   },
   "flags": {

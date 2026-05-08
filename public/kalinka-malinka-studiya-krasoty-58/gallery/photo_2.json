@@ -1,0 +1,81 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "master_at_work",
+  "quality": {
+    "score": 8,
+    "sharpness": 8,
+    "lighting": 8,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "professional_setting_implied"
+    ]
+  },
+  "content": {
+    "description": "Мастер делает процедуру наращивания ресниц, аккуратно прорабатывая каждую ресничку тонким инструментом. Клиентка сидит с закрытыми глазами, демонстрируя ухоженную кожу и губы.",
+    "alt_text": "Наращивание ресниц: мастер работает над ресницами клиентки",
+    "objects": [
+      "client_eye",
+      "master_hands",
+      "tweezers",
+      "lash_curler",
+      "eyelashes"
+    ],
+    "dominant_colors": [
+      "skin_tone",
+      "brown",
+      "beige"
+    ],
+    "mood": "calm"
+  },
+  "people": {
+    "present": true,
+    "count": 2,
+    "faces_visible": false,
+    "primary_subject": "master",
+    "back_or_side_only": true,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "lashes",
+  "fit_scores": {
+    "hero": {
+      "score": 10,
+      "reason": "Master in action with clear visual story of a beauty service being performed."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This photo shows a procedure, not the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 8,
+      "reason": "Showcases a specific beauty service being performed, implying a result."
+    },
+    "team": {
+      "score": 0,
+      "reason": "Faces are not visible, and it's a close-up of a procedure, not a portrait."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Clearly depicts the process of a specific service (lash extensions)."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

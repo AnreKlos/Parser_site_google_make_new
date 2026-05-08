@@ -12,22 +12,22 @@
     "score": 9,
     "tier": "pro_salon",
     "reasons": [
-      "perfect_composition",
-      "clean_lighting"
+      "clean_lighting",
+      "neutral_background"
     ]
   },
   "content": {
-    "description": "Крупный план ногтя с идеальным глянцевым покрытием темно-красного цвета.",
-    "alt_text": "Идеальный маникюр темно-красного цвета",
+    "description": "Женская рука с идеальным французским маникюром и кольцом с бриллиантом на сером фоне.",
+    "alt_text": "Французский маникюр на ухоженных руках с кольцом",
     "objects": [
-      "nail",
-      "fingernail",
-      "skin",
-      "red_nail_polish"
+      "woman_hand",
+      "french_manicure",
+      "ring",
+      "diamond"
     ],
     "dominant_colors": [
-      "red",
       "skin_tone",
+      "white",
       "gray"
     ],
     "mood": "luxurious"
@@ -37,7 +37,7 @@
     "count": 1,
     "faces_visible": false,
     "primary_subject": "client",
-    "back_or_side_only": true,
+    "back_or_side_only": false,
     "covered_face": false
   },
   "text_in_image": {
@@ -49,23 +49,23 @@
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a perfect manicure result, drawing immediate attention."
+      "reason": "Striking result close-up with composition that draws the eye, though not a master at work."
     },
     "about": {
-      "score": 2,
-      "reason": "This is a close-up of a nail, not an interior shot of the salon."
+      "score": 0,
+      "reason": "This is a work result, not an interior shot of the salon space."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent close-up showcasing a high-quality manicure result."
+      "reason": "Sharp close-up of a finished work (manicure) with detail visible."
     },
     "team": {
       "score": 0,
-      "reason": "No people are clearly identifiable as staff, and no faces are visible."
+      "reason": "No master is visible, and the focus is on the result, not the team."
     },
     "services": {
-      "score": 10,
-      "reason": "Perfectly showcases the result of a manicure service."
+      "score": 8,
+      "reason": "Clearly showcases a specific service result (manicure) that can be used on a service card."
     }
   },
   "flags": {

@@ -6,31 +6,30 @@
     "score": 8,
     "sharpness": 9,
     "lighting": 8,
-    "composition": 7
+    "composition": 8
   },
   "marketing_grade": {
     "score": 8,
     "tier": "pro_salon",
     "reasons": [
-      "clear_result_showcase",
-      "good_lighting"
+      "clean_lighting",
+      "neutral_background"
     ]
   },
   "content": {
-    "description": "Сравнение до и после процедуры перманентного макияжа бровей и межресничной стрелки.",
-    "alt_text": "Результат перманентного макияжа бровей и межресничной стрелки",
+    "description": "Аккуратный маникюр с черным глянцевым покрытием на коротких ногтях.",
+    "alt_text": "Черный глянцевый маникюр на ухоженных руках",
     "objects": [
-      "eyebrows",
-      "eyeliner",
-      "eyelashes",
-      "eye"
+      "client_hands",
+      "nails",
+      "nail_polish"
     ],
     "dominant_colors": [
-      "skin_tone",
       "black",
-      "green"
+      "gray",
+      "skin_tone"
     ],
-    "mood": "neutral"
+    "mood": "luxurious"
   },
   "people": {
     "present": true,
@@ -45,27 +44,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "other",
+  "service_ref": "nails_general",
   "fit_scores": {
     "hero": {
-      "score": 6,
-      "reason": "Shows a clear result, but not a master at work or a striking interior."
+      "score": 8,
+      "reason": "Striking result close-up with good composition that draws the eye."
     },
     "about": {
       "score": 0,
-      "reason": "This image focuses on a specific service result, not the salon's interior or atmosphere."
+      "reason": "This is a work result, not an interior shot."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent showcase of a specific beauty service result, ideal for a gallery."
+      "reason": "Sharp close-up of finished work showcasing the manicure detail."
     },
     "team": {
       "score": 0,
-      "reason": "No master is visible, and the focus is on the client's result, not the team."
+      "reason": "No person's face is visible, and it's not a team portrait."
     },
     "services": {
       "score": 8,
-      "reason": "Clearly depicts the result of a specific beauty service, suitable for a service card."
+      "reason": "Clean shot of the result of a specific service (manicure)."
     }
   },
   "flags": {

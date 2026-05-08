@@ -12,26 +12,27 @@
     "score": 7,
     "tier": "casual_acceptable",
     "reasons": [
-      "clean_lighting",
-      "neutral_background"
+      "festive_decorations",
+      "salon_environment"
     ]
   },
   "content": {
-    "description": "Белое кресло с пластиковой защитой стоит на подиуме в салоне красоты. На заднем плане синяя стена и полка с продукцией.",
-    "alt_text": "Белое кресло в салоне красоты",
+    "description": "Интерьер салона красоты, украшенный красными шарами и лентами. Видна зона ожидания и рабочие места мастеров.",
+    "alt_text": "Интерьер салона красоты с красными шарами",
     "objects": [
-      "armchair",
-      "shelf",
-      "lamp",
-      "plants",
-      "products"
+      "red_balloons",
+      "salon_chair",
+      "mirror_with_lights",
+      "work_station",
+      "radiator",
+      "clock"
     ],
     "dominant_colors": [
-      "white",
+      "red",
       "blue",
-      "grey"
+      "white"
     ],
-    "mood": "neutral"
+    "mood": "cozy"
   },
   "people": {
     "present": false,
@@ -42,36 +43,36 @@
     "covered_face": false
   },
   "text_in_image": {
-    "present": false,
+    "present": true,
     "looks_like_caption_for_person": false,
-    "extracted_text": null
+    "extracted_text": "alyona_rogovtseva_32\nДа какая разница!"
   },
   "service_ref": null,
   "fit_scores": {
     "hero": {
       "score": 4,
-      "reason": "The photo shows a clean interior, but lacks a strong hook or clear service indication for a hero section."
+      "reason": "The image shows the salon interior, which is okay for a hero, but lacks a strong hook or clear service representation."
     },
     "about": {
       "score": 10,
-      "reason": "This is an excellent shot of the salon's interior, showcasing the atmosphere and cleanliness, fitting the 'about' section perfectly."
+      "reason": "This photo perfectly captures the atmosphere and interior of the salon, making it ideal for the 'About' section."
     },
     "gallery": {
       "score": 0,
-      "reason": "The image does not display any work results or services offered by the salon."
+      "reason": "The photo does not showcase any specific work results or services offered by the salon."
     },
     "team": {
       "score": 0,
-      "reason": "There are no people in the image, making it unsuitable for a team section."
+      "reason": "No people are visible in the photo, making it unsuitable for a team section."
     },
     "services": {
       "score": 2,
-      "reason": "While it shows a salon environment, it doesn't specifically highlight any particular service."
+      "reason": "The image shows the general salon environment but doesn't highlight any specific service or its result."
     }
   },
   "flags": {
     "has_logo": false,
-    "has_text_overlay": false,
+    "has_text_overlay": true,
     "has_watermark": false,
     "is_screenshot": false,
     "face_covered": false,

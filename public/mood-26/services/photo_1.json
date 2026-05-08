@@ -6,28 +6,29 @@
     "score": 9,
     "sharpness": 9,
     "lighting": 9,
-    "composition": 9
+    "composition": 8
   },
   "marketing_grade": {
     "score": 9,
     "tier": "pro_salon",
     "reasons": [
       "clean_lighting",
-      "neutral_background"
+      "professional_result"
     ]
   },
   "content": {
-    "description": "Аккуратные, ухоженные брови после процедуры.",
-    "alt_text": "Результат процедуры оформления бровей",
+    "description": "Результат окрашивания волос: гладкие, блестящие волосы с красивым переходом цвета.",
+    "alt_text": "Результат окрашивания волос: блонд с плавным переходом цвета",
     "objects": [
-      "eyebrows",
-      "eyelashes",
-      "skin"
+      "hair",
+      "client_shoulder",
+      "master_hand",
+      "nail_polish"
     ],
     "dominant_colors": [
-      "skin_tone",
-      "dark_brown",
-      "gray"
+      "blonde",
+      "black",
+      "purple"
     ],
     "mood": "luxurious"
   },
@@ -36,7 +37,7 @@
     "count": 1,
     "faces_visible": false,
     "primary_subject": "client",
-    "back_or_side_only": false,
+    "back_or_side_only": true,
     "covered_face": false
   },
   "text_in_image": {
@@ -44,27 +45,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "brows",
+  "service_ref": "coloring",
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a beautiful result that immediately showcases the salon's skill."
+      "reason": "Striking result close-up with good composition and lighting, showcasing the service outcome."
     },
     "about": {
       "score": 0,
-      "reason": "This image focuses on a specific result, not the salon's interior or atmosphere."
+      "reason": "This photo focuses on a work result, not the salon's interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent close-up of a finished beauty service, perfect for showcasing work results."
+      "reason": "Excellent close-up of a finished hair coloring service, highlighting the quality of the work."
     },
     "team": {
       "score": 0,
-      "reason": "This is a work result, not a portrait of a team member."
+      "reason": "No master is clearly visible, and the focus is on the client's hair, not the staff."
     },
     "services": {
       "score": 10,
-      "reason": "Clearly shows the result of a specific service (brows), ideal for a service card."
+      "reason": "Clearly showcases the result of a hair coloring service, ideal for a service card."
     }
   },
   "flags": {

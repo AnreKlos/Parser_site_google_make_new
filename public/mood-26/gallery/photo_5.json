@@ -12,27 +12,25 @@
     "score": 8,
     "tier": "pro_salon",
     "reasons": [
-      "good_lighting",
-      "clean_background",
-      "professional_result_visible"
+      "clean_lighting",
+      "professional_hair_result"
     ]
   },
   "content": {
-    "description": "Женская стрижка и окрашивание в светлый блонд с ровным срезом.",
-    "alt_text": "Женская стрижка и окрашивание в светлый блонд",
+    "description": "Женщина демонстрирует идеально ровные и блестящие светлые волосы после процедуры окрашивания и укладки.",
+    "alt_text": "Результат окрашивания и укладки волос: ровные, блестящие светлые пряди.",
     "objects": [
-      "woman_hair",
-      "haircut",
-      "hair_coloring",
-      "blond_hair",
-      "straight_cut"
+      "long_hair",
+      "blonde_hair",
+      "hair_coloring_result",
+      "hairdresser_robe"
     ],
     "dominant_colors": [
+      "blonde",
       "beige",
-      "white",
       "black"
     ],
-    "mood": "neutral"
+    "mood": "luxurious"
   },
   "people": {
     "present": true,
@@ -47,27 +45,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "haircut",
+  "service_ref": "hair_treatment",
   "fit_scores": {
     "hero": {
-      "score": 6,
-      "reason": "Shows a good result but the face is not visible, which is less engaging for a hero image."
+      "score": 8,
+      "reason": "Striking visual of a beautiful hair result that can hook a visitor immediately."
     },
     "about": {
-      "score": 0,
-      "reason": "This photo focuses on a hair result, not the salon's interior or atmosphere."
+      "score": 2,
+      "reason": "The photo focuses on the hair result, not the salon interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "This is an excellent showcase of a finished hair service, highlighting the quality of the work."
+      "reason": "Excellent showcase of a finished hair service, highlighting the quality of the work."
     },
     "team": {
       "score": 0,
-      "reason": "No master is visible, and the client's face is not shown, making it unsuitable for a team section."
+      "reason": "No face is visible, and the person is shown from the back, making it unsuitable for a team portrait."
     },
     "services": {
       "score": 8,
-      "reason": "Clearly depicts the result of a haircut and coloring service, suitable for a service card."
+      "reason": "Clearly depicts the result of a hair service, which is relevant for a service card."
     }
   },
   "flags": {

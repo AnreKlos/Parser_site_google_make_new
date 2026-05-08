@@ -3,39 +3,39 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 8,
+    "score": 9,
     "sharpness": 9,
-    "lighting": 8,
-    "composition": 8
+    "lighting": 9,
+    "composition": 9
   },
   "marketing_grade": {
     "score": 9,
     "tier": "pro_salon",
     "reasons": [
-      "professional_result",
-      "close_up_detail"
+      "excellent_detail",
+      "clean_lighting"
     ]
   },
   "content": {
-    "description": "Крупный план глаза с объемными наращенными ресницами. Видна аккуратная форма брови и карий цвет радужки.",
-    "alt_text": "Наращивание ресниц: объемный эффект, крупный план глаза",
+    "description": "Крупный план глаза с идеально наращенными ресницами. Видна текстура кожи и блеск в глазу.",
+    "alt_text": "Наращивание ресниц: результат крупным планом",
     "objects": [
       "eye",
       "eyelashes",
-      "eyebrow",
-      "iris"
+      "iris",
+      "skin_texture"
     ],
     "dominant_colors": [
-      "skin_tone",
-      "black",
-      "brown"
+      "brown",
+      "beige",
+      "black"
     ],
     "mood": "luxurious"
   },
   "people": {
     "present": true,
     "count": 1,
-    "faces_visible": true,
+    "faces_visible": false,
     "primary_subject": "client",
     "back_or_side_only": false,
     "covered_face": false
@@ -57,7 +57,7 @@
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent close-up showcasing the detailed result of lash extensions, perfect for a gallery."
+      "reason": "Perfect example of a finished work result, showcasing detail and quality."
     },
     "team": {
       "score": 0,
@@ -65,7 +65,7 @@
     },
     "services": {
       "score": 10,
-      "reason": "Directly illustrates the result of the lash extension service."
+      "reason": "Clearly depicts the result of a specific service (eyelash extensions)."
     }
   },
   "flags": {

@@ -1,0 +1,84 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 9,
+    "sharpness": 9,
+    "lighting": 9,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "professional_makeup_result",
+      "clean_lighting",
+      "neutral_background"
+    ]
+  },
+  "content": {
+    "description": "Крупный план лица модели с идеальным макияжем, подчеркивающим глаза и губы.",
+    "alt_text": "Идеальный макияж с акцентом на глаза и губы",
+    "objects": [
+      "model_face",
+      "eyes",
+      "lips",
+      "eyeliner",
+      "eyeshadow",
+      "blush",
+      "hair"
+    ],
+    "dominant_colors": [
+      "skin_tone",
+      "white",
+      "brown"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": true,
+    "primary_subject": "model",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "makeup",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking makeup result that immediately grabs attention and showcases a key service."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This is a close-up of a person, not an interior shot of the salon space."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent showcase of a finished makeup result, highlighting the skill and artistry."
+    },
+    "team": {
+      "score": 0,
+      "reason": "This is a model's face, not a portrait of a salon master with identifying text."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Perfectly represents the makeup service with a high-quality result shot."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

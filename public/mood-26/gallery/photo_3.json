@@ -12,24 +12,23 @@
     "score": 8,
     "tier": "pro_salon",
     "reasons": [
-      "clean_lighting",
-      "neutral_background",
-      "hair_result_prominent"
+      "good_lighting",
+      "clean_background"
     ]
   },
   "content": {
-    "description": "Женщина с длинными, прямыми, окрашенными волосами в черном пеньюаре.",
-    "alt_text": "Результат окрашивания волос: длинные, прямые, блестящие волосы.",
+    "description": "Стильная стрижка и окрашивание волос в блонд с плавным переходом оттенков.",
+    "alt_text": "Результат окрашивания и стрижки волос в блонд",
     "objects": [
-      "long_hair",
-      "black_cape",
-      "white_wall",
-      "window"
+      "hair",
+      "mirror",
+      "wall",
+      "clothing"
     ],
     "dominant_colors": [
+      "blonde",
       "grey",
-      "white",
-      "black"
+      "white"
     ],
     "mood": "neutral"
   },
@@ -46,27 +45,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "coloring",
+  "service_ref": "haircut",
   "fit_scores": {
     "hero": {
       "score": 6,
-      "reason": "Shows a good result but lacks a clear story or master's involvement for a strong hero image."
+      "reason": "Shows a good result but lacks a clear hook or action for a hero image."
     },
     "about": {
       "score": 2,
-      "reason": "This is a work result, not an interior shot, so it doesn't fit the 'about' section well."
+      "reason": "This is a work result, not an interior shot, so it doesn't convey the salon's atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent showcase of a finished hair coloring result, sharp and well-lit."
+      "reason": "Excellent showcase of a finished hair service with good detail and quality."
     },
     "team": {
       "score": 0,
-      "reason": "No face is visible, and it's not a portrait of a team member."
+      "reason": "No person's face is visible, and it's not a team portrait."
     },
     "services": {
       "score": 8,
-      "reason": "Clearly shows the result of a hair coloring service, making it suitable for a service card."
+      "reason": "Clearly represents a hair coloring and cutting service, suitable for a service card."
     }
   },
   "flags": {

@@ -1,77 +1,77 @@
 {
   "rejected": false,
   "reject_reason": null,
-  "category": "master_at_work",
+  "category": "work_result",
   "quality": {
-    "score": 7,
-    "sharpness": 8,
-    "lighting": 7,
-    "composition": 7
+    "score": 8,
+    "sharpness": 9,
+    "lighting": 8,
+    "composition": 8
   },
   "marketing_grade": {
-    "score": 8,
+    "score": 9,
     "tier": "pro_salon",
     "reasons": [
-      "professional_environment",
-      "good_lighting"
+      "clean_lighting",
+      "neutral_background"
     ]
   },
   "content": {
-    "description": "Мастер делает укладку феном и расческой, создавая объемную прическу клиентке.",
-    "alt_text": "Мастер делает укладку волос феном и брашингом",
+    "description": "Девушка с красивым окрашиванием волос, демонстрирующая результат работы мастера.",
+    "alt_text": "Результат окрашивания волос: блонд с плавным переходом цвета",
     "objects": [
-      "hairdryer",
-      "round_brush",
-      "client_hair",
-      "hairdresser_uniform",
-      "wooden_wall"
+      "woman",
+      "hair",
+      "blond_hair",
+      "hair_coloring",
+      "salon_robe"
     ],
     "dominant_colors": [
-      "dark_gray",
-      "black",
-      "brown"
+      "beige",
+      "brown",
+      "black"
     ],
-    "mood": "neutral"
+    "mood": "luxurious"
   },
   "people": {
     "present": true,
-    "count": 2,
+    "count": 1,
     "faces_visible": true,
-    "primary_subject": "master",
+    "primary_subject": "model",
     "back_or_side_only": false,
     "covered_face": false
   },
   "text_in_image": {
-    "present": true,
+    "present": false,
     "looks_like_caption_for_person": false,
-    "extracted_text": "ESTEL"
+    "extracted_text": null
   },
-  "service_ref": "haircut",
+  "service_ref": "coloring",
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Shows a master actively performing a service, which is engaging for a hero section."
+      "reason": "Striking result of hair coloring with a person in frame, good composition."
     },
     "about": {
-      "score": 4,
-      "reason": "While it shows a salon environment, it's too focused on the procedure to represent the overall atmosphere."
+      "score": 0,
+      "reason": "This photo shows a work result, not the salon interior or atmosphere."
     },
     "gallery": {
-      "score": 6,
-      "reason": "It shows a service in progress, hinting at the results, but isn't a finished work showcase."
+      "score": 10,
+      "reason": "Sharp close-up of a finished hair coloring result, showcasing the quality of work."
     },
     "team": {
-      "score": 6,
-      "reason": "Shows a master at work, but lacks the direct portrait style and potential captioning for a dedicated team section."
+      "score": 0,
+      "reason": "This is a model showcasing a service result, not a team member portrait."
     },
     "services": {
-      "score": 10,
-      "reason": "Clearly depicts a specific hair styling service in action, ideal for a service card."
+      "score": 8,
+      "reason": "Clearly shows the result of a hair coloring service, suitable for a service card."
     }
   },
   "flags": {
     "has_logo": false,
-    "has_text_overlay": true,
+    "has_text_overlay": false,
     "has_watermark": false,
     "is_screenshot": false,
     "face_covered": false,

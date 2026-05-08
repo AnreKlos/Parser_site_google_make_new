@@ -1,0 +1,80 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "master_at_work",
+  "quality": {
+    "score": 7,
+    "sharpness": 8,
+    "lighting": 7,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 7,
+    "tier": "casual_acceptable",
+    "reasons": [
+      "clean_lighting",
+      "focus_on_service"
+    ]
+  },
+  "content": {
+    "description": "Мастер в черных перчатках делает педикюр с помощью аппарата, обрабатывая пятку клиента.",
+    "alt_text": "Педикюр: мастер обрабатывает пятку клиента аппаратом",
+    "objects": [
+      "client_foot",
+      "pedicure_machine",
+      "black_gloves",
+      "pedicure_chair"
+    ],
+    "dominant_colors": [
+      "skin_tone",
+      "black",
+      "white"
+    ],
+    "mood": "neutral"
+  },
+  "people": {
+    "present": true,
+    "count": 2,
+    "faces_visible": false,
+    "primary_subject": "master",
+    "back_or_side_only": true,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "pedicure",
+  "fit_scores": {
+    "hero": {
+      "score": 7,
+      "reason": "Shows a service in action, but the master's face is not visible, which reduces the immediate hook."
+    },
+    "about": {
+      "score": 3,
+      "reason": "Focuses on the procedure, not the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 8,
+      "reason": "Clearly showcases a specific service result and the process, which is good for a gallery."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No faces are visible, and the focus is on the service, not the individual masters."
+    },
+    "services": {
+      "score": 10,
+      "reason": "This photo perfectly represents the pedicure service, showing the master at work with the necessary tools."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

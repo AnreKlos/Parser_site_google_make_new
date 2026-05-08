@@ -5,7 +5,7 @@
   "quality": {
     "score": 7,
     "sharpness": 7,
-    "lighting": 6,
+    "lighting": 7,
     "composition": 7
   },
   "marketing_grade": {
@@ -17,21 +17,22 @@
     ]
   },
   "content": {
-    "description": "Уютные кресла с велюровой обивкой и стразами в салоне красоты.",
-    "alt_text": "Кресла в салоне красоты",
+    "description": "Отражение в зеркале салона красоты, показывающее полки с красками для волос и рабочую зону.",
+    "alt_text": "Интерьер салона красоты с полками красок для волос",
     "objects": [
-      "velvet_armchair",
-      "tufted_upholstery",
-      "rhinestones",
-      "side_table",
-      "cosmetic_device"
+      "mirror",
+      "shelving unit",
+      "hair dye boxes",
+      "bottles",
+      "countertop",
+      "wooden paneling"
     ],
     "dominant_colors": [
-      "beige",
-      "brown",
-      "black"
+      "white",
+      "purple",
+      "gray"
     ],
-    "mood": "cozy"
+    "mood": "neutral"
   },
   "people": {
     "present": false,
@@ -50,23 +51,23 @@
   "fit_scores": {
     "hero": {
       "score": 4,
-      "reason": "Shows the salon's atmosphere but lacks a strong hook or clear service indication."
+      "reason": "This image shows the salon interior, which is good for atmosphere but lacks the immediate hook of a service or master at work."
     },
     "about": {
       "score": 10,
-      "reason": "This is an excellent shot of the salon's interior, showcasing its ambiance and decor."
+      "reason": "This is an excellent shot of the salon's interior, showcasing its organized storage and clean aesthetic, perfect for an 'About' section."
     },
     "gallery": {
       "score": 0,
-      "reason": "The photo does not showcase any specific work results or services."
+      "reason": "The image does not showcase any specific work results or before/after transformations."
     },
     "team": {
       "score": 0,
-      "reason": "No people are present in the image, making it unsuitable for a team section."
+      "reason": "There are no people visible in the image, making it unsuitable for a team section."
     },
     "services": {
       "score": 2,
-      "reason": "While it shows salon furniture, it doesn't directly represent any specific service."
+      "reason": "While it shows products related to hair services, it doesn't depict a specific service or its result clearly enough."
     }
   },
   "flags": {

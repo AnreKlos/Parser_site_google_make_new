@@ -12,30 +12,30 @@
     "score": 8,
     "tier": "pro_salon",
     "reasons": [
-      "excellent_close_up",
-      "shows_service_result"
+      "clear_result",
+      "good_lighting"
     ]
   },
   "content": {
-    "description": "Крупный план глаза с нарощенными ресницами. Видна детальная проработка ресниц и естественный цвет радужки.",
-    "alt_text": "Нарощенные ресницы крупным планом",
+    "description": "Крупный план глаза с идеальными наращенными ресницами и ухоженными бровями.",
+    "alt_text": "Наращивание ресниц и коррекция бровей",
     "objects": [
       "eye",
       "eyelashes",
-      "eyelid",
-      "iris"
+      "eyebrows",
+      "skin"
     ],
     "dominant_colors": [
-      "brown",
       "skin_tone",
-      "black"
+      "black",
+      "blue"
     ],
     "mood": "luxurious"
   },
   "people": {
     "present": true,
     "count": 1,
-    "faces_visible": false,
+    "faces_visible": true,
     "primary_subject": "client",
     "back_or_side_only": false,
     "covered_face": false
@@ -49,23 +49,23 @@
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a beauty service result that can immediately hook a visitor."
+      "reason": "Striking close-up of a service result that immediately grabs attention and showcases expertise."
     },
     "about": {
-      "score": 0,
-      "reason": "This photo is a close-up of a service result, not an interior shot of the salon."
+      "score": 2,
+      "reason": "This image focuses on a specific service result, not the salon's interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent showcase of a specific beauty service result with high detail and clarity."
+      "reason": "Excellent showcase of a finished beauty service (lashes and brows) with high detail and visual appeal."
     },
     "team": {
       "score": 0,
       "reason": "This is a close-up of a client's eye, not a portrait of a salon master."
     },
     "services": {
-      "score": 10,
-      "reason": "Perfectly represents the result of a lash extension service."
+      "score": 9,
+      "reason": "Perfectly represents the result of lash and brow services, ideal for a service card or section."
     }
   },
   "flags": {

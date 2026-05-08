@@ -1,0 +1,79 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 7,
+    "sharpness": 8,
+    "lighting": 7,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 7,
+    "tier": "casual_acceptable",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background"
+    ]
+  },
+  "content": {
+    "description": "Аккуратный маникюр с нюдовым покрытием на натуральных ногтях. Руки клиента под лампой для сушки.",
+    "alt_text": "Маникюр нюдовое покрытие, руки клиента под лампой",
+    "objects": [
+      "client_hands",
+      "nails",
+      "uv_lamp"
+    ],
+    "dominant_colors": [
+      "skin_tone",
+      "white",
+      "black"
+    ],
+    "mood": "neutral"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": true,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "nails_general",
+  "fit_scores": {
+    "hero": {
+      "score": 6,
+      "reason": "Shows a result of a service, but the client's face is not visible, and the action is not dynamic."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This photo does not show the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 8,
+      "reason": "This is a good example of a work result, showcasing a clean manicure."
+    },
+    "team": {
+      "score": 0,
+      "reason": "This photo does not feature any staff members, and no faces are visible."
+    },
+    "services": {
+      "score": 10,
+      "reason": "This photo clearly depicts the result of a manicure service and the process under a UV lamp."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

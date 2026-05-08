@@ -3,34 +3,33 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 9,
-    "sharpness": 9,
-    "lighting": 9,
+    "score": 8,
+    "sharpness": 8,
+    "lighting": 7,
     "composition": 8
   },
   "marketing_grade": {
-    "score": 9,
+    "score": 8,
     "tier": "pro_salon",
     "reasons": [
       "clean_lighting",
-      "neutral_background",
-      "focus_on_result"
+      "neutral_background"
     ]
   },
   "content": {
-    "description": "Аккуратный маникюр с нежным сиреневым покрытием на коротких ногтях.",
-    "alt_text": "Маникюр с сиреневым покрытием",
+    "description": "Аккуратный маникюр в нежном сиреневом оттенке с мелким глиттером.",
+    "alt_text": "Маникюр в сиреневом цвете с блестками",
     "objects": [
       "client_hands",
-      "nails",
+      "manicure",
       "nail_polish"
     ],
     "dominant_colors": [
-      "light_purple",
-      "white",
-      "black"
+      "lavender",
+      "beige",
+      "pink"
     ],
-    "mood": "luxurious"
+    "mood": "calm"
   },
   "people": {
     "present": true,
@@ -45,27 +44,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "nails_general",
+  "service_ref": "manicure",
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Excellent close-up of a beautiful manicure result, which is visually appealing and hooks the viewer."
+      "reason": "Striking close-up of a beautiful manicure result that immediately showcases the salon's skill."
     },
     "about": {
-      "score": 2,
-      "reason": "This photo focuses on the result of a service, not the salon's interior or atmosphere."
+      "score": 0,
+      "reason": "This image focuses on a manicure result and does not show the salon's interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "This is a perfect example of a work result, showcasing a clean and well-executed manicure."
+      "reason": "This is a perfect example of a work result, showcasing a well-executed manicure with good detail."
     },
     "team": {
       "score": 0,
-      "reason": "No master is visible, and the focus is solely on the client's hands and nails."
+      "reason": "This image does not feature any people clearly identifiable as staff, nor does it have any identifying text."
     },
     "services": {
-      "score": 8,
-      "reason": "Clearly showcases the result of a manicure service, making it suitable for a service card."
+      "score": 10,
+      "reason": "This photo directly represents the result of a manicure service, making it ideal for a service card."
     }
   },
   "flags": {

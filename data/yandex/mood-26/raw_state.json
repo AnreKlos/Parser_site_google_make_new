@@ -1,6 +1,6 @@
 {
   "config": {
-    "requestId": "1778017212502295-16943040049721511956-balancer-l7leveler-kubr-yp-klg-33-BAL",
+    "requestId": "1778146592663384-11815852550911888514-balancer-l7leveler-kubr-yp-sas-12-BAL",
     "counters": {
       "metrika": {
         "maps": {
@@ -23,7 +23,7 @@
           "discoveryFeed": "discovery-feed-desktop-maps"
         },
         "url": "https://yandex.com/clck/jclck/",
-        "sessionId": "1778017212502295-16943040049721511956-balancer-l7leveler-kubr-yp-klg-33-BAL"
+        "sessionId": "1778146592663384-11815852550911888514-balancer-l7leveler-kubr-yp-sas-12-BAL"
       }
     },
     "serviceIds": {
@@ -145,7 +145,7 @@
       "isMessenger": false,
       "isSearchApp": false
     },
-    "cspNonce": "32a0672c38244e76890336a7b6dc2d6d",
+    "cspNonce": "a5e021326ceb47f8af5779c2a4f7a745",
     "hostConfig": {},
     "errorBooster": {
       "sendErrors": true,
@@ -153,8 +153,8 @@
       "project": "maps"
     },
     "origin": "https://yandex.com",
-    "csrfToken": "c5e53678efab2cba56e6ed334c8e6f252a88edff:1778017212",
-    "xscriptCsrfToken": "y9227ad45f72fc36107701c65026e73f7",
+    "csrfToken": "c0e1d1c04581aa809a99f02bb68f0ca224297958:1778146592",
+    "xscriptCsrfToken": "y43a3fe03405b1f56a089104f14e76883",
     "isUserFromPortal": false,
     "isUserFromYandexSearch": false,
     "isUserFromGoogle": false,
@@ -187,13 +187,13 @@
     },
     "staticHost": "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/",
     "pageMode": "orgpage",
-    "appVersion": "v2.2874.0",
-    "serverTime": "2026-05-05T21:40:12.670Z",
+    "appVersion": "v2.2876.0",
+    "serverTime": "2026-05-07T09:36:32.810Z",
     "routesDistributionServices": [
       "yandex",
       "2gis"
     ],
-    "environment": "prestable",
+    "environment": "production",
     "bookmarks": {
       "url": "https://maps.yastatic.net/s3/front-maps-static/front-maps-bookmarks/8.6.0/build/yandex-maps-bookmarks.min.js"
     },
@@ -479,8 +479,8 @@
     "theme": "light",
     "useSystemTheme": false,
     "experiments": {
-      "boxes": "1538307,0,48;1553307,0,7;1486271,0,99;1551023,0,28;1553233,0,24;961010,0,75;1551297,0,22;1530377,0,80;1534490,0,64;1553867,0,61;1546036,0,32;1555165,0,79;663872,0,95;663860,0,14",
-      "cryptedBoxes": "5MnahfM4wLafNwWcDi7PLHRjQVLrxNGIuOOT9KUDKWohXWJTGrRn1uuq2UY1mSoMgOub8fT-WitPdRGS9WiHXj6bqZwDhckj81fV3xg9v_JS7QREGqtbXK-4fkX22vusg1naSUDkV2YIQ2bSErDmmbdUHoKA2-zMJwTg8MK9zefF6viXZp1dH7o3M-aOCPmbVd8Lv7yEtlyc3zu4DlFXIuqr3jCaebKDa-lrpuNN45QcK91ZISLEcw,,",
+      "boxes": "1538307,0,48;1553307,0,7;1486271,0,99;1551023,0,28;1559778,0,75;1357005,0,90;1551297,0,22;1145219,0,14;1530377,0,80;1534490,0,64;1553867,0,5;1546036,0,32;1555165,0,79;663872,0,95;663860,0,14",
+      "cryptedBoxes": "5MnahfM4wLafNwWcDi7PLHRjQVLrxNGIuOOT9KUDKWohXWJTGrRn1uuq2UY1mSoMxgn_lk8QLo1c6MTR2MlNE2z32qMAZ7Pb5KUdwns2vLlYuvQMysxzCJVs7ozXDA8xj1gRqysWzcpvlI03IUIhXjDNYfUZuyqDJAjHHEGoR2oQyglLk12ZFovhMiIQIEBPQg2CJa6L5x4gurQhKf0-r2c4zVqzWbEN8LuXB1pDpX_vjTMI5UeoD18xyeLqZhTL",
       "configVersion": "18413",
       "ui": {
         "tile3dPing": true,
@@ -553,77 +553,77 @@
     },
     "layers": {
       "map": {
-        "version": "26.05.05-0~b:260428124830~ib:26.05.05-1",
+        "version": "26.05.06-1~b:260428124830~ib:26.05.07-0",
         "zoomRange": [
           2,
           21
         ]
       },
       "sat": {
-        "version": "3.2081.0",
+        "version": "3.2083.0",
         "zoomRange": [
           2,
           21
         ]
       },
       "skl": {
-        "version": "26.05.05-0~b:260428124830~ib:26.05.05-1",
+        "version": "26.05.06-1~b:260428124830~ib:26.05.07-0",
         "zoomRange": [
           2,
           21
         ]
       },
       "stv": {
-        "version": "2026.05.05.18.54-1_26.05.04-0-29236",
+        "version": "2026.05.06.21.02-1_26.05.06-0-29389",
         "zoomRange": [
           6,
           21
         ]
       },
       "pht": {
-        "version": "2026.05.01.09.39.06.new",
+        "version": "2026.05.06.13.58.58.new",
         "zoomRange": [
           2,
           21
         ]
       },
       "trf": {
-        "version": "2026.05.05.21.39.00",
+        "version": "2026.05.07.09.33.00",
         "zoomRange": [
           1,
           21
         ]
       },
       "trfe": {
-        "version": "2026.05.05.21.39.00",
+        "version": "2026.05.07.09.33.00",
         "zoomRange": [
           1,
           21
         ]
       },
       "carparks": {
-        "version": "20260504-202044",
+        "version": "20260507-045541",
         "zoomRange": [
           14,
           21
         ]
       },
       "mrc": {
-        "version": "26.05.05-21601354",
+        "version": "26.05.06-64807413",
         "zoomRange": [
           5,
           22
         ]
       },
       "mrcpe": {
-        "version": "26.05.05-21601354",
+        "version": "26.05.06-64807413",
         "zoomRange": [
           5,
           22
         ]
       },
       "realTimePoi": {
-        "version": "54db27d368bb2dccf6395747b187e88a994091f3/26.05.04-0-29236/cgi_params:[[degradation_multiplier:1],[experimental_mm_discovery_dyn_poi:],[experimental_use_avatars_service:true],[internal_proto:true]]/brand_icons:26.05.05-1/user_profiles:[1766882410675000,PT_DYNAMIC:2026-05-05T21:27:04.793972Z]/photo_archive:1777932022000/its_file_hash:MQZDKMRQMM4DKMBXG5QTAN3BMZTDQYRZMQ2WGZBZGM3TSMBVGA2Q;6e290e4faf4ef4644c9edcc0718468f3c74bbf56/26.05.04-0-29236/cgi_params:[[direct_go_max_tiles_per_request_soft_limit:10],[enable_org_boost:false],[experimental_use_avatars_service:true],[internal_proto:true]]/brand_icons:26.05.05-1/user_profiles:[1766882410675000,PT_DYNAMIC:2026-02-26T20:55:25.353756Z]/photo_archive:1772092635000/its_file_hash:GIZWEOJUGRSTEYLCGFTDEYTFGFSDEMJQMRRTIMBQGAYTMMTGGRSQ",
+        "version": "aaea954ed6b242a14ed5e0d5bfea32511e2fc5dc/26.05.06-0-29389/cgi_params:[[degradation_multiplier:1],[experimental_mm_discovery_dyn_poi:],[experimental_use_avatars_service:true],[internal_proto:true]]/brand_icons:26.05.07-0/user_profiles:[1766882410675000,PT_DYNAMIC:2026-05-07T09:11:18.714634Z]/photo_archive:1778104834000/its_file_hash:MQZDKMRQMM4DKMBXG5QTAN3BMZTDQYRZMQ2WGZBZGM3TSMBVGA2Q;e049b69df0d9caf12f49c915fe2781078a068f0d/26.05.06-0-29389/cgi_params:[[enable_org_boost:false],[experimental_use_avatars_service:true],[internal_proto:true]]/brand_icons:26.05.07-0/user_profiles:[1766882410675000,PT_DYNAMIC:2026-02-26T20:55:25.353756Z]/photo_archive:1772092635000/its_file_hash:MRRTINLGHE3WIMBRGQ2WGMJQG43WCZJXMI4DIOLFG4YTKYJZMNTA",
         "zoomRange": [
           13,
           21
@@ -1021,8 +1021,8 @@
     {
       "mode": "orgpage",
       "results": {
-        "requestId": "1778017212563590-3528674258-addrs-upper-yp-74",
-        "requestSerpId": "1778017212563590-3528674258-addrs-upper-yp-74",
+        "requestId": "1778146592707682-859220110-addrs-upper-yp-27",
+        "requestSerpId": "1778146592707682-859220110-addrs-upper-yp-27",
         "requestContext": "ZAAAAAgBEAAaKAoSCQAAAAAAkHZAEQAAAAAAoGZAEhIJAAAAAAAA8L8RAAAAAAAA8L8iAQEoCjgAQP7//////////wFIAWoAnQHNzMw9oAEAqAEAvQHUeLYMwgEGxtHfreYCggIAigIAkgIAmgIMZGVza3RvcC1tYXBz",
         "requestQuery": "empty",
         "requestCorrectedQuery": "empty",
@@ -1042,7 +1042,7 @@
         "items": [
           {
             "type": "business",
-            "requestId": "1778017212563590-3528674258-addrs-upper-yp-74",
+            "requestId": "1778146592707682-859220110-addrs-upper-yp-27",
             "index": 0,
             "analyticsId": "0",
             "title": "Mood",
@@ -1068,7 +1068,7 @@
             ],
             "uri": "ymapsbm1://org?oid=96195832006",
             "logId": "dHlwZT1iaXpmaW5kZXI7aWQ9OTYxOTU4MzIwMDY=",
-            "requestSerpId": "1778017212563590-3528674258-addrs-upper-yp-74",
+            "requestSerpId": "1778146592707682-859220110-addrs-upper-yp-27",
             "id": "96195832006",
             "metro": [],
             "stops": [
@@ -1998,9 +1998,9 @@
               ]
             ],
             "currentWorkingStatus": {
-              "isOpenNow": false,
-              "text": "Закрыто до 10:00 AM",
-              "shortText": "Закрыто до 10:00 AM",
+              "isOpenNow": true,
+              "text": "Открыто до 8:00 PM",
+              "shortText": "До 8:00 PM",
               "tag": []
             },
             "socialLinks": [
@@ -2041,19 +2041,19 @@
             "subtitleItems": [
               {
                 "type": "working_hours",
-                "text": "Закрыто до 10:00 AM",
+                "text": "До 8:00 PM",
                 "property": [
                   {
                     "key": "is_open",
-                    "value": "0"
+                    "value": "1"
                   },
                   {
                     "key": "short_text",
-                    "value": "Закрыто до 10:00 AM"
+                    "value": "До 8:00 PM"
                   },
                   {
                     "key": "text",
-                    "value": "Закрыто до 10:00 AM"
+                    "value": "Открыто до 8:00 PM"
                   }
                 ]
               },
@@ -2104,18 +2104,6 @@
             },
             "routeToChoose": [
               {
-                "icon-url": "https://yastatic.net/s3/web4static/_/v2/static/media/yandex_logo.c2cc5125.png",
-                "label": "Яндекс Карты",
-                "route-types": {
-                  "auto": "auto",
-                  "bus": "mt",
-                  "walking": "pd"
-                },
-                "route-url-template": "https://maps.yandex.ru/?mode=routes&rtext={fromParam}~{toParam}&rtt={routeTypeParam}&source=wizbiz_new_map_single&utm_source=yandex&utm_medium=wizbiz_map&utm_campaign=route",
-                "search-text-url-template": "https://yandex.ru/maps/?mode=search&text={encodedText}",
-                "service": "yandex_maps"
-              },
-              {
                 "icon-url": "https://yastatic.net/s3/web4static/_/v2/static/media/twoGis_logo.f6efe2e1.png",
                 "label": "2ГИС",
                 "route-types": {
@@ -2126,6 +2114,18 @@
                 "route-url-template": "https://2gis.ru/directions/tab/{routeTypeParam}/points/{fromParam}|{toParam}&utm_from=route",
                 "search-text-url-template": "https://2gis.ru/search/{encodedText}",
                 "service": "2gis"
+              },
+              {
+                "icon-url": "https://yastatic.net/s3/web4static/_/v2/static/media/yandex_logo.c2cc5125.png",
+                "label": "Яндекс Карты",
+                "route-types": {
+                  "auto": "auto",
+                  "bus": "mt",
+                  "walking": "pd"
+                },
+                "route-url-template": "https://maps.yandex.ru/?mode=routes&rtext={fromParam}~{toParam}&rtt={routeTypeParam}&source=wizbiz_new_map_single&utm_source=yandex&utm_medium=wizbiz_map&utm_campaign=route",
+                "search-text-url-template": "https://yandex.ru/maps/?mode=search&text={encodedText}",
+                "service": "yandex_maps"
               }
             ],
             "topObjects": {
@@ -2211,7 +2211,7 @@
               ],
               "fullObjectsCount": 16,
               "relevance": {
-                "lastUploadTime": "2026-05-05T15:25:07.819844Z",
+                "lastUploadTime": "2026-05-07T01:07:41.613699Z",
                 "lastUpdateTime": "2026-01-15T12:26:18.437681Z"
               },
               "source": {
@@ -3091,165 +3091,6 @@
                 "url": "https://yandex.com/maps/191/bryansk/category/beauty_salon/184105814/"
               }
             ],
-            "reviewResults": {
-              "reviews": [
-                {
-                  "businessComment": {
-                    "text": "Спасибо большое за ваш тёплый отзыв 🌸\nБудем рады видеть вас снова 🙏🏽♥️",
-                    "updatedTime": "2026-02-16T08:15:19.854Z"
-                  },
-                  "reviewId": "uxNHV-S1JiCJ4HkbvV_2Bxpo2cvucqaN",
-                  "businessId": "96195832006",
-                  "author": {
-                    "name": "Альбина Можаева",
-                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/37154/uRQdWYlj7FYCET5wazbPsiUafxg-1/{size}",
-                    "professionLevel": "Знаток города 4 уровня",
-                    "rtb": "Знаток города 4 уровня",
-                    "rtbType": "PROFESSION",
-                    "publicId": "40mzfg1jc4zm1jz1tm9mdh8q7c",
-                    "achievements": [],
-                    "professions": [],
-                    "isSubscribed": false
-                  },
-                  "text": "Обслуживание очень хорошее,Настя- мастер своего дела, хожу к Насте 5год,мне очень нравится,делает ресницы качественно и быстро. Хожу с ресницами 1,5-2 месяца. Я очень довольна работой своего мастера, рекомендую. В салоне прекрасная атмосфера, лёгкая музыка, просто лежишь и наслаждаешься, а встаёшь уже красивая с ресницами. Девочки все вежливые и приятные. Предлагают горячие напитки: кофе, чай. Очень мне понравился кофе с корицей, огонь. Спасибо Александре, очень мне было вкусно. Всем знакомым буду рекомендовать салон красоты Mood.",
-                  "textLanguage": "ru",
-                  "textTranslations": {
-                    "tr": "Hizmet çok iyi, Nastya işimin ustası, 5 yıldır Nastya'ya gidiyorum, gerçekten beğendim, kirpikleri verimli ve hızlı bir şekilde yapıyor. 1,5-2 aydır kirpiklerimle gidiyorum. Ustamın çalışmasından çok memnunum, tavsiye ederim. Kabinde harika bir atmosfer, hafif müzik var, sadece uzanıp eğleniyorsunuz ve kirpiklerle zaten güzel kalkıyorsunuz. Kızların hepsi kibar ve hoştur. Sıcak içecekler sunuyorlar: kahve, çay. Tarçınlı kahveyi çok beğendim, ateş. Alexandra'ya teşekkürler, benim için çok lezzetliydi. Tüm arkadaşlarıma Mood güzellik salonunu tavsiye edeceğim."
-                  },
-                  "rating": 5,
-                  "updatedTime": "2026-02-10T17:28:45.139Z",
-                  "reactions": {
-                    "likes": 0,
-                    "dislikes": 0,
-                    "userReaction": "NONE"
-                  },
-                  "photos": [],
-                  "videos": []
-                },
-                {
-                  "businessComment": {
-                    "text": "Спасибо большое за ваш тёплый отзыв 🌸\nБудем рады видеть вас снова 🙏🏽♥️",
-                    "updatedTime": "2026-02-16T08:15:44.107Z"
-                  },
-                  "reviewId": "ruGBrsrgr7SbisBJ5oylqKRBuE3y-Qj",
-                  "businessId": "96195832006",
-                  "author": {
-                    "name": "Александра",
-                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/23134/enc-666df0bff1eb020819e79692a61d7e294fd974ec4e538c14b49170e8b7d8ccd1/{size}",
-                    "professionLevel": "Знаток города 7 уровня",
-                    "rtb": "Знаток города 7 уровня",
-                    "rtbType": "PROFESSION",
-                    "publicId": "m3mh55jqpkz7bkqkm4qwqp8km8",
-                    "achievements": [],
-                    "professions": [],
-                    "isSubscribed": false
-                  },
-                  "text": "Сегодня была на окрашивании волос после долгого перерыва в технике Airtouch, и хочется поблагодарить топ специалиста Марию! \nПодобранный цвет для тонирования, техника окрашивания и состояние волос после процедуры просто идеальное👍🏼. Мне кажется я нашла своего мастера 🫶🏼\nОднозначно рекомендую тем,кто хочет сделать сложное окрашивание. \nМария - очень грамотный высококвалифицированный профессионал своего дела!❤️\n",
-                  "textLanguage": "ru",
-                  "textTranslations": {
-                    "tr": "Bugün Airtouch tekniğine uzun bir aradan sonra saç boyamaktaydım ve üst düzey uzman Maria'ya teşekkür etmek istiyorum! \nRenklendirme için seçilen renk, boyama tekniği ve işlemden sonraki saçın durumu sadece idealdir. Sanırım ustamı buldum\nKarmaşık boyama yapmak isteyenlere kesinlikle tavsiye ederim. \nMaria, işinde çok yetkin, çok yetenekli bir profesyoneldir!❤️\n"
-                  },
-                  "rating": 5,
-                  "updatedTime": "2026-02-15T18:56:41.664Z",
-                  "reactions": {
-                    "likes": 0,
-                    "dislikes": 0,
-                    "userReaction": "NONE"
-                  },
-                  "photos": [],
-                  "videos": []
-                },
-                {
-                  "businessComment": {
-                    "text": "Спасибо большое за ваш тёплый отзыв 🌸\nБудем рады видеть вас снова 🙏🏽♥️",
-                    "updatedTime": "2025-09-20T10:47:04.325Z"
-                  },
-                  "reviewId": "Tm4TUPX61tdrXgq9-5lwZLMchupU2vf5",
-                  "businessId": "96195832006",
-                  "author": {
-                    "name": "Ольга Александровна",
-                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/28439/tcneh1ZWh7axyReDcragfXzsmg-1/{size}",
-                    "professionLevel": "Знаток города 4 уровня",
-                    "rtb": "Знаток города 4 уровня",
-                    "rtbType": "PROFESSION",
-                    "publicId": "fxnp4yvwn5nkh0rn60ggn8m1dm",
-                    "achievements": [],
-                    "professions": [],
-                    "isSubscribed": false
-                  },
-                  "text": "Сегодня была записана  к начинающему мастеру на маникюр к Анисовой Екатерине. Все отлично было сделано и я осталась довольна. Иногда подходила мастер и контролировала работу, советовала как лучше сделать, так как один ноготь был у меня немного сломан . Так же от большого количества цветов не могла подобрать каким покрасить (глаза разбегаются, и хочется всеми накрасить), но помогли подобрать. В салоне очень чисто, играла легкая музыка. Весь персонал очень приветливый. Расположение салона в удобном месте. Мягкая мебель, удобные кресла. Еще мне понравились то что пришла девушка на стрижку и окрашивание волос, так мастер как только подстригла, то сразу убрала и только потом начала делать окрашивание волос. И это большой плюс. Большое вам спасибо за оказанную услугу.\nДелала 26 августа  сегодня 16 сентября маникюр все еще держится только ногти отросли)). После такого срока 22 дня , могу сказать, что маникюр сделан качественно. И если бы еще раз пригласили бы на 💅 с удовольствием согласилась бы.",
-                  "textLanguage": "ru",
-                  "textTranslations": {
-                    "tr": "Bugün Anisova Ekaterina'ya manikür yaptırmak için acemi bir ustaya kaydoldum. Her şey mükemmel bir şekilde yapıldı ve ben memnun kaldım. Bazen usta gelip işi kontrol etti, bir tırnağım biraz kırıldığı için en iyi nasıl yapılacağını tavsiye etti. Ayrıca çok sayıda renkten ne boyayacağımı seçemedim (gözler dağılıyor ve herkesi boyamak istiyorum), ama seçmeye yardım ettim. Kabinde çok temiz, hafif müzik çalındı. Tüm personel çok cana yakın. Kabinin konumu uygun bir yerde. Döşemeli mobilyalar, rahat koltuklar. Ayrıca kızın saçını kesmeye ve boyamaya gelmesini de beğendim, bu yüzden usta kestiği anda hemen temizledi ve ancak o zaman saç boyamaya başladı. Ve bu büyük bir artı. Verdiğiniz hizmet için çok teşekkür ederim.\nBugün 26 Ağustos'ta 16 Eylül'de manikür yaptım, hala sadece tırnaklarım uzadı)). Böyle bir 22 günlük süreden sonra manikürün kalitatif olarak yapıldığını söyleyebilirim. Ve bir kez daha davet edilselerdi, memnuniyetle kabul ederdim."
-                  },
-                  "rating": 5,
-                  "updatedTime": "2025-09-16T20:09:52.322Z",
-                  "reactions": {
-                    "likes": 0,
-                    "dislikes": 0,
-                    "userReaction": "NONE"
-                  },
-                  "photos": [
-                    {
-                      "type": "photo",
-                      "id": "16480821_2a00000198e6f9b873d399ab5c533998b314",
-                      "businessId": "96195832006",
-                      "urlTemplate": "https://avatars.mds.yandex.net/get-altay/16480821/2a00000198e6f9b873d399ab5c533998b314/{size}",
-                      "createdTime": 1756221784107,
-                      "moderation": {
-                        "status": "ACCEPTED"
-                      },
-                      "showReactions": true,
-                      "reactions": {
-                        "likes": 0,
-                        "dislikes": 0,
-                        "userReaction": "NONE"
-                      },
-                      "copyright": {
-                        "name": "Ольга Александровна",
-                        "publicId": "fxnp4yvwn5nkh0rn60ggn8m1dm",
-                        "imageUrlTemplate": "https://avatars.mds.yandex.net/get-yapic/28439/tcneh1ZWh7axyReDcragfXzsmg-1/{size}",
-                        "updateTime": 1756221784107,
-                        "hasPublicProfile": true,
-                        "isSubscribed": false
-                      }
-                    }
-                  ],
-                  "videos": []
-                }
-              ],
-              "params": {
-                "offset": 0,
-                "limit": 3,
-                "count": 169,
-                "loadedReviewsCount": 3,
-                "page": 1,
-                "totalPages": 57,
-                "reviewsRemained": 166
-              },
-              "tags": [],
-              "aspects": []
-            },
-            "reviewPollData": {
-              "aspects": [
-                "Обслуживание",
-                "Мастера",
-                "Персонал",
-                "Компетентность",
-                "Окрашивание волос",
-                "Атмосфера",
-                "Уютная атмосфера",
-                "Уход за ресницами",
-                "Наращивание ресниц",
-                "Маникюр",
-                "Время ожидания",
-                "Кофе",
-                "Интерьер",
-                "Педикюр",
-                "Чистота",
-                "Расположение"
-              ]
-            },
             "relatedPlaces": [
               {
                 "type": "similar",
@@ -3451,6 +3292,134 @@
                 "isAdvert": false
               }
             ],
+            "reviewResults": {
+              "reviews": [
+                {
+                  "businessComment": {
+                    "text": "Спасибо большое за ваш тёплый отзыв 🌸\nБудем рады видеть вас снова 🙏🏽♥️",
+                    "updatedTime": "2026-02-16T08:15:19.854Z"
+                  },
+                  "reviewId": "uxNHV-S1JiCJ4HkbvV_2Bxpo2cvucqaN",
+                  "businessId": "96195832006",
+                  "author": {
+                    "name": "Альбина Можаева",
+                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/37154/uRQdWYlj7FYCET5wazbPsiUafxg-1/{size}",
+                    "professionLevel": "Знаток города 4 уровня",
+                    "rtb": "Знаток города 4 уровня",
+                    "rtbType": "PROFESSION",
+                    "publicId": "40mzfg1jc4zm1jz1tm9mdh8q7c",
+                    "achievements": [],
+                    "professions": [],
+                    "isSubscribed": false
+                  },
+                  "text": "Обслуживание очень хорошее,Настя- мастер своего дела, хожу к Насте 5год,мне очень нравится,делает ресницы качественно и быстро. Хожу с ресницами 1,5-2 месяца. Я очень довольна работой своего мастера, рекомендую. В салоне прекрасная атмосфера, лёгкая музыка, просто лежишь и наслаждаешься, а встаёшь уже красивая с ресницами. Девочки все вежливые и приятные. Предлагают горячие напитки: кофе, чай. Очень мне понравился кофе с корицей, огонь. Спасибо Александре, очень мне было вкусно. Всем знакомым буду рекомендовать салон красоты Mood.",
+                  "textLanguage": "ru",
+                  "textTranslations": {
+                    "tr": "Hizmet çok iyi, Nastya işimin ustası, 5 yıldır Nastya'ya gidiyorum, gerçekten beğendim, kirpikleri verimli ve hızlı bir şekilde yapıyor. 1,5-2 aydır kirpiklerimle gidiyorum. Ustamın çalışmasından çok memnunum, tavsiye ederim. Kabinde harika bir atmosfer, hafif müzik var, sadece uzanıp eğleniyorsunuz ve kirpiklerle zaten güzel kalkıyorsunuz. Kızların hepsi kibar ve hoştur. Sıcak içecekler sunuyorlar: kahve, çay. Tarçınlı kahveyi çok beğendim, ateş. Alexandra'ya teşekkürler, benim için çok lezzetliydi. Tüm arkadaşlarıma Mood güzellik salonunu tavsiye edeceğim."
+                  },
+                  "rating": 5,
+                  "updatedTime": "2026-02-10T17:28:45.139Z",
+                  "reactions": {
+                    "likes": 0,
+                    "dislikes": 0,
+                    "userReaction": "NONE"
+                  },
+                  "photos": [],
+                  "videos": []
+                },
+                {
+                  "reviewId": "PQDCD05K6XmPdHf4ar9_EqVkci8Gl7UU",
+                  "businessId": "96195832006",
+                  "author": {
+                    "name": "Дарья",
+                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/45848/3EMzEsehKzM7Dm2rsawBaJVeI8-1/{size}",
+                    "professionLevel": "Знаток города 2 уровня",
+                    "rtb": "Знаток города 2 уровня",
+                    "rtbType": "PROFESSION",
+                    "publicId": "68nrvuvhkyzxy661j0y9h2bznm",
+                    "achievements": [],
+                    "professions": [],
+                    "isSubscribed": false
+                  },
+                  "text": "Была в данном салоне на сложном окрашивании волос 1 мая, перед окрашиванием была консультация, где показала желаемое окрашивание.  Основное за чем я пришла это скрыть седину и не получить рыжий, желтый цвет волос.  Спустя несколько дней после окрашивания и мытья головы волосы приобрели рыжий цвет.  В целом получила не то окрашивание которое показывала. потеряно время и деньги, очень обидно.",
+                  "textLanguage": "ru",
+                  "textTranslations": {},
+                  "rating": 1,
+                  "updatedTime": "2026-05-06T19:03:25.023Z",
+                  "reactions": {
+                    "likes": 0,
+                    "dislikes": 0,
+                    "userReaction": "NONE"
+                  },
+                  "photos": [],
+                  "videos": []
+                },
+                {
+                  "businessComment": {
+                    "text": "Спасибо большое за ваш тёплый отзыв 🌸\nБудем рады видеть вас снова 🙏🏽♥️",
+                    "updatedTime": "2026-02-16T08:15:44.107Z"
+                  },
+                  "reviewId": "ruGBrsrgr7SbisBJ5oylqKRBuE3y-Qj",
+                  "businessId": "96195832006",
+                  "author": {
+                    "name": "Александра",
+                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/23134/enc-666df0bff1eb020819e79692a61d7e294fd974ec4e538c14b49170e8b7d8ccd1/{size}",
+                    "professionLevel": "Знаток города 7 уровня",
+                    "rtb": "Знаток города 7 уровня",
+                    "rtbType": "PROFESSION",
+                    "publicId": "m3mh55jqpkz7bkqkm4qwqp8km8",
+                    "achievements": [],
+                    "professions": [],
+                    "isSubscribed": false
+                  },
+                  "text": "Сегодня была на окрашивании волос после долгого перерыва в технике Airtouch, и хочется поблагодарить топ специалиста Марию! \nПодобранный цвет для тонирования, техника окрашивания и состояние волос после процедуры просто идеальное👍🏼. Мне кажется я нашла своего мастера 🫶🏼\nОднозначно рекомендую тем,кто хочет сделать сложное окрашивание. \nМария - очень грамотный высококвалифицированный профессионал своего дела!❤️\n",
+                  "textLanguage": "ru",
+                  "textTranslations": {
+                    "tr": "Bugün Airtouch tekniğine uzun bir aradan sonra saç boyamaktaydım ve üst düzey uzman Maria'ya teşekkür etmek istiyorum! \nRenklendirme için seçilen renk, boyama tekniği ve işlemden sonraki saçın durumu sadece idealdir. Sanırım ustamı buldum\nKarmaşık boyama yapmak isteyenlere kesinlikle tavsiye ederim. \nMaria, işinde çok yetkin, çok yetenekli bir profesyoneldir!❤️\n"
+                  },
+                  "rating": 5,
+                  "updatedTime": "2026-02-15T18:56:41.664Z",
+                  "reactions": {
+                    "likes": 0,
+                    "dislikes": 0,
+                    "userReaction": "NONE"
+                  },
+                  "photos": [],
+                  "videos": []
+                }
+              ],
+              "params": {
+                "offset": 0,
+                "limit": 3,
+                "count": 170,
+                "loadedReviewsCount": 3,
+                "page": 1,
+                "totalPages": 57,
+                "reviewsRemained": 167
+              },
+              "tags": [],
+              "aspects": []
+            },
+            "reviewPollData": {
+              "aspects": [
+                "Обслуживание",
+                "Мастера",
+                "Персонал",
+                "Компетентность",
+                "Окрашивание волос",
+                "Атмосфера",
+                "Уютная атмосфера",
+                "Уход за ресницами",
+                "Наращивание ресниц",
+                "Маникюр",
+                "Время ожидания",
+                "Кофе",
+                "Интерьер",
+                "Педикюр",
+                "Чистота",
+                "Расположение"
+              ]
+            },
             "a11y": {
               "hasReviews": false,
               "photos": []
@@ -3493,7 +3462,6 @@
             "values": {
               "openNow": {
                 "id": "open_now",
-                "disabled": true,
                 "name": "открыто",
                 "type": "boolean",
                 "selected": false,
@@ -3519,8 +3487,8 @@
                 "type": "datetime",
                 "from": null,
                 "to": null,
-                "minValue": "2026-05-05T00:00:00.000Z",
-                "maxValue": "2026-05-12T00:00:00.000Z"
+                "minValue": "2026-05-07T00:00:00.000Z",
+                "maxValue": "2026-05-14T00:00:00.000Z"
               }
             }
           },
@@ -3596,7 +3564,7 @@
         "max": 0,
         "offset": 0
       },
-      "id": "504831d2-e9cb-4651-bfda-643d94a5d7da"
+      "id": "05c55efc-faf6-4049-b038-bfa642956554"
     }
   ],
   "loadingErrors": [],
@@ -3785,7 +3753,7 @@
     "currentPosition": null,
     "isAuto": false,
     "isWatching": false,
-    "lastTimeUpdate": 1778017212670,
+    "lastTimeUpdate": 1778146592810,
     "error": null
   },
   "bodyIndents": null,
@@ -3894,10 +3862,10 @@
   "hotelsBooking": {
     "dates": {
       "from": {
-        "@@date": "2026-05-06T21:40:12.670Z"
+        "@@date": "2026-05-08T09:36:32.810Z"
       },
       "to": {
-        "@@date": "2026-05-07T21:40:12.670Z"
+        "@@date": "2026-05-09T09:36:32.810Z"
       }
     },
     "guests": {
@@ -3940,7 +3908,7 @@
   },
   "timeContext": {
     "hydrationPhaseTime": {
-      "@@date": "2026-05-05T21:40:12.670Z"
+      "@@date": "2026-05-07T09:36:32.810Z"
     }
   },
   "mapControlsState": {

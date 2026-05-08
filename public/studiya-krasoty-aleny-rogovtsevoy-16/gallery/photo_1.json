@@ -13,14 +13,16 @@
     "tier": "pro_salon",
     "reasons": [
       "clean_lighting",
-      "neutral_background"
+      "neutral_background",
+      "professional_result"
     ]
   },
   "content": {
     "description": "Аккуратный маникюр с белым покрытием и серебряными блестками на ногтях.",
     "alt_text": "Маникюр с белым покрытием и серебряными блестками",
     "objects": [
-      "client_nails",
+      "client_hands",
+      "manicure",
       "nail_polish",
       "foil_flakes"
     ],
@@ -52,19 +54,19 @@
     },
     "about": {
       "score": 0,
-      "reason": "This is a work result, not an interior shot, so it's not suitable for the 'about' section."
+      "reason": "This photo focuses on a work result, not the salon's interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "Sharp close-up of finished work, showcasing the detail and quality of the manicure."
+      "reason": "Sharp close-up of a finished manicure with detail visible, showcasing the work result perfectly."
     },
     "team": {
       "score": 0,
-      "reason": "No master is visible, and the focus is solely on the nails, making it unsuitable for a team photo."
+      "reason": "This is a work result, not a portrait of a team member."
     },
     "services": {
       "score": 8,
-      "reason": "Clearly showcases a specific service (manicure) and its result, making it good for a service card."
+      "reason": "Clean shot of a specific service result (manicure) that can be used to represent nail services."
     }
   },
   "flags": {

@@ -1,0 +1,600 @@
+{
+  "schema_version": 2,
+  "lead_id": 58,
+  "slug": "kalinka-malinka-studiya-krasoty",
+  "scraped_at": "2026-05-07T12:28:19",
+  "source_url": "https://yandex.ru/maps/org/kalinka_malinka/37303361445/?lang=ru",
+  "org_id": "37303361445",
+  "title": "Калинка-малинка",
+  "short_title": "Калинка-малинка",
+  "rating": 5.0,
+  "rating_count": 128,
+  "review_count": 73,
+  "verified_owner": true,
+  "good_place_year": null,
+  "address": {
+    "full": "Брянск, Советская улица, 122",
+    "country": "Россия",
+    "locality": "Брянск",
+    "street": "Советская улица",
+    "house": "122",
+    "additional": null,
+    "postal_code": null
+  },
+  "coordinates": {
+    "lng": 34.329536,
+    "lat": 53.268349
+  },
+  "phones": [
+    "+7 (910) 034-43-88"
+  ],
+  "working_hours": {
+    "text": "пн-пт 10:00 AM–8:00 PM; сб,вс 10:00 AM–6:00 PM",
+    "by_day": [
+      [
+        {
+          "from": "10:00",
+          "to": "18:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "20:00"
+        }
+      ],
+      [
+        {
+          "from": "10:00",
+          "to": "18:00"
+        }
+      ]
+    ],
+    "is_open_now": true,
+    "unusual_hours": [
+      "2026-05-01",
+      "2026-05-09",
+      "2026-05-11"
+    ]
+  },
+  "urls": {
+    "website": "https://kalinka-malinka.clients.site/",
+    "taplink": null,
+    "vk": "https://vk.com/kalinkamalinkabr",
+    "whatsapp": null,
+    "booking": "https://n411317.yclients.com/",
+    "all": [
+      "https://kalinka-malinka.clients.site/"
+    ]
+  },
+  "logo_url": "https://avatars.mds.yandex.net/get-altay/14402637/2a00000191d4f16ae1bd557240612b96237e/orig",
+  "services": [
+    {
+      "title": "SMART-педикюр",
+      "description": "Пальчики + обработка стоп с покрытием гель-лак в один тон.\nSMART-педикюр — технология аппаратного педикюра,\nпри которой обработка стоп происходит с помощью \nспециального диска с  одноразовым абразивным файлом.\nНа первое посещение ногтевого сервиса...",
+      "price": 2200,
+      "price_text": "2200 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/2808945/2a00000190b033db9acdcb82d93ed3f63e67/orig"
+    },
+    {
+      "title": "Маникюр + укрепление гелем",
+      "description": "Снятие покрытия нашей студии - бесплатно\nСнятие чужого покрытия - 200р.\n\nНа первое посещение ногтевого сервиса скидка 10%.",
+      "price": 2200,
+      "price_text": "2200 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/2808945/2a00000194a832f325646035bd92e975e68f/orig"
+    },
+    {
+      "title": "Свадебный макияж",
+      "description": "Стоимость варьируется от 4000р. до 6000р. в зависимости от уровня мастера.",
+      "price": 4000,
+      "price_text": "4000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/5280674/2a00000190b030214e5a23e95cd5511fdbdb/orig"
+    },
+    {
+      "title": "Причёски",
+      "description": "УСЛУГА ВЫПОЛНЯЕТСЯ НА ЧИСТЫЕ ВЫМЫТЫЕ ВАМИ ВОЛОСЫ.",
+      "price": 4500,
+      "price_text": "4500 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/13672565/2a00000194abd4ccc1742dfcdbab88669c1c/orig"
+    },
+    {
+      "title": "Оформление бровей",
+      "description": "",
+      "price": 1400,
+      "price_text": "1400 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/1643978/2a00000194a8335d44f3c9cc3e3642b16969/orig"
+    },
+    {
+      "title": "Вечерний макияж",
+      "description": "Стоимость варьируется от 3500р. до 5000р. в зависимости от уровня мастера.",
+      "price": 4000,
+      "price_text": "4000 ₽",
+      "currency": "₽",
+      "photo_url": "https://avatars.mds.yandex.net/get-sprav-products/2790747/2a00000190b0311d2728e8742f6afd458dbb/orig"
+    }
+  ],
+  "services_total_count": 13,
+  "features_categorized": {
+    "services": [
+      "косметологические услуги: коррекция бровей",
+      "маникюр",
+      "педикюр",
+      "парикмахерские услуги: вечерняя/свадебная укладка, укладка",
+      "для ногтей: женский маникюр, перманентный маникюр, дизайн ногтей, аппаратный педикюр, аппаратный маникюр, комби маникюр, комби педикюр, smart-педикюр",
+      "услуги салона: макияж, маникюр, педикюр",
+      "макияж: свадебный, вечерний, естественный, для фотосессий, деловой, омолаживающий, для показов",
+      "наращивание ногтей",
+      "артдизайн"
+    ],
+    "prices": [
+      "классический женский маникюр с покрытием: до 1900 ₽"
+    ],
+    "general": [
+      "способ оплаты: наличными, банковским переводом, СБП",
+      "подарочный сертификат",
+      "акции: акции",
+      "Wi-Fi",
+      "парковка"
+    ],
+    "other": [
+      "мужской ногтевой сервис"
+    ],
+    "accessibility": [
+      "wheelchair_accessability",
+      "доступность входа на инвалидной коляске: доступно",
+      "парковка для людей с инвалидностью",
+      "доступность помещения на инвалидной коляске: доступно"
+    ]
+  },
+  "aspects": [
+    {
+      "id": "3502044050",
+      "text": "Персонал",
+      "count": 66,
+      "positive": 60,
+      "neutral": 2,
+      "negative": 4,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/15452616/2a00000198e6919117c9d4737dae8f289fb2/orig",
+        "https://avatars.mds.yandex.net/get-altay/15148849/2a0000019628d6093c74313edd1060d5f534/orig",
+        "https://avatars.mds.yandex.net/get-altay/14185024/2a000001938b2a75bd93ebbb6e75e8ea6123/orig",
+        "https://avatars.mds.yandex.net/get-altay/15292747/2a000001955f5cc40d4aafa301ad194833ad/orig",
+        "https://avatars.mds.yandex.net/get-altay/13063086/2a0000019382aefcd08df1fc55624ecff5bc/orig",
+        "https://avatars.mds.yandex.net/get-altay/15281020/2a000001969f226d74020534b64080a8b7b7/orig",
+        "https://avatars.mds.yandex.net/get-altay/14007310/2a000001948e20e49e4e6d2f0bc1ea8c263c/orig",
+        "https://avatars.mds.yandex.net/get-altay/14112077/2a00000191d0667df3fd6426d75565b43d30/orig",
+        "https://avatars.mds.yandex.net/get-altay/15510144/2a000001955f5c9ccd0338431efe14d92f9d/orig",
+        "https://avatars.mds.yandex.net/get-altay/5485733/2a0000017f3c8c5e20e2d8ea404eaf746545/orig"
+      ]
+    },
+    {
+      "id": "3502086922",
+      "text": "Макияж",
+      "count": 25,
+      "positive": 25,
+      "neutral": 0,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/12814440/2a00000190b02f963256ec4999aa2a3a8a50/orig",
+        "https://avatars.mds.yandex.net/get-altay/13897576/2a00000192d91a18be450b9ddba94504b350/orig",
+        "https://avatars.mds.yandex.net/get-altay/13805978/2a0000019370f32974465ab27e22631165f6/orig",
+        "https://avatars.mds.yandex.net/get-altay/14007310/2a0000019628d607cdb7c45f3893f4e68df3/orig",
+        "https://avatars.mds.yandex.net/get-altay/11421909/2a00000192d91a18786b74149fa3bccd9224/orig",
+        "https://avatars.mds.yandex.net/get-altay/5097872/2a000001817fe606bf7c5ab7fbf1aae794a3/orig",
+        "https://avatars.mds.yandex.net/get-altay/1027861/2a00000186633810755ca10a7f68f61cffee/orig",
+        "https://avatars.mds.yandex.net/get-altay/1359533/2a00000186638c97bd409f5b05c521595126/orig",
+        "https://avatars.mds.yandex.net/get-altay/15032884/2a0000019628d60927f676a21f21ec785ef0/orig",
+        "https://avatars.mds.yandex.net/get-altay/9728306/2a00000189de11cfdd89036fc1d85536b1d9/orig"
+      ]
+    },
+    {
+      "id": "3502066474",
+      "text": "Маникюр",
+      "count": 23,
+      "positive": 19,
+      "neutral": 1,
+      "negative": 3,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/12595784/2a0000018f6ba4a0b4bed85c39193b813a07/orig",
+        "https://avatars.mds.yandex.net/get-altay/6213366/2a0000018db164ab29c84f339ef466fe78e1/orig",
+        "https://avatars.mds.yandex.net/get-altay/12838938/2a0000019225271d1d2ad0bf12e2a6c92ec8/orig",
+        "https://avatars.mds.yandex.net/get-altay/18806283/2a0000019c3b9de600fc609e9bee2a38e81d/orig",
+        "https://avatars.mds.yandex.net/get-altay/17677530/2a0000019c3680dde51d516f558bc0a347c3/orig",
+        "https://avatars.mds.yandex.net/get-altay/10639454/2a0000018a12b996635e0738974fbb796b77/orig",
+        "https://avatars.mds.yandex.net/get-altay/5102477/2a0000018a13ddb3921664c48ff6282cbb14/orig",
+        "https://avatars.mds.yandex.net/get-altay/16340554/2a0000019d2a22ae95e57e5f22e762514adc/orig",
+        "https://avatars.mds.yandex.net/get-altay/15185043/2a000001938b2a59db18a807f04db7b8ea29/orig",
+        "https://avatars.mds.yandex.net/get-altay/14377326/2a0000019628d606a091c277b2574d32a1c3/orig"
+      ]
+    },
+    {
+      "id": "3502044230",
+      "text": "Атмосфера",
+      "count": 16,
+      "positive": 16,
+      "neutral": 0,
+      "negative": 0,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/13947802/2a00000193b7004283eb932a3cbf30968ca3/orig",
+        "https://avatars.mds.yandex.net/get-altay/14811824/2a00000194cf226df94973c3952637fb782a/orig",
+        "https://avatars.mds.yandex.net/get-altay/14578051/2a00000194cf226df6145bac463c290f24d9/orig",
+        "https://avatars.mds.yandex.net/get-altay/14171651/2a00000194cf226e3db8fcc160aa77d2afc8/orig",
+        "https://avatars.mds.yandex.net/get-altay/13916077/2a00000194cf226d8f0c0494e6bd38fbf63a/orig",
+        "https://avatars.mds.yandex.net/get-altay/17785064/2a0000019be3d6caaebec0c7641773633b8a/orig",
+        "https://avatars.mds.yandex.net/get-altay/15502563/2a00000194cf226d8d97ee433afefbefa454/orig",
+        "https://avatars.mds.yandex.net/get-altay/14731058/2a00000194896d6d976199cc47b729e0fa42/orig",
+        "https://avatars.mds.yandex.net/get-altay/15018138/2a00000194cf226de50c4bce1d166f123a41/orig",
+        "https://avatars.mds.yandex.net/get-altay/14456919/2a000001942632e50e806be0786408283b35/orig"
+      ]
+    },
+    {
+      "id": "3502044686",
+      "text": "Время ожидания",
+      "count": 11,
+      "positive": 11,
+      "neutral": 0,
+      "negative": 0,
+      "photos": []
+    },
+    {
+      "id": "3502086895",
+      "text": "Педикюр",
+      "count": 11,
+      "positive": 10,
+      "neutral": 0,
+      "negative": 1,
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/9714262/2a00000189de11d01db1c2788b9dc2e26f7c/orig",
+        "https://avatars.mds.yandex.net/get-altay/11421909/2a000001939fca9f54162d2ef24334a1bd93/orig",
+        "https://avatars.mds.yandex.net/get-altay/13299246/2a0000018e7e90d50b371f61df85eea823a5/orig",
+        "https://avatars.mds.yandex.net/get-altay/9749133/2a00000189de11ce604a6198f3686bd3937d/orig",
+        "https://avatars.mds.yandex.net/get-altay/9831711/2a0000018e7e90d4f7d86c469bf3dd787336/orig",
+        "https://avatars.mds.yandex.net/get-altay/14839591/2a0000019628d607bca867ca18d971ac48f1/orig",
+        "https://avatars.mds.yandex.net/get-altay/17021023/2a00000198365aa195d9037aa79e5ca7eed6/orig",
+        "https://avatars.mds.yandex.net/get-altay/14171651/2a00000194cf226e3db8fcc160aa77d2afc8/orig",
+        "https://avatars.mds.yandex.net/get-altay/15510144/2a000001955f5c9ccd0338431efe14d92f9d/orig"
+      ]
+    }
+  ],
+  "videos": [
+    {
+      "id": "vplv2raint2qaootd7kv",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/15078528/2a0000019628d73235c6bc563e8a02a8c78f/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplv2raint2qaootd7kv",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "id": "vplvowgp2jvncs7m7igl",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/5332272/2a0000019628d5bf6705b1253e5a1a55e234/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvowgp2jvncs7m7igl",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "id": "vplvzdnuqijrxefvvtva",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/4012523/2a000001957e67470c10fe80b581e8a70056/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvzdnuqijrxefvvtva",
+      "width": 2160,
+      "height": 3840
+    },
+    {
+      "id": "vplvwat23vr2rn4xtvxh",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/15357851/2a00000194c57e429b3b0c14d3db0a3c72eb/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvwat23vr2rn4xtvxh",
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "id": "vplvx3p7da4aapy5uovn",
+      "thumbnail_url": "https://avatars.mds.yandex.net/get-vh/13584208/2a0000019860f5d1eb5002744abeea663db2/orig",
+      "video_url": "https://runtime.strm.yandex.ru/player/video/vplvx3p7da4aapy5uovn",
+      "width": 720,
+      "height": 1280
+    }
+  ],
+  "reviews_preview": [
+    {
+      "review_id": "K52-I3VFmTPGj2gqI7HMjKPP_eZdf4XKH",
+      "author": "Розовый Слоненок",
+      "text": "Была у мастеров на макияж и прическу в 4 руки.  Премиум образ услуга. Мастер Алина по макияжу, по прическе не помню, к сожалению. Мне ОЧЕНЬ понравилось!!!!  Столько комплиментов было!!! Мужчина мой мне сделал комплименты, но спустя пару дней услышала как он восхищался моим образом перед друзьями, говорит \"я как ее увидел, вообще забыл сколько это стоит, я в шоке был от красоты\".\nМне очень всё понравилось! Спасибо большое! \nМеня красили Диор 😁",
+      "rating": 5,
+      "date": "2025-07-21",
+      "photos": [],
+      "business_reply": "Здравствуйте!\n\nБлагодарим Вас за отзыв. Мы очень рады, что Вы так высоко оценили работу наших специалистов. Всегда рады видеть Вас снова!\n\nС уважением, Калинка-Малинка."
+    },
+    {
+      "review_id": "rUACVvvWVa1f0b-DX-lOvJkxvJmZyDfFq",
+      "author": "Анна Шашкова",
+      "text": "Лучшая студия в Брянске\nДелаю здесь макияж, прически, маникюр и педикюр уже много лет\nДевочки всегда делают все идеально, я никогда не переживаю за свой образ",
+      "rating": 5,
+      "date": "2024-12-29",
+      "photos": [
+        "https://avatars.mds.yandex.net/get-altay/14021354/2a0000019411a59dbab87384bb4f74f76e56/orig",
+        "https://avatars.mds.yandex.net/get-altay/14094067/2a0000019411a59cbca5718a3c19c8b652d3/orig"
+      ],
+      "business_reply": "Анна, здравствуйте!\nБлагодарим Вас за такой приятный отзыв.\nОчень приятно, что Вы цените нашу работу столько лет!\n\nС уважением, Калинка-Малинка."
+    },
+    {
+      "review_id": "eqUdtG5LS7lCfW1TxIS1HKfclbV8y-pW",
+      "author": "Мия миу",
+      "text": "Делала макияж  на свадьбу у Алины и прическу у Татьяны. Очень приятные девушки.\nМакияж продержался отлично,и очень понравился. А вот прическа подвела,хотя очень сильно понравилась . Делала Мальвинку,все очень красиво но не продержалась и 2х часов,локоны стали прямыми и небрежными,хотя погода была не влажной,может дело именно в выборе прически.Но конечно в день свадьбы хотелось бы чтобы прическа держалась хотя бы до банкета. \nВсе равно ставлю 5 звезд",
+      "rating": 5,
+      "date": "2025-08-20",
+      "photos": [],
+      "business_reply": "Здравствуйте!\n\nБлагодарим Вас за обратную связь и такие тёплые слова! Сожалеем, что так получилось с укладкой, на ее стойкость влияет множество фактов.\nБудем  очень рады видеть Вас снова!\n\nС уважением, Калинка-Малинка."
+    }
+  ],
+  "reviews_total_count": 73,
+  "discoveries": [],
+  "histogram": {
+    "wednesday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.010348107285524063,
+      0.012649800266311585,
+      0.01420962526155602,
+      0.015560205440365227,
+      0.015712383488681758,
+      0.013943313677002092,
+      0.012630778010272018,
+      0.012897089594825948,
+      0.014513981358189081,
+      0.011432375879779341,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sunday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.008407837169488301,
+      0.010861708198592352,
+      0.012497622217995054,
+      0.015236827087692601,
+      0.015408027392048697,
+      0.013810157884725128,
+      0.01272588929046985,
+      0.009682328324139242,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "friday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.011584553928095872,
+      0.01658740726650181,
+      0.019954346585505038,
+      0.020658170058968993,
+      0.019688035000951114,
+      0.017823853909073616,
+      0.01677762982689747,
+      0.01708198592353053,
+      0.017481453300361424,
+      0.01257371124215332,
+      0,
+      0,
+      0,
+      0
+    ],
+    "tuesday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.007704013696024348,
+      0.012193266121361991,
+      0.014761270686703442,
+      0.01641620696214571,
+      0.01559824995244436,
+      0.014342781053832986,
+      0.014590070382347348,
+      0.01611185086551265,
+      0.014704203918584744,
+      0.011432375879779341,
+      0,
+      0,
+      0,
+      0
+    ],
+    "monday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.009130682898991821,
+      0.01293513410690508,
+      0.014742248430663877,
+      0.016511318242343545,
+      0.016454251474224843,
+      0.015788472512840022,
+      0.01544607190412783,
+      0.015160738063534334,
+      0.015027582271257372,
+      0.012763933802548984,
+      0,
+      0,
+      0,
+      0
+    ],
+    "thursday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.008217614609092639,
+      0.011717709720372838,
+      0.013410690507894237,
+      0.014190603005516455,
+      0.014704203918584745,
+      0.015331938367890431,
+      0.015160738063534334,
+      0.016111850865512648,
+      0.016206962145710484,
+      0.011318242343541944,
+      0,
+      0,
+      0,
+      0
+    ],
+    "saturday": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.01333460148373597,
+      0.018813011223131063,
+      0.01944074567243675,
+      0.02039185847441507,
+      0.020296747194217236,
+      0.018641810918774968,
+      0.01713905269164923,
+      0.01400038044512079,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "panorama": null,
+  "_meta": {
+    "parser_version": "2.0",
+    "method": "state_view",
+    "fallback_used": false,
+    "fields_extracted": [
+      "schema_version",
+      "lead_id",
+      "slug",
+      "scraped_at",
+      "source_url",
+      "org_id",
+      "title",
+      "short_title",
+      "rating",
+      "rating_count",
+      "review_count",
+      "verified_owner",
+      "address",
+      "coordinates",
+      "phones",
+      "working_hours",
+      "urls",
+      "logo_url",
+      "services",
+      "services_total_count",
+      "features_categorized",
+      "aspects",
+      "videos",
+      "reviews_preview",
+      "reviews_total_count",
+      "histogram"
+    ]
+  },
+  "qualification": {
+    "qualified": true,
+    "reason": "OK",
+    "score": 100,
+    "checks": {
+      "rating": true,
+      "reviews": true,
+      "photos": true,
+      "services": true,
+      "contact": true
+    },
+    "details": {
+      "rating": 5.0,
+      "review_count": 73,
+      "unique_aspect_photos": 47,
+      "services_with_photos": 6,
+      "contact_channels": [
+        "vk",
+        "website",
+        "booking"
+      ]
+    }
+  }
+}

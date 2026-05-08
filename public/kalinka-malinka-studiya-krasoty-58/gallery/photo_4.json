@@ -1,0 +1,80 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "master_at_work",
+  "quality": {
+    "score": 7,
+    "sharpness": 7,
+    "lighting": 7,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "professional_setting",
+      "good_lighting"
+    ]
+  },
+  "content": {
+    "description": "Мастер делает прическу клиентке, расчесывая ее длинные волосы гребнем.",
+    "alt_text": "Мастер делает прическу клиентке, расчесывая волосы",
+    "objects": [
+      "hair",
+      "comb",
+      "hands",
+      "chair"
+    ],
+    "dominant_colors": [
+      "brown",
+      "gray",
+      "black"
+    ],
+    "mood": "neutral"
+  },
+  "people": {
+    "present": true,
+    "count": 2,
+    "faces_visible": false,
+    "primary_subject": "master",
+    "back_or_side_only": true,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "haircut",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Shows a master at work, focusing on the hair styling process, which is visually engaging for a hero section."
+    },
+    "about": {
+      "score": 4,
+      "reason": "While it shows a service being performed, it doesn't showcase the salon's interior or atmosphere."
+    },
+    "gallery": {
+      "score": 6,
+      "reason": "It hints at a result of a hair service, but it's more about the process than the final outcome."
+    },
+    "team": {
+      "score": 0,
+      "reason": "Faces are not visible, and it's not a portrait of a team member."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clearly depicts a hair styling service in progress, making it suitable for a service card."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

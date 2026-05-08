@@ -1,45 +1,41 @@
 {
   "rejected": false,
   "reject_reason": null,
-  "category": "master_at_work",
+  "category": "work_result",
   "quality": {
-    "score": 7,
-    "sharpness": 7,
-    "lighting": 8,
-    "composition": 7
+    "score": 9,
+    "sharpness": 9,
+    "lighting": 9,
+    "composition": 9
   },
   "marketing_grade": {
-    "score": 8,
+    "score": 9,
     "tier": "pro_salon",
     "reasons": [
-      "professional_environment",
-      "clear_service_demonstration"
+      "professional_result",
+      "clean_lighting"
     ]
   },
   "content": {
-    "description": "Мастер наращивает ресницы клиентке под ярким светом лампы. На заднем плане видны полки с материалами для наращивания ресниц.",
-    "alt_text": "Наращивание ресниц: мастер работает над глазами клиентки",
+    "description": "Макро-снимок глаза с объемным наращиванием ресниц, демонстрирующий идеальную проработку каждой реснички.",
+    "alt_text": "Наращивание ресниц: объемный эффект, идеальная проработка",
     "objects": [
-      "client_face",
-      "master_hands",
-      "tweezers",
-      "lash_extensions",
-      "magnifying_lamp",
-      "shelving_unit",
-      "lash_supplies"
+      "eye",
+      "eyelashes",
+      "eyelid"
     ],
     "dominant_colors": [
-      "blue",
-      "white",
-      "pink"
+      "brown",
+      "black",
+      "skin_tone"
     ],
-    "mood": "calm"
+    "mood": "luxurious"
   },
   "people": {
     "present": true,
-    "count": 3,
+    "count": 1,
     "faces_visible": true,
-    "primary_subject": "master",
+    "primary_subject": "client",
     "back_or_side_only": false,
     "covered_face": false
   },
@@ -51,24 +47,24 @@
   "service_ref": "lashes",
   "fit_scores": {
     "hero": {
-      "score": 9,
-      "reason": "Captures a master in action performing a specific service with clear focus on the process and tools, making it engaging for a hero section."
+      "score": 8,
+      "reason": "Striking close-up of a service result that immediately hooks the viewer."
     },
     "about": {
-      "score": 5,
-      "reason": "While it shows a salon environment, the focus is on the procedure rather than the overall atmosphere of the salon space."
+      "score": 0,
+      "reason": "This is a close-up of a service result, not an interior shot."
     },
     "gallery": {
-      "score": 7,
-      "reason": "Shows a service being performed, which can imply a good result, but it's not a direct showcase of the finished work."
+      "score": 10,
+      "reason": "Perfect close-up showcasing the quality of the lash extension work."
     },
     "team": {
-      "score": 3,
-      "reason": "While there are people, it's a candid shot of a procedure, not a professional portrait of a team member with their name/role."
+      "score": 0,
+      "reason": "This is a work result, not a portrait of a team member."
     },
     "services": {
-      "score": 8,
-      "reason": "Clearly depicts the lash extension service in progress, making it suitable for a service card or section."
+      "score": 10,
+      "reason": "Excellent visual representation of the lash extension service."
     }
   },
   "flags": {

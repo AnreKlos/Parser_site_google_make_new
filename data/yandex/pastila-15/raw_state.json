@@ -1,0 +1,3734 @@
+{
+  "config": {
+    "requestId": "1778112019716450-5444847729414636056-balancer-l7leveler-kubr-yp-vla-115-BAL",
+    "counters": {
+      "metrika": {
+        "maps": {
+          "id": 22227335
+        },
+        "metro": {
+          "id": 151356
+        },
+        "mapWidget": {
+          "id": 44120344
+        },
+        "tycoon": {
+          "id": 39321485
+        }
+      },
+      "analytics": {
+        "dtype": "bebr",
+        "pid": 30,
+        "tables": {
+          "discoveryFeed": "discovery-feed-desktop-maps"
+        },
+        "url": "https://yandex.com/clck/jclck/",
+        "sessionId": "1778112019716450-5444847729414636056-balancer-l7leveler-kubr-yp-vla-115-BAL"
+      }
+    },
+    "serviceIds": {
+      "geosuggest": "desktop-maps",
+      "menuManagerAdvertPage": "desktop_maps_main_2"
+    },
+    "hosts": {
+      "api": "https://api-maps.yandex.ru/",
+      "printerApi": "https://static-maps.yandex.ru/",
+      "maps": "https://yandex.com/maps/",
+      "mapFrame": "https://yandex.com/map-widget/",
+      "advertLoader": "https://yandex.com/ads/system/context.js",
+      "advertMeta": "https://an.yandex.ru/meta",
+      "stvTiles": "https://0%d.core-stv-renderer.maps.yandex.net/2.x/tiles?l=stv&%c&v=%v&%l&format=png",
+      "stvTileRenderer": "https://vec0{{hostAlias}}.core-stv-renderer.maps.yandex.net/2.x/",
+      "vector3StvTiles": "https://vec0{{hostAlias}}.core-stv-renderer.maps.yandex.net/3.x/",
+      "staHotspotTiles": "https://core-stv-renderer.maps.yandex.net/2.x/tiles?l=stj&%c&v=%v&format=js",
+      "sprav": "https://yandex.com/sprav/",
+      "phtRenderer": "https://core-pht-renderer.maps.yandex.net/3.x/",
+      "metro": "https://yandex.com/metro/",
+      "nmaps": "https://mapeditor.yandex.com/",
+      "suggestApi": "https://suggest-maps.yandex.com/",
+      "constructor": "https://yandex.com/map-constructor/",
+      "apiPanoramaLocateService": "https://api-maps.yandex.ru/services/panoramas/",
+      "panoramasStaticApi": "https://static-pano.maps.yandex.ru/",
+      "panoramasTiles": "https://pano.maps.yandex.net/%s/%z.%x.%y",
+      "carparksTiles": "https://core-carparks-renderer-lots.maps.yandex.net/maps-rdr-carparks/tiles?l=carparks&%c&%l&v=%v",
+      "carparksTileRenderer": "https://core-carparks-renderer-lots.maps.yandex.net/",
+      "mapsUserAgreement": "https://yandex.com/legal/maps_termsofuse/?lang={{lang}}",
+      "roadEventsRenderer": "https://core-road-events-renderer.maps.yandex.net/",
+      "passport": "https://passport.yandex.com/",
+      "passportApi": "https://api.passport.yandex.com/",
+      "photoUploadApi": "https://photo.upload.maps.yandex.com/",
+      "qrApi": "https://qr2.yandex.net/",
+      "mapTilesTmpl": "{{rendererTiles}}tiles?l=map&%c&%l",
+      "mapjTilesTmpl": "{{rendererTiles}}tiles?l=mapj&%c&%l",
+      "sklTilesTmpl": "{{rendererTiles}}tiles?l=skl&%c&%l",
+      "skljTilesTmpl": "{{rendererTiles}}tiles?l=sklj&%c&%l",
+      "satTiles": "https://sat0%d.maps.yandex.net/tiles?l=sat&%c&%l",
+      "traffic": "https://core-jams-rdr-cache.maps.yandex.net/",
+      "trafficArchive": "https://core-jams-rdr-hist.maps.yandex.net/",
+      "trafficInfo": "https://core-jams-info.maps.yandex.net/",
+      "statCounter": "https://yandex.com/clck/",
+      "mrcTiles": "https://core-nmaps-mrc-browser.maps.yandex.ru/tiles?l=mrce&%c",
+      "mrcpeTiles": "https://core-nmaps-mrc-browser.maps.yandex.ru/tiles?l=mrcpe&%c",
+      "mrcHotspotTiles": "https://core-nmaps-mrc-browser.maps.yandex.ru/features/hotspot?l=mrce&%c",
+      "mrcpeHotspotTiles": "https://core-nmaps-mrc-browser.maps.yandex.ru/features/hotspot?l=mrcpe&%c",
+      "mrcPlanner": "https://mrc-planner.maps.yandex-team.ru/",
+      "vectorTilesTmpl": "{{rendererTiles}}vmap2/tiles?lang={{lang}}&x={{x}}&y={{y}}&z={{z}}&zmin={{zmin}}&zmax={{zmax}}&v={{version}}",
+      "vectorImagesTmpl": "{{rendererTiles}}vmap2/icons?id={{id}}&scale={{scale}}",
+      "vectorMeshesTmpl": "{{rendererTiles}}vmap2/meshes?id={{id}}",
+      "vectorGlyphsTmpl": "{{rendererTiles}}vmap2/glyphs?lang={{lang}}&font_id={{fontId}}&range={{range}}",
+      "vectorRichModelsTmpl": "{{rendererTiles}}vmap2/models?id={{id}}&format=glb",
+      "vectorIndoorTilesTmpl": "{{rendererTiles}}indoor/tiles?lang={{lang}}&x={{x}}&y={{y}}&z={{z}}&zmin={{zmin}}&zmax={{zmax}}",
+      "vectorIndoorImagesTmpl": "{{rendererTiles}}indoor/icons?id={{id}}&scale={{scale}}",
+      "vectorIndoorMeshesTmpl": "{{rendererTiles}}indoor/meshes?id={{id}}",
+      "vectorIndoorGlyphsTmpl": "{{rendererTiles}}indoor/glyphs?lang={{lang}}&font_id={{fontId}}&range={{range}}",
+      "vectorIndoorPlansTmpl": "{{rendererTiles}}indoor/plans?id={{id}}",
+      "vectorVmap3TilesTmpl": "{{rendererTiles}}vmap3/tiles?lang={{lang}}&x={{x}}&y={{y}}&z={{z}}&zmin={{zmin}}&zmax={{zmax}}&v={{version}}",
+      "vectorVmap3GlyphsTmpl": "{{rendererTiles}}fonts/glyphs?lang={{lang}}&font_id={{fontId}}&range={{range}}&format=protobuf",
+      "vectorVmap3ImagesTmpl": "{{rendererTiles}}vmap3/icons?id={{id}}&scale={{scale}}",
+      "vectorVmap3MeshesTmpl": "{{rendererTiles}}vmap3/meshes?id={{id}}",
+      "vectorVmap3RichModelsTmpl": "{{rendererTiles}}vmap3/models?id={{id}}&format=glb",
+      "vectorVmap3IndoorPlansTmpl": "{{rendererTiles}}vmap3/plans?id={{id}}",
+      "vectorVmap3StylesTmpl": "{{rendererTiles}}style?protocol=3&service=maps",
+      "vectorFontListTmpl": "{{rendererTiles}}fonts/list?format=protobuf",
+      "vectorFontObjectsTmpl": "{{rendererTiles}}fonts/font?id={{fontId}}&format=ttf",
+      "realTimePoi": "https://real-time-poi.maps.yandex.com/",
+      "rendererTiles": "https://core-renderer-tiles.maps.yandex.com/",
+      "ugcPhotosProxy": "https://core-pht-proxy.maps.yandex.com/",
+      "mrcUgcApi": "https://core-nmaps-mrc-ugc-back.maps.yandex.com/",
+      "panoramasUploader": "https://pano.maps.yandex.com/",
+      "taxiAuthProxy": "https://ya-authproxy.taxi.yandex.com/",
+      "avatarsUrl": "https://avatars.mds.yandex.net/",
+      "xivaWS": "wss://push.yandex.ru/"
+    },
+    "locale": "ru_US",
+    "realLocale": "ru_US",
+    "lang": "ru",
+    "passLang": "ru",
+    "isRtl": false,
+    "hostsPostfix": "US",
+    "domain": "yandex.com",
+    "isYango": false,
+    "isSerpWebVerticals": false,
+    "query": {
+      "lang": "ru",
+      "debug": [],
+      "orgpage": {
+        "id": "53176636373"
+      }
+    },
+    "baseUrl": "/maps",
+    "apiBaseUrl": "/maps",
+    "intentInfo": {
+      "baseUrl": "yandexmaps://",
+      "hostName": "maps.yandex.ru",
+      "aliasIntent": {
+        "baseUrl": "yandexnavi://",
+        "hostName": "maps.yandex.ru"
+      }
+    },
+    "originalUrl": "/maps/org/pastila/53176636373/?lang=ru",
+    "uatraits": {
+      "BrowserBase": "Chromium",
+      "BrowserBaseVersion": "137.0.0.0",
+      "BrowserEngine": "WebKit",
+      "BrowserEngineVersion": "537.36",
+      "BrowserName": "Chrome",
+      "BrowserVersion": "137.0.0.0",
+      "OSFamily": "Windows",
+      "OSName": "Windows 10",
+      "OSVersion": "10.0",
+      "isBrowser": true,
+      "isMobile": false,
+      "isTouch": false,
+      "x64": true,
+      "isPhone": false,
+      "isMessenger": false,
+      "isSearchApp": false
+    },
+    "cspNonce": "ba00e2a4ae654222bb692a72c94b15e9",
+    "hostConfig": {},
+    "errorBooster": {
+      "sendErrors": true,
+      "sendMetrics": true,
+      "project": "maps"
+    },
+    "origin": "https://yandex.com",
+    "csrfToken": "e7f704d4b78791fe7ac35184d50e103e0934108a:1778112019",
+    "xscriptCsrfToken": "y43a3fe03405b1f56a089104f14e76883",
+    "isUserFromPortal": false,
+    "isUserFromYandexSearch": false,
+    "isUserFromGoogle": false,
+    "isAliceIframe": false,
+    "isSerpAliceIframe": false,
+    "availableLangs": [
+      "en",
+      "ru"
+    ],
+    "currencyCode": "USD",
+    "banner": {
+      "blockIds": {
+        "home": {
+          "hd": "R-I-10739150-1",
+          "sd": "R-I-10739150-2"
+        },
+        "orgpageMiddle": "R-I-10739150-8",
+        "orgpageUpper": "R-I-10739150-6",
+        "orgpageBottom": "R-I-10739150-7",
+        "toponym": "R-I-10739150-5",
+        "masstransitCard": {
+          "hd": "R-I-10739150-4",
+          "sd": "R-I-10739150-3"
+        },
+        "metroShort": "R-I-571225-1",
+        "metroLong": "R-I-571225-2",
+        "widget": "R-I-2141027-1",
+        "largeWidget": "R-I-2141027-2"
+      }
+    },
+    "staticHost": "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/",
+    "pageMode": "orgpage",
+    "appVersion": "v2.2875.0",
+    "serverTime": "2026-05-07T00:00:19.867Z",
+    "routesDistributionServices": [
+      "2gis",
+      "yandex"
+    ],
+    "environment": "production",
+    "bookmarks": {
+      "url": "https://maps.yastatic.net/s3/front-maps-static/front-maps-bookmarks/8.6.0/build/yandex-maps-bookmarks.min.js"
+    },
+    "videos": {
+      "libUrl": "https://frontend.vh.yandex.ru/stable/player_version/player.js",
+      "playerListSdkUrl": "https://maps.yastatic.net/yandex-video-player-iframe-api/js/list-sdk.js"
+    },
+    "fingerprint": {
+      "libUrl": "https://yandex.ru/captchapgrd"
+    },
+    "searchResultsCount": 25,
+    "enableTaxi": true,
+    "enableBooking": true,
+    "enableChatSupport": false,
+    "iframeCounter": false,
+    "tnsCounter": true,
+    "cloudApi": {
+      "url": "//cloud-api.yandex.com/maps_common/"
+    },
+    "search": {
+      "snippets": [
+        "masstransit/2.x",
+        "panoramas/1.x",
+        "businessrating/1.x",
+        "businessimages/1.x",
+        "photos/2.x",
+        "videos/1.x",
+        "experimental/1.x",
+        "subtitle/1.x",
+        "visits_histogram/2.x",
+        "tycoon_owners_personal/1.x",
+        "tycoon_events/1.x",
+        "related_adverts/1.x",
+        "related_adverts_1org/1.x",
+        "city_chains/1.x",
+        "route_point/1.x",
+        "topplaces/1.x",
+        "metrika_snippets/1.x",
+        "place_summary/1.x",
+        "online_snippets/1.x",
+        "provider_data/1.x",
+        "service_orgs_experimental/1.x",
+        "business_awards_experimental/1.x",
+        "business_filter/1.x",
+        "histogram/1.x",
+        "attractions/1.x",
+        "potential_company_owners:user",
+        "pin_info/1.x",
+        "lavka/1.x",
+        "bookings/1.x",
+        "bookings_personal/1.x",
+        "trust_features/1.x",
+        "plus_offers_experimental/1.x",
+        "discovery/1.x",
+        "toponym_discovery/1.x",
+        "relevant_discovery/1.x",
+        "visual_hints/1.x",
+        "matchedobjects/1.x",
+        "topobjects/1.x",
+        "org_offer/2.x",
+        "hotels_booking/1.x",
+        "stories_experimental/1.x",
+        "ugc_friends_likes/1.x",
+        "tycoon_promo_actions/1.x",
+        "route_to_choose/1.x"
+      ],
+      "relatedSnippets": [
+        "photos/2.x",
+        "businessrating/1.x",
+        "related_places/1.x"
+      ]
+    },
+    "routes": {
+      "maxCount": 20,
+      "minCount": 2,
+      "maxB2BCount": 50,
+      "minOptimizeCount": 4
+    },
+    "feedback": {
+      "helpUrl": "//yandex.com/support/maps/",
+      "panoramaHelpUrl": "//yandex.com/support/maps/concept/panoramas.xml",
+      "geolocationHelpUrl": "//yandex.com/support/common/browsers-settings/geolocation.xml",
+      "showForPoi": false,
+      "showConfidentialityComplaint": false,
+      "recipientEmail": "support@maps.yandex.ru",
+      "recipientEmailForDesign": "webmaps-revolution@yandex-team.ru",
+      "mobileRecipientEmail": "m-maps@support.yandex.ru",
+      "metroHelpUrl": "//yandex.com/support/metro/",
+      "metroFeedbackUrl": "//yandex.com/support/metro/troubleshooting/fb_metro.html"
+    },
+    "ugc": {
+      "impressionsFirstTab": true,
+      "showFriendsSuggest": true
+    },
+    "advert": {
+      "direct": {
+        "url": "//direct.yandex.ru/",
+        "searchParams": {
+          "add_type": "direct",
+          "direct_page_id": 670942
+        }
+      },
+      "distributionBlock": {
+        "maps": {
+          "id": "Y-A-290757-1"
+        }
+      },
+      "geoadv": {
+        "auditPixel": {
+          "domain": "desktop.yandex.maps"
+        }
+      }
+    },
+    "serviceName": "maps",
+    "share": {
+      "services": [
+        "telegram"
+      ],
+      "discoveryServices": [
+        "telegram",
+        "ok",
+        "vkontakte"
+      ],
+      "imageSize": [
+        520,
+        440
+      ]
+    },
+    "social": {
+      "links": [
+        {
+          "type": "vkontakte",
+          "href": "https://vk.com/yandex.maps",
+          "readableHref": "vk.com/yandex.maps"
+        },
+        {
+          "type": "telegram",
+          "href": "https://t.me/mapsyandex",
+          "readableHref": "@mapsyandex"
+        },
+        {
+          "type": "zen",
+          "href": "https://zen.yandex.ru/yandexmaps",
+          "readableHref": "zen.yandex.ru/yandexmaps"
+        }
+      ]
+    },
+    "mobile": {
+      "downloadAppLink": "https://4.redirect.appmetrica.yandex.com/?appmetrica_tracking_id=1179421268290593269",
+      "appsIds": {
+        "ios": 313877526,
+        "android": "ru.yandex.yandexmaps"
+      }
+    },
+    "apiManual": {
+      "url": "https://tech.yandex.com/maps/"
+    },
+    "business": {
+      "businessLandingUrl": "//business.yandex.ru/",
+      "enableHotelsBooking": false,
+      "enableEdadeal": false,
+      "enableRealty": false,
+      "enableReview": true,
+      "enableStories": true,
+      "enableAfisha": false
+    },
+    "passport": {
+      "url": "https://passport.yandex.com"
+    },
+    "morda": {
+      "url": "https://yandex.com"
+    },
+    "ruler": {
+      "maxCount": 50
+    },
+    "advertLandingMetroUrl": "https://yandex.com/adv/",
+    "agreementUrl": "https://yandex.com/legal/maps_termsofuse/",
+    "confidentialPolicyUrl": "https://yandex.com/legal/confidential/",
+    "metroAgreementUrl": "https://legal.yandex.com/rules",
+    "rightHoldersUrl": "https://yandex.com/legal/right_holders/",
+    "mrcLandingUrl": "//yandex.ru/promo/nmaps/get-app/?lang=ru",
+    "awardsUrl": {
+      "goodPlaceYear": "https://yandex.ru/project/maps/goodplace/"
+    },
+    "enableRoutesB2B": false,
+    "enableRoutesCargo": true,
+    "routesB2BUrl": "https://yandex.ru/routing/lite?utm_source=yandex&utm_medium=banner&utm_campaign=maps",
+    "routesB2BCourierUrl": "https://yandex.ru/courier/lite?utm_source=yandex&utm_medium=banner&utm_campaign=maps",
+    "provideCarrierDataUrl": "https://yandex.ru/promo/maps/transportpartners",
+    "yandexForms": {
+      "userMapsReportUrl": "https://forms.yandex.ru/surveys/12910258.3a7e9ede62d0f6d65252709a5f2c09239021082d/?iframe=1&map-url={{map_url}}&answer_non_profile_email_43415879={{user_email}}&theme={{theme}}&lang={{lang}}",
+      "bookmarksReportUrl": "https://forms.yandex.ru/surveys/13455194.470df48a7da773c7d39403697689554988639321/?iframe=1&map-url={{map_url}}&service=maps&theme={{theme}}&lang={{lang}}"
+    },
+    "yandexId": {
+      "termsOfUseUrl": "https://yandex.com/legal/id_termsofuse",
+      "url": "https://id.yandex.com"
+    },
+    "enableMobileDistribution": true,
+    "businessOwnerLink": "https://yandex.com/sprav/companies",
+    "bebrRootNodeName": "maps_www",
+    "extraHosts": {
+      "avatarsMds": "//avatars.mds.yandex.net/get-{namespace}/{uid}/{size}"
+    },
+    "hideAdverts": false,
+    "businessOwnerAccountMediaRequirementsUrl": "https://yandex.com/support/business-priority/manage/photos.html#requirements",
+    "enableBusinessOwnerAccount": true,
+    "fines": {
+      "soglasieHostname": "https://autofill.yandex.ru",
+      "soglasieScriptUrl": "https://maps.yastatic.net/s3/passport-sdk/autofill/v1/sdk-provider-latest.js",
+      "pay": {
+        "merchant": {
+          "id": "72360794-5752-4570-aad8-543ed3d22834",
+          "name": "passport-bills"
+        },
+        "version": 2,
+        "gateway": "mobimoney",
+        "gatewayMerchantId": "oplatagosuslug",
+        "env": "PRODUCTION",
+        "countryCode": "RU",
+        "currencyCode": "RUB",
+        "scriptSrc": "https://pay.yandex.ru/sdk/v1/pay.js",
+        "requiredFields": {
+          "billingContact": {
+            "email": true,
+            "name": true
+          }
+        }
+      }
+    },
+    "taxi": {
+      "urlTemplate": "//taxi.yandex.{domain}/order?gfrom={startLat},{startLon}&gto={endLat},{endLon}&tariff={tariffClass}&lang={lang}",
+      "mobileUrlTemplate": "//3.redirect.appmetrica.yandex.com/route?start-lat={startLat}&start-lon={startLon}&end-lat={endLat}&end-lon={endLon}&tariffClass={tariffClass}&domain={domain}&lang={lang}&appmetrica_tracking_id=818150690466563560",
+      "lang": "en",
+      "domain": "com",
+      "mobileRef": 2334708,
+      "desktopRef": 2334692
+    },
+    "autoRu": {
+      "termsOfUseUrl": "https://yandex.ru/legal/garage/"
+    },
+    "pythia": {
+      "ownerId": "933e00b1-074b-4a9f-a53c-227a07026a07"
+    },
+    "font": {
+      "family": "YS Text",
+      "format": "woff2",
+      "urls": {
+        "500": "https://maps.yastatic.net/s3/home/fonts/ys/4/text-medium.woff2",
+        "800": "https://maps.yastatic.net/s3/home/fonts/ys/4/text-heavy.woff2",
+        "normal": "https://maps.yastatic.net/s3/home/fonts/ys/4/text-regular.woff2",
+        "bold": "https://maps.yastatic.net/s3/home/fonts/ys/4/text-bold.woff2"
+      }
+    },
+    "mapLocation": {
+      "center": [
+        34.395520000000005,
+        53.21696027
+      ],
+      "bounds": [
+        [
+          34.38219465,
+          53.20899527
+        ],
+        [
+          34.40884535,
+          53.22492527
+        ]
+      ]
+    },
+    "mapType": "map",
+    "userRegion": {
+      "id": 111,
+      "center": [
+        10.854186,
+        49.182076
+      ],
+      "span": [
+        70,
+        15
+      ],
+      "zoom": 4
+    },
+    "theme": "light",
+    "useSystemTheme": false,
+    "experiments": {
+      "boxes": "1538307,0,48;1553307,0,7;1486271,0,99;1551023,0,28;1559778,0,75;1551297,0,22;1530377,0,80;1534490,0,64;1553867,0,5;1546036,0,32;1555165,0,79;663872,0,95;663860,0,14",
+      "cryptedBoxes": "5MnahfM4wLafNwWcDi7PLHRjQVLrxNGIuOOT9KUDKWohXWJTGrRn1uuq2UY1mSoMxgn_lk8QLo1c6MTR2MlNE9vYSDKB7TXLzBCStxFt9gEW7aQrRpo7cQkQss51xXJ4tlQuQOdKhXS9YhdYM9ZLVW7MDWQrOf2FExPP1rT9vM6YOS006K_S9iqH9Pcy-grD0fzJ3PFkICm4LkBGxGWzmmV_5-XqSYT9",
+      "configVersion": "18413",
+      "ui": {
+        "tile3dPing": true,
+        "flyoverAttractionsMskSpb": true,
+        "vectorRichModelsEnabled": true,
+        "businessDiscovery": true,
+        "vectorPpoiLoadingPriority": "high",
+        "vectorPpoiCollisionPriority": "high",
+        "poiRTContext": "poisearch",
+        "raiseOrgpageMobileBanner": true,
+        "raiseToponymBanner": true,
+        "raiseMasstransitBanner": true,
+        "realTimePersonalPoiBackend": true,
+        "vectorVmap3": true,
+        "routePrice": true,
+        "panelWidth420": true,
+        "twoRubricRows": true,
+        "newDiscoveryHome": true,
+        "discoveryHomeIntents": true,
+        "discoveryHomeActions": true,
+        "mapModeFuture": true,
+        "hdRoutes": true,
+        "vectorMapType": "future-map",
+        "ugcShowAllRecommendations": true,
+        "ugcUserCardsWeb": true,
+        "tycoonEvents": true,
+        "vectorRichPointsEnabled": true,
+        "ugcProfileWebUpdate": true,
+        "useExperimentalColliding": true,
+        "disableTileColliding": true,
+        "useCollidingTextOptional": true,
+        "useCollidingCandidates": true,
+        "minRtPoiZoom": "13",
+        "snippetPromo": true,
+        "experimentalEnableRailwayAnnotations": true,
+        "discoveryFeedEntryButton": true,
+        "vectorMultizoom": true,
+        "flyoverFacade": true
+      },
+      "mtInfoParams": {},
+      "geoSearchParams": {
+        "experimental_partner-stat-id": [
+          "1122243"
+        ],
+        "search_add_snippet": [
+          "tycoon_events/1.x"
+        ]
+      },
+      "suggestParams": {},
+      "rendererParams": {
+        "experimental_ranking_mode_name": [
+          "default-web-ranking"
+        ],
+        "experimental_mm_local_rubricpoi_min_zoom": [
+          "13"
+        ],
+        "experimental_mm_local_photopoi_min_zoom": [
+          "13"
+        ],
+        "experimental_mm_photopoi_min_zoom": [
+          "13"
+        ],
+        "experimental_mm_rubricpoi_min_zoom": [
+          "13"
+        ]
+      },
+      "routerParams": {},
+      "ugcFeedParams": {},
+      "menuParams": {}
+    },
+    "layers": {
+      "map": {
+        "version": "26.05.06-0~b:260428124830~ib:26.05.06-0",
+        "zoomRange": [
+          2,
+          21
+        ]
+      },
+      "sat": {
+        "version": "3.2083.0",
+        "zoomRange": [
+          2,
+          21
+        ]
+      },
+      "skl": {
+        "version": "26.05.06-0~b:260428124830~ib:26.05.06-0",
+        "zoomRange": [
+          2,
+          21
+        ]
+      },
+      "stv": {
+        "version": "2026.05.06.21.02-1_26.05.06-0-29389",
+        "zoomRange": [
+          6,
+          21
+        ]
+      },
+      "pht": {
+        "version": "2026.05.06.13.58.58.new",
+        "zoomRange": [
+          2,
+          21
+        ]
+      },
+      "trf": {
+        "version": "2026.05.06.23.59.00",
+        "zoomRange": [
+          1,
+          21
+        ]
+      },
+      "trfe": {
+        "version": "2026.05.06.23.59.00",
+        "zoomRange": [
+          1,
+          21
+        ]
+      },
+      "carparks": {
+        "version": "20260506-124703",
+        "zoomRange": [
+          14,
+          21
+        ]
+      },
+      "mrc": {
+        "version": "26.05.05-64801684",
+        "zoomRange": [
+          5,
+          22
+        ]
+      },
+      "mrcpe": {
+        "version": "26.05.05-64801684",
+        "zoomRange": [
+          5,
+          22
+        ]
+      },
+      "realTimePoi": {
+        "version": "6457cef251a11b21bbb4309c437190dc6a2ab13b/26.05.06-0-29389/cgi_params:[[degradation_multiplier:1],[experimental_mm_discovery_dyn_poi:],[experimental_use_avatars_service:true],[internal_proto:true]]/brand_icons:26.05.06-0/user_profiles:[1766882410675000,PT_DYNAMIC:2026-05-06T23:46:09.162284Z]/photo_archive:1778018438000/its_file_hash:MQZDKMRQMM4DKMBXG5QTAN3BMZTDQYRZMQ2WGZBZGM3TSMBVGA2Q;b6c59172f671eea17de563bc40a2859bb6a6c0d2/26.05.06-0-29389/cgi_params:[[enable_org_boost:false],[experimental_use_avatars_service:true],[internal_proto:true]]/brand_icons:26.05.06-0/user_profiles:[1766882410675000,PT_DYNAMIC:2026-02-26T20:55:25.353756Z]/photo_archive:1772092635000/its_file_hash:MRRTINLGHE3WIMBRGQ2WGMJQG43WCZJXMI4DIOLFG4YTKYJZMNTA",
+        "zoomRange": [
+          13,
+          21
+        ]
+      }
+    },
+    "isVectorEnabled": true,
+    "bunker": {
+      "disableFines": false,
+      "disableFinesMsd": false,
+      "disableFinesFines": true,
+      "disableFinesVrcUiScenario": true,
+      "disableParkingMts": true,
+      "disableTopupParkingBalance": true,
+      "webviewFutureMap": true,
+      "disablePerformanceProductAdvertSign": true,
+      "disableSsr": false,
+      "disableVector": {
+        "mobile": false,
+        "desktop": false
+      },
+      "disableAdsMapTiles": false,
+      "disableBookmarksInt": false,
+      "disablePersonalizedPoi": false,
+      "disableGeoproductTopPhoto": false,
+      "disableBookingAdvertSplit": false,
+      "disableCoronaControl": true,
+      "a11y": {
+        "disableFeatureFeedback": false,
+        "disableReviews": false,
+        "disablePhotos": false
+      },
+      "theme": {
+        "settingByCookie": true,
+        "settingBySystem": true
+      },
+      "disableDarkTheme": {
+        "mobile": false,
+        "desktop": false
+      },
+      "enabledBookingCalendarApps": {
+        "maps": {
+          "Android": "10.9.1"
+        }
+      },
+      "enablePhonesOnboarding": {
+        "navi": {
+          "Android": false,
+          "iOS": false
+        },
+        "maps": {
+          "Android": false,
+          "iOS": false
+        }
+      },
+      "collectionUserApprovalTexts": {
+        "singleListTitle": "Разрешаете опубликовать ваш список мест?",
+        "singleListDescription": "Пользователи Карт смогут увидеть ваш список мест «{{list}}» и вдохновиться идеями",
+        "manyListsTitle": "Отметьте списки, которые разрешаете опубликовать",
+        "manyListsDescription": "Другие пользователи Карт смогут просматривать их и вдохновляться идеями",
+        "thanksTitle": "Спасибо, вы великолепны!",
+        "thanksDescription": "Это поможет пользователям Карт открыть для себя что-то новое",
+        "thanksButton": "Всегда пожалуйста",
+        "approveButton": "Разрешить",
+        "cancelButton": "Закрыть"
+      },
+      "discoveryFeedTexts": {
+        "onboarding": {
+          "title": "Встречайте ленту",
+          "text": "Лента – экспериментальный способ поиска мест в приложении. Лента призвана облегчить поиск интересных мест в городе<br/><br/>Вы в числе тех, кто получил доступ к ней первым. Попробуйте найти для себя что-то интересное, а мы будем рады обратной связи",
+          "buttonText": "Ого"
+        }
+      },
+      "routePriceTexts": {
+        "en": {
+          "title": "Toll road: {price}",
+          "content": "The price estimate is calculated for a car less than 2 meters high at the time of leaving the toll section without a transponder.<br />Tariff data provided by toll road operators",
+          "linkText": "Learn more about pricing plans",
+          "linkUrl": "https://yandex.ru/project/maps/yandex_promo/eng"
+        },
+        "ru": {
+          "title": "Платная дорога: {price}",
+          "content": "Цена рассчитана для автомобиля высотой менее 2 метров без транспондера на момент выезда с платного участка.<br />Данные о тарифах предоставлены компаниями-операторами платных дорог",
+          "linkText": "Подробнее о тарифах",
+          "linkUrl": "https://yandex.ru/project/maps/yandex_promo"
+        }
+      },
+      "storytellingGptTexts": {
+        "ru": {
+          "text": "Создано Alice AI на основе отзывов"
+        },
+        "en": {
+          "text": "Created by Alice AI based on reviews"
+        }
+      },
+      "storytellingGenerativeTexts": {
+        "ru": {
+          "text": "Создано __aliceAiIcon Alice AI на основе отзывов"
+        },
+        "en": {
+          "text": "Created by __aliceAiIcon Alice AI based on reviews"
+        }
+      },
+      "disableSurveys": false,
+      "extendedSuggest": {
+        "regions": [
+          225
+        ],
+        "rubrics": [
+          186340601594,
+          184105804
+        ]
+      },
+      "disableSnippetPromo": false,
+      "availableHistoryDomains": {
+        "taxi": [
+          "yandex.ru",
+          "yandex.com",
+          "yandex.uz",
+          "yandex.kz",
+          "yandex.by"
+        ],
+        "refuel": [
+          "yandex.ru"
+        ]
+      }
+    },
+    "landing": {
+      "seoname": "pastila",
+      "orgId": 53176636373,
+      "id": "orgpage"
+    },
+    "promo": null,
+    "mapRegion": {
+      "id": 191,
+      "type": 6,
+      "capitalId": 0,
+      "hierarchy": [
+        225,
+        10650,
+        191
+      ],
+      "seoname": "bryansk",
+      "bounds": [
+        [
+          34.1808425,
+          53.147951795198836
+        ],
+        [
+          34.5471395,
+          53.33863579519883
+        ]
+      ],
+      "longitude": 34.363991,
+      "latitude": 53.2434,
+      "zoom": 13,
+      "names": {
+        "ablative": "",
+        "accusative": "Брянск",
+        "dative": "Брянску",
+        "directional": "",
+        "genitive": "Брянска",
+        "instrumental": "Брянском",
+        "locative": "",
+        "nominative": "Брянск",
+        "preposition": "в",
+        "prepositional": "Брянске"
+      }
+    },
+    "meta": {
+      "title": "Пастила, салон красоты, Брянск, Киевская ул., 34 — Яндекс Карты",
+      "breadcrumbs": [
+        {
+          "name": "Карты",
+          "type": "root",
+          "url": "https://yandex.com/maps/?lang=ru"
+        },
+        {
+          "name": "Брянск",
+          "type": "region",
+          "url": "https://yandex.com/maps/191/bryansk/?lang=ru",
+          "region": {
+            "center": [
+              34.363991,
+              53.2434
+            ],
+            "zoom": 13
+          }
+        },
+        {
+          "category": {
+            "id": "184105814",
+            "name": "Салон красоты",
+            "class": "spa",
+            "seoname": "beauty_salon",
+            "pluralName": "Салоны красоты"
+          },
+          "name": "Салоны красоты",
+          "type": "category",
+          "url": "https://yandex.com/maps/191/bryansk/category/beauty_salon/184105814/?lang=ru"
+        }
+      ]
+    },
+    "advertsOnMapConfig": {
+      "groups": []
+    },
+    "myBusiness": {
+      "eventsCount": {
+        "count": 0
+      }
+    },
+    "mobileTechInfo": {},
+    "discoveryHomeFeedConfig": {
+      "regions": [
+        {
+          "boundingBoxes": [
+            [
+              [
+                19.484761,
+                54.318205
+              ],
+              [
+                22.886575,
+                55.381319
+              ]
+            ],
+            [
+              [
+                26.580233,
+                41.198849
+              ],
+              [
+                191.128018,
+                81.885924
+              ]
+            ]
+          ],
+          "enabled": true
+        },
+        {
+          "boundingBoxes": [
+            [
+              [
+                19.356,
+                44.0133
+              ],
+              [
+                21.2446,
+                45.3661
+              ]
+            ]
+          ],
+          "enabled": true
+        }
+      ],
+      "intentSets": [
+        {
+          "intents": [
+            {
+              "slug": "default",
+              "caption": "Все"
+            },
+            {
+              "slug": "seasonal_spring_may",
+              "caption": "🌸 Весна"
+            },
+            {
+              "slug": "with_kids",
+              "caption": "🧸 С детьми"
+            },
+            {
+              "slug": "hungry",
+              "caption": "🥗 Поесть"
+            },
+            {
+              "slug": "drink",
+              "caption": "🍷 Выпить"
+            },
+            {
+              "slug": "leisure",
+              "caption": "🎤 Развлечься"
+            },
+            {
+              "slug": "sight",
+              "caption": "🏛 Погулять"
+            }
+          ],
+          "enabled": true,
+          "language": "ru",
+          "experiments": {
+            "withKids": [
+              {
+                "slug": "default",
+                "caption": "Все"
+              },
+              {
+                "slug": "with_kids",
+                "caption": "С детьми"
+              },
+              {
+                "slug": "hungry",
+                "caption": "Поесть"
+              },
+              {
+                "slug": "drink",
+                "caption": "Выпить"
+              },
+              {
+                "slug": "leisure",
+                "caption": "Развлечься"
+              },
+              {
+                "slug": "sight",
+                "caption": "Погулять"
+              }
+            ],
+            "withEvents": [
+              {
+                "slug": "default",
+                "caption": "Все"
+              },
+              {
+                "slug": "events",
+                "caption": "👋 События"
+              }
+            ]
+          }
+        },
+        {
+          "intents": [
+            {
+              "slug": "default",
+              "caption": "All"
+            },
+            {
+              "slug": "seasonal_spring_may",
+              "caption": "🌸 Spring"
+            },
+            {
+              "slug": "with_kids",
+              "caption": "🧸 With kids"
+            },
+            {
+              "slug": "hungry",
+              "caption": "🥗 Dinner out"
+            },
+            {
+              "slug": "drink",
+              "caption": "🍷 Get a drink"
+            },
+            {
+              "slug": "leisure",
+              "caption": "🎤 Have fun"
+            },
+            {
+              "slug": "sight",
+              "caption": "🏛 See sights"
+            }
+          ],
+          "enabled": true,
+          "language": "en",
+          "experiments": {
+            "withKids": [
+              {
+                "slug": "default",
+                "caption": "All"
+              },
+              {
+                "slug": "with_kids",
+                "caption": "With kids"
+              },
+              {
+                "slug": "hungry",
+                "caption": "Dinner out"
+              },
+              {
+                "slug": "drink",
+                "caption": "Get a drink"
+              },
+              {
+                "slug": "leisure",
+                "caption": "Have fun"
+              },
+              {
+                "slug": "sight",
+                "caption": "See sights"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "stack": [
+    {
+      "mode": "orgpage",
+      "results": {
+        "requestId": "1778112019772572-4049019298-addrs-upper-yp-54",
+        "requestSerpId": "1778112019772572-4049019298-addrs-upper-yp-54",
+        "requestContext": "ZAAAAAgBEAAaKAoSCQAAAAAAkHZAEQAAAAAAoGZAEhIJAAAAAAAA8L8RAAAAAAAA8L8iAQEoCjgAQP7//////////wFIAWoAnQHNzMw9oAEAqAEAvQGx1zodwgEG1afMjMYBggIAigIAkgIAmgIMZGVza3RvcC1tYXBz",
+        "requestQuery": "empty",
+        "requestCorrectedQuery": "empty",
+        "requestBounds": [
+          [
+            37.048427,
+            55.43644866
+          ],
+          [
+            38.175903,
+            56.04690174
+          ]
+        ],
+        "displayType": "multiple",
+        "totalResultCount": 1,
+        "requestResults": 1,
+        "items": [
+          {
+            "type": "business",
+            "requestId": "1778112019772572-4049019298-addrs-upper-yp-54",
+            "index": 0,
+            "analyticsId": "0",
+            "title": "Пастила",
+            "description": "Брянск, Киевская ул., 34",
+            "address": "Брянск, Киевская ул., 34",
+            "coordinates": [
+              34.39552,
+              53.216961
+            ],
+            "displayCoordinates": [
+              34.39552,
+              53.216961
+            ],
+            "bounds": [
+              [
+                34.391327,
+                53.214275
+              ],
+              [
+                34.399538,
+                53.219204
+              ]
+            ],
+            "uri": "ymapsbm1://org?oid=53176636373",
+            "logId": "dHlwZT1iaXpmaW5kZXI7aWQ9NTMxNzY2MzYzNzM=",
+            "requestSerpId": "1778112019772572-4049019298-addrs-upper-yp-54",
+            "id": "53176636373",
+            "metro": [],
+            "stops": [
+              {
+                "id": "stop__9883585",
+                "name": "Школа № 51",
+                "distance": "194 м",
+                "distanceValue": 194.644,
+                "coordinates": [
+                  34.395889215,
+                  53.218136531
+                ],
+                "type": "common"
+              },
+              {
+                "id": "4164421489",
+                "name": "Полесская улица",
+                "distance": "400 м",
+                "distanceValue": 400.699,
+                "coordinates": [
+                  34.395240068,
+                  53.214852437
+                ],
+                "type": "common"
+              },
+              {
+                "id": "1543284952",
+                "name": "Кинотеатр Космос",
+                "distance": "430 м",
+                "distanceValue": 428.959,
+                "coordinates": [
+                  34.401331538,
+                  53.216760927
+                ],
+                "type": "common"
+              },
+              {
+                "id": "stop__9883583",
+                "name": "Брянск-2",
+                "distance": "570 м",
+                "distanceValue": 571.944,
+                "coordinates": [
+                  34.402797586,
+                  53.217020252
+                ],
+                "type": "common"
+              },
+              {
+                "id": "stop__9883588",
+                "name": "Западная улица",
+                "distance": "690 м",
+                "distanceValue": 687.172,
+                "coordinates": [
+                  34.388300911,
+                  53.219543931
+                ],
+                "type": "common"
+              }
+            ],
+            "photos": {
+              "count": 113,
+              "urlTemplate": "https://avatars.mds.yandex.net/get-altay/16874376/2a0000019b7e16eb99819882c0412f185877/%s",
+              "items": [
+                {
+                  "urlTemplate": "https://avatars.mds.yandex.net/get-altay/16874376/2a0000019b7e16eb99819882c0412f185877/%s",
+                  "alt": "Салон красоты Пастила, Брянск, фото"
+                },
+                {
+                  "urlTemplate": "https://avatars.mds.yandex.net/get-altay/13906970/2a00000192fd98a6c59cfb3eac5c5c4a66c0/%s",
+                  "alt": "Салон красоты Пастила, Брянск, фото"
+                },
+                {
+                  "urlTemplate": "https://avatars.mds.yandex.net/get-altay/9724410/2a00000188be771e6d701acd5b78e3d9d5c8/%s",
+                  "alt": "Салон красоты Пастила, Брянск, фото"
+                },
+                {
+                  "urlTemplate": "https://avatars.mds.yandex.net/get-altay/13229346/2a0000019494775e553cb8350ed79906b93a/%s",
+                  "alt": "Салон красоты Пастила, Брянск, фото"
+                },
+                {
+                  "urlTemplate": "https://avatars.mds.yandex.net/get-altay/16011054/2a00000197f3d66e77909235a9e46222616c/%s",
+                  "alt": "Салон красоты Пастила, Брянск, фото"
+                },
+                {
+                  "urlTemplate": "https://avatars.mds.yandex.net/get-altay/17753003/2a0000019b7e1357687f630c5d076e334c2b/%s",
+                  "alt": "Салон красоты Пастила, Брянск, фото"
+                },
+                {
+                  "urlTemplate": "https://avatars.mds.yandex.net/get-altay/14091921/2a00000192fd98b3bb795b96a400454582f6/%s",
+                  "alt": "Салон красоты Пастила, Брянск, фото"
+                },
+                {
+                  "urlTemplate": "https://avatars.mds.yandex.net/get-altay/14306639/2a000001949477595c4d3cdd1d94d8ba482b/%s",
+                  "alt": "Салон красоты Пастила, Брянск, фото"
+                },
+                {
+                  "urlTemplate": "https://avatars.mds.yandex.net/get-altay/14031726/2a00000194947752de76e4f554a818fa8057/%s",
+                  "alt": "Салон красоты Пастила, Брянск, фото"
+                },
+                {
+                  "urlTemplate": "https://avatars.mds.yandex.net/get-altay/13229346/2a00000194947752443408ccbb1c64ff2fa5/%s",
+                  "alt": "Салон красоты Пастила, Брянск, фото"
+                }
+              ]
+            },
+            "entrances": [],
+            "routePoint": {
+              "context": "djJ8EioKEglBQRC9mDJBQBE8lqkPxZtKQBINNTMxNzY2MzYzNzNfMB0AAIA_IA8,"
+            },
+            "relatedAdverts": {
+              "nearbyOnMap": [
+                {
+                  "type": "similar",
+                  "id": "232570934572",
+                  "uri": "ymapsbm1://org?oid=232570934572",
+                  "logId": "232570934572",
+                  "title": "Би Хеппи",
+                  "rating": 5,
+                  "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/9829646/2a00000191a778c023676d08887aab1fb9ef/%s",
+                  "categories": [],
+                  "seoname": "bi_kheppi",
+                  "coordinates": [
+                    34.388729,
+                    53.218325
+                  ],
+                  "icon": "spa",
+                  "poiColor": "#F58CB6",
+                  "poiLabelColor": "#D46C95",
+                  "isAdvert": true
+                },
+                {
+                  "type": "similar",
+                  "id": "162236073365",
+                  "uri": "ymapsbm1://org?oid=162236073365",
+                  "logId": "162236073365",
+                  "title": "Selebrity",
+                  "rating": 4.7,
+                  "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/2385630/2a000001735880709a4c74daaef5fcaa8fa3/%s",
+                  "categories": [],
+                  "seoname": "selebrity",
+                  "coordinates": [
+                    34.342723,
+                    53.239128
+                  ],
+                  "icon": "spa",
+                  "poiColor": "#F58CB6",
+                  "poiLabelColor": "#D46C95",
+                  "isAdvert": true
+                },
+                {
+                  "type": "similar",
+                  "id": "243520407726",
+                  "uri": "ymapsbm1://org?oid=243520407726",
+                  "logId": "243520407726",
+                  "title": "Авокадо",
+                  "rating": 4.9,
+                  "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/16309283/2a00000196f748c9e314a49d01254903c3b1/%s",
+                  "categories": [],
+                  "seoname": "avokado",
+                  "coordinates": [
+                    34.353102,
+                    53.265609
+                  ],
+                  "icon": "spa",
+                  "poiColor": "#F58CB6",
+                  "poiLabelColor": "#D46C95",
+                  "isAdvert": true
+                },
+                {
+                  "type": "similar",
+                  "id": "1075567116",
+                  "uri": "ymapsbm1://org?oid=1075567116",
+                  "logId": "1075567116",
+                  "title": "Прано",
+                  "rating": 4.7,
+                  "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/2405086/2a000001761e2d045d122f33022b2e664347/%s",
+                  "categories": [],
+                  "seoname": "salon_krasoty_prano",
+                  "coordinates": [
+                    34.358448,
+                    53.243587
+                  ],
+                  "icon": "spa",
+                  "poiColor": "#F58CB6",
+                  "poiLabelColor": "#D46C95",
+                  "isAdvert": true
+                },
+                {
+                  "type": "similar",
+                  "id": "108585470237",
+                  "uri": "ymapsbm1://org?oid=108585470237",
+                  "logId": "108585470237",
+                  "title": "Подиум салон&академия",
+                  "rating": 5,
+                  "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/18112381/2a0000019d3f0594b8b4bd1590c2869f1baa/%s",
+                  "categories": [],
+                  "seoname": "podium_salon_akademiya",
+                  "coordinates": [
+                    34.356231,
+                    53.265848
+                  ],
+                  "icon": "spa",
+                  "poiColor": "#F58CB6",
+                  "poiLabelColor": "#D46C95",
+                  "isAdvert": true
+                }
+              ],
+              "nearbyOnCard": [
+                {
+                  "type": "similar",
+                  "id": "232570934572",
+                  "uri": "ymapsbm1://org?oid=232570934572",
+                  "logId": "232570934572",
+                  "title": "Би Хеппи",
+                  "rating": 5,
+                  "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/9829646/2a00000191a778c023676d08887aab1fb9ef/%s",
+                  "categories": [],
+                  "seoname": "bi_kheppi",
+                  "coordinates": [
+                    34.388729,
+                    53.218325
+                  ],
+                  "icon": "spa",
+                  "poiColor": "#F58CB6",
+                  "poiLabelColor": "#D46C95",
+                  "isAdvert": true
+                },
+                {
+                  "type": "similar",
+                  "id": "162236073365",
+                  "uri": "ymapsbm1://org?oid=162236073365",
+                  "logId": "162236073365",
+                  "title": "Selebrity",
+                  "rating": 4.7,
+                  "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/2385630/2a000001735880709a4c74daaef5fcaa8fa3/%s",
+                  "categories": [],
+                  "seoname": "selebrity",
+                  "coordinates": [
+                    34.342723,
+                    53.239128
+                  ],
+                  "icon": "spa",
+                  "poiColor": "#F58CB6",
+                  "poiLabelColor": "#D46C95",
+                  "isAdvert": true
+                },
+                {
+                  "type": "similar",
+                  "id": "243520407726",
+                  "uri": "ymapsbm1://org?oid=243520407726",
+                  "logId": "243520407726",
+                  "title": "Авокадо",
+                  "rating": 4.9,
+                  "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/16309283/2a00000196f748c9e314a49d01254903c3b1/%s",
+                  "categories": [],
+                  "seoname": "avokado",
+                  "coordinates": [
+                    34.353102,
+                    53.265609
+                  ],
+                  "icon": "spa",
+                  "poiColor": "#F58CB6",
+                  "poiLabelColor": "#D46C95",
+                  "isAdvert": true
+                },
+                {
+                  "type": "similar",
+                  "id": "1075567116",
+                  "uri": "ymapsbm1://org?oid=1075567116",
+                  "logId": "1075567116",
+                  "title": "Прано",
+                  "rating": 4.7,
+                  "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/2405086/2a000001761e2d045d122f33022b2e664347/%s",
+                  "categories": [],
+                  "seoname": "salon_krasoty_prano",
+                  "coordinates": [
+                    34.358448,
+                    53.243587
+                  ],
+                  "icon": "spa",
+                  "poiColor": "#F58CB6",
+                  "poiLabelColor": "#D46C95",
+                  "isAdvert": true
+                },
+                {
+                  "type": "similar",
+                  "id": "108585470237",
+                  "uri": "ymapsbm1://org?oid=108585470237",
+                  "logId": "108585470237",
+                  "title": "Подиум салон&академия",
+                  "rating": 5,
+                  "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/18112381/2a0000019d3f0594b8b4bd1590c2869f1baa/%s",
+                  "categories": [],
+                  "seoname": "podium_salon_akademiya",
+                  "coordinates": [
+                    34.356231,
+                    53.265848
+                  ],
+                  "icon": "spa",
+                  "poiColor": "#F58CB6",
+                  "poiLabelColor": "#D46C95",
+                  "isAdvert": true
+                }
+              ]
+            },
+            "panorama": {
+              "id": "1278917848_699232245_23_1594110064",
+              "direction": [
+                11.1,
+                10
+              ],
+              "point": {
+                "type": "Point",
+                "coordinates": [
+                  34.3953115928,
+                  53.2163242484
+                ]
+              },
+              "preview": "https://static-pano.maps.yandex.ru/v1/?panoid=1278917848_699232245_23_1594110064&size=500%2C240&azimuth=11.1&tilt=10&api_key=maps&signature=vt3npcMhwxyPw0UVWxMq3ra3OCXsFEHocF5JbRGVi8k=",
+              "alt": "Панорама — салон красоты Пастила, Брянск"
+            },
+            "shortTitle": "Пастила",
+            "fullAddress": "Брянск, Киевская улица, 34",
+            "country": "Россия",
+            "postalCode": "241029",
+            "status": "open",
+            "businessLinks": [
+              {
+                "type": "social",
+                "href": "https://m.vk.com/pastila32"
+              },
+              {
+                "type": "booking",
+                "aref": "#yandex_booking",
+                "href": "https://n914275.yclients.com/"
+              }
+            ],
+            "ratingData": {
+              "ratingCount": 116,
+              "ratingValue": 5,
+              "reviewCount": 88
+            },
+            "sources": [
+              {
+                "id": "yandex",
+                "name": "Яндекс",
+                "href": "https://ya.ru/"
+              }
+            ],
+            "categories": [
+              {
+                "id": "184105814",
+                "name": "Салон красоты",
+                "class": "spa",
+                "seoname": "beauty_salon",
+                "pluralName": "Салоны красоты"
+              },
+              {
+                "id": "20476284572",
+                "name": "ногтевая студия",
+                "class": "nail studio",
+                "seoname": "nail_salon",
+                "pluralName": "Ногтевые студии"
+              }
+            ],
+            "phones": [
+              {
+                "number": "+7 (4832) 37-72-22",
+                "type": "phone",
+                "value": "+74832377222"
+              }
+            ],
+            "features": [
+              {
+                "id": "women_haircut",
+                "value": "450–450 ₽",
+                "name": "цена женской стрижки",
+                "type": "text",
+                "important": true
+              },
+              {
+                "id": "man_haircut",
+                "value": "450–600 ₽",
+                "name": "цена мужской стрижки",
+                "type": "text",
+                "important": true
+              },
+              {
+                "id": "pedicure_bin",
+                "value": true,
+                "name": "педикюр",
+                "type": "bool",
+                "important": true
+              },
+              {
+                "id": "cosmetology_services",
+                "value": [
+                  {
+                    "id": "eyebrow",
+                    "name": "коррекция бровей"
+                  },
+                  {
+                    "id": "removing_body_hair",
+                    "name": "эпиляция"
+                  }
+                ],
+                "name": "косметологические услуги",
+                "type": "enum",
+                "important": true
+              },
+              {
+                "id": "manicure_bin",
+                "value": true,
+                "name": "маникюр",
+                "type": "bool",
+                "important": true
+              },
+              {
+                "id": "gift_certificate",
+                "value": true,
+                "name": "подарочный сертификат",
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "good_place",
+                "value": true,
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "petfriendly",
+                "value": [
+                  {
+                    "id": "animals_are_prohibited",
+                    "name": "запрещено с животными"
+                  }
+                ],
+                "name": "посещение с животными",
+                "type": "enum",
+                "important": false
+              },
+              {
+                "id": "car_park",
+                "value": true,
+                "name": "парковка",
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "payment_method",
+                "value": [
+                  {
+                    "id": "cash",
+                    "name": "наличными"
+                  },
+                  {
+                    "id": "wire_transfer",
+                    "name": "банковским переводом"
+                  }
+                ],
+                "name": "способ оплаты",
+                "type": "enum",
+                "important": false
+              },
+              {
+                "id": "henna_staining",
+                "value": true,
+                "name": "окрашивание хной",
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "promotions",
+                "value": [
+                  {
+                    "id": "gifts",
+                    "name": "подарки"
+                  }
+                ],
+                "name": "акции",
+                "type": "enum",
+                "important": false
+              },
+              {
+                "id": "classic_female_manicure_coated",
+                "value": "от 1250 ₽",
+                "name": "классический женский маникюр с покрытием",
+                "type": "text",
+                "important": false
+              },
+              {
+                "id": "combined_manicure",
+                "value": "от 950 ₽",
+                "name": "комбинированный маникюр",
+                "type": "text",
+                "important": false
+              },
+              {
+                "id": "beauty_services",
+                "value": [
+                  {
+                    "id": "men_haircuts",
+                    "name": "мужские стрижки"
+                  },
+                  {
+                    "id": "hairdressing",
+                    "name": "женские стрижки"
+                  },
+                  {
+                    "id": "manicure_beauty",
+                    "name": "маникюр"
+                  },
+                  {
+                    "id": "epilation",
+                    "name": "эпиляция"
+                  },
+                  {
+                    "id": "children_haircuts",
+                    "name": "детские стрижки"
+                  },
+                  {
+                    "id": "hair_extension_m",
+                    "name": "наращивание волос"
+                  },
+                  {
+                    "id": "nail_extension_m",
+                    "name": "наращивание ногтей"
+                  },
+                  {
+                    "id": "pedicure_services_m",
+                    "name": "педикюр"
+                  },
+                  {
+                    "id": "eyelash laminating",
+                    "name": "ламинирование ресниц"
+                  },
+                  {
+                    "id": "washing_your_hair",
+                    "name": "мытье волос"
+                  }
+                ],
+                "name": "услуги салона",
+                "type": "enum",
+                "important": false
+              },
+              {
+                "id": "preliminary_registration",
+                "value": true,
+                "name": "предварительная запись",
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "ramp",
+                "value": true,
+                "name": "пандус",
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "wheelchair_access",
+                "value": [
+                  {
+                    "id": "unavailable",
+                    "name": "недоступно"
+                  }
+                ],
+                "name": "доступность входа на инвалидной коляске",
+                "type": "enum",
+                "important": false
+              },
+              {
+                "id": "wi_fi",
+                "value": true,
+                "name": "Wi-Fi",
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "online_recording",
+                "value": true,
+                "name": "Онлайн запись",
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "nail_extension_2",
+                "value": true,
+                "name": "наращивание ногтей",
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "nail_procedures",
+                "value": [
+                  {
+                    "id": "pedicure",
+                    "name": "женский педикюр"
+                  },
+                  {
+                    "id": "manicure",
+                    "name": "женский маникюр"
+                  },
+                  {
+                    "id": "man_manicure",
+                    "name": "мужской маникюр"
+                  },
+                  {
+                    "id": "men_pedicure",
+                    "name": "мужской педикюр"
+                  },
+                  {
+                    "id": "nail_design",
+                    "name": "дизайн ногтей"
+                  },
+                  {
+                    "id": "child_manicure",
+                    "name": "детский маникюр"
+                  },
+                  {
+                    "id": "manicure_spa",
+                    "name": "spa-маникюр"
+                  },
+                  {
+                    "id": "hardware_pedicure",
+                    "name": "аппаратный педикюр"
+                  },
+                  {
+                    "id": "hardware_manicure",
+                    "name": "аппаратный маникюр"
+                  },
+                  {
+                    "id": "combi_manicure",
+                    "name": "комби маникюр"
+                  },
+                  {
+                    "id": "combi_pedicure",
+                    "name": "комби педикюр"
+                  },
+                  {
+                    "id": "nail_extension",
+                    "name": "наращивание ногтей"
+                  }
+                ],
+                "name": "для ногтей",
+                "type": "enum",
+                "important": false
+              },
+              {
+                "id": "mens_nail_services",
+                "value": true,
+                "name": "мужской ногтевой сервис",
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "show_briefly_about_the_place_block",
+                "value": true,
+                "type": "bool",
+                "important": false
+              },
+              {
+                "id": "nail_artdesign",
+                "value": true,
+                "name": "артдизайн",
+                "type": "bool",
+                "important": false
+              }
+            ],
+            "mediaOrderTemplate": "p,v,p,v,v,p,v*,p*",
+            "featureGroups": [
+              {
+                "name": "Услуги",
+                "featureIds": [
+                  "cosmetology_services",
+                  "manicure_bin",
+                  "pedicure_bin",
+                  "nail_procedures",
+                  "beauty_services",
+                  "tattoo removal",
+                  "nail_extension_2",
+                  "nail_artdesign"
+                ]
+              },
+              {
+                "name": "Цены",
+                "featureIds": [
+                  "man_haircut",
+                  "classic_female_manicure_coated",
+                  "women_haircut"
+                ]
+              },
+              {
+                "name": "Общая информация",
+                "featureIds": [
+                  "payment_method",
+                  "gift_certificate",
+                  "promotions",
+                  "payment_by_credit_card",
+                  "wi_fi",
+                  "car_park",
+                  "home_visit",
+                  "nursery"
+                ]
+              },
+              {
+                "name": "Особенности",
+                "featureIds": [
+                  "medical_pedicure",
+                  "mens_nail_services"
+                ]
+              },
+              {
+                "name": "Доступность",
+                "featureIds": [
+                  "ramp",
+                  "wheelchair_access"
+                ]
+              },
+              {
+                "name": "Достижения",
+                "featureIds": [
+                  "good_place"
+                ]
+              }
+            ],
+            "businessProperties": {
+              "has_verified_owner": true,
+              "geoproduct_poi_color": "#F58CB6",
+              "unusual_hours": [
+                "2026-05-01",
+                "2026-05-09",
+                "2026-05-11"
+              ],
+              "geoproduct_poi_label_color": "#D46C95"
+            },
+            "seoname": "pastila",
+            "geoId": 217068,
+            "compositeAddress": {
+              "country": "Россия",
+              "area": "городской округ Брянск",
+              "locality": "Брянск",
+              "street": "Киевская улица",
+              "house": "34"
+            },
+            "modularCard": {
+              "showClaimOrganization": true,
+              "showTaxiButton": true,
+              "showFeedbackButton": true,
+              "showReviews": true,
+              "showAddPhotoButton": true,
+              "showCompetitors": true,
+              "showDirectBanner": true,
+              "showAdditionalAds": true,
+              "showWorkHours": true,
+              "showContacts": true,
+              "showFriendsLiked": false,
+              "showVisualPricesTab": true,
+              "showHotelEnrichment": false,
+              "promoBadgeFeature": [],
+              "offerBadgeId": [],
+              "showCourierButton": false,
+              "hotelReviewsStubType": 0
+            },
+            "modularPin": {
+              "subtitleHints": [
+                {
+                  "text": "5",
+                  "type": "RATING",
+                  "properties": {
+                    "rating": {
+                      "showGoodPlace": true
+                    }
+                  }
+                },
+                {
+                  "text": "Стрижка: от 450 ₽",
+                  "type": "PRICE",
+                  "properties": {
+                    "price": {
+                      "name": "Стрижка",
+                      "priceRange": {
+                        "lower": 450,
+                        "upper": 450,
+                        "text": "от 450 ₽",
+                        "currency": "₽"
+                      }
+                    }
+                  }
+                }
+              ],
+              "allowMultilineSubtitle": false
+            },
+            "modularSnippet": {
+              "showNeurosummary": false,
+              "showMentionedOnSite": false,
+              "showTitle": "SHORT_TITLE",
+              "showAddress": "SHORT_ADDRESS",
+              "showCategory": "ALL_CATEGORIES",
+              "showRating": "FIVE_STAR_RATING",
+              "showPhoto": "GALLERY",
+              "showWorkHours": true,
+              "showVerified": true,
+              "showDistanceFromTransit": false,
+              "showBookmark": true,
+              "showEta": true,
+              "showGeoproductOffer": true,
+              "subtitleHint": [],
+              "galleryButton": [
+                "BOOKING",
+                "PRICES"
+              ],
+              "shownGoodsNumber": 3,
+              "showDescription": false,
+              "showCollectionBadge": true,
+              "showFriendsLiked": false,
+              "showCourierButton": false,
+              "showYandexEatsOrderButton": false,
+              "infoBlock": [],
+              "serpActionButtons": [
+                8,
+                1,
+                3,
+                5,
+                0
+              ],
+              "awards": [
+                0
+              ],
+              "promoBadgeFeature": [],
+              "offerBadgeId": [],
+              "showHotelEnrichment": false
+            },
+            "tzOffset": 10800,
+            "workingTimeText": "ежедневно, 10:00 AM–8:01 PM",
+            "workingTime": [
+              [
+                {
+                  "from": {
+                    "hours": 10,
+                    "minutes": 0
+                  },
+                  "to": {
+                    "hours": 20,
+                    "minutes": 1
+                  }
+                }
+              ],
+              [
+                {
+                  "from": {
+                    "hours": 10,
+                    "minutes": 0
+                  },
+                  "to": {
+                    "hours": 20,
+                    "minutes": 1
+                  }
+                }
+              ],
+              [
+                {
+                  "from": {
+                    "hours": 10,
+                    "minutes": 0
+                  },
+                  "to": {
+                    "hours": 20,
+                    "minutes": 1
+                  }
+                }
+              ],
+              [
+                {
+                  "from": {
+                    "hours": 10,
+                    "minutes": 0
+                  },
+                  "to": {
+                    "hours": 20,
+                    "minutes": 1
+                  }
+                }
+              ],
+              [
+                {
+                  "from": {
+                    "hours": 10,
+                    "minutes": 0
+                  },
+                  "to": {
+                    "hours": 20,
+                    "minutes": 1
+                  }
+                }
+              ],
+              [
+                {
+                  "from": {
+                    "hours": 10,
+                    "minutes": 0
+                  },
+                  "to": {
+                    "hours": 20,
+                    "minutes": 1
+                  }
+                }
+              ],
+              [
+                {
+                  "from": {
+                    "hours": 10,
+                    "minutes": 0
+                  },
+                  "to": {
+                    "hours": 20,
+                    "minutes": 1
+                  }
+                }
+              ]
+            ],
+            "currentWorkingStatus": {
+              "isOpenNow": false,
+              "text": "Закрыто до 10:00 AM",
+              "shortText": "Закрыто до 10:00 AM",
+              "tag": []
+            },
+            "socialLinks": [
+              {
+                "type": "telegram",
+                "href": "https://t.me/+79632137222",
+                "readableHref": "@+79632137222"
+              },
+              {
+                "type": "viber",
+                "href": "https://viber.click/79632137222",
+                "readableHref": "viber.click/79632137222"
+              },
+              {
+                "type": "whatsapp",
+                "href": "https://wa.me/79632137222",
+                "readableHref": "+79632137222"
+              }
+            ],
+            "businessImages": {
+              "logo": {
+                "urlTemplate": "https://avatars.mds.yandex.net/get-altay/14093276/2a00000192fd937dc499ed0025cfe3721a86/%s",
+                "tag": [
+                  "owner_photo"
+                ],
+                "id": "2a00000192fd937dc499ed0025cfe3721a86"
+              }
+            },
+            "references": [
+              {
+                "id": "yclients__851107",
+                "scope": "yandex_booking"
+              }
+            ],
+            "subtitleItems": [
+              {
+                "type": "working_hours",
+                "text": "Закрыто до 10:00 AM",
+                "property": [
+                  {
+                    "key": "is_open",
+                    "value": "0"
+                  },
+                  {
+                    "key": "short_text",
+                    "value": "Закрыто до 10:00 AM"
+                  },
+                  {
+                    "key": "text",
+                    "value": "Закрыто до 10:00 AM"
+                  }
+                ]
+              },
+              {
+                "type": "rating",
+                "text": "10",
+                "property": [
+                  {
+                    "key": "value",
+                    "value": "10"
+                  },
+                  {
+                    "key": "value_5",
+                    "value": "5"
+                  },
+                  {
+                    "key": "yandex_star",
+                    "value": "1"
+                  }
+                ]
+              }
+            ],
+            "metrika": {
+              "counter": 93838579,
+              "goals": {
+                "call": "make-call",
+                "cta": "cta-button",
+                "route": "make-route",
+                "site": "site",
+                "whatsapp": "whatsapp",
+                "telegram": "telegram",
+                "viber": "viber",
+                "vkontakte": "vkontakte",
+                "youtube": "social-youtube",
+                "odnoklassniki": "social-odnoklassniki",
+                "stories": "stories-button",
+                "taxi": "call-taxi",
+                "booking": "booking",
+                "subscribe": "subscribe",
+                "send-to-phone": "send-to-phone",
+                "booking-open": "booking-open",
+                "share": "share",
+                "booking-confirmed": "booking-confirmed",
+                "booking-visited": "booking-visited",
+                "start-route": "start-route",
+                "visited-organization": "visited-organization"
+              }
+            },
+            "routeToChoose": [
+              {
+                "icon-url": "https://yastatic.net/s3/web4static/_/v2/static/media/yandex_logo.c2cc5125.png",
+                "label": "Яндекс Карты",
+                "route-types": {
+                  "auto": "auto",
+                  "bus": "mt",
+                  "walking": "pd"
+                },
+                "route-url-template": "https://maps.yandex.ru/?mode=routes&rtext={fromParam}~{toParam}&rtt={routeTypeParam}&source=wizbiz_new_map_single&utm_source=yandex&utm_medium=wizbiz_map&utm_campaign=route",
+                "search-text-url-template": "https://yandex.ru/maps/?mode=search&text={encodedText}",
+                "service": "yandex_maps"
+              },
+              {
+                "icon-url": "https://yastatic.net/s3/web4static/_/v2/static/media/twoGis_logo.f6efe2e1.png",
+                "label": "2ГИС",
+                "route-types": {
+                  "auto": "car",
+                  "bus": "bus",
+                  "walking": "pedestrian"
+                },
+                "route-url-template": "https://2gis.ru/directions/tab/{routeTypeParam}/points/{fromParam}|{toParam}&utm_from=route",
+                "search-text-url-template": "https://2gis.ru/search/{encodedText}",
+                "service": "2gis"
+              }
+            ],
+            "topObjects": {
+              "hasPhotos": false,
+              "isYandexEda": false,
+              "rubric": "beauty",
+              "categories": [
+                {
+                  "categoryName": "popular",
+                  "categoryItems": [
+                    {
+                      "title": "Маникюр \"красим\" укрепляем",
+                      "price": "1900",
+                      "currency": "₽",
+                      "source": "YANDEX_BOOKING",
+                      "sourceId": "12526104"
+                    },
+                    {
+                      "title": "Маникюр \"все таки накрасим\" лак",
+                      "price": "1450",
+                      "currency": "₽",
+                      "source": "YANDEX_BOOKING",
+                      "sourceId": "12742098"
+                    },
+                    {
+                      "title": "Педикюр \"красим\" только пальчики",
+                      "price": "1850",
+                      "currency": "₽",
+                      "source": "YANDEX_BOOKING",
+                      "sourceId": "12526138"
+                    }
+                  ]
+                }
+              ],
+              "fullObjectsCount": 27,
+              "relevance": {
+                "lastUploadTime": "2026-05-05T16:29:29.44296Z"
+              },
+              "source": {
+                "id": "YANDEX_BOOKING",
+                "name": "Сервисы онлайн-записи, партнеры Яндекса"
+              }
+            },
+            "parentRubrics": [
+              125907999099,
+              184105804
+            ],
+            "discoveries": [
+              {
+                "alias": "podborka_krasota_manikyur_bryansk-191",
+                "title": "Салоны красоты и ногтевые студии Брянска: услуги маникюра",
+                "description": "В Брянске множество салонов красоты и ногтевых студий, где можно сделать качественный маникюр. Мастера используют профессиональные материалы, учитывают пожелания клиентов и создают уютную атмосферу. Во многих заведениях гостям предлагают чай или кофе, чтобы сделать процедуру ещё более комфортной.",
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/13083354/2a0000018fe2b9b51d71667346fc6fa28f46/%s",
+                "placeNumber": 50,
+                "partner": {
+                  "name": "Яндекс Карты",
+                  "iconTemplate": "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/%s"
+                }
+              },
+              {
+                "alias": "podborka_krasota_manikyur_r-n-fokinskij-bryansk-191",
+                "title": "Салоны и студии маникюра в районе Фокинский (Брянск)",
+                "description": "В подборке собраны салоны красоты и ногтевые студии района Фокинский города Брянска, где можно сделать качественный маникюр. Мастера используют современные техники и качественные материалы, следят за трендами и учитывают пожелания клиентов. В заведениях царит уютная атмосфера, а клиенты могут рассчитывать на внимательный сервис и широкий выбор дизайнов.",
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/6195924/2a000001903912aae50db533150e7cf27c96/%s",
+                "placeNumber": 15,
+                "partner": {
+                  "name": "Яндекс Карты",
+                  "iconTemplate": "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/%s"
+                }
+              },
+              {
+                "alias": "podborka_krasota_pedikyur_bryansk-191",
+                "title": "Салоны и студии педикюра в Брянске",
+                "description": "В Брянске множество салонов красоты и ногтевых студий, где можно сделать педикюр. Мастера используют качественные материалы и учитывают пожелания клиентов. В заведениях царит уютная атмосфера, а персонал отличается профессионализмом и внимательностью к деталям. Выберите подходящее место для ухода за ногами — от классических процедур до модных решений.",
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/13757584/2a0000019000e20727defb51ad992860cae3/%s",
+                "placeNumber": 45,
+                "partner": {
+                  "name": "Яндекс Карты",
+                  "iconTemplate": "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/%s"
+                }
+              }
+            ],
+            "relevantDiscoveries": [
+              {
+                "alias": "podborka_salon-krasoty_bryansk-191",
+                "title": "8 популярных салонов красоты Брянска",
+                "description": "Ищете салон красоты в Брянске? Собрали для вас подборку популярных мест, где можно получить качественные услуги по стрижке, окрашиванию, маникюру, педикюру и другим процедурам. Профессиональные мастера и уютная атмосфера ждут вас.",
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/15650736/2a0000019cdcf713b0627d80988c532e3ddd/%s",
+                "placeNumber": 8,
+                "partner": {
+                  "name": "Яндекс Карты",
+                  "iconTemplate": "https://avatars.mds.yandex.net/get-discovery-int/1532686/2a0000018a8951d0536918abccb677fda58a/%s"
+                }
+              }
+            ],
+            "histogramData": {
+              "wednesday": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0.007881928089181976,
+                0.010739519547809703,
+                0.012906264719736223,
+                0.01344010048673261,
+                0.011524572146333803,
+                0.010582509028104883,
+                0.011681582666038626,
+                0.014821793060135029,
+                0.015606845658659132,
+                0.01281205840791333,
+                0.008352959648296436,
+                0,
+                0,
+                0
+              ],
+              "sunday": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0.008635578583765112,
+                0.013000471031559113,
+                0.013879729941906107,
+                0.012466635264562726,
+                0.011901397393625373,
+                0.01265504788820851,
+                0.01234102684879887,
+                0.011304757418747056,
+                0.011304757418747056,
+                0.009420631182289214,
+                0.006092008164547025,
+                0,
+                0,
+                0
+              ],
+              "friday": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0.00832155754435547,
+                0.013314492070968756,
+                0.013848327837965142,
+                0.014036740461610927,
+                0.013691317318260322,
+                0.013063275239441043,
+                0.012969068927618151,
+                0.01592086669806877,
+                0.01560684565865913,
+                0.01249803736850369,
+                0.0077877217773590825,
+                0,
+                0,
+                0
+              ],
+              "tuesday": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0.008792589103469934,
+                0.012717852096090438,
+                0.013534306798555502,
+                0.013973936253728999,
+                0.01482179306013503,
+                0.017522373999057938,
+                0.01771078662270372,
+                0.01692573402417962,
+                0.014727586748312137,
+                0.01149317004239284,
+                0.007191081802480766,
+                0,
+                0,
+                0
+              ],
+              "monday": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0.009734652221698854,
+                0.013094677343382006,
+                0.014036740461610927,
+                0.013534306798555502,
+                0.014005338357669966,
+                0.01249803736850369,
+                0.013220285759145863,
+                0.018747056052755534,
+                0.017490971895116975,
+                0.013659915214319359,
+                0.009828858533521747,
+                0,
+                0,
+                0
+              ],
+              "thursday": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0.007505102841890407,
+                0.01086512796357356,
+                0.010927932171455488,
+                0.012278222640916941,
+                0.011273355314806093,
+                0.011775788977861516,
+                0.014444967812843462,
+                0.016957136128120585,
+                0.015135814099544669,
+                0.01102213848327838,
+                0.006657246035484378,
+                0,
+                0,
+                0
+              ],
+              "saturday": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0.012215418433035013,
+                0.014821793060135029,
+                0.015481237242895275,
+                0.01617208352959648,
+                0.015355628827131419,
+                0.016266289841419375,
+                0.014476369916784424,
+                0.013691317318260324,
+                0.012623645784267546,
+                0.011430365834510913,
+                0.007599309153713299,
+                0,
+                0,
+                0
+              ]
+            },
+            "eventsPreviews": {
+              "count": 1,
+              "uri": "tycoon_events/1.x",
+              "items": []
+            },
+            "awards": {
+              "goodPlaceYear": "2026"
+            },
+            "hasStories": true,
+            "lastMileStory": {
+              "id": "2441339",
+              "createdAt": 1734859927759,
+              "title": "Как пройти",
+              "coverUrlTemplate": "https://avatars.mds.yandex.net/get-maps_stories/14683857/2a00000193edb5affcf4dc63b0be9c05a520/%s",
+              "screens": [
+                {
+                  "id": "0",
+                  "type": "photo",
+                  "content": [
+                    {
+                      "width": 1080,
+                      "height": 1920,
+                      "urlTemplate": "https://avatars.mds.yandex.net/get-maps_stories/14683857/2a00000193edb5affcf4dc63b0be9c05a520/%s"
+                    }
+                  ],
+                  "buttonsV2": [
+                    {
+                      "type": "openURL",
+                      "title": "онлайн запись",
+                      "url": "https://n914275.yclients.com",
+                      "target": "_blank"
+                    }
+                  ]
+                }
+              ],
+              "permalinks": [
+                "53176636373"
+              ],
+              "moderation": {
+                "status": 1,
+                "reasons": []
+              },
+              "tags": [
+                "lastMile"
+              ]
+            },
+            "booking": {
+              "originalId": "yclients__851107",
+              "partner": {
+                "name": "yclients",
+                "legalName": "ООО «УАЙКЛАЕНТС»",
+                "logoUrl": "https://avatars.mds.yandex.net/get-bunker/135516/07a49cbfc62fc2c5c6dba35b266da10e24eff809/svg",
+                "linkUrl": "https://www.yclients.com/?utm_source=yandex&utm_medium=map"
+              },
+              "standaloneWidgetPath": "/web-maps/webview?mode=booking&booking[permalink]=53176636373&booking[standalone]=true&source=partner-cta",
+              "slotsWidgetAvailable": false,
+              "advertButton": {
+                "ignore": true
+              },
+              "bookingType": "beauty",
+              "shouldShowInSearchResults": true
+            },
+            "aspects": [
+              {
+                "id": "3502044050",
+                "isTrusted": true,
+                "text": "Персонал",
+                "count": 82,
+                "positive": 82,
+                "neutral": 0,
+                "negative": 0,
+                "photos": [
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/16011054/2a00000197f3d66e77909235a9e46222616c/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14920824/2a0000019494775776e34f1773e2e6b5754e/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/13229346/2a0000019494775e553cb8350ed79906b93a/%",
+                    "mds_namespace": "altay"
+                  }
+                ]
+              },
+              {
+                "id": "3502044230",
+                "isTrusted": true,
+                "text": "Атмосфера",
+                "count": 42,
+                "positive": 42,
+                "neutral": 0,
+                "negative": 0,
+                "photos": [
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14064514/2a0000019494775248b2d3a05f0657e9eb65/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14105192/2a0000019494775e2c452507819471531b82/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14731058/2a0000019494775865b2b2a6b5b651965fd5/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/15018138/2a00000194947758c5a592b00d3b9af18d4e/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/12820607/2a0000019494775775949b0de59ab0eb578b/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/16287657/2a00000197f3d66e8c8330e88aa302dfca06/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14190752/2a00000192fdf2b03e41fd0237425df34f89/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14093322/2a00000192fdf2944ec21587c7f1c1bf9908/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14920824/2a0000019494775776e34f1773e2e6b5754e/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/15017195/2a0000019494775db4cffbbfbef7c23cc706/%",
+                    "mds_namespace": "altay"
+                  }
+                ]
+              },
+              {
+                "id": "3502066474",
+                "isTrusted": true,
+                "text": "Маникюр",
+                "count": 35,
+                "positive": 33,
+                "neutral": 2,
+                "negative": 0,
+                "photos": [
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14221082/2a00000192fd98e62f35be3a524ccbadc9de/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/11398069/2a00000192fd98e4ed00cea9a63b2951aa60/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/9793917/2a0000018a6fb2fbaf82f80544a12c5ae6b2/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/9837233/2a0000018a6fb2ff5cfe4ee3022a5a5e6a10/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/19519244/2a0000019b7e13573aaa94fbe34a0d9eb288/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/16454077/2a0000019a980400726279fc962d0b93b433/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/15682944/2a0000019b7e135e979fbcf957174f8450b6/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/15544497/2a0000019a891f9844dfb5bcef14739efd2c/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/16166099/2a0000019b7e135719a4a305789d7ff63cfd/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/10267222/2a00000192fd98d264dd6e433e3c7ccb7cad/%",
+                    "mds_namespace": "altay"
+                  }
+                ]
+              },
+              {
+                "id": "3502204799",
+                "isTrusted": true,
+                "text": "Компетентность",
+                "count": 29,
+                "positive": 29,
+                "neutral": 0,
+                "negative": 0,
+                "photos": []
+              },
+              {
+                "id": "3502044686",
+                "isTrusted": true,
+                "text": "Время ожидания",
+                "count": 15,
+                "positive": 15,
+                "neutral": 0,
+                "negative": 0,
+                "photos": []
+              },
+              {
+                "id": "3502086895",
+                "isTrusted": true,
+                "text": "Педикюр",
+                "count": 13,
+                "positive": 13,
+                "neutral": 0,
+                "negative": 0,
+                "photos": [
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/19662431/2a0000019b7e1356ff4c3b3901e8d46c9a0a/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14221082/2a00000192fd98e7e8c8911fd6874cd75399/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/9793917/2a0000018a6fb1b361fe089f7729d37bb10e/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/10702222/2a0000018a6fb16fcb614810514e82df625f/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/13308954/2a0000018fa64798b78409dc16c0471a960c/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/10216747/2a0000018a6fb223311979f27a0b1e079e11/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/15017195/2a0000019494775db4cffbbfbef7c23cc706/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14105192/2a0000019494775e2c452507819471531b82/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/13229346/2a00000194947752443408ccbb1c64ff2fa5/%",
+                    "mds_namespace": "altay"
+                  },
+                  {
+                    "link": "https://avatars.mds.yandex.net/get-altay/14064514/2a0000019494775248b2d3a05f0657e9eb65/%",
+                    "mds_namespace": "altay"
+                  }
+                ]
+              }
+            ],
+            "videos": {
+              "items": [
+                {
+                  "id": "vplv4glvz6lrsf2yyabf",
+                  "videoUrl": "https://runtime.strm.yandex.ru/player/video/vplv4glvz6lrsf2yyabf",
+                  "thumbnailUrl": "https://avatars.mds.yandex.net/get-vh/14921819/2a0000019a34db51b8611cf8ab981cd1fc30/orig",
+                  "tags": [
+                    {
+                      "id": "hardcoded-video",
+                      "name": "Видео"
+                    }
+                  ],
+                  "height": 1920,
+                  "width": 1080
+                },
+                {
+                  "id": "vplvt6z572sixb5rxo5x",
+                  "videoUrl": "https://runtime.strm.yandex.ru/player/video/vplvt6z572sixb5rxo5x",
+                  "thumbnailUrl": "https://avatars.mds.yandex.net/get-vh/16146899/2a0000019c869a02df35eb00c67cbafc431e/orig",
+                  "tags": [
+                    {
+                      "id": "hardcoded-video",
+                      "name": "Видео"
+                    }
+                  ],
+                  "height": 1920,
+                  "width": 1080
+                },
+                {
+                  "id": "vplvfoxd4dn2tj3rekct",
+                  "videoUrl": "https://runtime.strm.yandex.ru/player/video/vplvfoxd4dn2tj3rekct",
+                  "thumbnailUrl": "https://avatars.mds.yandex.net/get-vh/19229708/2a0000019b7e149c9d35c6255313427dcda6/orig",
+                  "tags": [
+                    {
+                      "id": "hardcoded-video",
+                      "name": "Видео"
+                    }
+                  ],
+                  "height": 1920,
+                  "width": 1080
+                },
+                {
+                  "id": "vplvkayxk6lxz62tgw4d",
+                  "videoUrl": "https://runtime.strm.yandex.ru/player/video/vplvkayxk6lxz62tgw4d",
+                  "thumbnailUrl": "https://avatars.mds.yandex.net/get-vh/16124030/2a0000019b7e14fe2f8944aa38b9d6ad1963/orig",
+                  "tags": [
+                    {
+                      "id": "hardcoded-video",
+                      "name": "Видео"
+                    }
+                  ],
+                  "height": 1920,
+                  "width": 1080
+                },
+                {
+                  "id": "vplvw72nxzafmyqxhveh",
+                  "videoUrl": "https://runtime.strm.yandex.ru/player/video/vplvw72nxzafmyqxhveh",
+                  "thumbnailUrl": "https://avatars.mds.yandex.net/get-vh/14323753/2a0000019a34e0f86534af38fbb8277412d0/orig",
+                  "tags": [
+                    {
+                      "id": "hardcoded-video",
+                      "name": "Видео"
+                    }
+                  ],
+                  "height": 1920,
+                  "width": 1080
+                },
+                {
+                  "id": "vplvbmumbmby33wui4jz",
+                  "videoUrl": "https://runtime.strm.yandex.ru/player/video/vplvbmumbmby33wui4jz",
+                  "thumbnailUrl": "https://avatars.mds.yandex.net/get-vh/16499410/2a0000019a34df6636cdad49d9e29c269bf2/orig",
+                  "tags": [
+                    {
+                      "id": "hardcoded-video",
+                      "name": "Видео"
+                    }
+                  ],
+                  "height": 1920,
+                  "width": 1080
+                },
+                {
+                  "id": "vplvy4ue6kirwppreuvu",
+                  "videoUrl": "https://runtime.strm.yandex.ru/player/video/vplvy4ue6kirwppreuvu",
+                  "thumbnailUrl": "https://avatars.mds.yandex.net/get-vh/4948429/2a0000019494827aa20c03f19066e9026487/orig",
+                  "tags": [
+                    {
+                      "id": "hardcoded-video",
+                      "name": "Видео"
+                    }
+                  ],
+                  "height": 1920,
+                  "width": 1080
+                },
+                {
+                  "id": "vplv2vuunbo27d242ybt",
+                  "videoUrl": "https://runtime.strm.yandex.ru/player/video/vplv2vuunbo27d242ybt",
+                  "thumbnailUrl": "https://avatars.mds.yandex.net/get-vh/6360136/2a00000194947b8a06573eddcfc3c1315b9b/orig",
+                  "tags": [
+                    {
+                      "id": "hardcoded-video",
+                      "name": "Видео"
+                    }
+                  ],
+                  "height": 1920,
+                  "width": 1080
+                },
+                {
+                  "id": "vplvgq2div6kbtmjux6n",
+                  "videoUrl": "https://runtime.strm.yandex.ru/player/video/vplvgq2div6kbtmjux6n",
+                  "thumbnailUrl": "https://avatars.mds.yandex.net/get-vh/5353805/2a00000194947bc8cb9e83c84fb4363b545b/orig",
+                  "tags": [
+                    {
+                      "id": "hardcoded-video",
+                      "name": "Видео"
+                    }
+                  ],
+                  "height": 1920,
+                  "width": 1080
+                },
+                {
+                  "id": "vplvga2ibjtgjf5ik4r6",
+                  "videoUrl": "https://runtime.strm.yandex.ru/player/video/vplvga2ibjtgjf5ik4r6",
+                  "thumbnailUrl": "https://avatars.mds.yandex.net/get-vh/6502245/2a00000191d2f9727e2ca9cce4b720c2a4fa/orig",
+                  "tags": [
+                    {
+                      "id": "hardcoded-video",
+                      "name": "Видео"
+                    }
+                  ],
+                  "height": 1280,
+                  "width": 720
+                }
+              ]
+            },
+            "needSimilarOrgsRequest": true,
+            "region": {
+              "id": 191,
+              "type": 6,
+              "capitalId": 0,
+              "hierarchy": [
+                225,
+                10650,
+                191
+              ],
+              "seoname": "bryansk",
+              "bounds": [
+                [
+                  34.1808425,
+                  53.147951795198836
+                ],
+                [
+                  34.5471395,
+                  53.33863579519883
+                ]
+              ],
+              "longitude": 34.363991,
+              "latitude": 53.2434,
+              "zoom": 13,
+              "names": {
+                "ablative": "",
+                "accusative": "Брянск",
+                "dative": "Брянску",
+                "directional": "",
+                "genitive": "Брянска",
+                "instrumental": "Брянском",
+                "locative": "",
+                "nominative": "Брянск",
+                "preposition": "в",
+                "prepositional": "Брянске"
+              }
+            },
+            "breadcrumbs": [
+              {
+                "name": "Карты",
+                "type": "root",
+                "url": "https://yandex.com/maps/"
+              },
+              {
+                "name": "Брянск",
+                "type": "region",
+                "url": "https://yandex.com/maps/191/bryansk/",
+                "region": {
+                  "center": [
+                    34.363991,
+                    53.2434
+                  ],
+                  "zoom": 13
+                }
+              },
+              {
+                "category": {
+                  "id": "184105814",
+                  "name": "Салон красоты",
+                  "class": "spa",
+                  "seoname": "beauty_salon",
+                  "pluralName": "Салоны красоты"
+                },
+                "name": "Салоны красоты",
+                "type": "category",
+                "url": "https://yandex.com/maps/191/bryansk/category/beauty_salon/184105814/"
+              }
+            ],
+            "a11y": {
+              "hasReviews": false,
+              "photos": []
+            },
+            "relatedPlaces": [
+              {
+                "type": "similar",
+                "id": "1020754392",
+                "uri": "ymapsbm1://org?oid=1020754392",
+                "logId": "1020754392",
+                "title": "Имидж",
+                "rating": 4.4,
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/939994/2a000001628771e0de363242acb4fc8de2f4/%s",
+                "category": "Салон красоты",
+                "categories": [],
+                "seoname": "imidzh",
+                "coordinates": [
+                  34.394723,
+                  53.217318
+                ],
+                "icon": "spa",
+                "poiColor": "#F58CB6",
+                "poiLabelColor": "#D46C95",
+                "isAdvert": false
+              },
+              {
+                "type": "similar",
+                "id": "1705427219",
+                "uri": "ymapsbm1://org?oid=1705427219",
+                "logId": "1705427219",
+                "title": "Динара",
+                "rating": 3.7,
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/904281/2a0000016286822085066cdd37a2eda60a5f/%s",
+                "category": "Салон красоты",
+                "categories": [],
+                "seoname": "dinara",
+                "coordinates": [
+                  34.39464,
+                  53.218868
+                ],
+                "icon": "spa",
+                "poiColor": "#F58CB6",
+                "poiLabelColor": "#D46C95",
+                "isAdvert": false
+              },
+              {
+                "type": "similar",
+                "id": "1789833754",
+                "uri": "ymapsbm1://org?oid=1789833754",
+                "logId": "1789833754",
+                "title": "Кристина",
+                "rating": 4.4,
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/1426646/2a0000016998f4e2d53fc7919969b71b18ad/%s",
+                "category": "Парикмахерская",
+                "categories": [],
+                "seoname": "kristina",
+                "coordinates": [
+                  34.39598,
+                  53.217288
+                ],
+                "icon": "hairdressers",
+                "poiColor": "#9C89FA",
+                "poiLabelColor": "#8477E5",
+                "isAdvert": false
+              },
+              {
+                "type": "similar",
+                "id": "13746259871",
+                "uri": "ymapsbm1://org?oid=13746259871",
+                "logId": "13746259871",
+                "title": "Krocus",
+                "rating": 4.3,
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/2714499/2a0000017091ddd7db38cb0e8bb8a3ae9783/%s",
+                "category": "Салон красоты",
+                "categories": [],
+                "seoname": "krocus",
+                "coordinates": [
+                  34.399237,
+                  53.214666
+                ],
+                "icon": "spa",
+                "poiColor": "#F58CB6",
+                "poiLabelColor": "#D46C95",
+                "isAdvert": false
+              },
+              {
+                "type": "similar",
+                "id": "96195832006",
+                "uri": "ymapsbm1://org?oid=96195832006",
+                "logId": "96195832006",
+                "title": "Mood",
+                "rating": 5,
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/10175550/2a0000018ba575a0cf9df698ac0edd383dd8/%s",
+                "category": "Салон красоты",
+                "categories": [],
+                "seoname": "mood",
+                "coordinates": [
+                  34.38851,
+                  53.218046
+                ],
+                "icon": "spa",
+                "poiColor": "#F58CB6",
+                "poiLabelColor": "#D46C95",
+                "isAdvert": false
+              },
+              {
+                "type": "similar",
+                "id": "1069654836",
+                "uri": "ymapsbm1://org?oid=1069654836",
+                "logId": "1069654836",
+                "title": "Скарлетт",
+                "rating": 3.1,
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/4303674/2a000001775a4ae35bd68fdfb4d6f46f1e8f/%s",
+                "category": "Салон красоты",
+                "categories": [],
+                "seoname": "skarlett",
+                "coordinates": [
+                  34.400445,
+                  53.217893
+                ],
+                "icon": "spa",
+                "poiColor": "#F58CB6",
+                "poiLabelColor": "#D46C95",
+                "isAdvert": false
+              },
+              {
+                "type": "similar",
+                "id": "1193193099",
+                "uri": "ymapsbm1://org?oid=1193193099",
+                "logId": "1193193099",
+                "title": "Фортуна",
+                "rating": 4.3,
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/14540779/2a00000194df9f53547c548f8bfb66ed6b14/%s",
+                "category": "Салон красоты",
+                "categories": [],
+                "seoname": "fortuna",
+                "coordinates": [
+                  34.397546,
+                  53.217573
+                ],
+                "icon": "spa",
+                "poiColor": "#F58CB6",
+                "poiLabelColor": "#D46C95",
+                "isAdvert": false
+              },
+              {
+                "type": "similar",
+                "id": "95969107815",
+                "uri": "ymapsbm1://org?oid=95969107815",
+                "logId": "95969107815",
+                "title": "Корона Бьюти",
+                "rating": 4.7,
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/1546430/2a0000016ce77e0817aa82acf5736ef891b1/%s",
+                "category": "Салон красоты",
+                "categories": [],
+                "seoname": "korona_byuti",
+                "coordinates": [
+                  34.427046,
+                  53.213059
+                ],
+                "icon": "spa",
+                "poiColor": "#F58CB6",
+                "poiLabelColor": "#D46C95",
+                "isAdvert": false
+              },
+              {
+                "type": "similar",
+                "id": "166699295598",
+                "uri": "ymapsbm1://org?oid=166699295598",
+                "logId": "166699295598",
+                "title": "Анна Мур",
+                "rating": 4.2,
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/5232541/2a00000181afd627c9ee1284d0ac5ceaf351/%s",
+                "category": "Парикмахерская",
+                "categories": [],
+                "seoname": "anna_mur",
+                "coordinates": [
+                  34.391464,
+                  53.215402
+                ],
+                "icon": "hairdressers",
+                "poiColor": "#9C89FA",
+                "poiLabelColor": "#8477E5",
+                "isAdvert": false
+              },
+              {
+                "type": "similar",
+                "id": "237883091582",
+                "uri": "ymapsbm1://org?oid=237883091582",
+                "logId": "237883091582",
+                "title": "Подиум",
+                "photoUrlTemplate": "https://avatars.mds.yandex.net/get-altay/6221595/2a00000181427491e5ccd8842477d57a46c5/%s",
+                "category": "Салон красоты",
+                "categories": [],
+                "seoname": "podium",
+                "coordinates": [
+                  34.39704,
+                  53.218459
+                ],
+                "icon": "spa",
+                "poiColor": "#F58CB6",
+                "poiLabelColor": "#D46C95",
+                "isAdvert": false
+              }
+            ],
+            "reviewResults": {
+              "reviews": [
+                {
+                  "reviewId": "n0W6TZMDaInY8lc808nqEz2I3orQCM0wi",
+                  "businessId": "53176636373",
+                  "author": {
+                    "name": "Беженарь Вероника",
+                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/25358/0d-8/{size}",
+                    "professionLevel": "Знаток города 3 уровня",
+                    "rtb": "Знаток города 3 уровня",
+                    "rtbType": "PROFESSION",
+                    "publicId": "wazfuu9wj8c0m2vh7jvqzdycmc",
+                    "achievements": [],
+                    "professions": [],
+                    "isSubscribed": false
+                  },
+                  "text": "Абсолютно шикарный опыт в студии красоты «Пастила»\nМастера — настоящие художники, которые великолепно воплощают желания в жизнь. Атмосфера очень уютная, чувствуешь себя комфортно и расслаблено.\n\nОсобенно впечатлила стерильность и чистота восхищают и создают полное доверие. Без раздумий ставлю пять звёзд!\n\nСпасибо «Пастила» за великолепный маникюр и уверенность, которую вы дарите! 💅✨",
+                  "textLanguage": "ru",
+                  "textTranslations": {
+                    "tr": "Pastila güzellik stüdyosunda kesinlikle muhteşem bir deneyim\nUstalar, arzuları muhteşem bir şekilde hayata geçiren gerçek sanatçılardır. Atmosfer çok rahat, kendinizi rahat ve rahat hissediyorsunuz.\n\nÖzellikle etkilendim, kısırlık ve saflık hayranlık uyandırıyor ve tam bir güven yaratıyor. Tereddüt etmeden beş yıldız veriyorum!\n\nMuhteşem manikür ve verdiğiniz güven için teşekkür ederim \"Pastila\"! 💅✨"
+                  },
+                  "rating": 5,
+                  "updatedTime": "2025-11-11T07:34:27.516Z",
+                  "reactions": {
+                    "likes": 1,
+                    "dislikes": 0,
+                    "userReaction": "NONE"
+                  },
+                  "photos": [],
+                  "videos": []
+                },
+                {
+                  "reviewId": "LqDO9zHI9h392-qImNPqi2FpE3OSLb",
+                  "businessId": "53176636373",
+                  "author": {
+                    "name": "Ольга босенко",
+                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/27503/0h-8/{size}",
+                    "professionLevel": "Знаток города 5 уровня",
+                    "rtb": "Знаток города 5 уровня",
+                    "rtbType": "PROFESSION",
+                    "publicId": "0n14cnepdf39vyudyt0yr6dr5r",
+                    "achievements": [],
+                    "professions": [],
+                    "isSubscribed": false
+                  },
+                  "text": "Все о маникюре и педикюре\nА я о мастере шугаринга\nСделала депиляцию у мастерв Евгении и очень довольна. Процедура выполнена быстро и почти безболезненно. Результат превосходный! Гладкость кожи идеальная, не осталось ни одного лишнего волоска. За непринужденной беседой не заметила, как пролетело время. Очень приятный человек и отличный специалист. Всем советую посетить этого замечательного мастера. Я уже записалась в ряды ее постоянных клиентов.",
+                  "textLanguage": "ru",
+                  "textTranslations": {
+                    "tr": "Manikür ve pedikür hakkında her şey\nBen de şekerleme ustasından bahsediyorum\nUstabaşı Eugenia'dan epilasyon yaptım ve çok memnun kaldım. İşlem hızlı ve neredeyse ağrısızdır. Sonuç mükemmel! Cildin pürüzsüzlüğü mükemmeldir, tek bir ekstra tüy kalmaz. Rahat bir sohbette zamanın nasıl geçtiğini fark etmedim. Çok hoş bir insan ve mükemmel bir uzman. Herkese bu harika ustayı ziyaret etmenizi tavsiye ederim. Onun müdavimlerinin saflarına çoktan kaydoldum."
+                  },
+                  "rating": 5,
+                  "updatedTime": "2025-11-12T08:36:00.543Z",
+                  "reactions": {
+                    "likes": 2,
+                    "dislikes": 0,
+                    "userReaction": "NONE"
+                  },
+                  "photos": [],
+                  "videos": []
+                },
+                {
+                  "reviewId": "N5tWFnZBvtIn2bY4DH639SlbSwCppyVR",
+                  "businessId": "53176636373",
+                  "author": {
+                    "name": "наталья е.",
+                    "avatarUrl": "",
+                    "professionLevel": "Знаток города 2 уровня",
+                    "rtb": "Знаток города 2 уровня",
+                    "rtbType": "PROFESSION",
+                    "publicId": "bv81rxvhpjhr49xgvzb5e8d6vm",
+                    "achievements": [],
+                    "professions": [],
+                    "isSubscribed": false
+                  },
+                  "text": "Посещаю студию много лет и всегда остаюсь довольна. Хочу отдельно отметить мастера шугаринга Евгению, у которой просто золотые руки. Она выполняет работу безукоризненно, очень аккуратна и внимательна. Кроме того, в студии всегда идеальная чистота и приятная обстановка. Чувствуется забота о каждом клиенте. Все девочки мастера своего дела. Спасибо за ваш труд!",
+                  "textLanguage": "ru",
+                  "textTranslations": {
+                    "tr": "Uzun yıllardır stüdyoyu ziyaret ediyorum ve her zaman memnun kalıyorum. Sadece altın elleri olan şekerleme ustası Eugenia'yı ayrı ayrı not etmek istiyorum. İşi kusursuz, çok dikkatli ve özenli bir şekilde yapıyor. Ayrıca stüdyoda her zaman mükemmel temizlik ve hoş bir ortam vardır. Her müşteri için bakım hissedilir. Bütün kızlar kendi işlerinde ustadır. Çalışmanız için teşekkür ederim!"
+                  },
+                  "rating": 5,
+                  "updatedTime": "2025-12-03T19:13:37.524Z",
+                  "reactions": {
+                    "likes": 1,
+                    "dislikes": 0,
+                    "userReaction": "NONE"
+                  },
+                  "photos": [],
+                  "videos": []
+                }
+              ],
+              "params": {
+                "offset": 0,
+                "limit": 3,
+                "count": 88,
+                "loadedReviewsCount": 3,
+                "page": 1,
+                "totalPages": 30,
+                "reviewsRemained": 85
+              },
+              "tags": [],
+              "aspects": []
+            },
+            "reviewPollData": {
+              "aspects": [
+                "Обслуживание",
+                "Мастера",
+                "Персонал",
+                "Атмосфера",
+                "Уютная атмосфера",
+                "Маникюр",
+                "Компетентность",
+                "Время ожидания",
+                "Педикюр",
+                "Коррекция бровей",
+                "Чистота",
+                "Уход за бровями",
+                "Шугаринг",
+                "Эпиляция",
+                "Интерьер"
+              ]
+            },
+            "geoWhere": {
+              "id": "56002314",
+              "seoname": "kiyevskaya_ulitsa_34",
+              "kind": "house",
+              "coordinates": [
+                34.395432,
+                53.216739
+              ],
+              "displayCoordinates": [
+                34.395432,
+                53.216739
+              ],
+              "encodedCoordinates": "Z00YdQ5lTUYFQFtpfX5wd3tgbQ=="
+            }
+          }
+        ],
+        "pageCount": 1,
+        "resultsCount": 1,
+        "bounds": [
+          [
+            34.38219465,
+            53.20899527
+          ],
+          [
+            34.40884535,
+            53.22492527
+          ]
+        ],
+        "categories": [],
+        "filters": [
+          {
+            "id": "worktime",
+            "isTop": true,
+            "name": "открыто",
+            "type": "worktime",
+            "values": {
+              "openNow": {
+                "id": "open_now",
+                "disabled": true,
+                "name": "открыто",
+                "type": "boolean",
+                "selected": false,
+                "isTop": true
+              },
+              "open24h": {
+                "id": "open_24h",
+                "disabled": true,
+                "name": "круглосуточно",
+                "type": "boolean",
+                "selected": false,
+                "isTop": true
+              },
+              "openInNextTwoHours": {
+                "id": "open_in_next_two_hours",
+                "name": "",
+                "selected": false,
+                "type": "boolean"
+              },
+              "openAt": {
+                "id": "open_at",
+                "name": "Открыто в указанное время",
+                "type": "datetime",
+                "from": null,
+                "to": null,
+                "minValue": "2026-05-07T00:00:00.000Z",
+                "maxValue": "2026-05-14T00:00:00.000Z"
+              }
+            }
+          },
+          {
+            "id": "payment_by_credit_card",
+            "disabled": true,
+            "name": "Оплата картой",
+            "type": "boolean",
+            "selected": false
+          },
+          {
+            "id": "car_park",
+            "name": "парковка",
+            "type": "boolean",
+            "selected": false
+          },
+          {
+            "id": "has_photo",
+            "name": "с фото",
+            "type": "boolean",
+            "selected": false
+          }
+        ],
+        "filterGroups": []
+      },
+      "request": {
+        "id": "53176636373"
+      },
+      "isLoading": false,
+      "meta": {
+        "title": "Пастила, салон красоты, Брянск, Киевская ул., 34 — Яндекс Карты",
+        "breadcrumbs": [
+          {
+            "name": "Карты",
+            "type": "root",
+            "url": "https://yandex.com/maps/?lang=ru"
+          },
+          {
+            "name": "Брянск",
+            "type": "region",
+            "url": "https://yandex.com/maps/191/bryansk/?lang=ru",
+            "region": {
+              "center": [
+                34.363991,
+                53.2434
+              ],
+              "zoom": 13
+            }
+          },
+          {
+            "category": {
+              "id": "184105814",
+              "name": "Салон красоты",
+              "class": "spa",
+              "seoname": "beauty_salon",
+              "pluralName": "Салоны красоты"
+            },
+            "name": "Салоны красоты",
+            "type": "category",
+            "url": "https://yandex.com/maps/191/bryansk/category/beauty_salon/184105814/?lang=ru"
+          }
+        ]
+      },
+      "tab": "overview",
+      "mobileViewState": "expanded",
+      "tabletViewTop": {
+        "current": 0,
+        "delta": 0,
+        "start": 0,
+        "min": 0,
+        "expanded": 0,
+        "mini": 0,
+        "micro": 0,
+        "max": 0,
+        "offset": 0
+      },
+      "id": "8b0729ba-7e4b-4ef3-bb30-a8948b363dc9"
+    }
+  ],
+  "loadingErrors": [],
+  "map": {
+    "isEditing": false,
+    "isInAction": false,
+    "isHoverForceEnabled": false,
+    "effectiveZoomRounding": "snap",
+    "ready": false,
+    "fullReady": false,
+    "type": "map",
+    "mode": "raster",
+    "camera": {
+      "azimuth": 0,
+      "tilt": 0
+    },
+    "size": {
+      "width": 1200,
+      "height": 1080
+    },
+    "offset": {
+      "left": 720,
+      "top": 0,
+      "bottom": 0,
+      "right": 0
+    },
+    "location": {
+      "center": [
+        34.395520000000005,
+        53.21696101407608
+      ],
+      "zoom": 15,
+      "span": [
+        0.047206878662109375,
+        0.024728856369783614
+      ],
+      "bounds": [
+        [
+          34.37191656066895,
+          53.204594792827436
+        ],
+        [
+          34.41912343933106,
+          53.22932364919722
+        ]
+      ]
+    },
+    "margin": [
+      70,
+      50,
+      50,
+      50
+    ],
+    "modeFutureSelected": true
+  },
+  "homePanel": {
+    "isLoading": false,
+    "types": [
+      "home"
+    ]
+  },
+  "search": {
+    "visitedBusinesses": [],
+    "businessesInside": {}
+  },
+  "reviews": {
+    "businessReviews": {},
+    "ranking": "by_relevance_org"
+  },
+  "form": {
+    "formType": {
+      "id": "common"
+    },
+    "text": ""
+  },
+  "whatsherePreview": null,
+  "ruler": {
+    "type": "ruler",
+    "isEnabled": false,
+    "points": []
+  },
+  "panoramas": {
+    "isLayerEnabled": false,
+    "isStreetLayerAvailable": true,
+    "isAirLayerAvailable": true,
+    "loadingPanorama": null
+  },
+  "photos": {
+    "isLayerEnabled": false
+  },
+  "mrc": {
+    "isLayerEnabled": false,
+    "isPlaying": false,
+    "graphType": "road",
+    "photoCache": {}
+  },
+  "addPhotos": {
+    "isOpen": false
+  },
+  "feedback": {
+    "isCommonFeedbackOpened": false
+  },
+  "ugcProfile": {
+    "assignments": {
+      "editOrganizationStatusAssignment": {
+        "isLoaded": false,
+        "isLoading": false,
+        "items": [],
+        "areAllLoaded": false,
+        "isReloadNeeded": false
+      },
+      "united": {
+        "isLoaded": false,
+        "isLoading": false,
+        "items": [],
+        "areAllLoaded": false,
+        "isReloadNeeded": false
+      }
+    },
+    "reviews": {
+      "isLoaded": false,
+      "isLoading": false,
+      "items": [],
+      "areAllLoaded": false,
+      "isReloadNeeded": false
+    },
+    "feedback": {
+      "isLoaded": false,
+      "isLoading": false,
+      "items": [],
+      "areAllLoaded": false,
+      "isReloadNeeded": false
+    },
+    "feedbackDrafts": {
+      "isInited": false,
+      "items": [],
+      "hasError": false
+    },
+    "photos": {
+      "account": {
+        "isLoaded": false,
+        "isLoading": false,
+        "items": [],
+        "areAllLoaded": false,
+        "isReloadNeeded": false
+      },
+      "organization": {
+        "isLoaded": false,
+        "isLoading": false,
+        "items": [],
+        "areAllLoaded": false,
+        "isReloadNeeded": false
+      },
+      "data": {
+        "tab": "organization"
+      }
+    },
+    "mrc": {
+      "isLoaded": false,
+      "isLoading": false,
+      "items": [],
+      "areAllLoaded": false,
+      "isReloadNeeded": false
+    },
+    "impressions": {
+      "isLoaded": false,
+      "isLoading": false,
+      "items": [],
+      "areAllLoaded": false,
+      "isReloadNeeded": false
+    },
+    "panoramas": {
+      "isLoaded": false,
+      "isLoading": false,
+      "items": [],
+      "areAllLoaded": false,
+      "isReloadNeeded": false
+    }
+  },
+  "loginDialog": {
+    "isOpen": false
+  },
+  "placemarks": {},
+  "geolocation": {
+    "isStarted": false,
+    "currentPosition": null,
+    "isAuto": false,
+    "isWatching": false,
+    "lastTimeUpdate": 1778112019867,
+    "error": null
+  },
+  "bodyIndents": null,
+  "mapRegion": {
+    "id": 191,
+    "type": 6,
+    "capitalId": 0,
+    "hierarchy": [
+      225,
+      10650,
+      191
+    ],
+    "seoname": "bryansk",
+    "bounds": [
+      [
+        34.1808425,
+        53.147951795198836
+      ],
+      [
+        34.5471395,
+        53.33863579519883
+      ]
+    ],
+    "longitude": 34.363991,
+    "latitude": 53.2434,
+    "zoom": 13,
+    "names": {
+      "ablative": "",
+      "accusative": "Брянск",
+      "dative": "Брянску",
+      "directional": "",
+      "genitive": "Брянска",
+      "instrumental": "Брянском",
+      "locative": "",
+      "nominative": "Брянск",
+      "preposition": "в",
+      "prepositional": "Брянске"
+    }
+  },
+  "traffic": {
+    "isLayerEnabled": false,
+    "isPanelOpen": false,
+    "level": null,
+    "infoLayerShown": true,
+    "settings": {
+      "providerKey": "traffic#actual",
+      "state": null
+    },
+    "trafficEvents": null,
+    "currentTrafficEvent": null
+  },
+  "masstransit": {
+    "isFilterLayerEnabled": false,
+    "isLayerShown": false,
+    "isLayerEnabled": false,
+    "isLayerEnabledOnAnotherZoom": false,
+    "vehicles": [],
+    "seoVehicles": []
+  },
+  "masstransitBookmarks": {
+    "hasInitError": false,
+    "highlightedStopId": null,
+    "actions": {},
+    "stops": null,
+    "lines": null
+  },
+  "bookmarks": {
+    "highlightedId": null,
+    "rootFolder": null,
+    "subscriptionLists": null,
+    "sharedLists": null,
+    "publicList": null,
+    "hasInitError": false,
+    "hasSyncListsError": false,
+    "hasPlacesInitError": false,
+    "hasActionError": false,
+    "currentAction": null,
+    "actions": {},
+    "searchResults": {},
+    "cachedCoordinates": {},
+    "isBanned": false
+  },
+  "parking": {
+    "isLayerShown": false,
+    "isLayerEnabled": true,
+    "center": null
+  },
+  "clearHistoryDialogOpened": false,
+  "clearHistorySuccessPopupShown": false,
+  "collapsedSidebar": false,
+  "defaultMobileViewState": "expanded",
+  "tabletViewTop": {
+    "current": 0,
+    "delta": 0,
+    "start": 0,
+    "min": 0,
+    "expanded": 0,
+    "mini": 0,
+    "micro": 0,
+    "max": 0,
+    "offset": 0
+  },
+  "isHeaderFocused": false,
+  "shouldForceOpenSuggest": false,
+  "isHeaderShown": true,
+  "hotelsBooking": {
+    "dates": {
+      "from": {
+        "@@date": "2026-05-08T00:00:19.867Z"
+      },
+      "to": {
+        "@@date": "2026-05-09T00:00:19.867Z"
+      }
+    },
+    "guests": {
+      "adults": 1,
+      "childrenAges": []
+    },
+    "breakfast": false,
+    "freeCancellation": false
+  },
+  "posts": {
+    "byBusinessId": {},
+    "byUri": {}
+  },
+  "routes": {
+    "isMrcPlayerHidden": false,
+    "isRoutePointDragging": false,
+    "defaults": {
+      "cargo": {
+        "presets": [],
+        "activeId": null
+      }
+    }
+  },
+  "promoType": "daas",
+  "stackActionsCount": 0,
+  "metro": {
+    "isSchemeReady": false
+  },
+  "closedNotifications": [],
+  "indoor": {
+    "levelId": null,
+    "plans": null
+  },
+  "stories": {
+    "storyCache": {},
+    "businessCache": {}
+  },
+  "share": {
+    "isExpanded": false
+  },
+  "timeContext": {
+    "hydrationPhaseTime": {
+      "@@date": "2026-05-07T00:00:19.867Z"
+    }
+  },
+  "mapControlsState": {
+    "isMobileControlsHidden": false,
+    "savedPanoramasPhotosLayer": "panorama"
+  },
+  "storiesVisitedCache": {},
+  "tabs": {},
+  "nightOverlay": {
+    "isShown": false
+  },
+  "fines": {},
+  "communication": {
+    "hint": {
+      "items": [],
+      "shownHintIds": []
+    },
+    "notification": {
+      "items": []
+    }
+  },
+  "discoveryHomeFeed": {
+    "intents": [
+      {
+        "slug": "default",
+        "caption": "Все"
+      },
+      {
+        "slug": "seasonal_spring_may",
+        "caption": "🌸 Весна"
+      },
+      {
+        "slug": "with_kids",
+        "caption": "🧸 С детьми"
+      },
+      {
+        "slug": "hungry",
+        "caption": "🥗 Поесть"
+      },
+      {
+        "slug": "drink",
+        "caption": "🍷 Выпить"
+      },
+      {
+        "slug": "leisure",
+        "caption": "🎤 Развлечься"
+      },
+      {
+        "slug": "sight",
+        "caption": "🏛 Погулять"
+      }
+    ],
+    "selectedIntentSlug": "default"
+  },
+  "locationSharing": {
+    "sharingDialog": {
+      "isVisible": false,
+      "type": "app-link"
+    }
+  }
+}

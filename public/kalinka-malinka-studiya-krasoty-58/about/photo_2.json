@@ -1,0 +1,82 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "interior",
+  "quality": {
+    "score": 8,
+    "sharpness": 8,
+    "lighting": 8,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background"
+    ]
+  },
+  "content": {
+    "description": "Уютное кресло для процедур в салоне красоты с приглушенным светом и стильным дизайном.",
+    "alt_text": "Интерьер салона красоты с удобным креслом для процедур",
+    "objects": [
+      "recliner_chair",
+      "side_table",
+      "desk_lamp",
+      "window_blinds",
+      "parquet_floor",
+      "decorative_panel"
+    ],
+    "dominant_colors": [
+      "gray",
+      "brown",
+      "black"
+    ],
+    "mood": "cozy"
+  },
+  "people": {
+    "present": false,
+    "count": 0,
+    "faces_visible": false,
+    "primary_subject": null,
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": null,
+  "fit_scores": {
+    "hero": {
+      "score": 4,
+      "reason": "The image shows a nice interior, but lacks a strong hook or clear service demonstration for a hero section."
+    },
+    "about": {
+      "score": 10,
+      "reason": "This photo perfectly captures the atmosphere and interior design of the salon, making it ideal for an 'About' section."
+    },
+    "gallery": {
+      "score": 0,
+      "reason": "The image does not showcase any specific work results or services offered by the salon."
+    },
+    "team": {
+      "score": 0,
+      "reason": "There are no people in the image, so it cannot be used for a team section."
+    },
+    "services": {
+      "score": 2,
+      "reason": "While it shows a treatment chair, it doesn't clearly depict a specific service or its result."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

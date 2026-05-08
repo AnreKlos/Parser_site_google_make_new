@@ -17,22 +17,22 @@
     ]
   },
   "content": {
-    "description": "Светлый и современный интерьер салона красоты с рабочими местами для маникюра и парикмахерских услуг, оборудованными зеркалами и удобными креслами.",
-    "alt_text": "Интерьер салона красоты: рабочие места для маникюра и парикмахерских услуг",
+    "description": "Уютный маникюрный кабинет с рабочим столом, лампой и креслами.",
+    "alt_text": "Маникюрный кабинет с рабочим столом и лампой",
     "objects": [
       "manicure_desk",
-      "hairdresser_chair",
-      "mirror",
       "nail_lamp",
-      "hairdresser_station",
-      "wood_paneling"
+      "manicure_drill",
+      "salon_chair",
+      "mirror",
+      "shelving"
     ],
     "dominant_colors": [
       "white",
-      "brown",
-      "black"
+      "gray",
+      "wood_tone"
     ],
-    "mood": "neutral"
+    "mood": "cozy"
   },
   "people": {
     "present": false,
@@ -47,27 +47,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": null,
+  "service_ref": "nails_general",
   "fit_scores": {
     "hero": {
       "score": 4,
-      "reason": "This image shows the salon interior, which is good for setting the atmosphere, but it lacks a strong hook or clear service demonstration for a hero section."
+      "reason": "This image shows the interior of a salon, which can be appealing, but it lacks a strong hook like a master at work or a striking result."
     },
     "about": {
       "score": 10,
-      "reason": "This is an excellent shot of the salon's interior, showcasing its clean, modern design and the available workstations, perfectly fitting the 'about' section's purpose."
+      "reason": "This is an excellent shot of the salon's interior, showcasing the workspace and atmosphere without focusing on procedures."
     },
     "gallery": {
       "score": 0,
-      "reason": "The image focuses on the salon's interior and does not display any specific work results or before/after examples."
+      "reason": "The image does not showcase any specific work results or before/after transformations."
     },
     "team": {
       "score": 0,
-      "reason": "There are no people visible in the image, making it unsuitable for showcasing the salon's team."
+      "reason": "There are no people in the image, making it unsuitable for a team section."
     },
     "services": {
-      "score": 2,
-      "reason": "While it shows workstations, it doesn't highlight any specific service or product in a way that would be ideal for a service card."
+      "score": 6,
+      "reason": "The image shows a manicure station, which is relevant to nail services, but it's not a close-up of a specific service or result."
     }
   },
   "flags": {

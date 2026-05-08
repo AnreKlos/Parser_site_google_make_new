@@ -1,6 +1,6 @@
 {
   "config": {
-    "requestId": "1778078581221425-17923852989941632741-balancer-l7leveler-kubr-yp-sas-137-BAL",
+    "requestId": "1778147088001098-17348539073733222049-balancer-l7leveler-kubr-yp-klg-74-BAL",
     "counters": {
       "metrika": {
         "maps": {
@@ -23,7 +23,7 @@
           "discoveryFeed": "discovery-feed-desktop-maps"
         },
         "url": "https://yandex.com/clck/jclck/",
-        "sessionId": "1778078581221425-17923852989941632741-balancer-l7leveler-kubr-yp-sas-137-BAL"
+        "sessionId": "1778147088001098-17348539073733222049-balancer-l7leveler-kubr-yp-klg-74-BAL"
       }
     },
     "serviceIds": {
@@ -129,11 +129,11 @@
     "originalUrl": "/maps/org/beauty_studio_alyona_rogovtseva/81490194348/?lang=ru",
     "uatraits": {
       "BrowserBase": "Chromium",
-      "BrowserBaseVersion": "136.0.0.0",
+      "BrowserBaseVersion": "132.0.0.0",
       "BrowserEngine": "WebKit",
       "BrowserEngineVersion": "537.36",
       "BrowserName": "Chrome",
-      "BrowserVersion": "136.0.0.0",
+      "BrowserVersion": "132.0.0.0",
       "OSFamily": "Windows",
       "OSName": "Windows 10",
       "OSVersion": "10.0",
@@ -145,7 +145,7 @@
       "isMessenger": false,
       "isSearchApp": false
     },
-    "cspNonce": "0ab3e208942c4967859b9e6029e2d352",
+    "cspNonce": "abd747529b024536aadbad6337969252",
     "hostConfig": {},
     "errorBooster": {
       "sendErrors": true,
@@ -153,8 +153,8 @@
       "project": "maps"
     },
     "origin": "https://yandex.com",
-    "csrfToken": "39ea299bfdb3c45c1eda874d2ac8cf13cb458629:1778078581",
-    "xscriptCsrfToken": "yd502e159f43008b8076d6803bd18d39e",
+    "csrfToken": "51ed3f730e445af803e2a6e3b0181028f7ea3d0b:1778147088",
+    "xscriptCsrfToken": "y43a3fe03405b1f56a089104f14e76883",
     "isUserFromPortal": false,
     "isUserFromYandexSearch": false,
     "isUserFromGoogle": false,
@@ -187,13 +187,13 @@
     },
     "staticHost": "//maps.yastatic.net/s3/front-maps-static/maps-front-maps/",
     "pageMode": "orgpage",
-    "appVersion": "v2.2874.0",
-    "serverTime": "2026-05-06T14:43:01.402Z",
+    "appVersion": "v2.2877.0",
+    "serverTime": "2026-05-07T09:44:48.171Z",
     "routesDistributionServices": [
-      "2gis",
-      "yandex"
+      "yandex",
+      "2gis"
     ],
-    "environment": "production",
+    "environment": "prestable",
     "bookmarks": {
       "url": "https://maps.yastatic.net/s3/front-maps-static/front-maps-bookmarks/8.6.0/build/yandex-maps-bookmarks.min.js"
     },
@@ -479,8 +479,8 @@
     "theme": "light",
     "useSystemTheme": false,
     "experiments": {
-      "boxes": "1538307,0,48;1553307,0,7;1486271,0,99;1551023,0,28;1559778,0,75;1553234,0,74;1551297,0,22;1530377,0,80;1534490,0,64;1553867,0,5;1546036,0,32;1555165,0,79;663872,0,95;663860,0,14",
-      "cryptedBoxes": "5MnahfM4wLafNwWcDi7PLHRjQVLrxNGIuOOT9KUDKWohXWJTGrRn1uuq2UY1mSoMxgn_lk8QLo1c6MTR2MlNE_PfU7W8EILZcAWqToLDN0E_Pxf4NxI7sK67bOrg37uXfwblwVrEOHFqO3rQs0K4Ciptbdjm_aNS_r6WFhjTZd7yfLw2rxNlWaK5eWClTJAJzAqts3ZoEcqPrFxCq7JecKQH-ulNgpJFx0U8n-x9Sw8Ht-PRSaIePA,,",
+      "boxes": "1538307,0,48;1553307,0,7;1486271,0,99;1551023,0,28;1559778,0,75;1357005,0,90;1551297,0,22;1145219,0,14;1530377,0,80;1534490,0,64;1553867,0,5;1546036,0,32;1555165,0,79;663872,0,95;663860,0,14",
+      "cryptedBoxes": "5MnahfM4wLafNwWcDi7PLHRjQVLrxNGIuOOT9KUDKWohXWJTGrRn1uuq2UY1mSoMxgn_lk8QLo1c6MTR2MlNE2z32qMAZ7Pb5KUdwns2vLlYuvQMysxzCJVs7ozXDA8xj1gRqysWzcpvlI03IUIhXjDNYfUZuyqDJAjHHEGoR2oQyglLk12ZFovhMiIQIEBPQg2CJa6L5x4gurQhKf0-r2c4zVqzWbEN8LuXB1pDpX_vjTMI5UeoD18xyeLqZhTL",
       "configVersion": "18413",
       "ui": {
         "tile3dPing": true,
@@ -553,28 +553,28 @@
     },
     "layers": {
       "map": {
-        "version": "26.05.06-0~b:260428124830~ib:26.05.06-0",
+        "version": "26.05.06-1~b:260428124830~ib:26.05.07-0",
         "zoomRange": [
           2,
           21
         ]
       },
       "sat": {
-        "version": "3.2082.0",
+        "version": "3.2083.0",
         "zoomRange": [
           2,
           21
         ]
       },
       "skl": {
-        "version": "26.05.06-0~b:260428124830~ib:26.05.06-0",
+        "version": "26.05.06-1~b:260428124830~ib:26.05.07-0",
         "zoomRange": [
           2,
           21
         ]
       },
       "stv": {
-        "version": "2026.05.06.12.12-1_26.05.06-0-29389",
+        "version": "2026.05.06.21.02-1_26.05.06-0-29389",
         "zoomRange": [
           6,
           21
@@ -588,42 +588,42 @@
         ]
       },
       "trf": {
-        "version": "2026.05.06.14.40.00",
+        "version": "2026.05.07.09.43.00",
         "zoomRange": [
           1,
           21
         ]
       },
       "trfe": {
-        "version": "2026.05.06.14.41.00",
+        "version": "2026.05.07.09.43.00",
         "zoomRange": [
           1,
           21
         ]
       },
       "carparks": {
-        "version": "20260506-124703",
+        "version": "20260507-045541",
         "zoomRange": [
           14,
           21
         ]
       },
       "mrc": {
-        "version": "26.05.05-64801684",
+        "version": "26.05.06-64807413",
         "zoomRange": [
           5,
           22
         ]
       },
       "mrcpe": {
-        "version": "26.05.05-64801684",
+        "version": "26.05.06-64807413",
         "zoomRange": [
           5,
           22
         ]
       },
       "realTimePoi": {
-        "version": "6457cef251a11b21bbb4309c437190dc6a2ab13b/26.05.06-0-29389/cgi_params:[[degradation_multiplier:1],[experimental_mm_discovery_dyn_poi:],[experimental_use_avatars_service:true],[internal_proto:true]]/brand_icons:26.05.06-0/user_profiles:[1766882410675000,PT_DYNAMIC:2026-05-06T14:27:44.109046Z]/photo_archive:1778018438000/its_file_hash:MQZDKMRQMM4DKMBXG5QTAN3BMZTDQYRZMQ2WGZBZGM3TSMBVGA2Q;b6c59172f671eea17de563bc40a2859bb6a6c0d2/26.05.06-0-29389/cgi_params:[[direct_go_max_tiles_per_request_soft_limit:10],[enable_org_boost:false],[experimental_use_avatars_service:true],[internal_proto:true]]/brand_icons:26.05.06-0/user_profiles:[1766882410675000,PT_DYNAMIC:2026-02-26T20:55:25.353756Z]/photo_archive:1772092635000/its_file_hash:GIZWEOJUGRSTEYLCGFTDEYTFGFSDEMJQMRRTIMBQGAYTMMTGGRSQ",
+        "version": "aaea954ed6b242a14ed5e0d5bfea32511e2fc5dc/26.05.06-0-29389/cgi_params:[[degradation_multiplier:1],[experimental_mm_discovery_dyn_poi:],[experimental_use_avatars_service:true],[internal_proto:true]]/brand_icons:26.05.07-0/user_profiles:[1766882410675000,PT_DYNAMIC:2026-05-07T09:28:14.007620Z]/photo_archive:1778104834000/its_file_hash:MQZDKMRQMM4DKMBXG5QTAN3BMZTDQYRZMQ2WGZBZGM3TSMBVGA2Q;e049b69df0d9caf12f49c915fe2781078a068f0d/26.05.06-0-29389/cgi_params:[[enable_org_boost:false],[experimental_use_avatars_service:true],[internal_proto:true]]/brand_icons:26.05.07-0/user_profiles:[1766882410675000,PT_DYNAMIC:2026-02-26T20:55:25.353756Z]/photo_archive:1772092635000/its_file_hash:MRRTINLGHE3WIMBRGQ2WGMJQG43WCZJXMI4DIOLFG4YTKYJZMNTA",
         "zoomRange": [
           13,
           21
@@ -1021,8 +1021,8 @@
     {
       "mode": "orgpage",
       "results": {
-        "requestId": "1778078581281472-962657858-addrs-upper-yp-92",
-        "requestSerpId": "1778078581281472-962657858-addrs-upper-yp-92",
+        "requestId": "1778147088055619-2248287969-addrs-upper-yp-88",
+        "requestSerpId": "1778147088055619-2248287969-addrs-upper-yp-88",
         "requestContext": "ZAAAAAgBEAAaKAoSCQAAAAAAkHZAEQAAAAAAoGZAEhIJAAAAAAAA8L8RAAAAAAAA8L8iAQEoCjgAQP7//////////wFIAWoAnQHNzMw9oAEAqAEAvQE7RRb9wgEGrN/Gya8CggIAigIAkgIAmgIMZGVza3RvcC1tYXBz",
         "requestQuery": "empty",
         "requestCorrectedQuery": "empty",
@@ -1042,7 +1042,7 @@
         "items": [
           {
             "type": "business",
-            "requestId": "1778078581281472-962657858-addrs-upper-yp-92",
+            "requestId": "1778147088055619-2248287969-addrs-upper-yp-88",
             "index": 0,
             "analyticsId": "0",
             "title": "Студия красоты Алёны Роговцевой",
@@ -1068,7 +1068,7 @@
             ],
             "uri": "ymapsbm1://org?oid=81490194348",
             "logId": "dHlwZT1iaXpmaW5kZXI7aWQ9ODE0OTAxOTQzNDg=",
-            "requestSerpId": "1778078581281472-962657858-addrs-upper-yp-92",
+            "requestSerpId": "1778147088055619-2248287969-addrs-upper-yp-88",
             "id": "81490194348",
             "metro": [],
             "stops": [
@@ -1306,7 +1306,7 @@
             "ratingData": {
               "ratingCount": 263,
               "ratingValue": 5,
-              "reviewCount": 220
+              "reviewCount": 221
             },
             "sources": [
               {
@@ -1996,7 +1996,7 @@
               ],
               "fullObjectsCount": 17,
               "relevance": {
-                "lastUploadTime": "2026-05-06T01:24:30.385783Z",
+                "lastUploadTime": "2026-05-07T01:31:28.653208Z",
                 "lastUpdateTime": "2025-11-01T20:20:04.231819Z"
               },
               "source": {
@@ -2649,6 +2649,131 @@
                 "url": "https://yandex.com/maps/191/bryansk/category/nail_salon/20476284572/"
               }
             ],
+            "reviewResults": {
+              "reviews": [
+                {
+                  "reviewId": "9_NmOi_cI08MMQkoyGXF15ExAFFtzORR",
+                  "businessId": "81490194348",
+                  "author": {
+                    "name": "Альбина Панкратова",
+                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/65952/0d-6/{size}",
+                    "professionLevel": "Знаток города 3 уровня",
+                    "rtb": "Знаток города 3 уровня",
+                    "rtbType": "PROFESSION",
+                    "publicId": "w1e9184dctz0wt3a4mq4wkvv6w",
+                    "achievements": [],
+                    "professions": [],
+                    "isSubscribed": false
+                  },
+                  "text": "Каждый раз, выходя от Алёны, чувствую себя обновленной и полноценной.\nРесницы\nвыглядят естественно, но при этом выразительно. Никакого дискомфорта, никаких склеенных ресниц или ощущения тяжести. Только идеальный изгиб, нужный объем и длина, которые держатся до следующей коррекции без нареканий. Алёна использует качественные материалы. Она всегда предупреждает о возможных нюансах ухода, даёт рекомендации по выбору косметики, чтобы продлить срок носки. Это не просто услуга, это целый ритуал красоты, после которого всегда остаёшься довольной результатом. Я с уверенностью могу рекомендовать Алёну всем, кто ищет настоящего профессионала своего дела и хочет получить идеальные ресницы.💋",
+                  "textLanguage": "ru",
+                  "textTranslations": {
+                    "tr": "Alena'dan her ayrıldığımda kendimi yenilenmiş ve dolu hissediyorum.\nKirpikler\ndoğal görünüyorlar ama aynı zamanda etkileyici görünüyorlar. Rahatsızlık yok, yapıştırılmış kirpik yok veya ağırlık hissi yok. Sadece bir sonraki düzeltmeye şikayet etmeden devam eden mükemmel bükülme, istenen hacim ve uzunluk. Alena kaliteli malzemeler kullanıyor. Her zaman olası bakım nüansları konusunda uyarır, çorapların ömrünü uzatmak için kozmetik seçimi konusunda önerilerde bulunur. Bu sadece bir iyilik değil, bundan sonra sonuçtan her zaman memnun kaldığınız bütün bir güzellik ritüelidir. Alanında gerçek bir profesyonel arayan ve mükemmel kirpiklere sahip olmak isteyen herkese Alain'i güvenle tavsiye edebilirim.💋"
+                  },
+                  "rating": 5,
+                  "updatedTime": "2026-03-02T19:09:08.343Z",
+                  "reactions": {
+                    "likes": 0,
+                    "dislikes": 0,
+                    "userReaction": "NONE"
+                  },
+                  "photos": [],
+                  "videos": []
+                },
+                {
+                  "reviewId": "Ufqba9lZb0N9Ntip6mMw8LV-y6zAgipx-",
+                  "businessId": "81490194348",
+                  "author": {
+                    "name": "Игорь К.",
+                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/62162/0a-8/{size}",
+                    "professionLevel": "Знаток города 4 уровня",
+                    "rtb": "Знаток города 4 уровня",
+                    "rtbType": "PROFESSION",
+                    "publicId": "kx61bjrmqd2w54db86mv2pq9y8",
+                    "achievements": [],
+                    "professions": [],
+                    "isSubscribed": false
+                  },
+                  "text": "Делала у Алёны реснички,просто супер мастер! Очень правильно подобрала изгиб,сделала все аккуратно и красиво,я в восторге. Помимо великолепно выполненной работы хочу отметить что очень приятная студия, после которой выходишь не только красивой, но и отдохнувшей. Без сомнений рекомендую данное место и мастера Алёну! ",
+                  "textLanguage": "ru",
+                  "textTranslations": {},
+                  "rating": 5,
+                  "updatedTime": "2026-05-06T14:27:47.720Z",
+                  "reactions": {
+                    "likes": 0,
+                    "dislikes": 0,
+                    "userReaction": "NONE"
+                  },
+                  "photos": [],
+                  "videos": []
+                },
+                {
+                  "businessComment": {
+                    "text": "Елена, благодарим Вас за приятный отзыв и высокую оценку работы мастера. Ждем Вас снова в нашей студии!",
+                    "updatedTime": "2026-01-20T18:11:29.588Z"
+                  },
+                  "reviewId": "iBT4esy3GzT5dHa57BBBBq95ZczqUDat",
+                  "businessId": "81490194348",
+                  "author": {
+                    "name": "Елена Антонова",
+                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/69015/0a-9/{size}",
+                    "professionLevel": "Знаток города 5 уровня",
+                    "rtb": "Знаток города 5 уровня",
+                    "rtbType": "PROFESSION",
+                    "publicId": "5hmme8dmgxprmx5f8tef2wcg14",
+                    "achievements": [],
+                    "professions": [],
+                    "isSubscribed": false
+                  },
+                  "text": "Данную студию посещаю уже более 3-х лет, и только сейчас дошли руки написать отзыв. Мастер Алена работает быстро и качественно, уделяя внимание каждой ресничке. Результат получается естественным и красивым. Ресницы держатся идеально, не осыпаются и сохраняют первоначальный вид долгое время. Студия оборудована удобными креслами, приятной музыкой и ароматерапией, что создаёт расслабляющую обстановку. Спасибо вам огромное за красоту и комфорт!",
+                  "textLanguage": "ru",
+                  "textTranslations": {
+                    "tr": "Bu stüdyoyu 3 yıldan fazla bir süredir ziyaret ediyorum ve ancak şimdi inceleme yazmak için ellerime ulaştım. Usta Alena, her kirpiğe dikkat ederek hızlı ve verimli bir şekilde çalışır. Sonuç doğal ve güzeldir. Kirpikler mükemmel bir şekilde tutulur, parçalanmaz ve orijinal görünümünü uzun süre korur. Stüdyoda rahat koltuklar, hoş müzik ve aromaterapi ile rahatlatıcı bir ortam yaratmak için donatılmıştır. Güzelliği ve rahatlığı için çok teşekkür ederim!"
+                  },
+                  "rating": 5,
+                  "updatedTime": "2025-11-18T07:26:19.247Z",
+                  "reactions": {
+                    "likes": 2,
+                    "dislikes": 0,
+                    "userReaction": "NONE"
+                  },
+                  "photos": [],
+                  "videos": []
+                }
+              ],
+              "params": {
+                "offset": 0,
+                "limit": 3,
+                "count": 221,
+                "loadedReviewsCount": 3,
+                "page": 1,
+                "totalPages": 74,
+                "reviewsRemained": 218
+              },
+              "tags": [],
+              "aspects": []
+            },
+            "reviewPollData": {
+              "aspects": [
+                "Обслуживание",
+                "Мастера",
+                "Персонал",
+                "Уход за ресницами",
+                "Наращивание ресниц",
+                "Атмосфера",
+                "Уютная атмосфера",
+                "Компетентность",
+                "Маникюр",
+                "Время ожидания",
+                "Интерьер",
+                "Педикюр",
+                "Расположение",
+                "Уход за бровями",
+                "Коррекция бровей",
+                "Кофе",
+                "Чистота"
+              ]
+            },
             "relatedPlaces": [
               {
                 "type": "similar",
@@ -2846,157 +2971,19 @@
                 "isAdvert": false
               }
             ],
-            "reviewResults": {
-              "reviews": [
-                {
-                  "reviewId": "9_NmOi_cI08MMQkoyGXF15ExAFFtzORR",
-                  "businessId": "81490194348",
-                  "author": {
-                    "name": "Альбина Панкратова",
-                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/65952/0d-6/{size}",
-                    "professionLevel": "Знаток города 3 уровня",
-                    "rtb": "Знаток города 3 уровня",
-                    "rtbType": "PROFESSION",
-                    "publicId": "w1e9184dctz0wt3a4mq4wkvv6w",
-                    "achievements": [],
-                    "professions": [],
-                    "isSubscribed": false
-                  },
-                  "text": "Каждый раз, выходя от Алёны, чувствую себя обновленной и полноценной.\nРесницы\nвыглядят естественно, но при этом выразительно. Никакого дискомфорта, никаких склеенных ресниц или ощущения тяжести. Только идеальный изгиб, нужный объем и длина, которые держатся до следующей коррекции без нареканий. Алёна использует качественные материалы. Она всегда предупреждает о возможных нюансах ухода, даёт рекомендации по выбору косметики, чтобы продлить срок носки. Это не просто услуга, это целый ритуал красоты, после которого всегда остаёшься довольной результатом. Я с уверенностью могу рекомендовать Алёну всем, кто ищет настоящего профессионала своего дела и хочет получить идеальные ресницы.💋",
-                  "textLanguage": "ru",
-                  "textTranslations": {
-                    "tr": "Alena'dan her ayrıldığımda kendimi yenilenmiş ve dolu hissediyorum.\nKirpikler\ndoğal görünüyorlar ama aynı zamanda etkileyici görünüyorlar. Rahatsızlık yok, yapıştırılmış kirpik yok veya ağırlık hissi yok. Sadece bir sonraki düzeltmeye şikayet etmeden devam eden mükemmel bükülme, istenen hacim ve uzunluk. Alena kaliteli malzemeler kullanıyor. Her zaman olası bakım nüansları konusunda uyarır, çorapların ömrünü uzatmak için kozmetik seçimi konusunda önerilerde bulunur. Bu sadece bir iyilik değil, bundan sonra sonuçtan her zaman memnun kaldığınız bütün bir güzellik ritüelidir. Alanında gerçek bir profesyonel arayan ve mükemmel kirpiklere sahip olmak isteyen herkese Alain'i güvenle tavsiye edebilirim.💋"
-                  },
-                  "rating": 5,
-                  "updatedTime": "2026-03-02T19:09:08.343Z",
-                  "reactions": {
-                    "likes": 0,
-                    "dislikes": 0,
-                    "userReaction": "NONE"
-                  },
-                  "photos": [],
-                  "videos": []
-                },
-                {
-                  "businessComment": {
-                    "text": "Елена, благодарим Вас за приятный отзыв и высокую оценку работы мастера. Ждем Вас снова в нашей студии!",
-                    "updatedTime": "2026-01-20T18:11:29.588Z"
-                  },
-                  "reviewId": "iBT4esy3GzT5dHa57BBBBq95ZczqUDat",
-                  "businessId": "81490194348",
-                  "author": {
-                    "name": "Елена Антонова",
-                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/69015/0a-9/{size}",
-                    "professionLevel": "Знаток города 5 уровня",
-                    "rtb": "Знаток города 5 уровня",
-                    "rtbType": "PROFESSION",
-                    "publicId": "5hmme8dmgxprmx5f8tef2wcg14",
-                    "achievements": [],
-                    "professions": [],
-                    "isSubscribed": false
-                  },
-                  "text": "Данную студию посещаю уже более 3-х лет, и только сейчас дошли руки написать отзыв. Мастер Алена работает быстро и качественно, уделяя внимание каждой ресничке. Результат получается естественным и красивым. Ресницы держатся идеально, не осыпаются и сохраняют первоначальный вид долгое время. Студия оборудована удобными креслами, приятной музыкой и ароматерапией, что создаёт расслабляющую обстановку. Спасибо вам огромное за красоту и комфорт!",
-                  "textLanguage": "ru",
-                  "textTranslations": {
-                    "tr": "Bu stüdyoyu 3 yıldan fazla bir süredir ziyaret ediyorum ve ancak şimdi inceleme yazmak için ellerime ulaştım. Usta Alena, her kirpiğe dikkat ederek hızlı ve verimli bir şekilde çalışır. Sonuç doğal ve güzeldir. Kirpikler mükemmel bir şekilde tutulur, parçalanmaz ve orijinal görünümünü uzun süre korur. Stüdyoda rahat koltuklar, hoş müzik ve aromaterapi ile rahatlatıcı bir ortam yaratmak için donatılmıştır. Güzelliği ve rahatlığı için çok teşekkür ederim!"
-                  },
-                  "rating": 5,
-                  "updatedTime": "2025-11-18T07:26:19.247Z",
-                  "reactions": {
-                    "likes": 2,
-                    "dislikes": 0,
-                    "userReaction": "NONE"
-                  },
-                  "photos": [],
-                  "videos": []
-                },
-                {
-                  "reviewId": "zE_AY3dg-NKK_-ZXPlfUASeBZLU6kq",
-                  "businessId": "81490194348",
-                  "author": {
-                    "name": "Натали",
-                    "avatarUrl": "https://avatars.mds.yandex.net/get-yapic/53031/2NIde7iRT87uBvBUedG4RHUF3g-1/{size}",
-                    "professionLevel": "Знаток города 11 уровня",
-                    "rtb": "Знаток города 11 уровня",
-                    "rtbType": "PROFESSION",
-                    "publicId": "kw0v0t4b3vmq15atv4atrt5nam",
-                    "achievements": [],
-                    "professions": [],
-                    "isSubscribed": false
-                  },
-                  "text": "Хочу поблагодарить Алёну за восхитительные реснички! Делала ламинирование, так же за коррекцию бровей, все очень понравилось! Красивые брови! Алена все делает с чувством, подходит творчески к своей работе, отточенное мастерство видно в каждом действии! Красивый, стильный, уютный салон, и сама Алена общительная,  добрадушная! Спасибо!Наталья.",
-                  "textLanguage": "ru",
-                  "textTranslations": {
-                    "tr": "Alena'ya lezzetli kirpikleri için teşekkür etmek istiyorum! Laminasyonu yaptım, ayrıca kaşları düzeltmek için her şeyi çok beğendim! Güzel kaşlar! Alena her şeyi duyguyla yapıyor, işine yaratıcı bir şekilde yaklaşıyor, her eylemde mükemmel işçilik görülüyor! Güzel, şık, rahat bir salon ve Alena'nın kendisi sosyal, cana yakın! Teşekkür ederiz!Natalya."
-                  },
-                  "rating": 5,
-                  "updatedTime": "2026-03-07T18:44:09.640Z",
-                  "reactions": {
-                    "likes": 0,
-                    "dislikes": 0,
-                    "userReaction": "NONE"
-                  },
-                  "photos": [
-                    {
-                      "type": "photo",
-                      "id": "18148618_2a0000019cc99d157220db910eaf233ac8f1",
-                      "businessId": "81490194348",
-                      "urlTemplate": "https://avatars.mds.yandex.net/get-altay/18148618/2a0000019cc99d157220db910eaf233ac8f1/{size}",
-                      "createdTime": 1772909042509,
-                      "moderation": {
-                        "status": "ACCEPTED"
-                      },
-                      "showReactions": true,
-                      "reactions": {
-                        "likes": 0,
-                        "dislikes": 0,
-                        "userReaction": "NONE"
-                      },
-                      "copyright": {
-                        "name": "Натали",
-                        "publicId": "kw0v0t4b3vmq15atv4atrt5nam",
-                        "imageUrlTemplate": "https://avatars.mds.yandex.net/get-yapic/53031/2NIde7iRT87uBvBUedG4RHUF3g-1/{size}",
-                        "updateTime": 1772909042509,
-                        "hasPublicProfile": true,
-                        "isSubscribed": false
-                      }
-                    }
-                  ],
-                  "videos": []
-                }
+            "geoWhere": {
+              "id": "4239838969",
+              "seoname": "moskovskiy_prospekt_49a",
+              "kind": "house",
+              "coordinates": [
+                34.421717,
+                53.215127
               ],
-              "params": {
-                "offset": 0,
-                "limit": 3,
-                "count": 220,
-                "loadedReviewsCount": 3,
-                "page": 1,
-                "totalPages": 74,
-                "reviewsRemained": 217
-              },
-              "tags": [],
-              "aspects": []
-            },
-            "reviewPollData": {
-              "aspects": [
-                "Обслуживание",
-                "Мастера",
-                "Персонал",
-                "Уход за ресницами",
-                "Наращивание ресниц",
-                "Атмосфера",
-                "Уютная атмосфера",
-                "Компетентность",
-                "Маникюр",
-                "Время ожидания",
-                "Интерьер",
-                "Педикюр",
-                "Расположение",
-                "Уход за бровями",
-                "Коррекция бровей",
-                "Кофе",
-                "Чистота"
-              ]
+              "displayCoordinates": [
+                34.421717,
+                53.215127
+              ],
+              "encodedCoordinates": "Z00YcgVhTkQAQFtpfX5wdH1hYw=="
             },
             "a11y": {
               "hasReviews": false,
@@ -3062,20 +3049,6 @@
                   }
                 }
               ]
-            },
-            "geoWhere": {
-              "id": "4239838969",
-              "seoname": "moskovskiy_prospekt_49a",
-              "kind": "house",
-              "coordinates": [
-                34.421717,
-                53.215127
-              ],
-              "displayCoordinates": [
-                34.421717,
-                53.215127
-              ],
-              "encodedCoordinates": "Z00YcgVhTkQAQFtpfX5wdH1hYw=="
             }
           }
         ],
@@ -3126,8 +3099,8 @@
                 "type": "datetime",
                 "from": null,
                 "to": null,
-                "minValue": "2026-05-06T00:00:00.000Z",
-                "maxValue": "2026-05-13T00:00:00.000Z"
+                "minValue": "2026-05-07T00:00:00.000Z",
+                "maxValue": "2026-05-14T00:00:00.000Z"
               }
             }
           },
@@ -3203,7 +3176,7 @@
         "max": 0,
         "offset": 0
       },
-      "id": "d5ea02fe-fd1a-4b00-bc14-00254783313a"
+      "id": "bd71abdd-015d-4db8-a245-ba92c78b8308"
     }
   ],
   "loadingErrors": [],
@@ -3392,7 +3365,7 @@
     "currentPosition": null,
     "isAuto": false,
     "isWatching": false,
-    "lastTimeUpdate": 1778078581402,
+    "lastTimeUpdate": 1778147088171,
     "error": null
   },
   "bodyIndents": null,
@@ -3501,10 +3474,10 @@
   "hotelsBooking": {
     "dates": {
       "from": {
-        "@@date": "2026-05-07T14:43:01.402Z"
+        "@@date": "2026-05-08T09:44:48.171Z"
       },
       "to": {
-        "@@date": "2026-05-08T14:43:01.402Z"
+        "@@date": "2026-05-09T09:44:48.171Z"
       }
     },
     "guests": {
@@ -3547,7 +3520,7 @@
   },
   "timeContext": {
     "hydrationPhaseTime": {
-      "@@date": "2026-05-06T14:43:01.402Z"
+      "@@date": "2026-05-07T09:44:48.171Z"
     }
   },
   "mapControlsState": {

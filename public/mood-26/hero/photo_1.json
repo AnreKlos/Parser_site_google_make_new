@@ -5,30 +5,32 @@
   "quality": {
     "score": 9,
     "sharpness": 9,
-    "lighting": 8,
+    "lighting": 9,
     "composition": 9
   },
   "marketing_grade": {
     "score": 9,
     "tier": "pro_salon",
     "reasons": [
-      "clean_lighting",
       "professional_result",
-      "neutral_background"
+      "close_up_detail",
+      "good_lighting"
     ]
   },
   "content": {
-    "description": "Аккуратный маникюр с покрытием нюдовым гель-лаком на квадратной форме ногтей.",
-    "alt_text": "Маникюр нюдовый гель-лак квадратная форма",
+    "description": "Крупный план глаза с идеально наращенными ресницами и ухоженными бровями.",
+    "alt_text": "Наращивание ресниц и коррекция бровей: результат работы мастера",
     "objects": [
-      "client_hands",
-      "nails",
-      "nail_polish"
+      "eye",
+      "eyelashes",
+      "eyebrows",
+      "fingernail",
+      "skin"
     ],
     "dominant_colors": [
-      "skin_tone",
+      "black",
       "white",
-      "dark_gray"
+      "grey"
     ],
     "mood": "luxurious"
   },
@@ -45,27 +47,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "nails_general",
+  "service_ref": "lashes",
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a beautiful manicure result that immediately showcases the salon's skill."
+      "reason": "Striking close-up of a service result that immediately showcases expertise and quality."
     },
     "about": {
-      "score": 2,
-      "reason": "This photo focuses on a specific service result, not the salon's interior or atmosphere."
+      "score": 0,
+      "reason": "This image focuses on a specific service result, not the salon's interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent close-up of a finished manicure, perfect for showcasing work results."
+      "reason": "Perfectly showcases a high-quality work result (eyelash extensions and brows) with excellent detail."
     },
     "team": {
       "score": 0,
-      "reason": "No people are clearly identifiable as staff, and no team context is present."
+      "reason": "This is a work result, not a portrait of a team member."
     },
     "services": {
-      "score": 9,
-      "reason": "Clearly depicts the result of a nail service, ideal for a service card."
+      "score": 10,
+      "reason": "Clearly depicts the result of a specific service (eyelash extensions and brows), ideal for a service card."
     }
   },
   "flags": {

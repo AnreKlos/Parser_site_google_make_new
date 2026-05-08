@@ -12,12 +12,12 @@
     "score": 9,
     "tier": "pro_salon",
     "reasons": [
-      "clean_lighting",
-      "detailed_result_shot"
+      "professional_result",
+      "close_up_detail"
     ]
   },
   "content": {
-    "description": "Крупный план глаза с нарощенными ресницами. Виден результат работы мастера по наращиванию ресниц.",
+    "description": "Крупный план глаза с нарощенными ресницами. Видна аккуратная работа мастера и естественный взгляд.",
     "alt_text": "Нарощенные ресницы крупным планом",
     "objects": [
       "eye",
@@ -27,7 +27,7 @@
     "dominant_colors": [
       "skin_tone",
       "black",
-      "blue"
+      "brown"
     ],
     "mood": "luxurious"
   },
@@ -48,7 +48,7 @@
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a service result that immediately showcases the salon's expertise."
+      "reason": "Striking close-up of a service result that immediately showcases the salon's skill."
     },
     "about": {
       "score": 0,
@@ -60,11 +60,11 @@
     },
     "team": {
       "score": 0,
-      "reason": "This is a client's eye, not a portrait of a salon master."
+      "reason": "This is a close-up of a client's eye, not a portrait of a salon master."
     },
     "services": {
       "score": 10,
-      "reason": "Perfectly represents the result of an eyelash extension service."
+      "reason": "Perfectly represents the result of a lash extension service."
     }
   },
   "flags": {

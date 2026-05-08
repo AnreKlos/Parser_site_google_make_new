@@ -3,40 +3,39 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 8,
+    "score": 9,
     "sharpness": 9,
-    "lighting": 8,
+    "lighting": 9,
     "composition": 8
   },
   "marketing_grade": {
-    "score": 8,
+    "score": 9,
     "tier": "pro_salon",
     "reasons": [
-      "clear_result_shot",
-      "good_lighting"
+      "clean_lighting",
+      "sharp_focus_on_result"
     ]
   },
   "content": {
-    "description": "Женская рука с маникюром: два ногтя ярко-розового цвета, один нюдовый с тремя стразами, один с серебристым глиттером.",
-    "alt_text": "Маникюр: ярко-розовые, нюдовые с стразами и серебристые ногти",
+    "description": "Крупный план глаз и бровей после процедуры ламинирования. Идеально уложенные брови и выразительный взгляд.",
+    "alt_text": "Ламинирование бровей: результат до и после",
     "objects": [
-      "client_hands",
-      "manicure",
-      "nail_polish",
-      "rhinestones",
-      "glitter"
+      "eyebrows",
+      "eyes",
+      "eyelashes",
+      "skin"
     ],
     "dominant_colors": [
-      "pink",
-      "beige",
-      "silver"
+      "skin_tone",
+      "brown",
+      "black"
     ],
     "mood": "luxurious"
   },
   "people": {
     "present": true,
     "count": 1,
-    "faces_visible": false,
+    "faces_visible": true,
     "primary_subject": "client",
     "back_or_side_only": false,
     "covered_face": false
@@ -46,27 +45,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "manicure",
+  "service_ref": "brows",
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Excellent close-up of a desirable service result, visually appealing and hooks the viewer."
+      "reason": "Striking close-up of a beauty service result that immediately grabs attention."
     },
     "about": {
       "score": 0,
-      "reason": "This is a close-up of a manicure, not an interior shot of the salon."
+      "reason": "This is a close-up of a service result, not an interior shot of the salon."
     },
     "gallery": {
       "score": 10,
-      "reason": "Perfectly showcases a high-quality manicure result, ideal for a gallery."
+      "reason": "Excellent showcase of a finished beauty service (brows) with high detail and clarity."
     },
     "team": {
       "score": 0,
-      "reason": "No faces are visible, and it's a close-up of hands, not a team portrait."
+      "reason": "This is a client's face, not a portrait of a salon master."
     },
     "services": {
-      "score": 10,
-      "reason": "Clearly depicts the result of a manicure service, suitable for a service card."
+      "score": 9,
+      "reason": "Clearly depicts the result of a specific service (brows), ideal for a service card."
     }
   },
   "flags": {

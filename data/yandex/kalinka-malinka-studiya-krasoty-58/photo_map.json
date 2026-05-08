@@ -1,0 +1,346 @@
+{
+  "schema_version": 2,
+  "lead_id": 58,
+  "slug": "kalinka-malinka-studiya-krasoty",
+  "generated_at": "2026-05-07T12:34:33.033406",
+  "qualification": "qualified",
+  "stats": {
+    "total_candidates": 55,
+    "after_dedup": 53,
+    "after_quality_gate": 47,
+    "vision_calls": 53,
+    "vision_failures": 0,
+    "rejected_breakdown": {
+      "parse_error": 5,
+      "ui_overlay_detected": 1
+    },
+    "fit_distribution": {
+      "hero": {
+        "available": 26,
+        "after_gate": 1
+      },
+      "about": {
+        "available": 12,
+        "after_gate": 2
+      },
+      "gallery": {
+        "available": 34,
+        "after_gate": 6
+      },
+      "team": {
+        "available": 0,
+        "after_gate": 0,
+        "captioned": 0
+      },
+      "services": {
+        "available": 38,
+        "after_gate": 8
+      }
+    },
+    "gallery_by_service": {
+      "makeup": 1,
+      "nails_general": 1,
+      "pedicure": 1,
+      "lashes": 1,
+      "brows": 1,
+      "haircut": 1
+    },
+    "screenshots_filtered": 0,
+    "ui_overlays_rejected": 1,
+    "face_covered_rejected": 0,
+    "cross_block_duplicates_removed": 2,
+    "hero_text_rejected": 0,
+    "marketing_grade_distribution": {
+      "pro_studio": 0,
+      "pro_salon": 37,
+      "casual_acceptable": 10,
+      "amateur_outdoor": 0,
+      "amateur_home": 0,
+      "unusable": 0
+    }
+  },
+  "blocks": {
+    "hero": {
+      "enabled": true,
+      "reason": "1 photos meet criteria",
+      "photos": [
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/15292747/2a000001955f5cc40d4aafa301ad194833ad/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/15292747/2a000001955f5cc40d4aafa301ad194833ad",
+          "alt": "Мастер по макияжу работает над лицом клиентки в салоне.",
+          "description": "Мастер по макияжу наносит макияж клиентке, фокусируясь на деталях.",
+          "fit_score": 9,
+          "fit_reason": "Captures a master in action, clearly showing the service being performed with good focus on the interaction.",
+          "category": "master_at_work",
+          "service_ref": "makeup",
+          "sources": [
+            "Персонал"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        }
+      ]
+    },
+    "about": {
+      "enabled": true,
+      "reason": "2 photos meet criteria",
+      "photos": [
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/13947802/2a00000193b7004283eb932a3cbf30968ca3/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/13947802/2a00000193b7004283eb932a3cbf30968ca3",
+          "alt": "Зеркало с подсветкой и кисти для макияжа в салоне",
+          "description": "Зеркало с подсветкой и профессиональные кисти для макияжа в салоне красоты.",
+          "fit_score": 10,
+          "fit_reason": "This is an excellent representation of the salon's interior, highlighting a well-equipped and aesthetically pleasing makeup area.",
+          "category": "interior",
+          "service_ref": "makeup",
+          "sources": [
+            "Атмосфера"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/14171651/2a00000194cf226e3db8fcc160aa77d2afc8/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/14171651/2a00000194cf226e3db8fcc160aa77d2afc8",
+          "alt": "Интерьер салона красоты с удобным креслом для процедур",
+          "description": "Уютное кресло для процедур в салоне красоты с приглушенным светом и стильным дизайном.",
+          "fit_score": 10,
+          "fit_reason": "This photo perfectly captures the atmosphere and interior design of the salon, making it ideal for an 'About' section.",
+          "category": "interior",
+          "service_ref": null,
+          "sources": [
+            "Атмосфера",
+            "Педикюр"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        }
+      ]
+    },
+    "gallery": {
+      "enabled": true,
+      "reason": "6 photos meet criteria",
+      "photos": [
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/13299246/2a0000018e7e90d50b371f61df85eea823a5/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/13299246/2a0000018e7e90d50b371f61df85eea823a5",
+          "alt": "Результат педикюра: женские ноги с красным лаком на ногтях",
+          "description": "Аккуратный педикюр с ярко-красным лаком на ухоженных женских ногах, демонстрирующий результат услуги.",
+          "fit_score": 10,
+          "fit_reason": "Excellent showcase of a finished service result, with clear detail and professional presentation.",
+          "category": "work_result",
+          "service_ref": "pedicure",
+          "sources": [
+            "Педикюр"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/15510144/2a000001955f5c9ccd0338431efe14d92f9d/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/15510144/2a000001955f5c9ccd0338431efe14d92f9d",
+          "alt": "Наращивание ресниц: мастер работает над ресницами клиентки",
+          "description": "Мастер делает процедуру наращивания ресниц, аккуратно прорабатывая каждую ресничку тонким инструментом. Клиентка сидит с закрытыми глазами, демонстрируя ухоженную кожу и губы.",
+          "fit_score": 8,
+          "fit_reason": "Showcases a specific beauty service being performed, implying a result.",
+          "category": "master_at_work",
+          "service_ref": "lashes",
+          "sources": [
+            "Персонал",
+            "Педикюр"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-sprav-products/1643978/2a00000194a8335d44f3c9cc3e3642b16969/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-sprav-products/1643978/2a00000194a8335d44f3c9cc3e3642b16969",
+          "alt": "Коррекция бровей пинцетом и щеточкой",
+          "description": "Мастер аккуратно оформляет брови клиентке с помощью пинцета и щеточки.",
+          "fit_score": 7,
+          "fit_reason": "Shows a specific service being performed, which is a good representation of the results clients can expect.",
+          "category": "master_at_work",
+          "service_ref": "brows",
+          "sources": [
+            "service:Оформление бровей"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/15452616/2a00000198e6919117c9d4737dae8f289fb2/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/15452616/2a00000198e6919117c9d4737dae8f289fb2",
+          "alt": "Мастер делает прическу клиентке, расчесывая волосы",
+          "description": "Мастер делает прическу клиентке, расчесывая ее длинные волосы гребнем.",
+          "fit_score": 6,
+          "fit_reason": "It hints at a result of a hair service, but it's more about the process than the final outcome.",
+          "category": "master_at_work",
+          "service_ref": "haircut",
+          "sources": [
+            "Персонал"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/1027861/2a00000186633810755ca10a7f68f61cffee/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/1027861/2a00000186633810755ca10a7f68f61cffee",
+          "alt": "Профессиональный макияж и укладка волос",
+          "description": "Портрет девушки с профессиональным макияжем и укладкой волос, демонстрирующий результат работы бьюти-мастера.",
+          "fit_score": 10,
+          "fit_reason": "Excellent showcase of a finished beauty service (makeup and hair styling).",
+          "category": "work_result",
+          "service_ref": "makeup",
+          "sources": [
+            "Макияж"
+          ]
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/6213366/2a0000018db164ab29c84f339ef466fe78e1/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/6213366/2a0000018db164ab29c84f339ef466fe78e1",
+          "alt": "Зеленый маникюр с дизайном",
+          "description": "Аккуратный маникюр в нежном зеленом оттенке с минималистичным дизайном.",
+          "fit_score": 10,
+          "fit_reason": "Sharp close-up of finished work showcasing the manicure detail.",
+          "category": "work_result",
+          "service_ref": "nails_general",
+          "sources": [
+            "Маникюр"
+          ]
+        }
+      ]
+    },
+    "team": {
+      "enabled": false,
+      "reason": "after dedup+backfill: only 0 photos (need 1)",
+      "photos": []
+    },
+    "services": {
+      "enabled": true,
+      "reason": "8 photos meet criteria",
+      "photos": [
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/12814440/2a00000190b02f963256ec4999aa2a3a8a50/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/12814440/2a00000190b02f963256ec4999aa2a3a8a50",
+          "alt": "Идеальный макияж с акцентом на глаза и губы",
+          "description": "Крупный план лица модели с идеальным макияжем, подчеркивающим глаза и губы.",
+          "fit_score": 10,
+          "fit_reason": "Perfectly represents the makeup service with a high-quality result shot.",
+          "category": "work_result",
+          "service_ref": "makeup",
+          "sources": [
+            "Макияж"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-sprav-products/2808945/2a00000190b033db9acdcb82d93ed3f63e67/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-sprav-products/2808945/2a00000190b033db9acdcb82d93ed3f63e67",
+          "alt": "Результат педикюра: женские ноги с красным лаком на ногтях.",
+          "description": "Аккуратный педикюр с красным лаком на ухоженных женских ногах, демонстрирующий результат услуги.",
+          "fit_score": 10,
+          "fit_reason": "Clearly depicts the result of a pedicure service, making it ideal for a service card.",
+          "category": "work_result",
+          "service_ref": "pedicure",
+          "sources": [
+            "service:SMART-педикюр"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-sprav-products/2808945/2a00000194a832f325646035bd92e975e68f/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-sprav-products/2808945/2a00000194a832f325646035bd92e975e68f",
+          "alt": "Идеальный маникюр в темно-бордовом цвете с кольцом",
+          "description": "Женская рука с идеальным маникюром в темно-бордовом цвете, украшенная элегантным кольцом с бриллиантом.",
+          "fit_score": 10,
+          "fit_reason": "Clearly depicts the result of a nail service, ideal for a service card.",
+          "category": "work_result",
+          "service_ref": "nails_general",
+          "sources": [
+            "service:Маникюр + укрепление гелем"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/9831711/2a0000018e7e90d4f7d86c469bf3dd787336/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/9831711/2a0000018e7e90d4f7d86c469bf3dd787336",
+          "alt": "Результат педикюра: женские ноги с красным лаком на ногтях.",
+          "description": "Аккуратный педикюр с красным лаком на ухоженных женских ногах, демонстрирующий результат процедуры.",
+          "fit_score": 9,
+          "fit_reason": "Clearly showcases the result of a specific service (pedicure) with good detail.",
+          "category": "work_result",
+          "service_ref": "pedicure",
+          "sources": [
+            "Педикюр"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-sprav-products/5280674/2a00000190b030214e5a23e95cd5511fdbdb/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-sprav-products/5280674/2a00000190b030214e5a23e95cd5511fdbdb",
+          "alt": "Женщина с идеальным макияжем и укладкой волос",
+          "description": "Портрет молодой женщины с идеальным макияжем и укладкой волос, демонстрирующий профессиональные услуги салона.",
+          "fit_score": 10,
+          "fit_reason": "Clearly demonstrates the result of a makeup service, making it ideal for a service card.",
+          "category": "other",
+          "service_ref": "makeup",
+          "sources": [
+            "service:Свадебный макияж"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/12595784/2a0000018f6ba4a0b4bed85c39193b813a07/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/12595784/2a0000018f6ba4a0b4bed85c39193b813a07",
+          "alt": "Идеальный нюдовый маникюр на длинных ногтях",
+          "description": "Аккуратный маникюр с нюдовым покрытием на длинных ногтях квадратной формы.",
+          "fit_score": 8,
+          "fit_reason": "Clearly showcases the result of a specific service (manicure).",
+          "category": "work_result",
+          "service_ref": "nails_general",
+          "sources": [
+            "Маникюр"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/12838938/2a0000019225271d1d2ad0bf12e2a6c92ec8/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/12838938/2a0000019225271d1d2ad0bf12e2a6c92ec8",
+          "alt": "Французский маникюр на ухоженных руках с кольцом",
+          "description": "Женская рука с идеальным французским маникюром и кольцом с бриллиантом на сером фоне.",
+          "fit_score": 8,
+          "fit_reason": "Clearly showcases a specific service result (manicure) that can be used on a service card.",
+          "category": "work_result",
+          "service_ref": "nails_general",
+          "sources": [
+            "Маникюр"
+          ],
+          "marketing_grade": 9,
+          "marketing_tier": "pro_salon"
+        },
+        {
+          "url": "https://avatars.mds.yandex.net/get-altay/14185024/2a000001938b2a75bd93ebbb6e75e8ea6123/orig",
+          "normalized_url": "https://avatars.mds.yandex.net/get-altay/14185024/2a000001938b2a75bd93ebbb6e75e8ea6123",
+          "alt": "Мастер маникюра работает с клиентом, клиент использует массажер для глаз",
+          "description": "Мастер маникюра работает с клиентом, который находится в кресле и использует массажер для глаз.",
+          "fit_score": 10,
+          "fit_reason": "Clearly depicts a manicure service in progress, making it ideal for a service card.",
+          "category": "master_at_work",
+          "service_ref": "manicure",
+          "sources": [
+            "Персонал"
+          ],
+          "marketing_grade": 8,
+          "marketing_tier": "pro_salon"
+        }
+      ]
+    }
+  }
+}

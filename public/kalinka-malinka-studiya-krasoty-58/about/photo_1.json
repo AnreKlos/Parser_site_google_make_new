@@ -1,0 +1,83 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "interior",
+  "quality": {
+    "score": 8,
+    "sharpness": 8,
+    "lighting": 9,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "well_lit",
+      "professional_environment",
+      "clean_background"
+    ]
+  },
+  "content": {
+    "description": "Зеркало с подсветкой и профессиональные кисти для макияжа в салоне красоты.",
+    "alt_text": "Зеркало с подсветкой и кисти для макияжа в салоне",
+    "objects": [
+      "mirror",
+      "makeup_brushes",
+      "chair",
+      "chandelier",
+      "makeup_station",
+      "qr_codes"
+    ],
+    "dominant_colors": [
+      "dark_gray",
+      "white",
+      "brown"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": false,
+    "count": 0,
+    "faces_visible": false,
+    "primary_subject": null,
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": true,
+    "looks_like_caption_for_person": false,
+    "extracted_text": "QR CODE\nСбер\nОплата\nОплата\nСбер"
+  },
+  "service_ref": "makeup",
+  "fit_scores": {
+    "hero": {
+      "score": 6,
+      "reason": "The image showcases a stylish interior with a makeup station, which can be appealing, but lacks a direct hook of a service in action or a striking result."
+    },
+    "about": {
+      "score": 10,
+      "reason": "This is an excellent representation of the salon's interior, highlighting a well-equipped and aesthetically pleasing makeup area."
+    },
+    "gallery": {
+      "score": 2,
+      "reason": "The photo focuses on the salon's interior and tools, not on showcasing specific work results or before/after transformations."
+    },
+    "team": {
+      "score": 0,
+      "reason": "There are no people visible in the image, making it unsuitable for a team section."
+    },
+    "services": {
+      "score": 8,
+      "reason": "The image clearly depicts a makeup station with professional tools, directly relating to makeup services offered by the salon."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

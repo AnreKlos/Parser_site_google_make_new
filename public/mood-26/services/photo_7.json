@@ -3,13 +3,13 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 8,
+    "score": 9,
     "sharpness": 9,
     "lighting": 8,
-    "composition": 7
+    "composition": 9
   },
   "marketing_grade": {
-    "score": 8,
+    "score": 9,
     "tier": "pro_salon",
     "reasons": [
       "clean_lighting",
@@ -17,60 +17,60 @@
     ]
   },
   "content": {
-    "description": "Стильная стрижка и окрашивание волос в блонд с плавным переходом оттенков.",
-    "alt_text": "Результат окрашивания и стрижки волос в блонд",
+    "description": "Молодая женщина с идеальной укладкой и макияжем, демонстрирующая результат работы стилиста.",
+    "alt_text": "Результат окрашивания и укладки волос: блонд, ровный срез",
     "objects": [
+      "woman",
       "hair",
-      "mirror",
-      "wall",
-      "t-shirt"
+      "makeup",
+      "neon_sign"
     ],
     "dominant_colors": [
       "blonde",
-      "grey",
-      "white"
+      "black",
+      "yellow"
     ],
-    "mood": "neutral"
+    "mood": "luxurious"
   },
   "people": {
     "present": true,
     "count": 1,
-    "faces_visible": false,
-    "primary_subject": "client",
-    "back_or_side_only": true,
+    "faces_visible": true,
+    "primary_subject": "model",
+    "back_or_side_only": false,
     "covered_face": false
   },
   "text_in_image": {
-    "present": false,
+    "present": true,
     "looks_like_caption_for_person": false,
-    "extracted_text": null
+    "extracted_text": "SOS"
   },
   "service_ref": "haircut",
   "fit_scores": {
     "hero": {
-      "score": 6,
-      "reason": "Shows a good result but lacks a clear story or visible master."
+      "score": 8,
+      "reason": "Striking result with a model, good composition and lighting, but not a master at work."
     },
     "about": {
       "score": 2,
-      "reason": "The image focuses on hair, not the salon interior or atmosphere."
+      "reason": "This photo focuses on the result, not the salon interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "This is an excellent showcase of a finished hair service result."
+      "reason": "Excellent showcase of a finished hair service with a clear, appealing result."
     },
     "team": {
       "score": 0,
-      "reason": "No master is visible, and the client's face is not shown."
+      "reason": "This is a model showcasing a result, not a team member portrait with a caption."
     },
     "services": {
       "score": 8,
-      "reason": "Clearly depicts the result of a hair coloring and cutting service."
+      "reason": "Clearly shows the result of a haircut and styling service."
     }
   },
   "flags": {
     "has_logo": false,
-    "has_text_overlay": false,
+    "has_text_overlay": true,
     "has_watermark": false,
     "is_screenshot": false,
     "face_covered": false,

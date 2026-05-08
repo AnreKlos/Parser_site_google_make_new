@@ -2356,3 +2356,213 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 [2026-05-06 18:54:06]    🧹 cleaned gallery/: removed 12 stale files
 [2026-05-06 18:54:06]    🧹 cleaned services/: removed 16 stale files
 [2026-05-06 18:54:49] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json
+[2026-05-07 02:45:36] 🚀 [v2] Старт enrich_lead_v2 для lead_id=58
+[2026-05-07 02:45:36] 🔎 Поиск в Яндекс.Картах: Калинка-Малинка студия красоты Брянск горького
+[2026-05-07 02:45:37] 🕵️ UA (поиск): 136.0.0.0
+[2026-05-07 02:45:46] 🧪 Кандидат: name=0.67 city=1.00 addr=0.44 cat=0.50 total=0.67 | https://yandex.ru/maps/org/kalinka_malinka/37303361445/
+[2026-05-07 02:45:49] ↪ Пропуск: неверный город (city_score=0.13): https://yandex.ru/maps/org/alek_a/176694778480/
+[2026-05-07 02:45:52] ↪ Пропуск: неверный город (city_score=0.13): https://yandex.com/maps/org/alek_a/176694778480/
+[2026-05-07 02:45:55] ↪ Пропуск: название не совпадает (name_score=0.22): https://yandex.ru/maps/org/avokado/66571541101/
+[2026-05-07 02:45:58] ↪ Пропуск: название не совпадает (name_score=0.26): https://yandex.ru/maps/org/fit_siti/227014510376/
+[2026-05-07 02:46:01] ↪ Пропуск: название не совпадает (name_score=0.38): https://yandex.ru/maps/org/trend_studiya/3652590119/
+[2026-05-07 02:46:04] ↪ Пропуск: название не совпадает (name_score=0.22): https://yandex.ru/maps/org/avokado/243520407726/
+[2026-05-07 02:46:07] ↪ Пропуск: название не совпадает (name_score=0.20): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-07 02:46:10] ↪ Пропуск: название не совпадает (name_score=0.22): https://yandex.ru/maps/org/sekret/1690410914/
+[2026-05-07 02:46:13] ↪ Пропуск: название не совпадает (name_score=0.17): https://yandex.ru/maps/org/metod/86463480557/
+[2026-05-07 02:46:13] ✅ Найдена карточка: https://yandex.ru/maps/org/kalinka_malinka/37303361445/ (score=0.67)
+[2026-05-07 02:46:13] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/kalinka_malinka/37303361445/?lang=ru
+[2026-05-07 02:46:21] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\kalinka-malinka-studiya-krasoty-58\raw_state.json
+[2026-05-07 02:46:21] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\kalinka-malinka-studiya-krasoty-58\card.json
+[2026-05-07 02:46:21]    services=6, aspects=6, videos=5, reviews_preview=3
+[2026-05-07 02:46:21]    🎯 Qualification: QUALIFIED (score=100/100) — OK
+[2026-05-07 02:46:27] 🚀 [v2] Старт photos_v2 для lead_id=58
+[2026-05-07 02:46:27]    Кандидатов из card.json: 55
+[2026-05-07 02:46:27]    После дедупликации: 53
+[2026-05-07 02:46:27]    🔍 Анализ Vision для 53 фото...
+[2026-05-07 02:50:08]    Успешно проанализировано: 53
+[2026-05-07 02:50:08]    После quality gate: 39
+[2026-05-07 02:50:08]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-07 02:52:21]    ♻️  gallery: dropped 2 duplicates already claimed by other blocks
+[2026-05-07 02:52:21]    🔁 Removed 2 cross-block duplicates
+[2026-05-07 02:53:06] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\kalinka-malinka-studiya-krasoty-58\photo_map.json
+[2026-05-07 02:59:50] 🚀 [v2] Старт enrich_lead_v2 для lead_id=15
+[2026-05-07 02:59:50] 🔎 Поиск в Яндекс.Картах: Пастила Киевская ул. киевская
+[2026-05-07 02:59:51] 🕵️ UA (поиск): 132.0.0.0
+[2026-05-07 03:00:01] 🧪 Кандидат: name=1.00 city=1.00 addr=0.41 cat=0.50 total=0.84 | https://yandex.ru/maps/org/pastila/53176636373/
+[2026-05-07 03:00:04] ↪ Пропуск: неверный город (city_score=0.27): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-07 03:00:07] ↪ Пропуск: неверный город (city_score=0.32): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-07 03:00:10] ↪ Пропуск: неверный город (city_score=0.38): https://yandex.ru/maps/org/avokado/243520407726/
+[2026-05-07 03:00:13] ↪ Пропуск: неверный город (city_score=0.35): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-07 03:00:16] ↪ Пропуск: неверный город (city_score=0.35): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-07 03:00:16] ✅ Найдена карточка: https://yandex.ru/maps/org/pastila/53176636373/ (score=0.84)
+[2026-05-07 03:00:16] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/pastila/53176636373/?lang=ru
+[2026-05-07 03:00:24] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\pastila-15\raw_state.json
+[2026-05-07 03:00:24] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\pastila-15\card.json
+[2026-05-07 03:00:24]    services=3, aspects=6, videos=10, reviews_preview=3
+[2026-05-07 03:00:24]    🚫 Qualification: NOT QUALIFIED (score=80/100) — services_with_photos 0 < 3
+[2026-05-07 03:00:31] 🚀 [v2] Старт photos_v2 для lead_id=15
+[2026-05-07 03:00:31] 🚫 Lead not qualified, skipping: services_with_photos 0 < 3
+[2026-05-07 03:00:41] 🚀 [v2] Старт enrich_lead_v2 для lead_id=20
+[2026-05-07 03:00:41] 🔎 Поиск в Яндекс.Картах: Модная Цирюльня Брянск чапаева
+[2026-05-07 03:00:43] 🕵️ UA (поиск): 131.0.0.0
+[2026-05-07 03:00:52] 🧪 Кандидат: name=1.00 city=1.00 addr=0.37 cat=0.50 total=0.83 | https://yandex.ru/maps/org/modnaya_tsiryulnya/1090625887/
+[2026-05-07 03:00:55] ↪ Пропуск: название не совпадает (name_score=0.24): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-07 03:00:58] ↪ Пропуск: название не совпадает (name_score=0.36): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-07 03:01:01] ↪ Пропуск: название не совпадает (name_score=0.25): https://yandex.ru/maps/org/meri_gold/1016196487/
+[2026-05-07 03:01:04] ↪ Пропуск: название не совпадает (name_score=0.35): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-07 03:01:07] ↪ Пропуск: название не совпадает (name_score=0.06): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-07 03:01:07] ✅ Найдена карточка: https://yandex.ru/maps/org/modnaya_tsiryulnya/1090625887/ (score=0.83)
+[2026-05-07 03:01:07] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/modnaya_tsiryulnya/1090625887/?lang=ru
+[2026-05-07 03:01:15] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\modnaya-tsiryulnya-20\raw_state.json
+[2026-05-07 03:01:15] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\modnaya-tsiryulnya-20\card.json
+[2026-05-07 03:01:15]    services=0, aspects=5, videos=0, reviews_preview=3
+[2026-05-07 03:01:15]    🚫 Qualification: NOT QUALIFIED (score=80/100) — services_with_photos 0 < 3
+[2026-05-07 11:41:44] 🚀 [v2] Старт enrich_lead_v2 для lead_id=58
+[2026-05-07 11:41:44] ♻️ [v2] Использую кеш (age=535 min): D:\1 KURSOR_PROJ\11 PARSER\data\yandex\kalinka-malinka-studiya-krasoty-58\card.json
+[2026-05-07 11:41:49] 🚀 [v2] Старт photos_v2 для lead_id=58
+[2026-05-07 11:41:49] ♻️ Использую кеш (age=9h)
+[2026-05-07 11:42:18] 🚀 [v2] Старт enrich_lead_v2 для lead_id=26
+[2026-05-07 11:42:18] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-07 11:42:34] 🕵️ UA (поиск): 136.0.0.0
+[2026-05-07 11:42:44] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-07 11:42:47] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-07 11:42:51] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-07 11:42:54] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-07 11:42:57] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-07 11:43:01] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-07 11:43:01] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-07 11:43:01] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/?lang=ru
+[2026-05-07 11:43:09] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\raw_state.json
+[2026-05-07 11:43:09] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\card.json
+[2026-05-07 11:43:09]    services=10, aspects=10, videos=9, reviews_preview=3
+[2026-05-07 11:43:09]    🎯 Qualification: QUALIFIED (score=100/100) — OK
+[2026-05-07 11:43:14] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-07 11:43:14] ♻️ Использую кеш (age=17h)
+[2026-05-07 11:45:06] 🚀 [v2] Старт enrich_lead_v2 для lead_id=16
+[2026-05-07 11:45:06] ♻️ [v2] Использую кеш (age=1082 min): D:\1 KURSOR_PROJ\11 PARSER\data\yandex\studiya-krasoty-aleny-rogovtsevoy-16\card.json
+[2026-05-07 11:45:12] 🚀 [v2] Старт photos_v2 для lead_id=16
+[2026-05-07 11:45:12] ♻️ Использую кеш (age=17h)
+[2026-05-07 12:27:32] 🚀 [v2] Старт enrich_lead_v2 для lead_id=58
+[2026-05-07 12:27:32] 🔎 Поиск в Яндекс.Картах: Калинка-Малинка студия красоты Брянск горького
+[2026-05-07 12:27:33] 🕵️ UA (поиск): 135.0.0.0
+[2026-05-07 12:27:43] 🧪 Кандидат: name=0.67 city=1.00 addr=0.44 cat=0.50 total=0.67 | https://yandex.ru/maps/org/kalinka_malinka/37303361445/
+[2026-05-07 12:27:46] ↪ Пропуск: неверный город (city_score=0.13): https://yandex.ru/maps/org/alek_a/176694778480/
+[2026-05-07 12:27:49] ↪ Пропуск: неверный город (city_score=0.13): https://yandex.com/maps/org/alek_a/176694778480/
+[2026-05-07 12:27:52] ↪ Пропуск: название не совпадает (name_score=0.22): https://yandex.ru/maps/org/avokado/66571541101/
+[2026-05-07 12:27:55] ↪ Пропуск: название не совпадает (name_score=0.26): https://yandex.ru/maps/org/fit_siti/227014510376/
+[2026-05-07 12:27:58] ↪ Пропуск: название не совпадает (name_score=0.38): https://yandex.ru/maps/org/trend_studiya/3652590119/
+[2026-05-07 12:28:01] ↪ Пропуск: название не совпадает (name_score=0.22): https://yandex.ru/maps/org/avokado/243520407726/
+[2026-05-07 12:28:05] ↪ Пропуск: название не совпадает (name_score=0.20): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-07 12:28:08] ↪ Пропуск: название не совпадает (name_score=0.22): https://yandex.ru/maps/org/sekret/1690410914/
+[2026-05-07 12:28:11] ↪ Пропуск: название не совпадает (name_score=0.17): https://yandex.ru/maps/org/metod/86463480557/
+[2026-05-07 12:28:11] ✅ Найдена карточка: https://yandex.ru/maps/org/kalinka_malinka/37303361445/ (score=0.67)
+[2026-05-07 12:28:11] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/kalinka_malinka/37303361445/?lang=ru
+[2026-05-07 12:28:19] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\kalinka-malinka-studiya-krasoty-58\raw_state.json
+[2026-05-07 12:28:19] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\kalinka-malinka-studiya-krasoty-58\card.json
+[2026-05-07 12:28:19]    services=6, aspects=6, videos=5, reviews_preview=3
+[2026-05-07 12:28:19]    🎯 Qualification: QUALIFIED (score=100/100) — OK
+[2026-05-07 12:28:25] 🚀 [v2] Старт photos_v2 для lead_id=58
+[2026-05-07 12:28:25]    Кандидатов из card.json: 55
+[2026-05-07 12:28:25]    После дедупликации: 53
+[2026-05-07 12:28:25]    🔍 Анализ Vision для 53 фото...
+[2026-05-07 12:32:13]    Успешно проанализировано: 53
+[2026-05-07 12:32:13]    После quality gate: 48
+[2026-05-07 12:32:13]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-07 12:32:39]    🚫 UI overlay found in about: A QR code is visible on a cup in the foreground. | https://avatars.mds.yandex.net/get-altay/14811824/2a00000194cf226df94973c3952637fb782a/orig
+[2026-05-07 12:34:33]    🔁 Rebuilt blocks after UI rejection (1 photos)
+[2026-05-07 12:34:33]    ♻️  gallery: dropped 2 duplicates already claimed by other blocks
+[2026-05-07 12:34:33]    🔁 Removed 2 cross-block duplicates
+[2026-05-07 12:34:33]    🧹 cleaned hero/: removed 2 stale files
+[2026-05-07 12:34:33]    🧹 cleaned about/: removed 4 stale files
+[2026-05-07 12:34:33]    🧹 cleaned gallery/: removed 12 stale files
+[2026-05-07 12:34:33]    🧹 cleaned services/: removed 16 stale files
+[2026-05-07 12:35:18] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\kalinka-malinka-studiya-krasoty-58\photo_map.json
+[2026-05-07 12:36:01] 🚀 [v2] Старт enrich_lead_v2 для lead_id=26
+[2026-05-07 12:36:01] 🔎 Поиск в Яндекс.Картах: MOOD Московский пр.
+[2026-05-07 12:36:03] 🕵️ UA (поиск): 134.0.0.0
+[2026-05-07 12:36:12] 🧪 Кандидат: name=1.00 city=1.00 addr=0.46 cat=0.50 total=0.84 | https://yandex.ru/maps/org/mood/96195832006/
+[2026-05-07 12:36:16] ↪ Пропуск: название не совпадает (name_score=0.00): https://yandex.ru/maps/org/bi_kheppi/232570934572/
+[2026-05-07 12:36:19] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-07 12:36:22] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/salon_krasoty_prano/1075567116/
+[2026-05-07 12:36:26] ↪ Пропуск: неверный город (city_score=0.29): https://yandex.ru/maps/org/rezidentsiya_krasoty_i_zdorovya/1732273711/
+[2026-05-07 12:36:29] ↪ Пропуск: неверный город (city_score=0.28): https://yandex.ru/maps/org/podium_salon_akademiya/108585470237/
+[2026-05-07 12:36:29] ✅ Найдена карточка: https://yandex.ru/maps/org/mood/96195832006/ (score=0.84)
+[2026-05-07 12:36:29] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/mood/96195832006/?lang=ru
+[2026-05-07 12:36:37] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\raw_state.json
+[2026-05-07 12:36:37] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\card.json
+[2026-05-07 12:36:37]    services=10, aspects=10, videos=9, reviews_preview=3
+[2026-05-07 12:36:37]    🎯 Qualification: QUALIFIED (score=100/100) — OK
+[2026-05-07 12:36:43] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-07 12:36:43]    Кандидатов из card.json: 69
+[2026-05-07 12:36:43]    После дедупликации: 53
+[2026-05-07 12:36:43]    🔍 Анализ Vision для 53 фото...
+[2026-05-07 12:39:49]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-07 12:39:51]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-07 12:41:00]    Успешно проанализировано: 53
+[2026-05-07 12:41:00]    После quality gate: 49
+[2026-05-07 12:41:00]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-07 12:41:51]    🚫 UI overlay found in gallery: A pink smartwatch is visible on the person's left wrist. | https://avatars.mds.yandex.net/get-altay/6774966/2a0000018e7b92b5d64cc00f140e1c139a21/orig
+[2026-05-07 12:42:59]    🔁 Rebuilt blocks after UI rejection (1 photos)
+[2026-05-07 12:42:59]    ♻️  services: dropped 1 duplicates already claimed by other blocks
+[2026-05-07 12:42:59]    ♻️  gallery: dropped 1 duplicates already claimed by other blocks
+[2026-05-07 12:42:59]    🔁 Removed 2 cross-block duplicates
+[2026-05-07 12:42:59]    🧹 cleaned hero/: removed 2 stale files
+[2026-05-07 12:42:59]    🧹 cleaned about/: removed 4 stale files
+[2026-05-07 12:42:59]    🧹 cleaned gallery/: removed 12 stale files
+[2026-05-07 12:42:59]    🧹 cleaned services/: removed 16 stale files
+[2026-05-07 12:43:43] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json
+[2026-05-07 12:44:17] 🚀 [v2] Старт enrich_lead_v2 для lead_id=16
+[2026-05-07 12:44:17] 🔎 Поиск в Яндекс.Картах: Студия красоты Алёны Роговцевой Московский пр.
+[2026-05-07 12:44:18] 🕵️ UA (поиск): 131.0.0.0
+[2026-05-07 12:44:29] 🧪 Кандидат: name=1.00 city=1.00 addr=0.43 cat=0.80 total=0.88 | https://yandex.ru/maps/org/beauty_studio_alyona_rogovtseva/81490194348/
+[2026-05-07 12:44:32] ↪ Пропуск: неверный город (city_score=0.23): https://yandex.ru/maps/org/bi_kheppi/19493487702/
+[2026-05-07 12:44:35] ↪ Пропуск: неверный город (city_score=0.24): https://yandex.ru/maps/org/ekaterina_nails_32/183523773307/
+[2026-05-07 12:44:38] ↪ Пропуск: неверный город (city_score=0.33): https://yandex.ru/maps/org/myasorubka/173782043513/
+[2026-05-07 12:44:41] ↪ Пропуск: неверный город (city_score=0.47): https://yandex.ru/maps/org/chio_chio/140905501392/
+[2026-05-07 12:44:44] ↪ Пропуск: неверный город (city_score=0.26): https://yandex.ru/maps/org/selebrity/162236073365/
+[2026-05-07 12:44:44] ✅ Найдена карточка: https://yandex.ru/maps/org/beauty_studio_alyona_rogovtseva/81490194348/ (score=0.88)
+[2026-05-07 12:44:44] 🧭 [v2] Открываю карточку: https://yandex.ru/maps/org/beauty_studio_alyona_rogovtseva/81490194348/?lang=ru
+[2026-05-07 12:44:52] 💾 [v2] Сырой state сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\studiya-krasoty-aleny-rogovtsevoy-16\raw_state.json
+[2026-05-07 12:44:52] ✅ [v2] card.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\studiya-krasoty-aleny-rogovtsevoy-16\card.json
+[2026-05-07 12:44:52]    services=10, aspects=11, videos=4, reviews_preview=3
+[2026-05-07 12:44:52]    🎯 Qualification: QUALIFIED (score=100/100) — OK
+[2026-05-07 12:44:59] 🚀 [v2] Старт photos_v2 для lead_id=16
+[2026-05-07 12:44:59]    Кандидатов из card.json: 78
+[2026-05-07 12:44:59]    После дедупликации: 63
+[2026-05-07 12:44:59]    🔍 Анализ Vision для 63 фото...
+[2026-05-07 12:48:16]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=1170x2078 | https://avatars.mds.yandex.net/get-sprav-products/12412149/2a0000018c1ce5478026033ac628a0bfbae1
+[2026-05-07 12:49:10]    Успешно проанализировано: 63
+[2026-05-07 12:49:10]    После quality gate: 61
+[2026-05-07 12:49:10]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-07 12:51:43]    ♻️  services: dropped 1 duplicates already claimed by other blocks
+[2026-05-07 12:51:43]    ♻️  gallery: dropped 2 duplicates already claimed by other blocks
+[2026-05-07 12:51:43]    🔁 Removed 3 cross-block duplicates
+[2026-05-07 12:51:43]    🧹 cleaned hero/: removed 2 stale files
+[2026-05-07 12:51:43]    🧹 cleaned about/: removed 4 stale files
+[2026-05-07 12:51:43]    🧹 cleaned gallery/: removed 12 stale files
+[2026-05-07 12:51:43]    🧹 cleaned services/: removed 16 stale files
+[2026-05-07 12:52:40] ⚠️ Ошибка скачивания https://avatars.mds.yandex.net/get-altay/10488540/2a0000018c559a02896fa1a78ca0d37bf279/orig: HTTPSConnectionPool(host='avatars.mds.yandex.net', port=443): Read timed out. (read timeout=30)
+[2026-05-07 12:52:40]    ⚠️ Не удалось скачать: https://avatars.mds.yandex.net/get-altay/10488540/2a0000018c559a02896fa1a78ca0d37bf279/orig
+[2026-05-07 12:53:02] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\studiya-krasoty-aleny-rogovtsevoy-16\photo_map.json
+[2026-05-07 19:40:42] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-07 19:40:42] ♻️ Использую кеш (age=7h)
+[2026-05-07 19:40:47] 🚀 [v2] Старт photos_v2 для lead_id=26
+[2026-05-07 19:40:47] 📸 Loaded 64 photos from TapLink
+[2026-05-07 19:40:47]    Кандидатов из card.json: 133
+[2026-05-07 19:40:47]    После дедупликации: 117
+[2026-05-07 19:40:47]    🔍 Анализ Vision для 117 фото...
+[2026-05-07 19:43:27]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://avatars.mds.yandex.net/get-sprav-products/4079840/2a000001928cb13b8e3c13eb6c3436ea9fb7
+[2026-05-07 19:43:30]    🚫 screenshot rejected: no_camera_exif+portrait_phone_size=736x1308 | https://avatars.mds.yandex.net/get-sprav-products/2701203/2a0000019717adae517354b7e9796ed4e4e8
+[2026-05-07 19:43:52] ⚠️ Ошибка скачивания //taplink.st/a/a/6/f/3/42330d.jpg: Invalid URL '//taplink.st/a/a/6/f/3/42330d.jpg': No scheme supplied. Perhaps you meant https:////taplink.st/a/a/6/f/3/42330d.jpg?
+[2026-05-07 19:43:54]    🚫 screenshot rejected: dimensions_match_phone_screen=1080x1920 | https://taplink.st/p/9/5/2/f/59834794.jpg
+[2026-05-07 19:47:02]    Успешно проанализировано: 117
+[2026-05-07 19:47:02]    После quality gate: 64
+[2026-05-07 19:47:02]    Раскладка по папкам: {'hero': (True, 1), 'about': (True, 2), 'gallery': (True, 6), 'team': (False, 0), 'services': (True, 8)}
+[2026-05-07 19:48:50]    ♻️  services: dropped 1 duplicates already claimed by other blocks
+[2026-05-07 19:48:50]    ♻️  gallery: dropped 4 duplicates already claimed by other blocks
+[2026-05-07 19:48:50]    🔁 Removed 5 cross-block duplicates
+[2026-05-07 19:48:50]    🧹 cleaned hero/: removed 2 stale files
+[2026-05-07 19:48:50]    🧹 cleaned about/: removed 4 stale files
+[2026-05-07 19:48:50]    🧹 cleaned gallery/: removed 12 stale files
+[2026-05-07 19:48:50]    🧹 cleaned services/: removed 16 stale files
+[2026-05-07 19:49:25] ✅ photo_map.json сохранён: D:\1 KURSOR_PROJ\11 PARSER\data\yandex\mood-26\photo_map.json

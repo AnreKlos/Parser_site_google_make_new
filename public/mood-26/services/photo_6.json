@@ -1,44 +1,44 @@
 {
   "rejected": false,
   "reject_reason": null,
-  "category": "master_at_work",
+  "category": "work_result",
   "quality": {
-    "score": 7,
-    "sharpness": 8,
-    "lighting": 7,
-    "composition": 7
+    "score": 9,
+    "sharpness": 9,
+    "lighting": 9,
+    "composition": 8
   },
   "marketing_grade": {
-    "score": 8,
+    "score": 9,
     "tier": "pro_salon",
     "reasons": [
       "clean_lighting",
-      "professional_environment"
+      "professional_result",
+      "neutral_background"
     ]
   },
   "content": {
-    "description": "Мастер моет голову клиентке в салоне красоты, нанося шампунь на волосы.",
-    "alt_text": "Мытье головы в салоне красоты",
+    "description": "Идеально ровные и блестящие светлые волосы после процедуры.",
+    "alt_text": "Результат окрашивания и укладки волос",
     "objects": [
-      "client_hair",
-      "master_hands",
-      "shampoo",
-      "wash_basin",
-      "wooden_wall"
+      "long_hair",
+      "blond_hair",
+      "haircut",
+      "black_shirt"
     ],
     "dominant_colors": [
-      "brown",
-      "white",
+      "blonde",
+      "beige",
       "black"
     ],
-    "mood": "calm"
+    "mood": "luxurious"
   },
   "people": {
     "present": true,
-    "count": 2,
-    "faces_visible": true,
-    "primary_subject": "master",
-    "back_or_side_only": false,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": true,
     "covered_face": false
   },
   "text_in_image": {
@@ -49,24 +49,24 @@
   "service_ref": "haircut",
   "fit_scores": {
     "hero": {
-      "score": 8,
-      "reason": "Shows a master performing a service, which is engaging for a hero section."
+      "score": 6,
+      "reason": "Shows a good result but not a master at work or a striking interior."
     },
     "about": {
-      "score": 4,
-      "reason": "While it shows a salon activity, it's not a broad view of the interior."
+      "score": 0,
+      "reason": "This is a work result, not an interior shot."
     },
     "gallery": {
-      "score": 6,
-      "reason": "Shows a service in progress, hinting at the results."
+      "score": 10,
+      "reason": "Excellent showcase of a finished hair service result with great detail and quality."
     },
     "team": {
       "score": 0,
-      "reason": "This is a master at work, not a portrait of the team."
+      "reason": "No master is visible, and the focus is on the hair result."
     },
     "services": {
-      "score": 10,
-      "reason": "Clearly depicts a specific service (hair washing) in progress."
+      "score": 8,
+      "reason": "Clearly shows the result of a hair service, suitable for a service card."
     }
   },
   "flags": {

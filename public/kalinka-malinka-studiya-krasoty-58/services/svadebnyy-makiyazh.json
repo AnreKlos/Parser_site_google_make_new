@@ -1,0 +1,81 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "other",
+  "quality": {
+    "score": 9,
+    "sharpness": 9,
+    "lighting": 9,
+    "composition": 9
+  },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background"
+    ]
+  },
+  "content": {
+    "description": "Портрет молодой женщины с идеальным макияжем и укладкой волос, демонстрирующий профессиональные услуги салона.",
+    "alt_text": "Женщина с идеальным макияжем и укладкой волос",
+    "objects": [
+      "woman",
+      "makeup",
+      "hair",
+      "eyes",
+      "lips"
+    ],
+    "dominant_colors": [
+      "beige",
+      "white",
+      "brown"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": true,
+    "primary_subject": "model",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "makeup",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking portrait with professional makeup and hair, suitable for a strong first impression."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This is a portrait, not an interior shot, so it doesn't convey the salon's atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Excellent showcase of a makeup result, highlighting the skill and artistry of the salon."
+    },
+    "team": {
+      "score": 0,
+      "reason": "This is a model's portrait, not a team member, and lacks any captioning."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Clearly demonstrates the result of a makeup service, making it ideal for a service card."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

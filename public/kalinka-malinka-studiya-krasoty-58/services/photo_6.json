@@ -1,0 +1,80 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 8,
+    "sharpness": 9,
+    "lighting": 8,
+    "composition": 7
+  },
+  "marketing_grade": {
+    "score": 9,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background"
+    ]
+  },
+  "content": {
+    "description": "Аккуратный маникюр с нюдовым покрытием на длинных ногтях квадратной формы.",
+    "alt_text": "Идеальный нюдовый маникюр на длинных ногтях",
+    "objects": [
+      "client_hand",
+      "long_nails",
+      "square_nails",
+      "nude_nail_polish"
+    ],
+    "dominant_colors": [
+      "beige",
+      "gray",
+      "pink"
+    ],
+    "mood": "luxurious"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "nails_general",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking result close-up with good composition that draws the eye."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This photo shows a work result, not the salon interior or atmosphere."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Sharp close-up of finished work, showcasing the quality of the manicure."
+    },
+    "team": {
+      "score": 0,
+      "reason": "This is a work result, not a portrait of a team member."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clearly showcases the result of a specific service (manicure)."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

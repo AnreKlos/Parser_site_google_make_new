@@ -135,6 +135,11 @@ def _build_meta(bundle: CardBundle, curated: Dict[str, Any]) -> Dict[str, Any]:
             "label": f"Хорошее место {card['good_place_year']}",
         }]
 
+    # Yandex Maps URL для кнопки "Все отзывы на Яндекс.Картах"
+    source_url = (card.get("source_url") or "").strip()
+    if source_url:
+        meta["yandexUrl"] = source_url
+
     return meta
 
 
@@ -228,8 +233,8 @@ def _build_sections(
             "alt": p.get("alt") or "",
         })
 
-    # Services — из card.services + photo_map.services
-    services_items = _build_services_items(card, photo_map, slug, lead_id)
+    # Services — из curated.services если есть, иначе из card.services + photo_map.services
+    services_items = _build_services_items(card, photo_map, slug, lead_id, curated)
 
     # Reviews — из card.reviews_preview
     reviews_items = _build_reviews_items(card)
@@ -241,7 +246,7 @@ def _build_sections(
     faq_items = _build_faq_items(curated, card)
 
     sections = {
-        "hero": _build_hero_section(card, lead, hero_image, hero_photo),
+        "hero": _build_hero_section(card, lead, hero_image, hero_photo, curated),
         "promotion": {"enabled": True},
         "services": {
             "enabled": bool(services_items),
@@ -289,6 +294,7 @@ def _build_sections(
 def _build_hero_section(
     card: Dict[str, Any], lead: Dict[str, Any],
     hero_image: str, hero_photo: Dict[str, Any] | None,
+    curated: Dict[str, Any] | None = None,
 ) -> Dict[str, Any]:
     """hero block."""
     name = card.get("title") or ""
@@ -300,20 +306,34 @@ def _build_hero_section(
     title_line1 = "Студия маникюра" if "nail" in cat else "Студия красоты"
     title_line1_small = "идеального маникюра" if "nail" in cat else "по созданию образа"
 
-    # Lead — собираем из реальных данных
-    rating = card.get("rating")
-    review_count = card.get("review_count") or card.get("rating_count") or 0
-    good_place = card.get("good_place_year")
+    # Lead — используем curated tagline если есть, иначе собираем из реальных данных
+    curated_tagline = ((curated.get("meta") or {}).get("tagline") or "").strip()
+    if curated_tagline:
+        lead_text = curated_tagline
+    else:
+        rating = card.get("rating")
+        review_count = card.get("review_count") or card.get("rating_count") or 0
+        good_place = card.get("good_place_year")
 
-    lead_parts = []
-    if city_prep:
-        lead_parts.append(f"Студия красоты в {city_prep}")
-    if rating and review_count and review_count >= 30:
-        lead_parts.append(f"рейтинг {rating} на основе {review_count} отзывов")
-    if good_place:
-        lead_parts.append(f"награда «Хорошее место {good_place}»")
+        lead_parts = []
+        if city_prep:
+            lead_parts.append(f"Студия красоты в {city_prep}")
+        if rating and review_count and review_count >= 30:
+            lead_parts.append(f"рейтинг {rating} на основе {review_count} отзывов")
+        if good_place:
+            lead_parts.append(f"награда «Хорошее место {good_place}»")
 
-    lead_text = ". ".join(lead_parts) + "." if lead_parts else _short_about_text(card)
+        lead_text = ". ".join(lead_parts) + "." if lead_parts else _short_about_text(card)
+
+    # topLabel: если есть реальный booking.url → "запись онлайн", иначе только город
+    booking_url = ((card.get("urls") or {}).get("booking") or "").strip()
+    has_online_booking = bool(booking_url and booking_url not in (lead.get("website") or ""))
+    if has_online_booking and city_prep:
+        top_label = f"{city_prep} · запись онлайн"
+    elif city_prep:
+        top_label = city_prep
+    else:
+        top_label = ""
 
     return {
         "enabled": True,
@@ -323,7 +343,7 @@ def _build_hero_section(
         "titleLine1Small": title_line1_small,
         "titleLine1SmallSize": "default",
         "titleLine2": _strip_brand_noise(name),
-        "topLabel": f"{city_prep} · запись онлайн" if city_prep else "запись онлайн",
+        "topLabel": top_label,
         "lead": lead_text,
         "ctaLabel": "Записаться",
     }
@@ -331,13 +351,12 @@ def _build_hero_section(
 
 def _build_services_items(
     card: Dict[str, Any], photo_map: Dict[str, Any],
-    slug: str, lead_id: int,
+    slug: str, lead_id: int, curated: Dict[str, Any] | None = None,
 ) -> List[Dict[str, Any]]:
     """
-    services_items для блока Services. Сначала из card.services (чистые!),
-    дополняем фото из photo_map.services если есть.
+    services_items для блока Services. Сначала из curated.services если есть,
+    иначе из card.services (чистые!), дополняем фото из photo_map.services если есть.
     """
-    raw_services = card.get("services") or []
     photo_items = build_block_photos(photo_map, "services", slug, lead_id, PUBLIC_DIR)
 
     # Индекс фото по service_ref для матчинга
@@ -347,25 +366,66 @@ def _build_services_items(
         if ref and ref not in photos_by_ref:
             photos_by_ref[ref] = p["src"]
 
+    # Если есть curated services — используем их
+    if curated and curated.get("services"):
+        raw_services = curated.get("services") or []
+        items = []
+        for svc in raw_services:
+            title = (svc.get("title") or "").strip()
+            if not title:
+                continue
+            description = (svc.get("description") or "").strip()
+            short = (svc.get("short") or "").strip()
+            price_text = (svc.get("priceFrom") or "").strip()
+            if not price_text:
+                continue
+
+            # Фото услуги: из photo_map.services по service_ref
+            photo_src = photos_by_ref.get(_guess_service_ref(title))
+
+            # Фильтруем шаблонные копипасты описаний
+            if _is_template_description(description):
+                description = ""
+
+            items.append({
+                "title": title,
+                "short": short if short else None,
+                "description": description,
+                "priceFrom": price_text or "по запросу",
+                "image": photo_src or None,
+            })
+
+        # Очистка None
+        items = [{k: v for k, v in i.items() if v is not None} for i in items]
+        return items[:12]
+    
+    # Fallback: из card.services
+    raw_services = card.get("services") or []
     items = []
     for svc in raw_services:
         title = (svc.get("title") or "").strip()
         if not title:
             continue
+        price_raw = svc.get("price")
+        price_text_raw = (svc.get("price_text") or "").strip()
+        if not price_raw and not price_text_raw:
+            continue
         description = (svc.get("description") or "").strip()
-        price_text = (svc.get("price_text") or "").strip()
+        price_text = price_text_raw
         if not price_text and svc.get("price"):
             price_text = f"{svc['price']} {svc.get('currency') or '₽'}".strip()
 
         # Фото услуги: 1) из card.services.photo_url напрямую (CDN URL),
         # 2) либо из photo_map.services по service_ref
-        # На фронте мы используем локальные пути, но услуги Yandex CDN — можно оставить URL как есть,
-        # шаблон поддержит прямой URL.
         photo_src = svc.get("photo_url") or photos_by_ref.get(_guess_service_ref(title))
+
+        # Фильтруем шаблонные копипасты описаний
+        if _is_template_description(description):
+            description = ""
 
         items.append({
             "title": title,
-            "short": description[:60] if description else None,
+            "short": description if description else None,
             "description": description,
             "priceFrom": price_text or "по запросу",
             "image": photo_src or None,
@@ -374,6 +434,22 @@ def _build_services_items(
     # Очистка None
     items = [{k: v for k, v in i.items() if v is not None} for i in items]
     return items[:12]  # шаблон обычно показывает 5-9
+
+
+def _is_template_description(text: str) -> bool:
+    """Проверяет, является ли описание шаблонной копипастой от Yandex."""
+    if not text:
+        return False
+    lower = text.lower()
+    template_phrases = [
+        "грейдирование мастеров",
+        "мастер, топ-мастер",
+        "мастера-эксперты",
+        "все специалисты проходят регулярные обучения",
+        "по стоимости вы можете проконсультироваться",
+        "все стоимости вы можете проконсультироваться",
+    ]
+    return any(phrase in lower for phrase in template_phrases)
 
 
 def _guess_service_ref(title: str) -> str:
@@ -472,6 +548,48 @@ def _build_reels(card: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+def _categorize_price_item(title: str) -> str:
+    """Группировка услуги по категории для прайса."""
+    if not title:
+        return "Прочее"
+    
+    lower = title.lower()
+    
+    # Проверяем по приоритету: ресницы → брови → педикюр → маникюр → макияж → волосы → прочее
+    
+    # Ресницы
+    if any(k in lower for k in ["ресниц", "наращивание ресн", "ламинирован ресн"]):
+        return "Ресницы"
+    
+    # Брови
+    if any(k in lower for k in ["бров", "brow"]):
+        return "Брови"
+    
+    # Педикюр
+    if any(k in lower for k in ["педикюр", "smart-педикюр", " стоп"]):
+        return "Педикюр"
+    
+    # Маникюр (но не педикюр)
+    if "педикюр" not in lower and any(k in lower for k in ["маникюр", "ногт", "гель-лак", " gel "]):
+        return "Маникюр"
+    
+    # Макияж
+    if any(k in lower for k in ["макияж", "мэйкап", "makeup", "визаж"]):
+        return "Макияж"
+    
+    # Причёски и волосы (но не брови/ресницы)
+    if not any(k in lower for k in ["бров", "ресниц"]):
+        hair_keywords = [
+            "причёск", "причес", "окраш волос", "стрижк", "укладк", 
+            "окрашиван", "мелирован", "тонирован", "ламинирован волос",
+            "кератин", "ботокс волос", "восстановлен волос", "airtouch"
+        ]
+        if any(k in lower for k in hair_keywords):
+            return "Причёски и волосы"
+    
+    return "Прочее"
+
+
 def _build_price_section(card: Dict[str, Any]) -> Dict[str, Any] | None:
     """Price из чистых card.services. Без is_junk-фильтров — данные уже чистые."""
     services = card.get("services") or []
@@ -482,24 +600,52 @@ def _build_price_section(card: Dict[str, Any]) -> Dict[str, Any] | None:
         title = (s.get("title") or "").strip()
         if not title or len(title) < 3:
             continue
+        if not s.get("price") and not (s.get("price_text") or "").strip():
+            continue
         price_text = (s.get("price_text") or "").strip()
         if not price_text and s.get("price"):
             price_text = f"{s['price']} ₽"
+        description = (s.get("description") or "").strip()
+        # Фильтруем шаблонные копипасты
+        if _is_template_description(description):
+            description = ""
         items.append({
             "title": title,
             "price": price_text or "по запросу",
             "priceFrom": False,
             "duration_min": None,
-            "description": (s.get("description") or "").strip()[:200] or None,
+            "description": description or None,
         })
     if not items:
         return None
+    
+    # Группировка по категориям
+    category_order = ["Ресницы", "Брови", "Педикюр", "Маникюр", "Макияж", "Причёски и волосы", "Прочее"]
+    groups_by_category: Dict[str, List[Dict[str, Any]]] = {}
+    for item in items:
+        category = _categorize_price_item(item["title"])
+        if category not in groups_by_category:
+            groups_by_category[category] = []
+        groups_by_category[category].append(item)
+    
+    # Формируем groups в нужном порядке
+    groups = []
+    for category in category_order:
+        category_items = groups_by_category.get(category, [])
+        if category_items:
+            # Если всего одна группа — title=None, иначе название категории
+            group_title = None if len(groups_by_category) == 1 else category
+            groups.append({
+                "title": group_title,
+                "items": category_items,
+            })
+    
     return {
         "enabled": True,
         "title": "Прайс",
         "subtitle": None,
         "note": "Окончательная стоимость уточняется при записи.",
-        "groups": [{"title": None, "items": items}],
+        "groups": groups,
     }
 
 

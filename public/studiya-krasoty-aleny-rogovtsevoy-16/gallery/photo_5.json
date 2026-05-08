@@ -3,10 +3,10 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 8,
-    "sharpness": 9,
+    "score": 7,
+    "sharpness": 7,
     "lighting": 8,
-    "composition": 8
+    "composition": 7
   },
   "marketing_grade": {
     "score": 8,
@@ -17,25 +17,24 @@
     ]
   },
   "content": {
-    "description": "Крупный план глаза с идеально наращенными ресницами и аккуратно оформленными бровями.",
-    "alt_text": "Наращивание ресниц и коррекция бровей: результат работы мастера",
+    "description": "Крупный план глаза с наращенными ресницами, демонстрирующий объем и длину.",
+    "alt_text": "Наращенные ресницы крупным планом",
     "objects": [
       "eye",
       "eyelashes",
-      "eyebrows",
-      "skin"
+      "eyebrow"
     ],
     "dominant_colors": [
-      "skin_tone",
-      "black",
-      "blue"
+      "brown",
+      "beige",
+      "black"
     ],
     "mood": "luxurious"
   },
   "people": {
     "present": true,
     "count": 1,
-    "faces_visible": true,
+    "faces_visible": false,
     "primary_subject": "client",
     "back_or_side_only": false,
     "covered_face": false
@@ -49,23 +48,23 @@
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Striking close-up of a service result that immediately showcases the salon's skill."
+      "reason": "Striking close-up of a service result that immediately showcases the salon's expertise."
     },
     "about": {
       "score": 0,
-      "reason": "This is a close-up of a service result, not an interior shot of the salon."
+      "reason": "This image is a close-up of a service result, not an interior shot of the salon."
     },
     "gallery": {
       "score": 10,
-      "reason": "Excellent close-up of a finished beauty service, perfect for showcasing results."
+      "reason": "Excellent close-up showcasing the quality of the lash extension work."
     },
     "team": {
       "score": 0,
-      "reason": "This is a client's eye, not a portrait of a salon master."
+      "reason": "This is a close-up of a client's eye, not a portrait of a team member."
     },
     "services": {
-      "score": 9,
-      "reason": "Clearly shows the result of lash services, making it ideal for a service card."
+      "score": 10,
+      "reason": "Perfectly represents the lash extension service with a clear visual of the result."
     }
   },
   "flags": {

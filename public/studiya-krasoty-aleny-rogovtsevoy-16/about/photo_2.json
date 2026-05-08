@@ -4,7 +4,7 @@
   "category": "interior",
   "quality": {
     "score": 7,
-    "sharpness": 8,
+    "sharpness": 7,
     "lighting": 7,
     "composition": 7
   },
@@ -22,11 +22,10 @@
     "objects": [
       "sink",
       "mirror",
+      "faucet",
       "cabinet",
       "trash_can",
-      "flowers",
-      "soap_dispenser",
-      "paper_towel_dispenser"
+      "flowers"
     ],
     "dominant_colors": [
       "gray",
@@ -52,23 +51,23 @@
   "fit_scores": {
     "hero": {
       "score": 4,
-      "reason": "This photo shows the interior, which can be a good hero image if the salon has a strong aesthetic, but it lacks a clear hook or service representation."
+      "reason": "This photo shows a clean and modern interior, but it doesn't immediately convey a specific service or create a strong hook for a hero section."
     },
     "about": {
       "score": 10,
-      "reason": "This is an excellent shot of the salon's interior, showcasing its modern design and atmosphere, fitting perfectly for an 'about' section."
+      "reason": "This is an excellent shot of the salon's interior, showcasing a well-designed and clean space that contributes to the overall atmosphere."
     },
     "gallery": {
       "score": 0,
-      "reason": "This image does not showcase any work results or services provided by the salon."
+      "reason": "The photo focuses on the interior of a restroom and does not showcase any beauty service results."
     },
     "team": {
       "score": 0,
-      "reason": "There are no people in the image, so it cannot be used for a team section."
+      "reason": "There are no people in the image, making it unsuitable for a team section."
     },
     "services": {
       "score": 2,
-      "reason": "While it shows a part of the salon, it doesn't directly represent any specific service offered."
+      "reason": "While it's an interior shot of the salon, it's a restroom and not directly representative of any specific beauty service offered."
     }
   },
   "flags": {

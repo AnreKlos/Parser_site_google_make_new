@@ -3,40 +3,41 @@
   "reject_reason": null,
   "category": "work_result",
   "quality": {
-    "score": 9,
+    "score": 8,
     "sharpness": 9,
-    "lighting": 9,
-    "composition": 9
+    "lighting": 8,
+    "composition": 8
   },
   "marketing_grade": {
-    "score": 9,
+    "score": 8,
     "tier": "pro_salon",
     "reasons": [
-      "clean_lighting",
-      "professional_result"
+      "good_lighting",
+      "clear_result",
+      "salon_context_implied"
     ]
   },
   "content": {
-    "description": "Аккуратный французский маникюр с идеальной линией улыбки на ухоженных руках.",
-    "alt_text": "Французский маникюр на ухоженных руках",
+    "description": "Сравнение окрашивания волос до и после. Результат - ровный блонд с плавными переходами.",
+    "alt_text": "Окрашивание волос до и после: блонд",
     "objects": [
-      "client_hands",
-      "manicure",
-      "black_gloves"
+      "woman_hair",
+      "hair_coloring",
+      "before_after_comparison"
     ],
     "dominant_colors": [
-      "skin_tone",
-      "white",
-      "black"
+      "blonde",
+      "green",
+      "beige"
     ],
-    "mood": "luxurious"
+    "mood": "neutral"
   },
   "people": {
     "present": true,
     "count": 1,
-    "faces_visible": false,
+    "faces_visible": true,
     "primary_subject": "client",
-    "back_or_side_only": false,
+    "back_or_side_only": true,
     "covered_face": false
   },
   "text_in_image": {
@@ -44,27 +45,27 @@
     "looks_like_caption_for_person": false,
     "extracted_text": null
   },
-  "service_ref": "nails_general",
+  "service_ref": "coloring",
   "fit_scores": {
     "hero": {
       "score": 8,
-      "reason": "Excellent close-up of a perfect manicure, visually appealing and hooks the viewer."
+      "reason": "Striking before/after comparison of hair coloring is visually engaging and hooks the viewer."
     },
     "about": {
       "score": 2,
-      "reason": "This photo focuses on the result, not the salon's interior or atmosphere."
+      "reason": "This image focuses on a work result, not the salon's interior or atmosphere."
     },
     "gallery": {
       "score": 10,
-      "reason": "This is a prime example of a work result, showcasing a high-quality manicure."
+      "reason": "Excellent showcase of a specific service result with a clear before and after comparison."
     },
     "team": {
       "score": 0,
-      "reason": "No master is visible, and the focus is entirely on the client's hands and nails."
+      "reason": "No team members are visible, and the focus is entirely on the client's hair."
     },
     "services": {
-      "score": 8,
-      "reason": "Clearly represents the result of a manicure service, suitable for a service card."
+      "score": 9,
+      "reason": "Clearly demonstrates the result of a hair coloring service, making it ideal for a service card."
     }
   },
   "flags": {

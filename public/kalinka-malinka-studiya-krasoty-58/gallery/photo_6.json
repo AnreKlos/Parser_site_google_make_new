@@ -1,0 +1,79 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "work_result",
+  "quality": {
+    "score": 8,
+    "sharpness": 9,
+    "lighting": 8,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "clean_lighting",
+      "neutral_background"
+    ]
+  },
+  "content": {
+    "description": "Аккуратный маникюр в нежном зеленом оттенке с минималистичным дизайном.",
+    "alt_text": "Зеленый маникюр с дизайном",
+    "objects": [
+      "client_hands",
+      "manicure",
+      "nails"
+    ],
+    "dominant_colors": [
+      "green",
+      "grey",
+      "beige"
+    ],
+    "mood": "calm"
+  },
+  "people": {
+    "present": true,
+    "count": 1,
+    "faces_visible": false,
+    "primary_subject": "client",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "nails_general",
+  "fit_scores": {
+    "hero": {
+      "score": 8,
+      "reason": "Striking result close-up with good composition that draws the eye."
+    },
+    "about": {
+      "score": 0,
+      "reason": "This is a work result, not an interior shot."
+    },
+    "gallery": {
+      "score": 10,
+      "reason": "Sharp close-up of finished work showcasing the manicure detail."
+    },
+    "team": {
+      "score": 0,
+      "reason": "No master is visible, and no text suggests this is a team photo."
+    },
+    "services": {
+      "score": 8,
+      "reason": "Clean shot of a specific service result (manicure)."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

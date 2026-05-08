@@ -1,0 +1,82 @@
+{
+  "rejected": false,
+  "reject_reason": null,
+  "category": "master_at_work",
+  "quality": {
+    "score": 8,
+    "sharpness": 8,
+    "lighting": 7,
+    "composition": 8
+  },
+  "marketing_grade": {
+    "score": 8,
+    "tier": "pro_salon",
+    "reasons": [
+      "professional_environment",
+      "good_lighting",
+      "clear_service_demonstration"
+    ]
+  },
+  "content": {
+    "description": "Мастер аккуратно оформляет брови клиентке с помощью пинцета и щеточки.",
+    "alt_text": "Коррекция бровей пинцетом и щеточкой",
+    "objects": [
+      "tweezers",
+      "brow_brush",
+      "client_face",
+      "master_hands",
+      "eyebrow"
+    ],
+    "dominant_colors": [
+      "skin_tone",
+      "dark_brown",
+      "grey"
+    ],
+    "mood": "neutral"
+  },
+  "people": {
+    "present": true,
+    "count": 2,
+    "faces_visible": true,
+    "primary_subject": "master",
+    "back_or_side_only": false,
+    "covered_face": false
+  },
+  "text_in_image": {
+    "present": false,
+    "looks_like_caption_for_person": false,
+    "extracted_text": null
+  },
+  "service_ref": "brows",
+  "fit_scores": {
+    "hero": {
+      "score": 9,
+      "reason": "Captures a key beauty service in action with a clear focus on the master's hands and the client's face, creating immediate interest."
+    },
+    "about": {
+      "score": 2,
+      "reason": "This is a close-up of a procedure, not an interior shot that would convey the salon's atmosphere."
+    },
+    "gallery": {
+      "score": 7,
+      "reason": "Shows a specific service being performed, which is a good representation of the results clients can expect."
+    },
+    "team": {
+      "score": 0,
+      "reason": "This is a master at work, not a portrait intended for a team section."
+    },
+    "services": {
+      "score": 10,
+      "reason": "Perfectly showcases the brow correction service with a clear visual of the tools and the process."
+    }
+  },
+  "flags": {
+    "has_logo": false,
+    "has_text_overlay": false,
+    "has_watermark": false,
+    "is_screenshot": false,
+    "face_covered": false,
+    "low_resolution": false,
+    "stock_photo_signals": false
+  }
+}

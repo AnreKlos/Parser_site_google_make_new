@@ -20,7 +20,7 @@ if sys.platform == "win32":
 import json
 import re
 import urllib.parse
-from typing import Optional
+from typing import Optional, Tuple, Dict, List
 
 # Добавляем корень проекта в путь для импортов
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -171,7 +171,7 @@ def get_site_config_status(lead_name: str, lead_id: int) -> str:
     return "🟢 Собран" if get_site_config_path(lead_name, lead_id).exists() else "⚪ Не собран"
 
 
-def run_config_builder(lead_id: int, no_copy: bool = False) -> tuple[bool, str]:
+def run_config_builder(lead_id: int, no_copy: bool = False) -> Tuple[bool, str]:
     """Build site config for *lead_id* and write to neuralsync.
 
     Wraps ``config_builder.cli.run_build_for_ui`` for backward-compatible
@@ -203,7 +203,7 @@ def run_config_builder(lead_id: int, no_copy: bool = False) -> tuple[bool, str]:
         return False, error_msg
 
 
-def run_block_extractor(lead_id: int) -> tuple[bool, str]:
+def run_block_extractor(lead_id: int) -> Tuple[bool, str]:
     """Запускает извлечение блоков напрямую через services.block_extractor.
 
     Возвращает (success, output_text). output_text может быть пустым
@@ -234,9 +234,9 @@ def run_block_extractor(lead_id: int) -> tuple[bool, str]:
         return False, error_msg
 
 
-def run_config_builder_batch(lead_ids: list[int]) -> tuple[list[int], dict[int, str]]:
-    success_ids: list[int] = []
-    failures: dict[int, str] = {}
+def run_config_builder_batch(lead_ids: List[int]) -> Tuple[List[int], Dict[int, str]]:
+    success_ids: List[int] = []
+    failures: Dict[int, str] = {}
     for lead_id in lead_ids:
         ok, out = run_config_builder(lead_id)
         if ok:
@@ -246,7 +246,7 @@ def run_config_builder_batch(lead_ids: list[int]) -> tuple[list[int], dict[int, 
     return success_ids, failures
 
 
-def run_yandex_enricher(lead_id: int, mode: str = "light") -> tuple[bool, str]:
+def run_yandex_enricher(lead_id: int, mode: str = "light") -> Tuple[bool, str]:
     """Обогащение через enrichment.yandex_state."""
     try:
         import subprocess
@@ -268,7 +268,7 @@ def run_yandex_enricher(lead_id: int, mode: str = "light") -> tuple[bool, str]:
         return False, f"Исключение: {exc}\n{traceback.format_exc()}"
 
 
-def run_content_curator(lead_id: int) -> tuple[bool, str]:
+def run_content_curator(lead_id: int) -> Tuple[bool, str]:
     """Запускає content_curator напряму через llm.content_curator."""
     try:
         from llm.content_curator import curate_lead
@@ -281,7 +281,7 @@ def run_content_curator(lead_id: int) -> tuple[bool, str]:
         return False, f"Исключення: {exc}\n{traceback.format_exc()}"
 
 
-def run_content_curator_with_status(lead_id: int) -> tuple[bool, str]:
+def run_content_curator_with_status(lead_id: int) -> Tuple[bool, str]:
     """Запускает content_curator напрямую с минимальным прогрессом в UI.
     
     Гарантирует:
@@ -437,7 +437,7 @@ def render_yandex_data(data: dict, lead_id: int) -> None:
             cols = st.columns(4)
             for i, url in enumerate(photos):
                 if url and url.startswith("http"):
-                    cols[i % 4].image(url, width='stretch')
+                    cols[i % 4].image(url)
 
 
 # --- CSS стили для красивого отображения ---
@@ -496,7 +496,7 @@ def load_leads() -> pd.DataFrame:
 
     with sqlite3.connect(DB_PATH) as conn:
         df = pd.read_sql_query(
-            "SELECT id, name, google_rating, reviews_count, address, phone, website, google_maps_url, emails, social_links, status, tech_score, load_time_sec, audit_notes, pitch_text, site_config_path, category FROM leads ORDER BY id DESC",
+            "SELECT id, name, google_rating, reviews_count, address, phone, website, google_maps_url, emails, social_links, status, tech_score, load_time_sec, audit_notes, pitch_text, site_config_path, category, city FROM leads ORDER BY id DESC",
             conn
         )
     return df
@@ -634,7 +634,7 @@ def main():
         st.info("📭 База данных пуста. Запустите Радар для поиска лидов.")
         return
 
-    col_filter1, col_filter2, col_filter3, col_filter4 = st.columns([1, 1, 1, 1])
+    col_filter1, col_filter2, col_filter3, col_filter4, col_filter5 = st.columns([1, 1, 1, 1, 1])
     with col_filter1:
         status_filter = st.multiselect(
             "Фильтр по статусу:",
@@ -646,8 +646,12 @@ def main():
         category_options = ["Все"] + sorted(all_categories)
         category_filter = st.selectbox("Фильтр по категории:", options=category_options, index=0)
     with col_filter3:
-        rating_min = st.slider("Минимальный рейтинг:", min_value=0.0, max_value=5.0, value=0.0, step=0.1)
+        all_cities = sorted(df["city"].dropna().unique().tolist()) if "city" in df.columns else []
+        city_options = ["Все города"] + all_cities
+        city_filter = st.selectbox("Фильтр по городу:", options=city_options, index=0)
     with col_filter4:
+        rating_min = st.slider("Минимальный рейтинг:", min_value=0.0, max_value=5.0, value=0.0, step=0.1)
+    with col_filter5:
         content_filter = st.selectbox(
             "Контент:",
             options=["Все", "🟢 Готов", "⚪ Не создан"],
@@ -658,6 +662,8 @@ def main():
     df_filtered = df[df["status"].isin(status_filter)]
     if category_filter != "Все":
         df_filtered = df_filtered[df_filtered["category"] == category_filter]
+    if city_filter != "Все города":
+        df_filtered = df_filtered[df_filtered["city"] == city_filter]
     df_filtered = df_filtered[df_filtered["google_rating"] >= rating_min]
 
     if content_filter == "🟢 Готов":
@@ -698,7 +704,7 @@ def main():
     if "selected_lead_id" not in st.session_state or int(st.session_state["selected_lead_id"]) not in valid_ids:
         st.session_state["selected_lead_id"] = int(df_filtered.iloc[0]["id"])
 
-    tab_base, tab_pipeline = st.tabs(["📊 База лидов", "🎨 Контент-конвейер"])
+    tab_base, tab_pipeline, tab_coverage = st.tabs(["📊 База лидов", "🎨 Контент-конвейер", "🗺 Покрытие (Сканирование регионов)"])
 
     with tab_base:
         h1, h2 = st.columns([3, 1])
@@ -713,7 +719,7 @@ def main():
                 and get_yandex_file_path(str(row.get("name", "")), int(row.get("id", 0))).exists()
                 and not get_site_config_path(str(row.get("name", "")), int(row.get("id", 0))).exists()
             ]
-            if st.button(f"📦 Сгенерировать конфиги ({len(batch_config_ids)})", width='stretch', disabled=len(batch_config_ids) == 0):
+            if st.button(f"📦 Сгенерировать конфиги ({len(batch_config_ids)})", disabled=len(batch_config_ids) == 0):
                 with st.spinner("Собираю конфиги..."):
                     ok_ids, err_map = run_config_builder_batch(batch_config_ids)
                 if ok_ids:
@@ -734,7 +740,7 @@ def main():
                 return raw
             return None
 
-        display_cols = ["id", "name", "category", "google_rating", "reviews_count", "tech_score", "website", "google_maps_url", "status"]
+        display_cols = ["id", "name", "category", "city", "google_rating", "reviews_count", "tech_score", "website", "google_maps_url", "status"]
         display_cols = [c for c in display_cols if c in df_filtered.columns]
         df_table = df_filtered[display_cols].copy()
 
@@ -778,6 +784,7 @@ def main():
                 "id": "ID",
                 "name": "Название",
                 "category": "Категория",
+                "city": "Город",
                 "google_rating": "Рейтинг",
                 "reviews_count": "Отзывы",
                 "tech_score": "Score",
@@ -794,7 +801,7 @@ def main():
 
         st.dataframe(
             df_table,
-            width='stretch',
+            use_container_width=True,
             hide_index=True,
             column_config={
                 "Сайт": st.column_config.LinkColumn("Сайт", width="small"),
@@ -818,7 +825,7 @@ def main():
         with c1:
             table_selected_label = st.selectbox("Открыть лид в конвейере:", options=lead_options, key="base_lead_selector")
         with c2:
-            if st.button("➡ Перейти", width='stretch'):
+            if st.button("➡ Перейти"):
                 st.session_state["selected_lead_id"] = int(table_selected_label.split(" — ")[0])
                 st.success("Лид выбран. Перейдите на вкладку «🎨 Контент-конвейер»")
 
@@ -890,10 +897,10 @@ def main():
             if content_exists:
                 cv1, cv2 = st.columns(2)
                 with cv1:
-                    if st.button("👁 Просмотреть контент", key="curator_view_btn_single", width='stretch'):
+                    if st.button("👁 Просмотреть контент", key="curator_view_btn_single"):
                         st.session_state["curator_show_content"] = selected_lead_id
                 with cv2:
-                    if st.button("🔄 Перегенерировать", key="curator_regen_btn_single", width='stretch'):
+                    if st.button("🔄 Перегенерировать", key="curator_regen_btn_single"):
                         try:
                             selected_curated_path.unlink(missing_ok=True)
                         except Exception as exc:
@@ -942,10 +949,10 @@ def main():
             if ya_exists:
                 yv1, yv2, yv3 = st.columns(3)
                 with yv1:
-                    if st.button("👁 Данные", key="ya_view_btn_single", width='stretch'):
+                    if st.button("👁 Данные", key="ya_view_btn_single"):
                         st.session_state["ya_show_data"] = selected_lead_id
                 with yv2:
-                    if st.button("� Light", key="ya_light_btn_single", width='stretch'):
+                    if st.button("� Light", key="ya_light_btn_single"):
                         try:
                             selected_ya_path.unlink(missing_ok=True)
                         except Exception as ya_exc:
@@ -956,7 +963,7 @@ def main():
                                 st.session_state[f"ya_error_{selected_lead_id}"] = out_ya_l or "Ошибка"
                             st.rerun()
                 with yv3:
-                    if st.button("📸 Full", key="ya_full_btn_single", width='stretch', disabled=has_full):
+                    if st.button("📸 Full", key="ya_full_btn_single", disabled=has_full):
                         ok_ya_f, out_ya_f = run_yandex_enricher(selected_lead_id, mode="full")
                         if not ok_ya_f:
                             st.session_state[f"ya_error_{selected_lead_id}"] = out_ya_f or "Ошибка"
@@ -984,10 +991,10 @@ def main():
             if extracted_exists:
                 ex1, ex2 = st.columns(2)
                 with ex1:
-                    if st.button("👁 Просмотреть", key="extract_view_btn_single", width='stretch'):
+                    if st.button("👁 Просмотреть", key="extract_view_btn_single"):
                         st.session_state["extract_show_data"] = selected_lead_id
                 with ex2:
-                    if st.button("🔄 Перезапустить", key="extract_rerun_btn_single", width='stretch'):
+                    if st.button("🔄 Перезапустить", key="extract_rerun_btn_single"):
                         ok_ex_r, out_ex_r = run_block_extractor(selected_lead_id)
                         if ok_ex_r:
                             st.session_state.pop(f"extract_error_{selected_lead_id}", None)
@@ -1059,10 +1066,10 @@ def main():
             if cfg_exists:
                 cc1, cc2 = st.columns(2)
                 with cc1:
-                    if st.button("👁 Просмотреть", key="cfg_view_btn_single", width='stretch'):
+                    if st.button("👁 Просмотреть", key="cfg_view_btn_single"):
                         st.session_state["cfg_show_data"] = selected_lead_id
                 with cc2:
-                    if st.button("🔄 Пересобрать", key="cfg_rebuild_btn_single", width='stretch'):
+                    if st.button("🔄 Пересобрать", key="cfg_rebuild_btn_single"):
                         ok_cfg_r, out_cfg_r = run_config_builder(selected_lead_id)
                         if ok_cfg_r:
                             st.session_state.pop(f"cfg_error_{selected_lead_id}", None)
@@ -1122,17 +1129,17 @@ def main():
                 pb1, pb2, pb3 = st.columns(3)
                 with pb1:
                     if send_links.get("whatsapp"):
-                        st.link_button("💬 WhatsApp", send_links["whatsapp"], width='stretch')
+                        st.link_button("💬 WhatsApp", send_links["whatsapp"])
                     else:
                         st.caption("💬 WhatsApp: нет телефона")
                 with pb2:
                     if send_links.get("telegram"):
-                        st.link_button("✈️ Telegram", send_links["telegram"], width='stretch')
+                        st.link_button("✈️ Telegram", send_links["telegram"])
                     else:
                         st.caption("✈️ Telegram: нет ссылки")
                 with pb3:
                     if send_links.get("email"):
-                        st.link_button("📧 Email", send_links["email"], width='stretch')
+                        st.link_button("📧 Email", send_links["email"])
                     else:
                         st.caption("📧 Email: нет почты")
 
@@ -1181,6 +1188,100 @@ def main():
                                 st.error(f"❌ Ошибка: {e}")
 
                 st.markdown("*💡 Выделите текст мышкой выше и скопируйте через Ctrl+C*")
+
+    with tab_coverage:
+        st.subheader("🗺 Покрытие регионов")
+
+        with sqlite3.connect(DB_PATH) as conn:
+            try:
+                df_regions = pd.read_sql_query("SELECT id, city, district, niche, status, last_scanned_at, leads_found, notes, created_at, updated_at FROM scan_regions ORDER BY city, niche", conn)
+            except pd.io.sql.DatabaseError:
+                df_regions = pd.DataFrame()
+
+        if df_regions.empty:
+            st.info("📭 Таблица scan_regions пуста. Добавьте регионы для сканирования вручную или через API.")
+            st.markdown("""
+            **Как добавить регион:**
+            ```sql
+            INSERT INTO scan_regions (city, district, niche, status, created_at, updated_at)
+            VALUES ('Брянск', NULL, 'салоны красоты', 'not_scanned', datetime('now'), datetime('now'));
+            ```
+            """)
+        else:
+            st.dataframe(
+                df_regions,
+                use_container_width=True,
+                hide_index=True,
+                column_config={
+                    "id": st.column_config.NumberColumn("ID", width="small"),
+                    "city": st.column_config.TextColumn("Город", width="medium"),
+                    "district": st.column_config.TextColumn("Район", width="medium"),
+                    "niche": st.column_config.TextColumn("Ниша", width="medium"),
+                    "status": st.column_config.TextColumn("Статус", width="small"),
+                    "last_scanned_at": st.column_config.DatetimeColumn("Последний скан", width="medium"),
+                    "leads_found": st.column_config.NumberColumn("Лидов найдено", width="small"),
+                    "notes": st.column_config.TextColumn("Заметки", width="large"),
+                    "created_at": st.column_config.DatetimeColumn("Создан", width="medium"),
+                    "updated_at": st.column_config.DatetimeColumn("Обновлён", width="medium"),
+                },
+            )
+
+        st.divider()
+        st.subheader("📊 Сводка по городам (из лидов)")
+        with sqlite3.connect(DB_PATH) as conn:
+            try:
+                df_city_stats = pd.read_sql_query(
+                    "SELECT city, COUNT(*) as total, status, COUNT(*) as cnt FROM leads WHERE city IS NOT NULL AND city != '' GROUP BY city, status ORDER BY city, status",
+                    conn
+                )
+            except pd.io.sql.DatabaseError:
+                df_city_stats = pd.DataFrame()
+
+        if not df_city_stats.empty:
+            # Pivot table for nicer display
+            pivot = df_city_stats.pivot_table(
+                index="city",
+                columns="status",
+                values="cnt",
+                aggfunc="sum",
+                fill_value=0
+            )
+            pivot["Всего"] = pivot.sum(axis=1)
+            pivot = pivot.sort_values("Всего", ascending=False)
+
+            st.dataframe(
+                pivot,
+                use_container_width=True,
+            )
+
+        st.divider()
+        st.subheader("➕ Быстрое добавление региона")
+        with st.form("add_region_form"):
+            col_c, col_d, col_n = st.columns(3)
+            with col_c:
+                new_city = st.text_input("Город", value="Брянск")
+            with col_d:
+                new_district = st.text_input("Район (опционально)", value="")
+            with col_n:
+                new_niche = st.text_input("Ниша", value="салоны красоты")
+
+            if st.form_submit_button("➕ Добавить регион", type="primary"):
+                if new_city and new_niche:
+                    with sqlite3.connect(DB_PATH) as conn:
+                        import datetime as dt
+                        now = dt.datetime.now(dt.timezone.utc).isoformat()
+                        try:
+                            conn.execute(
+                                "INSERT OR IGNORE INTO scan_regions (city, district, niche, status, leads_found, created_at, updated_at) VALUES (?, ?, ?, 'not_scanned', 0, ?, ?)",
+                                (new_city.strip(), new_district.strip() if new_district.strip() else None, new_niche.strip(), now, now),
+                            )
+                            conn.commit()
+                            st.success(f"✅ Регион {new_city}/{new_niche} добавлен!")
+                            st.rerun()
+                        except Exception as e:
+                            st.error(f"❌ Ошибка: {e}")
+                else:
+                    st.warning("Заполните город и нишу")
 
 
 # --- Sidebar (Панель управления) ---

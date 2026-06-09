@@ -5,7 +5,7 @@ SQLAlchemy models for KURSOR Radar
 """
 
 from datetime import datetime, timezone
-from sqlalchemy import Column, Integer, String, Float, Text, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Text, DateTime, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase, relationship
 
 
@@ -56,11 +56,14 @@ class Lead(Base):
     site_config_path = Column(Text, nullable=True)  # Путь к JSON конфигу сайта
     category = Column(String(100), nullable=True, default="other")  # Категория/ниша лида
     qualification_status = Column(String(50), nullable=True, default="pending")  # Статус квалификации для фото-обогащения
+    city = Column(String(255), nullable=True)  # Город из адреса
+    scan_id = Column(Integer, ForeignKey("scan_regions.id"), nullable=True)  # Связь с таблицей scan_regions
     created_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
     # Связи
     audit_logs = relationship("AuditLog", back_populates="lead", cascade="all, delete-orphan")
+    scan_region = relationship("ScanRegion", back_populates="leads")
 
     def __repr__(self) -> str:
         return f"<Lead(id={self.id}, name='{self.name}', website='{self.website}', status='{self.status}')>"
@@ -86,6 +89,8 @@ class Lead(Base):
             "raw_reviews": self.raw_reviews,
             "site_config_path": self.site_config_path,
             "category": self.category,
+            "city": self.city,
+            "scan_id": self.scan_id,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
         }
@@ -123,4 +128,54 @@ class AuditLog(Base):
             "action": self.action,
             "details": self.details,
             "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+
+class ScanRegion(Base):
+    """
+    Модель региона/города для сканирования (поиска лидов).
+
+    Позволяет управлять процессом сканирования: какие города/районы/ниши
+    уже просканированы, какие в процессе, сколько лидов найдено.
+    """
+    __tablename__ = "scan_regions"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    city = Column(String(255), nullable=False)  # Город, например "Брянск"
+    district = Column(String(255), nullable=True)  # Район, например "Володарский"
+    niche = Column(String(255), nullable=False)  # Ниша, например "салоны красоты"
+    status = Column(String(50), nullable=False, default="not_scanned")  # not_scanned, in_progress, scanned
+    last_scanned_at = Column(DateTime, nullable=True)  # NULL = не сканировано
+    leads_found = Column(Integer, default=0)  # Сколько лидов нашли при скане
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+    # Связь с лидами
+    leads = relationship("Lead", back_populates="scan_region")
+
+    __table_args__ = (
+        # Уникальный индекс на (city, district, niche)
+        UniqueConstraint("city", "district", "niche", name="uq_scan_region"),
+    )
+
+    def __repr__(self) -> str:
+        return (
+            f"<ScanRegion(id={self.id}, city='{self.city}', "
+            f"district='{self.district}', niche='{self.niche}', "
+            f"status='{self.status}')>"
+        )
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "city": self.city,
+            "district": self.district,
+            "niche": self.niche,
+            "status": self.status,
+            "last_scanned_at": self.last_scanned_at.isoformat() if self.last_scanned_at else None,
+            "leads_found": self.leads_found,
+            "notes": self.notes,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
         }

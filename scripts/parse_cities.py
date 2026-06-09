@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Скрипт для извлечения города из поля address у лидов.
+Скрипт для извлечения города из поля address у лидов, у которых city IS NULL.
 
-Читает все лиды из leads.db, извлекает город по шаблонам.
-Поддерживает форматы:
-- "ул. Ленина, д.1, Москва, Россия, 101000" → "Москва"
-- "Московский пр., 1, Брянск, Брянская обл., Россия" → "Брянск"
-- "г. Брянск, ул. Ленина" → "Брянск"
-- "Москва, ул. Тверская" → "Москва"
+Читает лиды с address, парсит город по шаблонам:
+- "г. Брянск, ул. Димитрова, 60" -> "Брянск"
+- "Москва, Ленинский пр-т, 10" -> "Москва"
+- "ул. Ленина, д.1, Москва, Россия, 101000" -> "Москва"
+- "Московский пр., 1, Брянск, Брянская обл., Россия" -> "Брянск"
 
-Добавляет колонку city в таблицу leads (через ALTER TABLE, если ещё нет).
-Записывает city в БД.
-Выводит статистику.
+Обновляет city в БД и выводит статистику.
 """
 
 import sqlite3
@@ -23,7 +20,7 @@ from pathlib import Path
 DB_PATH = Path(__file__).parent.parent / "data" / "leads.db"
 
 # Список известных городов России для проверки
-KNOWN_RUSSIAN_CITIES = {
+KNOWN_RUSSIAN_CITIES: set[str] = {
     "Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Казань",
     "Красноярск", "Нижний Новгород", "Челябинск", "Уфа", "Самара",
     "Ростов-на-Дону", "Краснодар", "Омск", "Воронеж", "Пермь",
@@ -68,8 +65,7 @@ def extract_city_from_address(address: str) -> str | None:
     if m:
         return m.group(1)
 
-    # Паттерн 3: Разбиваем по запятым и ищем город в конце
-    # Адреса Google Maps обычно: "улица, дом, город, регион, страна, индекс"
+    # Паттерн 3: Разбиваем по запятым и ищем город
     parts = [p.strip() for p in address.split(",")]
 
     # Сначала ищем известный город среди частей
@@ -78,32 +74,29 @@ def extract_city_from_address(address: str) -> str | None:
         if part_clean in KNOWN_RUSSIAN_CITIES:
             return part_clean
 
-    # Ищем часть, которая оканчивается на "Россия" и берём предыдущую
+    # Ищем часть перед "Россия"
     for i, part in enumerate(parts):
         if "россия" in part.lower():
             if i > 0:
                 prev = parts[i - 1].strip()
-                # Проверяем, что это город, а не область
                 obls = ["область", "край", "республика", "ао", "обл."]
                 if not any(prev.lower().startswith(o) for o in obls):
-                    # Очищаем от индекса
                     prev_clean = re.sub(r'\d+', '', prev).strip().rstrip(",").strip()
                     if prev_clean and re.match(r'^[А-ЯЁ][а-яё\s\-]+$', prev_clean):
                         return prev_clean
-            # Если перед Россией область, берём часть перед областью
             if i >= 2:
                 prev2 = parts[i - 2].strip()
                 prev2_clean = re.sub(r'\d+', '', prev2).strip().rstrip(",").strip()
                 if prev2_clean and re.match(r'^[А-ЯЁ][а-яё\s\-]+$', prev2_clean):
                     return prev2_clean
 
-    # Паттерн 4: Ищем "г. Город" в любой части
+    # Паттерн 4: "г. Город" в любой части
     for part in parts:
         m = re.search(r'\bг\.?\s*([А-ЯЁ][а-яё\-]+(?:-[А-ЯЁ][а-яё]+)?)', part)
         if m:
             return m.group(1)
 
-    # Паттерн 5: первая часть, если начинается с заглавной и не похожа на улицу
+    # Паттерн 5: первая часть, если не похожа на улицу
     if parts:
         first = parts[0].strip()
         if re.match(r'^[А-ЯЁ][а-яё\s\-]+$', first):
@@ -118,7 +111,7 @@ def extract_city_from_address(address: str) -> str | None:
     return None
 
 
-def main():
+def main() -> None:
     db_path = DB_PATH
     if not db_path.exists():
         print(f"[ERROR] База данных не найдена: {db_path}")
@@ -128,40 +121,25 @@ def main():
     conn = sqlite3.connect(str(db_path))
     cursor = conn.cursor()
 
-    # Проверяем, есть ли колонка city
-    cursor.execute("PRAGMA table_info(leads)")
-    columns = [r[1] for r in cursor.fetchall()]
-
-    if "city" not in columns:
-        print("[PARSE] Колонка city отсутствует. Добавляю...")
-        try:
-            cursor.execute("ALTER TABLE leads ADD COLUMN city VARCHAR(150)")
-            conn.commit()
-            print("[PARSE] Колонка city добавлена")
-        except sqlite3.OperationalError as e:
-            print(f"[PARSE] Ошибка добавления колонки: {e}")
-            conn.close()
-            return
-    else:
-        print("[PARSE] Колонка city уже существует")
-
-    # Читаем все лиды
-    cursor.execute("SELECT id, name, address FROM leads")
+    # Читаем лиды с address, у которых city IS NULL
+    cursor.execute(
+        "SELECT id, name, address FROM leads WHERE address IS NOT NULL AND city IS NULL"
+    )
     rows = cursor.fetchall()
     total = len(rows)
-    print(f"[PARSE] Всего лидов: {total}")
+    print(f"[PARSE] Лидов с address и city=NULL: {total}")
+
+    if total == 0:
+        print("[PARSE] Нечего обновлять — все города уже заполнены.")
+        conn.close()
+        return
 
     # Извлекаем города
     city_counts: dict[str, int] = {}
     updated = 0
     no_city = 0
-    no_address = 0
 
     for lead_id, name, address in rows:
-        if not address:
-            no_address += 1
-            continue
-
         city = extract_city_from_address(address)
         if city:
             city_counts[city] = city_counts.get(city, 0) + 1
@@ -172,7 +150,6 @@ def main():
             updated += 1
         else:
             no_city += 1
-            # Debug: show unparsed addresses
             if no_city <= 5:
                 print(f"[PARSE] Не удалось извлечь город: ID={lead_id} name={name!r} address={address!r}")
 
@@ -182,11 +159,9 @@ def main():
     print(f"\n{'='*50}")
     print(f"СТАТИСТИКА ПАРСИНГА ГОРОДОВ")
     print(f"{'='*50}")
-    print(f"Всего лидов:     {total}")
-    print(f"С адресом:       {total - no_address}")
-    print(f"Без адреса:      {no_address}")
-    print(f"Город найден:    {updated}")
-    print(f"Город не найден: {no_city}")
+    print(f"Лидов с address и city=NULL: {total}")
+    print(f"Город найден:              {updated}")
+    print(f"Город не найден:           {no_city}")
     print(f"\nНайденные города ({len(city_counts)} шт.):")
     print(f"{'-'*40}")
     for city, count in sorted(city_counts.items(), key=lambda x: -x[1]):

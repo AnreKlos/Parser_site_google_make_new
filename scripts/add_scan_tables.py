@@ -29,9 +29,9 @@ def migrate():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS scan_regions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            city VARCHAR(255) NOT NULL,
-            district VARCHAR(255),
-            niche VARCHAR(255) NOT NULL,
+            city VARCHAR(150) NOT NULL,
+            district VARCHAR(150),
+            niche VARCHAR(100) NOT NULL DEFAULT 'салоны красоты',
             status VARCHAR(50) NOT NULL DEFAULT 'not_scanned',
             last_scanned_at DATETIME,
             leads_found INTEGER DEFAULT 0,
@@ -63,7 +63,14 @@ def migrate():
         else:
             print(f"[MIGRATE] Ошибка: {e}")
 
-    # 4. Добавляем колонку scan_id в leads (если нет)
+    # 4. Индекс на leads.city
+    try:
+        cursor.execute("CREATE INDEX IF NOT EXISTS ix_leads_city ON leads (city)")
+        print("[MIGRATE] Индекс ix_leads_city: создан/существует")
+    except sqlite3.OperationalError as e:
+        print(f"[MIGRATE] Ошибка создания индекса: {e}")
+
+    # 5. Добавляем колонку scan_id в leads (если нет)
     try:
         cursor.execute("ALTER TABLE leads ADD COLUMN scan_id INTEGER REFERENCES scan_regions(id)")
         print("[MIGRATE] Колонка leads.scan_id: добавлена")

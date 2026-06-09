@@ -56,7 +56,7 @@ class Lead(Base):
     site_config_path = Column(Text, nullable=True)  # Путь к JSON конфигу сайта
     category = Column(String(100), nullable=True, default="other")  # Категория/ниша лида
     qualification_status = Column(String(50), nullable=True, default="pending")  # Статус квалификации для фото-обогащения
-    city = Column(String(255), nullable=True)  # Город из адреса
+    city = Column(String(150), nullable=True, index=True)  # Город из адреса
     scan_id = Column(Integer, ForeignKey("scan_regions.id"), nullable=True)  # Связь с таблицей scan_regions
     created_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
@@ -141,9 +141,9 @@ class ScanRegion(Base):
     __tablename__ = "scan_regions"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    city = Column(String(255), nullable=False)  # Город, например "Брянск"
-    district = Column(String(255), nullable=True)  # Район, например "Володарский"
-    niche = Column(String(255), nullable=False)  # Ниша, например "салоны красоты"
+    city = Column(String(150), nullable=False)  # Город, например "Брянск"
+    district = Column(String(150), nullable=True)  # Район, например "Володарский"
+    niche = Column(String(100), nullable=False, default="салоны красоты")  # Ниша
     status = Column(String(50), nullable=False, default="not_scanned")  # not_scanned, in_progress, scanned
     last_scanned_at = Column(DateTime, nullable=True)  # NULL = не сканировано
     leads_found = Column(Integer, default=0)  # Сколько лидов нашли при скане

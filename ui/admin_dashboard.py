@@ -486,6 +486,80 @@ def get_stats(df: pd.DataFrame) -> dict:
     }
 
 
+def _lead_has_website(website) -> Optional[bool]:
+    if website is None or (isinstance(website, float) and pd.isna(website)):
+        return False
+    raw = str(website).strip()
+    if not raw or raw in {"—", "-", "None", "nan"}:
+        return False
+    if raw.lower().startswith(("http://", "https://")):
+        return True
+    return None
+
+
+def enrich_lead_priority(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return df
+    now = pd.Timestamp.now(tz="UTC")
+
+    def _row(row: pd.Series) -> pd.Series:
+        reasons = []
+        score = 0
+        status = str(row.get("status") or "").strip().lower()
+        has_site = _lead_has_website(row.get("website"))
+        no_site = has_site is False or status == "no_website"
+        if no_site:
+            score += 3
+            reasons.append("без сайта")
+        phone = row.get("phone")
+        if pd.notna(phone) and str(phone).strip() not in {"", "—", "-", "None"}:
+            score += 2
+            reasons.append("телефон")
+        reviews = 0
+        try:
+            if pd.notna(row.get("reviews_count")):
+                reviews = int(row.get("reviews_count"))
+        except (TypeError, ValueError):
+            reviews = 0
+        if reviews >= 10:
+            score += 2
+            reasons.append(f"{reviews} отзывов")
+        rating = 0.0
+        try:
+            if pd.notna(row.get("google_rating")):
+                rating = float(row.get("google_rating"))
+        except (TypeError, ValueError):
+            rating = 0.0
+        if rating >= 4.5:
+            score += 1
+            reasons.append(f"рейтинг {rating:.1f}")
+        if status == "new":
+            score += 1
+            reasons.append("новый")
+        created = pd.to_datetime(row.get("created_at"), errors="coerce", utc=True)
+        if pd.notna(created) and (now - created).days <= 14:
+            score += 1
+            reasons.append("свежий")
+        if has_site is True and status != "no_website":
+            route = "Лиды"
+        elif has_site is False or (status == "no_website" and has_site is not True):
+            route = "Лендинг"
+        else:
+            route = "Проверить"
+        return pd.Series({
+            "priority_score": min(int(score), 10),
+            "lead_route": route,
+            "priority_why": ", ".join(reasons) if reasons else "нет сигналов",
+        })
+
+    extra = df.apply(_row, axis=1)
+    out = df.copy()
+    out["priority_score"] = extra["priority_score"]
+    out["lead_route"] = extra["lead_route"]
+    out["priority_why"] = extra["priority_why"]
+    return out
+
+
 # --- Функции для Транспортного узла ---
 def clean_phone(phone: str) -> str:
     """Очищает номер телефона от лишних символов, оставляет только цифры и +."""
@@ -810,6 +884,7 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         website_filter = st.selectbox("Сайт", ["Все", "С сайтом", "Без сайта"], label_visibility="collapsed")
         cat_options = sorted(df["category"].dropna().unique().tolist()) if "category" in df.columns else []
         category_filter = st.multiselect("Категория", options=cat_options, default=[], label_visibility="collapsed", placeholder="Категория")
+        route_filter = st.selectbox("Маршрут", ["Все", "Лендинг", "Лиды", "Проверить"], label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
         
         # B - Actions
@@ -859,10 +934,18 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         st.info("По текущим фильтрам лиды не найдены")
         return
 
-    df_filtered = df_filtered.copy()
-    if "created_at" in df_filtered.columns:
-        df_filtered["_sort_key"] = pd.to_datetime(df_filtered["created_at"], errors="coerce")
-        df_filtered = df_filtered.sort_values("_sort_key", ascending=False, na_position="last").drop(columns=["_sort_key"])
+    df_filtered = enrich_lead_priority(df_filtered.copy())
+    if route_filter != "Все":
+        df_filtered = df_filtered[df_filtered["lead_route"] == route_filter]
+        if df_filtered.empty:
+            st.info("По текущим фильтрам лиды не найдены")
+            return
+    df_filtered["_added_sort"] = pd.to_datetime(df_filtered.get("created_at"), errors="coerce")
+    df_filtered = df_filtered.sort_values(
+        ["priority_score", "_added_sort"],
+        ascending=[False, False],
+        na_position="last",
+    ).drop(columns=["_added_sort"])
 
     # --- Control strip ---
     search_term = st.text_input("🔍 Поиск", placeholder="Название, город, телефон...", label_visibility="collapsed")
@@ -927,6 +1010,7 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
 
         # --- TABLE using Streamlit data_editor with native checkboxes ---
         display_cols = [
+            "priority_score", "lead_route", "priority_why",
             "name", "city", "category", "google_rating", "reviews_count", "status",
             "website", "phone", "notes", "created_at", "google_maps_url", "yandex_maps_url",
             "tech_score", "social_links",
@@ -970,12 +1054,13 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
             df_disp["phone"] = df_disp["phone"].fillna("—")
 
         df_disp = df_disp.rename(columns={
+            "priority_score": "Приоритет", "lead_route": "Маршрут", "priority_why": "Почему",
             "name": "Название", "city": "Город", "category": "Категория",
             "google_rating": "Рейтинг", "reviews_count": "Отзывы",
             "status": "Статус", "website": "Сайт", "phone": "Телефон",
             "tech_score": "Tech", "notes": "Заметки", "created_at": "Добавлен",
         })
-        for col in ["Название", "Город", "Категория", "Рейтинг", "Отзывы", "Статус", "Сайт", "Телефон", "Заметки", "Добавлен"]:
+        for col in ["Приоритет", "Маршрут", "Почему", "Название", "Город", "Категория", "Рейтинг", "Отзывы", "Статус", "Сайт", "Телефон", "Заметки", "Добавлен"]:
             if col not in df_disp.columns:
                 df_disp[col] = "—"
 
@@ -989,6 +1074,9 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
 
         col_config = {
             "Выбрать": st.column_config.CheckboxColumn("Выбрать", help="Выбрать для скрытия", default=False),
+            "Приоритет": st.column_config.NumberColumn("Приоритет", width="small", disabled=True),
+            "Маршрут": st.column_config.TextColumn("Маршрут", width="small", disabled=True),
+            "Почему": st.column_config.TextColumn("Почему", width="medium", disabled=True),
             "ID": st.column_config.NumberColumn("ID", width="small", disabled=True),
             "Название": st.column_config.TextColumn("Название", width="medium", disabled=True),
             "Город": st.column_config.TextColumn("Город", width="small", disabled=True),
@@ -1003,8 +1091,8 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         }
 
         final_disp_cols = [
-            "Выбрать", "ID", "Название", "Город", "Категория", "Рейтинг", "Отзывы",
-            "Статус", "Сайт", "Телефон", "Добавлен", "Заметки",
+            "Выбрать", "Приоритет", "Маршрут", "Почему", "ID", "Название", "Город",
+            "Категория", "Рейтинг", "Отзывы", "Статус", "Сайт", "Телефон", "Добавлен", "Заметки",
         ]
         final_disp_cols = [c for c in final_disp_cols if c in df_disp.columns]
         df_main = df_disp[final_disp_cols]

@@ -730,9 +730,8 @@ h1, h2, h3 { color: #e4e4e7 !important; font-family: 'Inter', sans-serif !import
 .stage-count { font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#e4e4e7 }
 .stage-label { font-size:11px;color:#71717a;margin-top:4px }
 
-/* FIX: таблица не шире экрана */
 div[data-testid="stDataEditor"] {
-    overflow-x: hidden !important;
+    overflow-x: auto !important;
     max-width: 100% !important;
 }
 div[data-testid="stDataEditor"] table {
@@ -861,8 +860,9 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         return
 
     df_filtered = df_filtered.copy()
-    df_filtered["_sort_key"] = df_filtered["tech_score"].fillna(999)
-    df_filtered = df_filtered.sort_values("_sort_key", ascending=True).drop(columns=["_sort_key"])
+    if "created_at" in df_filtered.columns:
+        df_filtered["_sort_key"] = pd.to_datetime(df_filtered["created_at"], errors="coerce")
+        df_filtered = df_filtered.sort_values("_sort_key", ascending=False, na_position="last").drop(columns=["_sort_key"])
 
     # --- Control strip ---
     search_term = st.text_input("🔍 Поиск", placeholder="Название, город, телефон...", label_visibility="collapsed")
@@ -964,7 +964,7 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
             df_disp["status"] = df_disp["status"].apply(lambda x: status_map.get(str(x), str(x)))
 
         if "created_at" in df_disp.columns:
-            df_disp["created_at"] = pd.to_datetime(df_disp["created_at"], errors="coerce").dt.strftime("%Y-%m-%d")
+            df_disp["created_at"] = pd.to_datetime(df_disp["created_at"], errors="coerce").dt.strftime("%d.%m.%Y")
             df_disp["created_at"] = df_disp["created_at"].fillna("—")
         if "phone" in df_disp.columns:
             df_disp["phone"] = df_disp["phone"].fillna("—")
@@ -998,13 +998,13 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
             "Статус": st.column_config.TextColumn("Статус", width="small", disabled=True),
             "Сайт": st.column_config.LinkColumn("Сайт", display_text="открыть", width="small", disabled=True),
             "Телефон": st.column_config.TextColumn("Телефон", width="small", disabled=True),
-            "Заметки": st.column_config.TextColumn("Заметки", width="medium", disabled=False),
             "Добавлен": st.column_config.TextColumn("Добавлен", width="small", disabled=True),
+            "Заметки": st.column_config.TextColumn("Заметки", width="small", disabled=False),
         }
 
         final_disp_cols = [
             "Выбрать", "ID", "Название", "Город", "Категория", "Рейтинг", "Отзывы",
-            "Статус", "Сайт", "Телефон", "Заметки", "Добавлен",
+            "Статус", "Сайт", "Телефон", "Добавлен", "Заметки",
         ]
         final_disp_cols = [c for c in final_disp_cols if c in df_disp.columns]
         df_main = df_disp[final_disp_cols]

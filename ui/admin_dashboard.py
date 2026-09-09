@@ -900,7 +900,8 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         # A - Filters
         st.markdown('<div class="sidebar-card"><div class="sidebar-group-label">Фильтры</div>', unsafe_allow_html=True)
         status_filter = st.multiselect("Статус", options=["new","audited","no_website","pitched","agents_rejected","skipped","needs_photos","sold"], default=[], label_visibility="collapsed", placeholder="Статус")
-        city_filter = st.selectbox("Город", ["Все", "Брянск", "Москва"], label_visibility="collapsed")
+        city_options = ["Все"] + sorted(df["city"].dropna().unique().tolist()) if "city" in df.columns else ["Все"]
+        city_filter = st.selectbox("Город", city_options, label_visibility="collapsed")
         rating_min = st.slider("Рейтинг", 0.0, 5.0, 0.0, 0.5, label_visibility="collapsed")
         website_filter = st.selectbox("Сайт", ["Все", "С сайтом", "Без сайта"], label_visibility="collapsed")
         cat_options = sorted(df["category"].dropna().unique().tolist()) if "category" in df.columns else []
@@ -1339,9 +1340,9 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         st.markdown("---")
         st.markdown('<div class="section-title-meta">Добавить регион</div>', unsafe_allow_html=True)
         rc1, rc2, rc3 = st.columns(3)
-        with rc1: st.text_input("Город", placeholder="Брянск", label_visibility="collapsed")
-        with rc2: st.text_input("Район", placeholder="Советский", label_visibility="collapsed")
-        with rc3: st.selectbox("Ниша", ["салоны красоты", "автосервисы", "стоматологии"], label_visibility="collapsed")
+        with rc1: st.text_input("Город", placeholder="Одинцово", label_visibility="collapsed")
+        with rc2: st.text_input("Район", placeholder="Центр", label_visibility="collapsed")
+        with rc3: st.selectbox("Ниша", ["cottage_service", "салоны красоты", "автосервисы", "стоматологии"], label_visibility="collapsed")
         st.button("Добавить регион", type="primary")
 
 

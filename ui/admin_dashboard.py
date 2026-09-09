@@ -908,6 +908,8 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         category_filter = st.multiselect("Категория", options=cat_options, default=[], label_visibility="collapsed", placeholder="Категория")
         route_filter = st.selectbox("Маршрут", ["Все", "Лендинг", "Лиды", "Проверить"], label_visibility="collapsed")
         segment_filter = st.selectbox("Сегмент", ["Все", "Кандидат на лендинг", "Покупатель лидов", "Проверить"], label_visibility="collapsed")
+        niche_mode = st.selectbox("Ниша", ["Только cottage_service", "Все ниши"], label_visibility="collapsed")
+        sort_mode = st.selectbox("Сортировка", ["По приоритету", "По дате", "Как найдено / ID"], label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
         
         # B - Actions
@@ -942,6 +944,11 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         df_filtered = df_filtered[df_filtered["website"].isna() | (df_filtered["website"] == "")]
     if category_filter:
         df_filtered = df_filtered[df_filtered["category"].isin(category_filter)]
+    if niche_mode == "Только cottage_service":
+        df_filtered = df_filtered[df_filtered["category"] == "cottage_service"]
+        if df_filtered.empty:
+            st.info("По текущим фильтрам лиды не найдены")
+            return
 
     hide_perfect = st.session_state.get("hide_perfect", False)
     max_score_filter = st.session_state.get("max_score_filter", 100)
@@ -969,11 +976,16 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
             st.info("По текущим фильтрам лиды не найдены")
             return
     df_filtered["_added_sort"] = pd.to_datetime(df_filtered.get("created_at"), errors="coerce")
-    df_filtered = df_filtered.sort_values(
-        ["segment_rank", "priority_score", "_added_sort"],
-        ascending=[True, False, False],
-        na_position="last",
-    ).drop(columns=["_added_sort"])
+    if sort_mode == "По дате":
+        df_filtered = df_filtered.sort_values("_added_sort", ascending=False, na_position="last").drop(columns=["_added_sort"])
+    elif sort_mode == "Как найдено / ID":
+        df_filtered = df_filtered.sort_values("id", ascending=False).drop(columns=["_added_sort"])
+    else:
+        df_filtered = df_filtered.sort_values(
+            ["segment_rank", "priority_score", "_added_sort"],
+            ascending=[True, False, False],
+            na_position="last",
+        ).drop(columns=["_added_sort"])
 
     # --- Control strip ---
     search_term = st.text_input("🔍 Поиск", placeholder="Название, город, телефон...", label_visibility="collapsed")
@@ -1105,6 +1117,7 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
             "google_rating": "Рейтинг", "reviews_count": "Отзывы",
             "status": "Статус", "website": "Сайт", "phone": "Телефон",
             "tech_score": "Tech", "notes": "Заметки", "created_at": "Добавлен",
+            "_yandex_link": "Яндекс", "_vk_link": "VK",
         })
         for col in ["Приоритет", "Сегмент", "Маршрут", "Почему", "Название", "Город", "Категория", "Рейтинг", "Отзывы", "Статус", "Сайт", "Телефон", "Заметки", "Добавлен"]:
             if col not in df_disp.columns:
@@ -1120,6 +1133,7 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
 
         col_config = {
             "Выбрать": st.column_config.CheckboxColumn("Выбрать", help="Выбрать для скрытия", default=False),
+            "№": st.column_config.NumberColumn("№", width="small", disabled=True),
             "Приоритет": st.column_config.NumberColumn("Приоритет", width="small", disabled=True),
             "Сегмент": st.column_config.TextColumn("Сегмент", width="small", disabled=True),
             "Маршрут": st.column_config.TextColumn("Маршрут", width="small", disabled=True),
@@ -1132,6 +1146,8 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
             "Отзывы": st.column_config.NumberColumn("Отзывы", width="small", disabled=True),
             "Статус": st.column_config.TextColumn("Статус", width="small", disabled=True),
             "Сайт": st.column_config.LinkColumn("Сайт", display_text="открыть", width="small", disabled=True),
+            "Яндекс": st.column_config.LinkColumn("Яндекс", display_text="открыть", width="small", disabled=True),
+            "VK": st.column_config.LinkColumn("VK", display_text="открыть", width="small", disabled=True),
             "Телефон": st.column_config.TextColumn("Телефон", width="small", disabled=True),
             "Добавлен": st.column_config.TextColumn("Добавлен", width="small", disabled=True),
             "Заметки": st.column_config.TextColumn("Заметки", width="small", disabled=False),
@@ -1139,10 +1155,11 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
 
         final_disp_cols = [
             "Выбрать", "Приоритет", "Сегмент", "Маршрут", "Почему", "ID", "Название", "Город",
-            "Категория", "Рейтинг", "Отзывы", "Статус", "Сайт", "Телефон", "Добавлен",
+            "Категория", "Рейтинг", "Отзывы", "Статус", "Сайт", "Яндекс", "VK", "Телефон", "Добавлен",
         ]
         final_disp_cols = [c for c in final_disp_cols if c in df_disp.columns]
-        df_main = df_disp[final_disp_cols]
+        df_main = df_disp[final_disp_cols].copy()
+        df_main.insert(1, "№", range(1, len(df_main) + 1))
 
         TABLE_HEIGHT = 900 if st.session_state.get("fs_expanded", False) else 400
 
@@ -1158,15 +1175,13 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
             key="lead_table"
         )
 
-        detail_cols = [c for c in ["ID", "Заметки", "Tech", "_maps_link", "_yandex_link", "_vk_link", "_ig_link", "_tg_link", "_tap_link", "_wa_link", "_social_links"] if c in df_disp.columns]
+        detail_cols = [c for c in ["ID", "Заметки", "Tech", "_maps_link", "_ig_link", "_tg_link", "_tap_link", "_wa_link", "_social_links"] if c in df_disp.columns]
         if detail_cols:
             with st.expander("Детали"):
                 st.dataframe(
                     df_disp[detail_cols].rename(columns={
                         "Tech": "Tech",
                         "_maps_link": "Карты",
-                        "_yandex_link": "Яндекс",
-                        "_vk_link": "VK",
                         "_ig_link": "IG",
                         "_tg_link": "TG",
                         "_tap_link": "Tap",

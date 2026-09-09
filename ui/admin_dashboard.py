@@ -512,7 +512,8 @@ def enrich_lead_priority(df: pd.DataFrame) -> pd.DataFrame:
             score += 3
             reasons.append("без сайта")
         phone = row.get("phone")
-        if pd.notna(phone) and str(phone).strip() not in {"", "—", "-", "None"}:
+        has_phone = pd.notna(phone) and str(phone).strip() not in {"", "—", "-", "None"}
+        if has_phone:
             score += 2
             reasons.append("телефон")
         reviews = 0
@@ -537,25 +538,45 @@ def enrich_lead_priority(df: pd.DataFrame) -> pd.DataFrame:
             score += 1
             reasons.append("новый")
         created = pd.to_datetime(row.get("created_at"), errors="coerce", utc=True)
-        if pd.notna(created) and (now - created).days <= 14:
+        fresh14 = pd.notna(created) and (now - created).days <= 14
+        fresh30 = pd.notna(created) and (now - created).days <= 30
+        if fresh14:
             score += 1
             reasons.append("свежий")
-        if has_site is True and status != "no_website":
-            route = "Лиды"
-        elif has_site is False or (status == "no_website" and has_site is not True):
-            route = "Лендинг"
+        buyer_signals = []
+        if has_phone:
+            buyer_signals.append("телефон")
+        if reviews >= 10:
+            buyer_signals.append(f"{reviews} отзывов")
+        if rating >= 4.5:
+            buyer_signals.append(f"рейтинг {rating:.1f}")
+        if status in ("new", "audited"):
+            buyer_signals.append("в работе" if status == "audited" else "новый")
+        if fresh30:
+            buyer_signals.append("свежий")
+        if no_site:
+            segment, segment_rank, route = "Кандидат на лендинг", 1, "Лендинг"
+            why = "кандидат на лендинг: " + (", ".join(reasons) if reasons else "без сайта")
+        elif has_site is True and len(buyer_signals) >= 2:
+            segment, segment_rank, route = "Покупатель лидов", 0, "Лиды"
+            why = "покупатель лидов: свой сайт, " + ", ".join(buyer_signals)
         else:
-            route = "Проверить"
+            segment, segment_rank, route = "Проверить", 2, "Проверить"
+            why = "проверить: " + (", ".join(buyer_signals) if buyer_signals else "мало сигналов")
         return pd.Series({
             "priority_score": min(int(score), 10),
             "lead_route": route,
-            "priority_why": ", ".join(reasons) if reasons else "нет сигналов",
+            "lead_segment": segment,
+            "segment_rank": segment_rank,
+            "priority_why": why,
         })
 
     extra = df.apply(_row, axis=1)
     out = df.copy()
     out["priority_score"] = extra["priority_score"]
     out["lead_route"] = extra["lead_route"]
+    out["lead_segment"] = extra["lead_segment"]
+    out["segment_rank"] = extra["segment_rank"]
     out["priority_why"] = extra["priority_why"]
     return out
 
@@ -885,6 +906,7 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         cat_options = sorted(df["category"].dropna().unique().tolist()) if "category" in df.columns else []
         category_filter = st.multiselect("Категория", options=cat_options, default=[], label_visibility="collapsed", placeholder="Категория")
         route_filter = st.selectbox("Маршрут", ["Все", "Лендинг", "Лиды", "Проверить"], label_visibility="collapsed")
+        segment_filter = st.selectbox("Сегмент", ["Все", "Кандидат на лендинг", "Покупатель лидов", "Проверить"], label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
         
         # B - Actions
@@ -940,10 +962,15 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         if df_filtered.empty:
             st.info("По текущим фильтрам лиды не найдены")
             return
+    if segment_filter != "Все":
+        df_filtered = df_filtered[df_filtered["lead_segment"] == segment_filter]
+        if df_filtered.empty:
+            st.info("По текущим фильтрам лиды не найдены")
+            return
     df_filtered["_added_sort"] = pd.to_datetime(df_filtered.get("created_at"), errors="coerce")
     df_filtered = df_filtered.sort_values(
-        ["priority_score", "_added_sort"],
-        ascending=[False, False],
+        ["segment_rank", "priority_score", "_added_sort"],
+        ascending=[True, False, False],
         na_position="last",
     ).drop(columns=["_added_sort"])
 
@@ -961,6 +988,14 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
     # Page routing
     if page == "База лидов":
         st.markdown('<div class="section-title">База лидов <span class="section-title-meta">Показано {0} из {1} записей</span></div>'.format(len(df_filtered), len(df)), unsafe_allow_html=True)
+        seg_counts = df_filtered["lead_segment"].value_counts() if "lead_segment" in df_filtered.columns else pd.Series(dtype=int)
+        s1, s2, s3 = st.columns(3)
+        with s1:
+            st.metric("Кандидаты на лендинг", int(seg_counts.get("Кандидат на лендинг", 0)))
+        with s2:
+            st.metric("Покупатели лидов", int(seg_counts.get("Покупатель лидов", 0)))
+        with s3:
+            st.metric("Проверить", int(seg_counts.get("Проверить", 0)))
 
         batch_config_ids = [
             int(row["id"])
@@ -1010,7 +1045,7 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
 
         # --- TABLE using Streamlit data_editor with native checkboxes ---
         display_cols = [
-            "priority_score", "lead_route", "priority_why",
+            "priority_score", "lead_segment", "lead_route", "priority_why",
             "name", "city", "category", "google_rating", "reviews_count", "status",
             "website", "phone", "notes", "created_at", "google_maps_url", "yandex_maps_url",
             "tech_score", "social_links",
@@ -1054,13 +1089,13 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
             df_disp["phone"] = df_disp["phone"].fillna("—")
 
         df_disp = df_disp.rename(columns={
-            "priority_score": "Приоритет", "lead_route": "Маршрут", "priority_why": "Почему",
+            "priority_score": "Приоритет", "lead_segment": "Сегмент", "lead_route": "Маршрут", "priority_why": "Почему",
             "name": "Название", "city": "Город", "category": "Категория",
             "google_rating": "Рейтинг", "reviews_count": "Отзывы",
             "status": "Статус", "website": "Сайт", "phone": "Телефон",
             "tech_score": "Tech", "notes": "Заметки", "created_at": "Добавлен",
         })
-        for col in ["Приоритет", "Маршрут", "Почему", "Название", "Город", "Категория", "Рейтинг", "Отзывы", "Статус", "Сайт", "Телефон", "Заметки", "Добавлен"]:
+        for col in ["Приоритет", "Сегмент", "Маршрут", "Почему", "Название", "Город", "Категория", "Рейтинг", "Отзывы", "Статус", "Сайт", "Телефон", "Заметки", "Добавлен"]:
             if col not in df_disp.columns:
                 df_disp[col] = "—"
 
@@ -1075,6 +1110,7 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         col_config = {
             "Выбрать": st.column_config.CheckboxColumn("Выбрать", help="Выбрать для скрытия", default=False),
             "Приоритет": st.column_config.NumberColumn("Приоритет", width="small", disabled=True),
+            "Сегмент": st.column_config.TextColumn("Сегмент", width="small", disabled=True),
             "Маршрут": st.column_config.TextColumn("Маршрут", width="small", disabled=True),
             "Почему": st.column_config.TextColumn("Почему", width="medium", disabled=True),
             "ID": st.column_config.NumberColumn("ID", width="small", disabled=True),
@@ -1091,8 +1127,8 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         }
 
         final_disp_cols = [
-            "Выбрать", "Приоритет", "Маршрут", "Почему", "ID", "Название", "Город",
-            "Категория", "Рейтинг", "Отзывы", "Статус", "Сайт", "Телефон", "Добавлен", "Заметки",
+            "Выбрать", "Приоритет", "Сегмент", "Маршрут", "Почему", "ID", "Название", "Город",
+            "Категория", "Рейтинг", "Отзывы", "Статус", "Сайт", "Телефон", "Добавлен",
         ]
         final_disp_cols = [c for c in final_disp_cols if c in df_disp.columns]
         df_main = df_disp[final_disp_cols]
@@ -1111,7 +1147,7 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
             key="lead_table"
         )
 
-        detail_cols = [c for c in ["ID", "Tech", "_maps_link", "_yandex_link", "_vk_link", "_ig_link", "_tg_link", "_tap_link", "_wa_link", "_social_links"] if c in df_disp.columns]
+        detail_cols = [c for c in ["ID", "Заметки", "Tech", "_maps_link", "_yandex_link", "_vk_link", "_ig_link", "_tg_link", "_tap_link", "_wa_link", "_social_links"] if c in df_disp.columns]
         if detail_cols:
             with st.expander("Детали"):
                 st.dataframe(

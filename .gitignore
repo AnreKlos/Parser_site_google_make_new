@@ -8,6 +8,7 @@ __pycache__/
 # Virtual environments
 .venv/
 venv/
+venv311/
 env/
 
 # Database files
@@ -16,6 +17,18 @@ env/
 
 # Environment variables & secrets
 .env
+.env.*
+!.env.example
+yandex_cookies.txt
+data/yandex/.session.json
+data/yandex/.last_live_runs.json
+data/yandex/**/raw_page_data.json
+data/yandex/**/raw_state.json
+
+# Local indexes / dumps
+.codegraph/
+nul
+*.png
 
 # Site generator output
 site_generator/output/

@@ -980,6 +980,11 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
         search_mask = df_filtered['name'].str.contains(search_term, case=False, na=False) | df_filtered['city'].str.contains(search_term, case=False, na=False)
         df_filtered = df_filtered[search_mask]
 
+    if df_filtered.empty:
+        st.info("По текущим фильтрам лидов не осталось.")
+        st.session_state.pop("selected_lead_id", None)
+        return
+
     lead_options = [f"{int(row['id'])} — {row['name']}" for _, row in df_filtered.iterrows()]
     valid_ids = set(df_filtered["id"].astype(int).tolist())
     if "selected_lead_id" not in st.session_state or int(st.session_state["selected_lead_id"]) not in valid_ids:
@@ -1032,6 +1037,11 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
             df_filtered = df_filtered[df_filtered["status"] == "sold"]
         elif view_mode == "Скрытые":
             df_filtered = df_filtered[df_filtered["status"] == "skipped"]
+
+        if df_filtered.empty:
+            st.info("По текущим фильтрам лидов не осталось.")
+            st.session_state.pop("selected_lead_id", None)
+            return
 
         def normalize_url_for_table(value: object) -> object:
             if value is None or (isinstance(value, float) and pd.isna(value)):
@@ -1235,6 +1245,10 @@ div[data-testid="stDataEditor"] td:nth-child(14) { width:200px !important; min-w
 
         # --- LEAD DETAILS ---
         # Select active lead
+        if df_filtered.empty:
+            st.info("По текущим фильтрам лидов не осталось.")
+            st.session_state.pop("selected_lead_id", None)
+            return
         lead_options = [f"#{int(row['id'])} {row['name']}" for _, row in df_filtered.iterrows()]
         valid_ids = set(df_filtered["id"].astype(int).tolist())
         if "selected_lead_id" not in st.session_state or int(st.session_state["selected_lead_id"]) not in valid_ids:
